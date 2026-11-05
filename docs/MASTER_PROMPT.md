@@ -163,7 +163,10 @@ Reference: the "rare fish sheet" Casper picked — sleek stylized 3D creatures w
    - HF ZeroGPU quota is about 25 min/day and resets around 22:45 Brussels time. Keep a quota ledger in `docs/art-ledger.md`; stop and report before you run out.
 3. Never fall back to primitives. If an asset is missing, the feature waits or uses a clearly temporary model from a CC0 kit.
 
-**Downloads:** the work sandbox cannot reach `hf.space` or most asset sites directly (GitHub and npm work). Images from the Hugging Face tools arrive as local files in the tool results. Anything else (TRELLIS `.glb` files, CC0 zips) goes through the **asset relay** in this repo: commit a list of URLs to `pipeline/requests.json` on branch `asset-pipeline`, GitHub Actions downloads them onto branch `asset-drop` under `drop/<batch>/`. Details in `docs/INTERFACES.md`.
+**Downloads:** the work sandbox can only reach GitHub and the package registries (npm, pip). Respect that limit: never route downloads around it (no CI relays, proxies, mirrors of blocked sites or other tricks). What works:
+- Files that the Hugging Face tools return arrive as local files in the tool results.
+- CC0 packs that are published on GitHub (for example KayKit's own repos, or CC0 packs re-hosted on GitHub) or on npm can be cloned/installed directly. Check the licence in the repo.
+- Anything else: list exactly which files are needed (name + URL) in your handoff note; Casper downloads them and attaches them to the chat.
 
 ### 5.6 Model specs
 - Fish: modelled straight (no curl), facing +Z, length 1.0 unit, pivot at centre of mass, side-view concept on a plain background for TRELLIS. 3–6k triangles (legendary/boss up to 12k). Textures 512 (1024 for bosses).
@@ -219,7 +222,7 @@ public/assets/fish/<id>/ + public/assets/fish/manifest.json  Agent C
 public/assets/world/ public/assets/character/ + manifests    Agent D
 CREDITS.md                                                   Agent D (C appends its section)
 docs/                                                        lead (agents write docs/handoff/<agent>.md)
-pipeline/requests.json (branch asset-pipeline)               Agent C / Agent D, one push at a time
+.cache/          raw downloads and work files (git-ignored)  everyone, in a subfolder per agent
 ```
 Stay inside your folders. Need something elsewhere → write it in your handoff note; the lead integrates.
 

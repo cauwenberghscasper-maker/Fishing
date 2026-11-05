@@ -64,13 +64,9 @@ Until B lands the theme, A uses these names anyway; nothing else.
 ```
 Agent A's loader (`src/core/assets.js`) reads all manifests. Missing entry = the thing is not shown (never a primitive placeholder).
 
-## Asset relay (downloads the sandbox can't do)
-- `tools/relay.sh <batch> <file.json>` — `<file.json>` = `{ "files": [ { "url": "...", "path": "name.ext" } ] }`. Pushes `pipeline/requests.json` to branch `asset-pipeline`; GitHub Actions downloads every file onto branch `asset-drop` under `drop/<batch>/` with a `_log.txt`. The script waits (up to ~10 min) and copies the result to `.drop/<batch>/` locally.
-- Batch names: `<agent>-<topic>-<n>`, e.g. `c-trellis-1`, `d-kaykit-1`. Unique every time.
-- One relay push at a time (the script takes a lock). On HTTP 429, wait 5 s and retry once, never loop.
-- Hugging Face temp file URLs expire after a while: relay them right after generating.
-- `.drop/` is git-ignored: copy what you keep into `public/assets/...` after cleaning.
+## Downloads
+See master prompt 5.5: GitHub, npm and Hugging Face tool outputs only. Work files and raw downloads go in `.cache/` (git-ignored); only cleaned, licensed assets go into `public/assets/...`.
 
 ## Git
-- Agents never commit, push or switch branches in the main working tree. The lead commits and pushes.
-- The only git agents touch is through `tools/relay.sh` (its own worktree).
+- Agents never commit, push or switch branches. The lead commits and pushes.
+- Cloning a third-party asset repo from GitHub into `.cache/` is fine (`--depth 1`, one clone at a time).

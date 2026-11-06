@@ -329,7 +329,7 @@ Every agent ends with `docs/handoff/<agent>.md`: what was done, what is missing,
 **M3:** first boss fight (Wreck Grouper), more islands with their legendaries, smokehouse, market events, prestige.
 
 ## 10. Definition of done (every change)
-- `npm run build` passes, no console errors, loads on a phone-size viewport.
+- `npm run build && python3 -I tools/smoke.py <out.png>` passes (the build served under `/Fishing/` like GitHub Pages, at 390×844, no page errors, game ready). The game is public: every push to `main` goes live, so it must never be left broken.
 - Screenshot at 390×844 checked by eye: no primitives visible, text readable, nothing overflows.
 - Art matches section 5; licences recorded; `node tools/check-art.mjs` reports nothing unused.
 - Committed with a player-facing message and pushed. Big or risky work goes to a branch + PR for Casper.

@@ -42,3 +42,4 @@ Daily quota ~25 min GPU, resets ~22:45 Brussels. Agent C budget ~18 min, Agent D
 | 6 Nov 11:28 | C | Qwen-Image | shellback_blenny A, B, C r1 (all fail: toy gloss, lips, hook in mouth) | ~48 (16 s each, wall-clock upper bound from here on) |
 | 6 Nov 11:28 | C | Qwen-Image | shellback_blenny A r2 (kept) | ~16 |
 | 6 Nov 11:29 | C | Qwen-Image | shellback_blenny B r2, C r2 (kept) | ~32 |
+| 6 Nov 11:31 | C | Qwen-Image | kelp_wraith A, B, C r1 (A kept; B necklace, C cloth hood rejected) | ~48 |

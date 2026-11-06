@@ -6,10 +6,10 @@ _Updated after each step. Status at the top._
 - [x] Fonts self-hosted in `public/fonts/` (+ `fonts.css`, OFL licences)
 - [x] `src/ui/theme.css` — the contract for Agent A (variables + `.btn`, `.btn--primary`, `.btn--round`, `.meter`, `.meter__fill`, `.meter--tension`, `.meter--stamina`, `.toast`)
 - [x] `docs/type-specimen.html` + `docs/handoff/shots/type-specimen.png` (sent to lead)
-- [ ] Data files (`fish.json`, `islands.json`, `items.json`, `economy.json`)
-- [ ] Save (`src/save/profile.js`)
-- [ ] Economy (`src/economy/`)
-- [ ] UI screens (`src/ui/`)
+- [x] Data files (`fish.json`, `islands.json`, `items.json`, `economy.json`)
+- [x] Save (`src/save/profile.js`)
+- [x] Economy (`src/economy/`)
+- [x] UI screens (`src/ui/`): code written, `npm run build` passes; visual check next
 - [ ] Verification + screenshots
 
 ## For Agent A (theme contract)

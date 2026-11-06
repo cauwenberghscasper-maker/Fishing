@@ -24,3 +24,11 @@ Daily quota ~25 min GPU, resets ~22:45 Brussels. Agent C budget ~18 min, Agent D
 | 23:17 | C | (none) | background removal done locally with rembg (not-lain/background-removal returned 'Not Found' twice) | 0 |
 
 **Agent C total (estimate): 15 Qwen-Image runs x ~20 s + TRELLIS preprocess ~5 s + 1 TRELLIS generate_3d ~90 s = ~6.6 min of ~18 min budget.** Estimates only: the tools do not report actual GPU seconds.
+
+### Agent D (world) — 6 Nov
+| Time (Brussels) | Agent | Tool | What | Est. GPU s |
+|---|---|---|---|---|
+| 11:18 | D | Qwen-Image | Driftwood Cove key art take 1, 9:16, seed 1357887856 (kept as `art/concepts/world/driftwood_cove_shop_detail.webp`: shop reference) | ~20 |
+| 11:19 | D | Qwen-Image | Driftwood Cove key art take 2, 3:4, seed 1214929966 (kept as `art/concepts/world/driftwood_cove_key.webp`) | ~20 |
+
+**Agent D total today (estimate): 2 Qwen-Image runs ≈ 40 s of the 4 min budget.**

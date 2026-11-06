@@ -1,102 +1,4 @@
 {
-  "sunscale_sardine": {
-    "path": null,
-    "preview": "assets/fish/sunscale_sardine/preview.webp",
-    "previewSize": [
-      512,
-      204
-    ],
-    "concept": "art/concepts/fish/sunscale_sardine.webp",
-    "scale": 1,
-    "body": "fusiform",
-    "tris": 0,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (TRELLIS.2, MIT)",
-    "status": "concept"
-  },
-  "driftwood_perch": {
-    "path": null,
-    "preview": "assets/fish/driftwood_perch/preview.webp",
-    "previewSize": [
-      512,
-      298
-    ],
-    "concept": "art/concepts/fish/driftwood_perch.webp",
-    "scale": 1,
-    "body": "fusiform",
-    "tris": 0,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (TRELLIS.2, MIT)",
-    "status": "concept"
-  },
-  "chartfish": {
-    "path": null,
-    "preview": "assets/fish/chartfish/preview.webp",
-    "previewSize": [
-      512,
-      301
-    ],
-    "concept": "art/concepts/fish/chartfish.webp",
-    "scale": 1,
-    "body": "flat",
-    "tris": 0,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (TRELLIS.2, MIT)",
-    "status": "concept"
-  },
-  "tidepool_goby": {
-    "path": null,
-    "preview": "assets/fish/tidepool_goby/preview.webp",
-    "previewSize": [
-      512,
-      312
-    ],
-    "concept": "art/concepts/fish/tidepool_goby.webp",
-    "scale": 1,
-    "body": "fusiform",
-    "tris": 0,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (TRELLIS.2, MIT)",
-    "status": "concept"
-  },
-  "kelp_ribbon": {
-    "path": null,
-    "preview": "assets/fish/kelp_ribbon/preview.webp",
-    "previewSize": [
-      512,
-      193
-    ],
-    "concept": "art/concepts/fish/kelp_ribbon.webp",
-    "scale": 1,
-    "body": "eel",
-    "tris": 0,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (TRELLIS.2, MIT)",
-    "status": "concept"
-  },
-  "seaglass_puffer": {
-    "path": null,
-    "preview": "assets/fish/seaglass_puffer/preview.webp",
-    "previewSize": [
-      512,
-      378
-    ],
-    "concept": "art/concepts/fish/seaglass_puffer.webp",
-    "scale": 1,
-    "body": "bulky",
-    "tris": 0,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (TRELLIS.2, MIT)",
-    "status": "concept"
-  },
-  "bellbuoy_bass": {
-    "path": null,
-    "preview": "assets/fish/bellbuoy_bass/preview.webp",
-    "previewSize": [
-      512,
-      302
-    ],
-    "concept": "art/concepts/fish/bellbuoy_bass.webp",
-    "scale": 1,
-    "body": "fusiform",
-    "tris": 0,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (TRELLIS.2, MIT)",
-    "status": "concept"
-  },
   "storm_marlin": {
     "path": null,
     "preview": "assets/fish/storm_marlin/preview.webp",
@@ -108,7 +10,7 @@
     "scale": 1,
     "body": "fusiform",
     "tris": 0,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (TRELLIS.2, MIT)",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
     "status": "concept"
   },
   "temple_manta": {
@@ -122,7 +24,7 @@
     "scale": 1,
     "body": "ray",
     "tris": 0,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (TRELLIS.2, MIT)",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
     "status": "concept"
   },
   "cathedral_jelly": {
@@ -136,7 +38,7 @@
     "scale": 1,
     "body": "jelly",
     "tris": 0,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (TRELLIS.2, MIT)",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept, not approved yet",
     "status": "concept"
   }
 }

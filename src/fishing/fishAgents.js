@@ -32,6 +32,9 @@ export function createFishSystem({ state, island, water, splashes, events, under
   let populationTimer = 0;
   let worldTime = 0;
   const listeners = { nibble: new Set() };
+  // Co-op: the host simulates fish; visitors render the host's snapshots (Agent H).
+  let authority = true;
+  const netTargets = new Map(); // uid -> latest snapshot entry (visitors)
 
   function areaPoint(habitatName, minDepth) {
     const hab = habitats[habitatName] || habitats.mid;
@@ -57,7 +60,7 @@ export function createFishSystem({ state, island, water, splashes, events, under
     return Math.max(0.3, Math.min(d, water - 0.25));
   }
 
-  function makeFish(id, at = null, school = null, variant = null) {
+  function makeFish(id, at = null, school = null, variant = null, forcedUid = null) {
     const info = fishInfo(state, id);
     const behaviour = info.behaviour;
     if (!behaviour) return null;
@@ -65,8 +68,9 @@ export function createFishSystem({ state, island, water, splashes, events, under
     const p = at || areaPoint(habitat);
     const swim = createSwimState(behaviour);
     const glow = behaviour.glow ? new THREE.Color(behaviour.glow.color) : null;
+    if (forcedUid && forcedUid > uidCounter) uidCounter = forcedUid;
     const f = {
-      uid: ++uidCounter,
+      uid: forcedUid || ++uidCounter,
       id,
       info,
       behaviour,
@@ -456,9 +460,9 @@ export function createFishSystem({ state, island, water, splashes, events, under
   function update(dt, time) {
     worldTime = time;
     populationTimer -= dt;
-    if (populationTimer <= 0) { populationTimer = 1.2; maintainPopulation(); }
+    if (authority && populationTimer <= 0) { populationTimer = 1.2; maintainPopulation(); }
 
-    if (lure && !engaged) {
+    if (authority && lure && !engaged) {
       engageTimer -= dt;
       if (engageTimer <= 0) {
         const f = pickEngager();
@@ -477,7 +481,12 @@ export function createFishSystem({ state, island, water, splashes, events, under
       f.stateTime += dt;
       f.timer -= dt;
       f.cooldown = Math.max(0, f.cooldown - dt);
-      if (!f.controlled) {
+      if (!authority && !f.controlled && f !== engaged) {
+        followSnapshot(f, dt);
+      } else if (f.remote) {
+        // Fought by another player: their snapshots drive it (host side).
+        followSnapshot(f, dt);
+      } else if (!f.controlled) {
         if (f.air) updateAir(f, dt);
         else if (f === engaged) updateEngaged(f, dt);
         else if (f.state === 'flee' || f.state === 'leave') {
@@ -496,8 +505,85 @@ export function createFishSystem({ state, island, water, splashes, events, under
     shadows.commit(time);
   }
 
+  function followSnapshot(f, dt) {
+    const t = netTargets.get(f.uid);
+    if (!t) return;
+    const k = 1 - Math.exp(-8 * dt);
+    const dx = t.x - f.pos.x, dz = t.z - f.pos.z;
+    f.pos.x += dx * k;
+    f.pos.z += dz * k;
+    f.speed = Math.min(4, Math.hypot(dx, dz) * 4);
+    const dh = Math.atan2(Math.sin(t.heading - f.heading), Math.cos(t.heading - f.heading));
+    f.heading += dh * k;
+    f.turnRate = dh * 2;
+    f.depthTarget = t.depth;
+    f.airY = t.airY || 0;
+    f.retract = t.retract || 0;
+    f.inflate = t.inflate || 0;
+    f.swim.set(t.swim || 'idle');
+  }
+
+  function snapshot() {
+    return fish.filter((f) => !f.gone).map((f) => ({
+      uid: f.uid, id: f.id, variant: f.variant,
+      x: +f.pos.x.toFixed(2), z: +f.pos.z.toFixed(2), heading: +f.heading.toFixed(3),
+      depth: +f.depth.toFixed(2), airY: +(f.airY || 0).toFixed(2), length: +f.length.toFixed(2),
+      state: f.state, swim: f.swim.stateName, retract: +f.retract.toFixed(2), inflate: +f.inflate.toFixed(2),
+      remote: f.remote || null,
+    }));
+  }
+
+  // Visitors: create/update/remove local fish to mirror the host.
+  function applySnapshot(list) {
+    if (!Array.isArray(list)) return;
+    const seen = new Set();
+    for (const e of list) {
+      if (!e || typeof e.uid !== 'number') continue;
+      seen.add(e.uid);
+      netTargets.set(e.uid, e);
+      let f = fish.find((c) => c.uid === e.uid);
+      if (!f) {
+        f = makeFish(e.id, { x: e.x, z: e.z, area: { x: e.x, z: e.z, r: 5 } }, null, e.variant, e.uid);
+        if (!f) continue;
+        f.heading = e.heading;
+        f.depth = f.depthTarget = e.depth;
+        if (e.length) f.length = e.length;
+      }
+    }
+    for (const f of [...fish]) {
+      if (!seen.has(f.uid) && !f.controlled && f !== engaged) removeFish(f);
+    }
+  }
+
   return {
     get list() { return fish; },
+    get authority() { return authority; },
+    setAuthority(on) {
+      authority = Boolean(on);
+      if (!authority) { for (const f of [...fish]) if (!f.controlled) removeFish(f); }
+      netTargets.clear();
+    },
+    snapshot,
+    applySnapshot,
+    // Co-op bite: playerId omitted/local → this fish bites our lure now;
+    // another player → the host stops simulating it (that player's fight drives it).
+    netBite(uid, playerId, localId) {
+      const f = fish.find((c) => c.uid === uid);
+      if (!f || f.controlled || f.gone) return false;
+      if (playerId && playerId !== localId) {
+        f.remote = playerId;
+        if (engaged === f) engaged = null;
+        return true;
+      }
+      if (!lure) return false;
+      if (engaged && engaged !== f && !engaged.controlled) setState(engaged, 'wander', 2);
+      engaged = f;
+      f.fade = 1;
+      setState(f, 'strike', 0);
+      return true;
+    },
+    setRemoteTarget(e) { if (e && typeof e.uid === 'number') netTargets.set(e.uid, e); },
+    releaseRemote(uid) { const f = fish.find((c) => c.uid === uid); if (f) f.remote = null; },
     get engaged() { return engaged; },
     update,
     onNibble(fn) { listeners.nibble.add(fn); return () => listeners.nibble.delete(fn); },

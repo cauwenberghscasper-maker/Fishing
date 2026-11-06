@@ -116,6 +116,7 @@ export function createSwimState(behaviour) {
   const base = { ...BODY_DEFAULTS[body], ...(behaviour?.swim || {}) };
   const cur = { amp: base.amp, speed: base.speed };
   let target = SWIM_STATES.idle;
+  let targetName = 'idle';
   let phase = Math.random() * 10;
   let bend = 0;
   return {
@@ -125,7 +126,8 @@ export function createSwimState(behaviour) {
     phase: () => phase,
     get amp() { return cur.amp; },
     get bend() { return bend; },
-    set(stateName) { target = SWIM_STATES[stateName] || SWIM_STATES.idle; },
+    set(stateName) { target = SWIM_STATES[stateName] || SWIM_STATES.idle; targetName = SWIM_STATES[stateName] ? stateName : 'idle'; },
+    get stateName() { return targetName; },
     update(dt, moveSpeed = 0, turnRate = 0) {
       const k = 1 - Math.exp(-5 * dt);
       cur.amp += (base.amp * target.amp - cur.amp) * k;

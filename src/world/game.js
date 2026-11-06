@@ -16,6 +16,7 @@ import { driftwoodCove } from './islands/driftwood_cove.js';
 import { createFishShadows } from '../fishing/fishShadows.js';
 import { createFishSystem } from '../fishing/fishAgents.js';
 import { createFishing } from '../fishing/index.js';
+import { createAnglerRig } from '../fishing/anglerRig.js';
 import { audio } from '../core/audio.js';
 
 const ISLANDS = { driftwood_cove: driftwoodCove };
@@ -115,7 +116,26 @@ export async function startWorld({ canvas, state, events }) {
     get player() { return player.root; },
     get lure() { return fishing.lure.pos; },
     get rodTip() { return fishing.rod.tipWorld(new THREE.Vector3()); },
+    // Rod + line + bobber for remote anglers (Agent H) or NPCs.
+    createAnglerRig: (opts = {}) => createAnglerRig({ under, surface, surfaceY: (x, z) => water.surfaceY(x, z), ...opts }),
   };
+
+  // Co-op hooks (Agent H). Solo play never calls these; defaults keep the host behaviour.
+  state.world.fish = {
+    setAuthority: (on) => fishSystem.setAuthority(on),
+    snapshot: () => fishSystem.snapshot(),
+    apply: (list) => fishSystem.applySnapshot(list),
+    forceBite: (uid, playerId) => fishSystem.netBite(uid, playerId, state.world.selfId ?? null),
+    // Host side: position of a fish another player is fighting (from their `self`).
+    applyRemote: (entry) => fishSystem.setRemoteTarget(entry),
+    release: (uid) => fishSystem.releaseRemote(uid),
+  };
+  const self = { x: 0, z: 0, heading: 0, anim: 'idle', mode: 'explore', lure: null, tension: 0, fishUid: null };
+  state.world.self = self;
+  events.on('net:help', ({ toId } = {}) => {
+    if (toId != null && state.world.selfId != null && toId !== state.world.selfId) return;
+    fishing.helpFromFriend?.();
+  });
 
   // Frame
   loop.add({
@@ -132,6 +152,14 @@ export async function startWorld({ canvas, state, events }) {
       for (const fn of frameCallbacks) {
         try { fn(dt, time); } catch (err) { console.error('[render.onFrame]', err); }
       }
+      self.x = player.position.x;
+      self.z = player.position.z;
+      self.heading = player.facing;
+      self.anim = player.animName;
+      self.mode = state.world.mode;
+      self.lure = fishing.line.active ? { x: fishing.lure.pos.x, z: fishing.lure.pos.z } : null;
+      self.tension = fishing.fight ? fishing.fight.state.tension : 0;
+      self.fishUid = fishing.fightFishUid ?? null;
       cameraRig.update(realDt);
       lighting.follow(cameraRig.target);
       water.update(time, {

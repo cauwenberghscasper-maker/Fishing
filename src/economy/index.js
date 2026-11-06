@@ -12,6 +12,8 @@ let E = null;   // events
 let lastTick = 0;
 
 const fail = (reason, extra = {}) => ({ ok: false, reason, ...extra });
+// co-op: on a friend's island (state.net.mode 'visitor') the land, piers, buildings, boats and crew are theirs
+const visiting = () => S?.net?.mode === 'visitor';
 const data = () => S.data;
 const P = () => S.profile;
 
@@ -308,6 +310,7 @@ export const economy = {
 
   // --- harbour
   upgradeBuilding(id) {
+    if (visiting()) return fail('visitor');
     const b = buildingLevel(data(), P(), id);
     if (!b) return fail('missing');
     if (!b.next) return fail('max');
@@ -321,6 +324,7 @@ export const economy = {
   },
   nextPlot: () => nextPlot(data(), P()),
   buyPlot(id) {
+    if (visiting()) return fail('visitor');
     const def = data().economy?.plots?.[id];
     if (!def) return fail('missing');
     if (P().island.plots.includes(id)) return fail('owned');
@@ -332,6 +336,7 @@ export const economy = {
     return { ok: true, name: def.name };
   },
   buyPier(id) {
+    if (visiting()) return fail('visitor');
     const next = nextPier(data(), P());
     if (!next || next.id !== id) return fail('order');
     if (!next.plotOwned) return fail('site', { plot: next.plot });
@@ -342,6 +347,7 @@ export const economy = {
     return { ok: true, name: next.name, depth: next.depth };
   },
   buyBoat(id) {
+    if (visiting()) return fail('visitor');
     const next = nextBoat(data(), P());
     if (!next || next.id !== id) return fail('order');
     if (!next.dockFits) return fail('dock');
@@ -352,6 +358,7 @@ export const economy = {
     return { ok: true, name: next.name };
   },
   hireWorker() {
+    if (visiting()) return fail('visitor');
     const p = P();
     if (p.workers.length >= crewSlots(data(), p)) {
       return fail(p.workers.length >= crewBunks(data(), p) ? 'bunks' : 'spots');
@@ -393,6 +400,7 @@ export const economy = {
     return { ok: true };
   },
   travel(id) {
+    if (visiting()) return fail('visitor');
     const p = P();
     if (!p.unlockedIslands.includes(id)) return fail('locked');
     p.currentIsland = id;
@@ -466,7 +474,7 @@ export function startEconomy({ state, events }) {
   // tell A the starting gear and island layout once everything is wired
   events.once('game:ready', () => {
     E.emit('gear:changed', state.gear);
-    islandChanged({ initial: true });
+    if (!visiting()) islandChanged({ initial: true });   // a visitor's island view comes from Agent H (source: 'net')
   });
   return economy;
 }

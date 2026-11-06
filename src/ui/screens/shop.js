@@ -17,8 +17,9 @@ const SUBTITLE = {
 };
 const GROUP_TITLE = { rod: 'Rods', reel: 'Reels', line: 'Lines', bait: 'Bait' };
 
-export function sheetHead(title, subtitle, onClose) {
+export function sheetHead(title, subtitle, onClose, portrait = null) {
   return h('header.sheet__head',
+    portrait,
     h('div.sheet__title', h('h2', title), subtitle ? h('p', subtitle) : null),
     h('button.btn.btn--round.sheet__close', { 'aria-label': 'Close', on: { click: onClose } }, ico('close')));
 }
@@ -53,8 +54,12 @@ export function shopSheet(ctx, { tab = 'sell', focus = null } = {}) {
       on: { click: () => { current = t.id; focus = null; render(); root.querySelector('.sheet__body').scrollTop = 0; } },
     }, t.id === 'sell' && state.profile.cooler.length ? `${t.label} (${state.profile.cooler.length})` : t.label)));
     const parts = current === 'sell' ? sellTab(ctx) : current === 'buy' ? buyTab(ctx) : harbourTab(ctx);
+    // Agent F's shopkeeper portrait (art.json npc.shopkeeper) in a brass porthole, when it exists
+    const portrait = h('div.npc-portrait');
+    const face = artImg(artPath(state, 'npc.shopkeeper'), '', { alt: 'The shopkeeper', slot: portrait });
+    if (face) portrait.append(face);
     fill(root,
-      sheetHead(shopName, SUBTITLE[current], () => ui.close()),
+      sheetHead(shopName, SUBTITLE[current], () => ui.close(), face ? portrait : null),
       tabs,
       h('div.sheet__body', { role: 'tabpanel' }, parts.body),
       parts.foot ?? null,

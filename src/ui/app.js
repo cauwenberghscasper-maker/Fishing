@@ -1,8 +1,10 @@
-// Agent B. All UI except Agent A's in-world fishing controls (#hud-fishing).
+// Agent B. All UI except Agent A's in-world fishing controls (#hud-fishing) and Agent H's co-op controls (#hud-net).
 import './theme.css';
 import './ui.css';
-import { h, ico, fmt, money } from './dom.js';
+import { h, ico, fmt, money, artImg } from './dom.js';
 import { economy } from '../economy/index.js';
+import { artPath } from '../economy/data.js';
+import { fullName } from '../economy/rules.js';
 import { catchCard } from './screens/catch.js';
 import { shopSheet } from './screens/shop.js';
 import { travelSheet } from './screens/travel.js';
@@ -10,8 +12,11 @@ import { logbookSheet } from './screens/logbook.js';
 import { settingsSheet } from './screens/settings.js';
 import { offlineLetter } from './screens/offline.js';
 import { coolerSheet } from './screens/cooler.js';
+import { titleScreen } from './screens/title.js';
+import { isVisitor, playerName } from './net.js';
 
 const BUILDING_ICONS = { shop: 'scale', cooler: 'cooler', workers_hut: 'hat', smokehouse: 'flame', aquarium: 'fish', boat_dock: 'boat' };
+const EMOTES = { wave: 'waves', cheer: 'cheers', big_one: 'shouts "Big one!"', bigone: 'shouts "Big one!"', point: 'points at the water' };
 
 function injectFonts() {
   if (document.querySelector('link[data-ui-fonts]')) return;
@@ -20,6 +25,14 @@ function injectFonts() {
   link.href = 'fonts/fonts.css';
   link.dataset.uiFonts = '';
   document.head.append(link);
+}
+
+/** The title screen is for players: automated runs (navigator.webdriver) and ?notitle skip it; ?title=1 forces it. */
+function wantsTitle() {
+  const q = new URLSearchParams(location.search);
+  if (q.has('title')) return q.get('title') !== '0';
+  if (q.has('notitle')) return false;
+  return !navigator.webdriver;
 }
 
 export async function startUI({ root, state, events }) {
@@ -35,30 +48,35 @@ export async function startUI({ root, state, events }) {
 
   // ------------------------------------------------------------ toasts
   const toasts = h('div.toasts', { 'aria-live': 'polite' });
-  function toast(text, kind = '') {
-    const t = h(`div.toast${kind ? '.toast--' + kind : ''}`, text);
+  function toast(content, kind = '', { art = null, ms = 2600 } = {}) {
+    const t = h(`div.toast${kind ? '.toast--' + kind : ''}`);
+    const img = artImg(art, 'toast__emblem', { alt: '' });
+    if (img) t.append(img);
+    t.append(...[content].flat());
     toasts.append(t);
     while (toasts.children.length > 3) toasts.firstChild.remove();
-    setTimeout(() => { t.classList.add('is-leaving'); setTimeout(() => t.remove(), 280); }, 2600);
+    setTimeout(() => { t.classList.add('is-leaving'); setTimeout(() => t.remove(), 280); }, ms);
   }
 
   // ------------------------------------------------------------ modal manager
   let current = null;
+  let titleUp = false;
   const queue = [];
   function mount(view) {
     current = view;
-    const layer = h('div.modal-layer', { on: { click: (e) => { if (e.target === layer) dismiss(); } } }, view.el);
+    const layer = h(`div.modal-layer${view.layerClass ? '.' + view.layerClass : ''}`, { on: { click: (e) => { if (e.target === layer) dismiss(); } } }, view.el);
+    if (view.layerStyle) for (const [k, v] of Object.entries(view.layerStyle)) layer.style.setProperty(k, v);
     view.layer = layer;
     modalHost.replaceChildren(layer);
     modalHost.style.pointerEvents = 'auto';
-    view.onOpen?.();
     view.el.setAttribute('tabindex', '-1');
     view.el.focus({ preventScroll: true });
+    view.onOpen?.();
   }
   function open(view, { queued = false } = {}) {
-    if (current && queued) { queue.push(view); return; }
-    const wasOpen = !!current;
-    if (current) { current.onClose?.(); }
+    if ((current || titleUp) && queued) { queue.push(view); return; }
+    const wasOpen = !!current || titleUp;
+    if (current) current.onClose?.();
     mount(view);
     if (!wasOpen) events.emit('ui:modal', { open: true, id: view.id });
     actionDock.hidden = true;
@@ -98,7 +116,10 @@ export async function startUI({ root, state, events }) {
   const pearlsBox = h('span.purse__pearls', ico('pearl'), pearlsEl);
   const sepEl = h('span.purse__sep');
   const plate = h('div.purse__plate.plaque', { role: 'status', 'aria-label': 'Coins and pearls' }, ico('coin'), coinsEl, sepEl, pearlsBox);
-  const rateEl = h('div.purse__rate');
+  const rateNum = h('span.t-num');
+  const rateUnit = h('span');
+  const rateFrom = h('span.purse__rate-from', ' from your harbour');
+  const rateEl = h('div.purse__rate', rateNum, rateUnit, rateFrom);
   const coolerCount = h('span.badge-count.pebble.t-num');
   const coolerBtn = h('button.btn.btn--round', { 'aria-label': 'Cooler', on: { click: () => ui.openCooler() } }, ico('cooler'), coolerCount);
   const logBtn = h('button.btn.btn--round', { 'aria-label': 'Logbook', on: { click: () => ui.openLogbook() } }, ico('logbook'));
@@ -130,9 +151,8 @@ export async function startUI({ root, state, events }) {
     pearlsBox.hidden = sepEl.hidden = p.pearls <= 0;
     const perMin = economy.incomePerMinute();
     rateEl.hidden = perMin <= 0;
-    rateEl.textContent = perMin >= 1
-      ? `+${fmt(perMin)} a minute from your harbour`
-      : `+${fmt(perMin * 60)} an hour from your harbour`;
+    rateNum.textContent = `+${fmt(perMin >= 1 ? perMin : perMin * 60)}`;
+    rateUnit.textContent = perMin >= 1 ? ' a minute' : ' an hour';
     const cap = economy.coolerCapacity();
     const n = p.cooler.length;
     coolerCount.textContent = `${n}/${cap}`;
@@ -146,7 +166,9 @@ export async function startUI({ root, state, events }) {
   let actionZone = null;
   function actionFor(zone) {
     const { kind, zoneId } = zone;
+    const visitor = isVisitor(state);   // on a friend's island only the shop is ours to use
     if (kind === 'shop') return { icon: 'scale', label: 'Open the shop', go: () => ui.openShop({ tab: state.profile.cooler.length ? 'sell' : 'buy' }) };
+    if (visitor) return null;
     if (kind === 'boat') return { icon: 'compass', label: 'Chart a course', go: () => ui.openTravel() };
     if (kind === 'plot') return { icon: 'plot', label: 'Raise new land', go: () => ui.openShop({ tab: 'harbour', focus: 'land' }) };
     if (kind === 'building') {
@@ -164,7 +186,7 @@ export async function startUI({ root, state, events }) {
     actionZone = zone;
     const btn = h('button.btn.btn--primary.action-enter', { on: { click: a.go } }, ico(a.icon), h('span', a.label));
     actionDock.replaceChildren(btn);
-    actionDock.hidden = !!current;
+    actionDock.hidden = !!current || titleUp;
   }
   events.on('zone:enter', (z = {}) => showAction(z));
   events.on('zone:exit', (z = {}) => {
@@ -183,11 +205,46 @@ export async function startUI({ root, state, events }) {
   events.on('catch:landed', (info) => open(catchCard(ctx, info), { queued: true }));
   events.on('offline:ready', () => {
     if (current?.id === 'offline') current.refresh?.();
-    else open(offlineLetter(ctx), { queued: true });
+    else if (!queue.some((v) => v.id === 'offline')) open(offlineLetter(ctx), { queued: true });
   });
 
+  // ------------------------------------------------------------ co-op (Agent H's events; B shows group toasts)
+  events.on('net:catch', ({ playerId, fishId, variant = 'basic' } = {}) => {
+    const f = state.data.fish?.[fishId];
+    if (!f) return;
+    const v = economy.variant(variant);
+    const name = fullName(f.name, v);
+    const who = playerName(state, playerId);
+    toast(`${who} landed ${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}!`, v.kind === 'element' ? 'glow' : '',
+      { art: v.kind === 'basic' ? null : artPath(state, `variant.${v.id}`), ms: v.kind === 'element' ? 4200 : 2800 });
+  });
+  events.on('net:player-joined', ({ name } = {}) => toast(`${name ?? 'A friend'} came aboard`));
+  events.on('net:player-left', ({ name } = {}) => toast(`${name ?? 'A friend'} sailed home`));
+  events.on('net:emote', ({ playerId, emote } = {}) => toast(`${playerName(state, playerId)} ${EMOTES[emote] ?? emote}`));
+  for (const ev of ['net:joined', 'net:left']) events.on(ev, () => { refreshHud(); current?.refresh?.(); if (actionZone) showAction(actionZone); });
+
   refreshHud();
-  if (state.profile.pendingOffline) open(offlineLetter(ctx));
+
+  // ------------------------------------------------------------ title / loading screen
+  if (wantsTitle()) {
+    titleUp = true;
+    events.emit('ui:modal', { open: true, id: 'title' });
+    const title = titleScreen(ctx, {
+      onStart: () => {
+        titleUp = false;
+        events.emit('title:closed', {});
+        if (queue.length) { mount(queue.shift()); return; }
+        events.emit('ui:modal', { open: false });
+        actionDock.hidden = !actionZone;
+      },
+    });
+    root.append(title.el);
+    events.once('game:ready', () => title.ready());
+    // never trap the player on a loading screen if a system fails to boot
+    setTimeout(() => title.ready(), 15000);
+  }
+
+  if (state.profile.pendingOffline) open(offlineLetter(ctx), { queued: true });
 
   window.__ui = ui;   // debug hook next to window.__game (opens screens from the console or tests)
   return ui;

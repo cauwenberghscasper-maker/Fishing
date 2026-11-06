@@ -58,8 +58,7 @@
     "body": "fusiform",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept",
-    "topView": "art/concepts/fish/glasswing_sardine_top.webp"
+    "status": "concept"
   },
   "driftback": {
     "path": null,
@@ -73,8 +72,7 @@
     "body": "fusiform",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept",
-    "topView": "art/concepts/fish/driftback_top.webp"
+    "status": "concept"
   },
   "shellback_blenny": {
     "path": null,
@@ -88,8 +86,7 @@
     "body": "shelled",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept",
-    "topView": "art/concepts/fish/shellback_blenny_top.webp"
+    "status": "concept"
   },
   "kelp_wraith": {
     "path": null,
@@ -103,8 +100,7 @@
     "body": "eel",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept",
-    "topView": "art/concepts/fish/kelp_wraith_top.webp"
+    "status": "concept"
   },
   "old_mooring": {
     "path": null,
@@ -118,8 +114,7 @@
     "body": "fusiform",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept",
-    "topView": "art/concepts/fish/old_mooring_top.webp"
+    "status": "concept"
   },
   "compass_flounder": {
     "path": null,
@@ -133,8 +128,7 @@
     "body": "flat",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept",
-    "sideView": "art/concepts/fish/compass_flounder_side.webp"
+    "status": "concept"
   },
   "seaglass_puffer": {
     "path": null,
@@ -149,9 +143,143 @@
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
     "status": "concept",
-    "topView": "art/concepts/fish/seaglass_puffer_top.webp",
     "inflated": {
       "image": "art/concepts/fish/seaglass_puffer_inflated.webp"
     }
+  },
+  "rivet_snapper": {
+    "path": null,
+    "preview": "assets/fish/rivet_snapper/preview.webp",
+    "previewSize": [
+      512,
+      300
+    ],
+    "concept": "art/concepts/fish/rivet_snapper.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "wreck_reef",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
+    "status": "concept"
+  },
+  "keg_boxfish": {
+    "path": null,
+    "preview": "assets/fish/keg_boxfish/preview.webp",
+    "previewSize": [
+      512,
+      300
+    ],
+    "concept": "art/concepts/fish/keg_boxfish.webp",
+    "scale": 1,
+    "body": "bulky",
+    "tris": 0,
+    "island": "wreck_reef",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
+    "status": "concept"
+  },
+  "chainlink_pipefish": {
+    "path": null,
+    "preview": "assets/fish/chainlink_pipefish/preview.webp",
+    "previewSize": [
+      512,
+      300
+    ],
+    "concept": "art/concepts/fish/chainlink_pipefish.webp",
+    "scale": 1,
+    "body": "eel",
+    "tris": 0,
+    "island": "wreck_reef",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
+    "status": "concept"
+  },
+  "porthole_ray": {
+    "path": null,
+    "preview": "assets/fish/porthole_ray/preview.webp",
+    "previewSize": [
+      512,
+      300
+    ],
+    "concept": "art/concepts/fish/porthole_ray.webp",
+    "scale": 1,
+    "body": "ray",
+    "tris": 0,
+    "island": "wreck_reef",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
+    "status": "concept"
+  },
+  "cannon_gar": {
+    "path": null,
+    "preview": "assets/fish/cannon_gar/preview.webp",
+    "previewSize": [
+      512,
+      300
+    ],
+    "concept": "art/concepts/fish/cannon_gar.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "wreck_reef",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
+    "status": "concept"
+  },
+  "wreck_grouper": {
+    "path": null,
+    "preview": "assets/fish/wreck_grouper/preview.webp",
+    "previewSize": [
+      512,
+      300
+    ],
+    "concept": "art/concepts/fish/wreck_grouper.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "wreck_reef",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
+    "status": "concept"
+  },
+  "kintsugi_koi": {
+    "path": null,
+    "preview": "assets/fish/kintsugi_koi/preview.webp",
+    "previewSize": [
+      512,
+      300
+    ],
+    "concept": "art/concepts/fish/kintsugi_koi.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "ember_caldera",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
+    "status": "concept"
+  },
+  "glacier_pike": {
+    "path": null,
+    "preview": "assets/fish/glacier_pike/preview.webp",
+    "previewSize": [
+      512,
+      300
+    ],
+    "concept": "art/concepts/fish/glacier_pike.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "frostfang_fjord",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
+    "status": "concept"
+  },
+  "mossback_carp": {
+    "path": null,
+    "preview": "assets/fish/mossback_carp/preview.webp",
+    "previewSize": [
+      512,
+      300
+    ],
+    "concept": "art/concepts/fish/mossback_carp.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "mossback_bayou",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
+    "status": "concept"
   }
 }

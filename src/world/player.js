@@ -238,6 +238,7 @@ export function createPlayer({ island, input, cameraRig, water, events, state })
     get facing() { return facing; },
     get speed() { return speed; },
     get clipsAvailable() { return Object.keys(clips); },
+    get animName() { return currentName || 'idle'; },
     load: loadCharacter,
     update,
     // Face a world point (aiming, fighting).

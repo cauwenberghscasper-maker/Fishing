@@ -96,3 +96,10 @@ Wall-clock measured with timestamps around each call; Qwen-Image-Fast (8 steps) 
 | 23:12 | E | Qwen-Image-Fast | sprite ember, seed 1696627362 (kept as a flame lick; coals cropped) | ~4 |
 | 23:12 | E | Qwen-Image-Fast | sprite snow crystal, seed 1488150069 (kept) | ~4 |
 | 6 Nov 23:13 | C | Qwen-Image-Edit-Angles | glasswing_sardine bird's-eye (tilt -1): output is a mirrored side view, not a top view → top views for side-profile fish dropped, back painted from concept colours instead | 12 (measured wall) |
+| 6 Nov 23:14 | C | Qwen-Image | temple_manta top view (kept, seed 169155133, rotated head → +X) → art/concepts/fish/temple_manta_top.webp | 18 (measured wall) |
+| 23:13 | E | Qwen-Image-Fast | sprite smoke, seed 1436702567 (kept) | ~4 |
+| 23:13 | E | Qwen-Image-Fast | sprite petal, seed 483881582 (kept) | ~4 |
+| 23:13 | E | Qwen-Image-Fast | sprite kelp leaf, seed 1121738927 (kept) | ~4 |
+| 23:13 | E | Qwen-Image-Fast | sprite glyph sheet 2x2, seed 2002347507 (kept, sliced into glyph_a..d) | ~4 |
+| 23:13 | E | Qwen-Image-Fast | sprite abyss eye, seed 1199825940 (kept; corner squiggle cropped) | ~4 |
+| 23:13 | E | Qwen-Image-Fast | sprite foam splash, seed 1252743348 (kept; sea strip cropped) | ~4 |

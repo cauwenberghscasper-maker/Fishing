@@ -509,6 +509,14 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     get mode() { return mode; },
     get fight() { return fight; },
     get lure() { return lure; },
+    get fightFishUid() { return fightFish ? fightFish.uid : null; },
+    // Co-op: a friend helps land the fish (net:help) — drains stamina on the fighter's side.
+    helpFromFriend() {
+      if (!fight || fight.state.landing) return;
+      fight.state.stamina = Math.max(0, fight.state.stamina - 0.08);
+      fight.state.tension = Math.max(0.2, fight.state.tension - 0.1);
+      hud.toast('A friend lends a hand!', 1.0);
+    },
     // Debug: cast straight to a point (bypasses aim; still emits aim + cast events).
     debugCast(x, z, perfect = false) {
       if (mode !== 'explore') return false;

@@ -32,7 +32,10 @@ export function titleScreen(ctx, { onStart }) {
     fill(foot, tip, h('div.meter.meter--stamina.title-meter', { role: 'progressbar', 'aria-label': 'Loading the cove' }, h('div.meter__fill')), h('p.title-status', 'Loading the cove'));
   }
 
+  let isReady = false;
   function showReady() {
+    if (isReady || started) return;
+    isReady = true;
     if (artPath(state, 'title.main')) setArt('title.main');
     const go = h('button.btn.btn--primary.title-go', { on: { click: start } }, 'Cast off');
     fill(foot, tip, go);

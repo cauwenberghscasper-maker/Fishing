@@ -25,7 +25,8 @@
     "status": "temp",
     "category": "structure",
     "placement": "water",
-    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)"
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "pier_straight_b": {
     "path": "assets/world/pier_straight_b/model.glb",
@@ -53,7 +54,8 @@
     "status": "temp",
     "category": "structure",
     "placement": "water",
-    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)"
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "pier_patched": {
     "path": "assets/world/pier_patched/model.glb",
@@ -81,7 +83,8 @@
     "status": "temp",
     "category": "structure",
     "placement": "water",
-    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)"
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "pier_end": {
     "path": "assets/world/pier_end/model.glb",
@@ -110,7 +113,8 @@
     "status": "temp",
     "category": "structure",
     "placement": "water",
-    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)"
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "beach_grass_a": {
     "path": "assets/world/beach_grass_a/model.glb",
@@ -137,7 +141,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "beach_grass_b": {
     "path": "assets/world/beach_grass_b/model.glb",
@@ -164,7 +169,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "driftwood_branch": {
     "path": "assets/world/driftwood_branch/model.glb",
@@ -191,7 +197,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "driftwood_log": {
     "path": "assets/world/driftwood_log/model.glb",
@@ -219,7 +226,8 @@
     "status": "temp",
     "category": "nature",
     "placement": "ground",
-    "story": "bleached trunk with its root ball, washed up in the big storm"
+    "story": "bleached trunk with its root ball, washed up in the big storm",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "kelp_a": {
     "path": "assets/world/kelp_a/model.glb",
@@ -248,7 +256,8 @@
     "status": "temp",
     "category": "nature",
     "placement": "underwater",
-    "origin": "base on the seabed; blades rise ~1.6 m, amber float bulbs (glow cell, not emissive)"
+    "origin": "base on the seabed; blades rise ~1.6 m, amber float bulbs (glow cell, not emissive)",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "palm_bent": {
     "path": "assets/world/palm_bent/model.glb",
@@ -276,7 +285,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "palm_tall": {
     "path": "assets/world/palm_tall/model.glb",
@@ -305,7 +315,8 @@
     "status": "temp",
     "category": "nature",
     "placement": "ground",
-    "story": "leans toward the sea after decades of onshore wind; one storm-killed frond still hangs on"
+    "story": "leans toward the sea after decades of onshore wind; one storm-killed frond still hangs on",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "palm_twin": {
     "path": "assets/world/palm_twin/model.glb",
@@ -333,7 +344,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "palm_young": {
     "path": "assets/world/palm_young/model.glb",
@@ -361,7 +373,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "rock_cluster": {
     "path": "assets/world/rock_cluster/model.glb",
@@ -388,7 +401,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "rock_l": {
     "path": "assets/world/rock_l/model.glb",
@@ -415,7 +429,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "rock_m": {
     "path": "assets/world/rock_m/model.glb",
@@ -442,7 +457,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "rock_s": {
     "path": "assets/world/rock_s/model.glb",
@@ -470,7 +486,8 @@
     "status": "temp",
     "category": "nature",
     "placement": "ground",
-    "note": "scatter freely, rotate/scale ±20%"
+    "note": "scatter freely, rotate/scale \u00b120%",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "rock_shore": {
     "path": "assets/world/rock_shore/model.glb",
@@ -498,7 +515,8 @@
     "status": "temp",
     "category": "nature",
     "placement": "shore",
-    "origin": "base centre; sits 0.35 m into the water/sand, wet band at the bottom"
+    "origin": "base centre; sits 0.35 m into the water/sand, wet band at the bottom",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "seaweed_pile_a": {
     "path": "assets/world/seaweed_pile_a/model.glb",
@@ -525,7 +543,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground_or_shallows"
+    "placement": "ground_or_shallows",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "shells_a": {
     "path": "assets/world/shells_a/model.glb",
@@ -553,7 +572,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "starfish_a": {
     "path": "assets/world/starfish_a/model.glb",
@@ -580,7 +600,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground_or_shallows"
+    "placement": "ground_or_shallows",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "tide_pool_a": {
     "path": "assets/world/tide_pool_a/model.glb",
@@ -609,7 +630,8 @@
     "status": "temp",
     "category": "nature",
     "placement": "shore",
-    "origin": "basin centre at sea level (y=0); basin floor ~-0.45 so the sea plane fills it"
+    "origin": "basin centre at sea level (y=0); basin floor ~-0.45 so the sea plane fills it",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "cliff_columns_a": {
     "path": "assets/world/cliff_columns_a/model.glb",
@@ -638,7 +660,8 @@
     "category": "nature",
     "placement": "ground",
     "story": "the cove is held between hexagonal basalt columns; the tops are mossy stepping stones",
-    "origin": "base centre; columns rise toward the back (+Z is front)"
+    "origin": "base centre; columns rise toward the back (+Z is front)",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "cliff_columns_b": {
     "path": "assets/world/cliff_columns_b/model.glb",
@@ -665,7 +688,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "columns_steps": {
     "path": "assets/world/columns_steps/model.glb",
@@ -693,7 +717,8 @@
     "status": "temp",
     "category": "nature",
     "placement": "ground",
-    "note": "low basalt columns, walkable stepping stones / shore edge"
+    "note": "low basalt columns, walkable stepping stones / shore edge",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "bush_seagrape": {
     "path": "assets/world/bush_seagrape/model.glb",
@@ -721,7 +746,8 @@
     "status": "temp",
     "category": "nature",
     "placement": "ground",
-    "note": "round-leaf sea-grape bush"
+    "note": "round-leaf sea-grape bush",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "bush_seagrape_s": {
     "path": "assets/world/bush_seagrape_s/model.glb",
@@ -748,7 +774,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "nature",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "bush_spiky": {
     "path": "assets/world/bush_spiky/model.glb",
@@ -776,7 +803,8 @@
     "status": "temp",
     "category": "nature",
     "placement": "ground",
-    "note": "spiky dune shrub"
+    "note": "spiky dune shrub",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "shop_hullhouse": {
     "path": "assets/world/shop_hullhouse/model.glb",
@@ -811,7 +839,8 @@
     "footprint": [
       4.6,
       3.4
-    ]
+    ],
+    "concept": "art/concepts/world/driftwood_cove_shop_detail.webp"
   },
   "fisher_hut": {
     "path": "assets/world/fisher_hut/model.glb",
@@ -845,7 +874,8 @@
     "footprint": [
       6.4,
       2.6
-    ]
+    ],
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "workers_hut": {
     "path": "assets/world/workers_hut/model.glb",
@@ -880,7 +910,8 @@
     "footprint": [
       3.8,
       3
-    ]
+    ],
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "boat_dock": {
     "path": "assets/world/boat_dock/model.glb",
@@ -914,7 +945,8 @@
     "footprint": [
       4.2,
       3
-    ]
+    ],
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "boat_skiff": {
     "path": "assets/world/boat_skiff/model.glb",
@@ -944,7 +976,9 @@
     "category": "vehicle",
     "placement": "water",
     "story": "small sailing skiff, white with teal gunwales, one bright replacement strake from a rock strike, patched sail",
-    "origin": "hull centre at water level (y=0), draws ~0.22 m; bow points +X"
+    "origin": "hull centre at water level (y=0), draws ~0.22 m; bow points +X",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "note_owner": "temporary: Agent G owns gear and boats; remove when G ships its version"
   },
   "fence_rope": {
     "path": "assets/world/fence_rope/model.glb",
@@ -972,7 +1006,8 @@
     "status": "temp",
     "category": "structure",
     "placement": "ground",
-    "note": "3 posts, 3.2 m long along X; chain end-to-end"
+    "note": "3 posts, 3.2 m long along X; chain end-to-end",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "fence_planks": {
     "path": "assets/world/fence_planks/model.glb",
@@ -1001,7 +1036,8 @@
     "category": "structure",
     "placement": "ground",
     "note": "2.3 m section along X",
-    "base_mesh": "layout after Kenney Fantasy Town fence (rebuilt)"
+    "base_mesh": "layout after Kenney Fantasy Town fence (rebuilt)",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "lantern_post": {
     "path": "assets/world/lantern_post/model.glb",
@@ -1030,7 +1066,8 @@
     "status": "temp",
     "category": "prop",
     "placement": "ground",
-    "light": "point light at (0.4, 1.86, 0) local, warm #ffc35a, intensity ~2, range 6"
+    "light": "point light at (0.4, 1.86, 0) local, warm #ffc35a, intensity ~2, range 6",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "lantern_hanging": {
     "path": "assets/world/lantern_hanging/model.glb",
@@ -1060,7 +1097,8 @@
     "category": "prop",
     "placement": "ground",
     "origin": "hook point at top (y=0.45)",
-    "light": "point light at (0, 0.2, 0) local, warm #ffc35a"
+    "light": "point light at (0, 0.2, 0) local, warm #ffc35a",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "signpost": {
     "path": "assets/world/signpost/model.glb",
@@ -1088,7 +1126,8 @@
     "status": "temp",
     "category": "prop",
     "placement": "ground",
-    "note": "blank arrow boards: red, blue, white; destinations are shown by UI"
+    "note": "blank arrow boards: red, blue, white; destinations are shown by UI",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "pier_steps": {
     "path": "assets/world/pier_steps/model.glb",
@@ -1116,7 +1155,8 @@
     "status": "temp",
     "category": "structure",
     "placement": "shore",
-    "origin": "ground level at the bottom tread; top tread meets pier deck height 0.75 at +Z... see bounds"
+    "origin": "ground level at the bottom tread; top tread meets pier deck height 0.75 at +Z... see bounds",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "crate_stack": {
     "path": "assets/world/crate_stack/model.glb",
@@ -1146,7 +1186,8 @@
     "status": "temp",
     "category": "prop",
     "placement": "ground",
-    "note": "KayKit crates repainted with cove_atlas, re-stacked, rope lashing + tarp added"
+    "note": "KayKit crates repainted with cove_atlas, re-stacked, rope lashing + tarp added",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "barrel": {
     "path": "assets/world/barrel/model.glb",
@@ -1173,7 +1214,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "prop",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "barrel_net": {
     "path": "assets/world/barrel_net/model.glb",
@@ -1202,7 +1244,8 @@
     "status": "temp",
     "category": "prop",
     "placement": "ground",
-    "note": "barrel with a net and floats thrown over it"
+    "note": "barrel with a net and floats thrown over it",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "barrel_lying": {
     "path": "assets/world/barrel_lying/model.glb",
@@ -1231,7 +1274,8 @@
     "status": "temp",
     "category": "prop",
     "placement": "ground",
-    "note": "KayKit barrel repainted (tar + rust hoops), lying on its side, mossy"
+    "note": "KayKit barrel repainted (tar + rust hoops), lying on its side, mossy",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "fish_crate": {
     "path": "assets/world/fish_crate/model.glb",
@@ -1260,7 +1304,8 @@
     "status": "temp",
     "category": "prop",
     "placement": "ground",
-    "note": "slatted crate with the day's catch (generic silver market fish, not a game species)"
+    "note": "slatted crate with the day's catch (generic silver market fish, not a game species)",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "fish_crate_stack": {
     "path": "assets/world/fish_crate_stack/model.glb",
@@ -1288,7 +1333,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "prop",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "bucket": {
     "path": "assets/world/bucket/model.glb",
@@ -1317,7 +1363,8 @@
     "status": "temp",
     "category": "prop",
     "placement": "ground",
-    "note": "stave bucket with sea water, rope handle, bait fish"
+    "note": "stave bucket with sea water, rope handle, bait fish",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "rope_coil": {
     "path": "assets/world/rope_coil/model.glb",
@@ -1344,7 +1391,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "prop",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "net_pile": {
     "path": "assets/world/net_pile/model.glb",
@@ -1372,7 +1420,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "prop",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "net_rack": {
     "path": "assets/world/net_rack/model.glb",
@@ -1401,7 +1450,8 @@
     "status": "temp",
     "category": "prop",
     "placement": "ground",
-    "note": "idle net spot: drying rack with net and floats"
+    "note": "idle net spot: drying rack with net and floats",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "crab_pot": {
     "path": "assets/world/crab_pot/model.glb",
@@ -1430,7 +1480,8 @@
     "status": "temp",
     "category": "prop",
     "placement": "ground",
-    "note": "idle crab-pot spot"
+    "note": "idle crab-pot spot",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "cooler": {
     "path": "assets/world/cooler/model.glb",
@@ -1460,7 +1511,8 @@
     "category": "prop",
     "placement": "ground",
     "story": "an old ship's sea chest lined for ice",
-    "note": "catch cooler (building level 1 / prop)"
+    "note": "catch cooler (building level 1 / prop)",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "anchor": {
     "path": "assets/world/anchor/model.glb",
@@ -1487,7 +1539,8 @@
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "prop",
-    "placement": "ground"
+    "placement": "ground",
+    "concept": "art/concepts/world/driftwood_cove_key.webp"
   },
   "fishing_rod": {
     "path": "assets/world/fishing_rod/model.glb",
@@ -1516,7 +1569,9 @@
     "category": "gear",
     "placement": "hand",
     "origin": "grip point (where the hand holds it); rod points +X (Blender) = +X glTF, reel hangs below (-Y); tip at x=2.2",
-    "attach": "parent to the right hand bone (handslot.r); child node \"rod_tip\" marks the line start"
+    "attach": "parent to the right hand bone (handslot.r); child node \"rod_tip\" marks the line start",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "note_owner": "temporary: Agent G owns gear and boats; remove when G ships its version"
   },
   "bobber": {
     "path": "assets/world/bobber/model.glb",
@@ -1545,7 +1600,9 @@
     "status": "temp",
     "category": "gear",
     "placement": "water",
-    "origin": "waterline: float body is half under water; child node \"line_eye\" at the top"
+    "origin": "waterline: float body is half under water; child node \"line_eye\" at the top",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "note_owner": "temporary: Agent G owns gear and boats; remove when G ships its version"
   },
   "lure": {
     "path": "assets/world/lure/model.glb",
@@ -1574,6 +1631,8 @@
     "status": "temp",
     "category": "gear",
     "placement": "line",
-    "origin": "line eye; lure hangs along -X"
+    "origin": "line eye; lure hangs along -X",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "note_owner": "temporary: Agent G owns gear and boats; remove when G ships its version"
   }
 }

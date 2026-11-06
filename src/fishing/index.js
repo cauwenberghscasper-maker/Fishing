@@ -38,6 +38,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   let reelTickTimer = 0;
   let retrieve = null;    // reel-in animation
   let modal = false;
+  let heldFish = null;    // fish shown at the catch until the catch moment ends
   const tip = new THREE.Vector3();
   const hand = new THREE.Vector3();
   const tmp = new THREE.Vector3();
@@ -232,6 +233,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     if (status === 'caught') {
       events.emit('fish:caught', {
         fishId: fish.id,
+        variant: fish.variant || 'basic',
         weight: roll.weight,
         sizeClass: roll.sizeClass,
         islandId: state.world.islandId,
@@ -240,14 +242,16 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       splashes.splash(player.position.x, player.position.z, 0.6);
       audio.catchChime();
       navigator.vibrate?.([30, 40, 60]);
-      fishSystem.finish(fish, 'caught');
+      fishSystem.finish(fish, 'held');
+      heldFish = fish;
+      events.emit('fish:landed-show', { uid: fish.uid, fishId: fish.id, variant: fish.variant || 'basic', object: fish.object });
       line.hide();
       lure.inWater = false;
       player.pose('celebrate', { once: true });
       catchTimer = 2.0;
       setMode('catch');
     } else {
-      events.emit('fish:lost', { fishId: fish.id, reason: status });
+      events.emit('fish:lost', { fishId: fish.id, variant: fish.variant || 'basic', reason: status });
       if (status === 'snap') { audio.snap(); hud.toast('Snap! The line broke'); cameraRig.shake(0.4); }
       else { audio.lost(); hud.toast('It threw the hook'); }
       fishSystem.finish(fish, 'escaped');
@@ -431,8 +435,20 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       if (status !== 'fighting') endFight(status);
     } else if (mode === 'catch') {
       cameraRig.setFocus(player.position.x, 0, player.position.z);
+      if (heldFish) {
+        // Held up in front of the player, turning slowly (catch-card turntable pose).
+        player.handAnchor.getWorldPosition(hand);
+        const o = heldFish.object;
+        o.position.set(hand.x + Math.sin(player.facing) * 0.35, hand.y + 0.25, hand.z + Math.cos(player.facing) * 0.35);
+        o.rotation.set(0, o.rotation.y + realDt * 1.6, Math.PI / 2 * 0.15);
+        heldFish.swim.set('landed');
+      }
       if (!modal) catchTimer -= realDt;
-      if (catchTimer <= 0) { player.pose(null); setMode('explore'); }
+      if (catchTimer <= 0) {
+        if (heldFish) { fishSystem.finish(heldFish, 'caught'); heldFish = null; }
+        player.pose(null);
+        setMode('explore');
+      }
     } else {
       cameraRig.setFocus(player.position.x, 0, player.position.z);
     }

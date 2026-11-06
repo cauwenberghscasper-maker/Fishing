@@ -6,15 +6,17 @@ import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.j
 import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js';
 
 const MANIFESTS = {
-  fish: 'assets/fish/manifest.json',
-  world: 'assets/world/manifest.json',
-  character: 'assets/character/manifest.json',
+  fish: 'assets/fish/manifest.json',          // Agent C
+  world: 'assets/world/manifest.json',        // Agent D
+  character: 'assets/character/manifest.json',// Agent D
+  gear: 'assets/gear/manifest.json',          // Agent G (keys like "rod.greenheart")
+  boats: 'assets/boats/manifest.json',        // Agent G
 };
 
 const loader = new GLTFLoader();
 loader.setMeshoptDecoder(MeshoptDecoder);
 
-const manifests = { fish: {}, world: {}, character: {} };
+const manifests = Object.fromEntries(Object.keys(MANIFESTS).map((k) => [k, {}]));
 const gltfCache = new Map(); // "kind/id" -> Promise<gltf|null>
 
 export async function loadManifests() {
@@ -92,7 +94,7 @@ export async function loadModel(kind, id) {
     if (!o.isMesh) return;
     o.castShadow = entry.castShadow !== false;
     o.receiveShadow = entry.receiveShadow !== false;
-    if (kind === 'world') {
+    if (kind === 'world' || kind === 'boats') {
       o.material = Array.isArray(o.material) ? o.material.map(dedupeMaterial) : dedupeMaterial(o.material);
     }
   });

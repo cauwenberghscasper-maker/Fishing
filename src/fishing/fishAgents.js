@@ -6,6 +6,7 @@ import { createSwimState, applySwimToModel } from './swim.js';
 import { cellIndex } from './silhouettes.js';
 import { fishInfo, rosterFor, TIER_POPULATION, TIER_RANK, timeAllows } from './fishData.js';
 import { loadModel, hasAsset } from '../core/assets.js';
+import { rollVariant } from './variants.js';
 
 const PERSONALITY = {
   shy: { notice: 4.5, approach: 0.75, circles: [2.2, 3.8], spook: 1.8, loseInterest: 0.15 },
@@ -54,7 +55,7 @@ export function createFishSystem({ state, island, water, splashes, events, under
     return Math.max(0.3, Math.min(d, water - 0.25));
   }
 
-  function makeFish(id, at = null, school = null) {
+  function makeFish(id, at = null, school = null, variant = null) {
     const info = fishInfo(state, id);
     const behaviour = info.behaviour;
     if (!behaviour) return null;
@@ -91,6 +92,8 @@ export function createFishSystem({ state, island, water, splashes, events, under
       school,
       slot: null,
       shadow: null,
+      variant: variant || rollVariant(state, state.world.islandId, state.world.weather),
+      object: null,          // anchor Object3D (Agent E attaches variant looks here)
       model: null,
       swimUniforms: null,
       gone: false,
@@ -102,8 +105,14 @@ export function createFishSystem({ state, island, water, splashes, events, under
       glow: glow ? glow.multiplyScalar(behaviour.glow.strength ?? 0.6) : null,
     });
     if (f.shadow === null) return null;
+    f.object = new THREE.Group();
+    f.object.name = `fish:${id}#${f.uid}`;
+    f.object.userData = { uid: f.uid, fishId: id, variant: f.variant, length: f.length, body: swim.body, hasModel: false, depth: f.depth };
+    f.object.position.set(f.pos.x, -f.depth, f.pos.z);
+    under.add(f.object);
     attachModel(f);
     fish.push(f);
+    events.emit('fish:spawn', { uid: f.uid, fishId: id, variant: f.variant, object: f.object });
     return f;
   }
 
@@ -115,7 +124,8 @@ export function createFishSystem({ state, island, water, splashes, events, under
     f.model = m.scene;
     f.model.scale.multiplyScalar(f.length);
     f.swimUniforms = applySwimToModel(f.model, f.swim.body);
-    under.add(f.model);
+    f.object.add(f.model);
+    f.object.userData.hasModel = true;
   }
 
   function spawnSchool(id) {
@@ -138,10 +148,12 @@ export function createFishSystem({ state, island, water, splashes, events, under
   }
 
   function removeFish(f) {
+    if (f.gone) return;
     f.gone = true;
     shadows.release(f.shadow);
     f.shadow = null;
-    if (f.model) f.model.removeFromParent();
+    events.emit('fish:despawn', { uid: f.uid, fishId: f.id, variant: f.variant, object: f.object });
+    f.object.removeFromParent();
     const i = fish.indexOf(f);
     if (i >= 0) fish.splice(i, 1);
     if (engaged === f) engaged = null;
@@ -367,7 +379,7 @@ export function createFishSystem({ state, island, water, splashes, events, under
         f.swim.set('thrash');
         if (f.timer <= 0) {
           events.emit('hook:result', { fishId: f.id, success: false });
-          events.emit('fish:lost', { fishId: f.id, reason: 'escape' });
+          events.emit('fish:lost', { fishId: f.id, variant: f.variant, reason: 'escape' });
           flee(f, L.x, L.z);
           engageTimer = rand(2, 4);
         }
@@ -413,7 +425,7 @@ export function createFishSystem({ state, island, water, splashes, events, under
     // Camouflage (kelp wraith): faint while slow, shows itself when it moves.
     const camo = f.behaviour.camouflage ? THREE.MathUtils.lerp(f.behaviour.camouflage, 1, Math.min(1, f.speed / 1.2)) : 1;
     const depthOpacity = THREE.MathUtils.lerp(0.86, 0.34, THREE.MathUtils.smoothstep(f.depth, 0.3, 6));
-    const inAir = airY > 0.02;
+    const inAir = airY > 0.02 || f.held;
     const glowBase = f.behaviour.glow ? (f.behaviour.glow.dusk ? 0.25 + 0.75 * lighting.dusk : 1) : 0;
     shadows.set(f.shadow,
       { x: f.pos.x, y: inAir ? -0.05 : y, z: f.pos.z, heading: f.heading, length: f.length * (1 + f.inflate * 0.15), width: 1 },
@@ -424,9 +436,14 @@ export function createFishSystem({ state, island, water, splashes, events, under
         blur: Math.min(3, f.depth * 0.5),
         glow: glowBase * f.fade * (inAir ? 0 : 1),
       });
+    if (!f.held) {
+      f.object.position.set(f.pos.x, y, f.pos.z);
+      f.object.rotation.set(f.pitch || 0, f.heading, f.roll || 0, 'YXZ');
+    }
+    f.object.userData.depth = inAir ? -airY : f.depth;
+    f.object.userData.inAir = inAir;
+    f.object.userData.fade = f.fade;
     if (f.model) {
-      f.model.position.set(f.pos.x, y, f.pos.z);
-      f.model.rotation.set(f.pitch || 0, f.heading, f.roll || 0, 'YXZ');
       const u = f.swimUniforms;
       u.uSwimA.value.set(f.swim.bodyId, f.swim.phase(), f.swim.amp, f.swim.base.freq);
       u.uSwimB.value.set(f.swim.bend, f.retract, f.inflate, 0);
@@ -503,7 +520,7 @@ export function createFishSystem({ state, island, water, splashes, events, under
       if (f.state === 'bite') return { result: 'hooked', fish: f };
       if (['approach', 'inspect', 'nibble', 'strike'].includes(f.state)) {
         events.emit('hook:result', { fishId: f.id, success: false });
-        events.emit('fish:lost', { fishId: f.id, reason: 'spooked' });
+        events.emit('fish:lost', { fishId: f.id, variant: f.variant, reason: 'spooked' });
         if (lure) flee(f, lure.x, lure.z);
         engageTimer = rand(2.5, 4);
         return { result: 'spooked', fish: f };
@@ -528,6 +545,15 @@ export function createFishSystem({ state, island, water, splashes, events, under
     // Fish leaves the scene (caught or escaped with the hook).
     finish(f, how) {
       if (how === 'caught') { removeFish(f); return; }
+      if (how === 'held') {
+        // Held up at the catch: the anchor leaves the water; the caller positions it.
+        f.held = true;
+        f.controlled = true;
+        f.airY = 0;
+        f.object.userData.inAir = true;
+        if (f.model) f.model.visible = true;
+        return;
+      }
       f.controlled = false;
       f.retract = 0;
       f.inflate = 0;
@@ -544,19 +570,20 @@ export function createFishSystem({ state, island, water, splashes, events, under
       return fish.filter((f) => Math.hypot(f.pos.x - x, f.pos.z - z) < r + f.length * 0.3).length;
     },
     // Debug helpers
-    spawn(id, x, z) {
+    spawn(id, x, z, variant) {
       const info = fishInfo(state, id);
       if (!info.behaviour) return null;
-      if (x === undefined) return makeFish(id);
-      return makeFish(id, { x, z, area: { x, z, r: 4 } });
+      if (x === undefined || x === null) return makeFish(id, null, null, variant);
+      return makeFish(id, { x, z, area: { x, z, r: 4 } }, null, variant);
     },
-    forceBite(id) {
+    remove: removeFish,
+    forceBite(id, variant) {
       if (!lure) return null;
       let f = engaged;
       if (!f || (id && f.id !== id)) {
         if (f && !f.controlled) setState(f, 'wander', 2);
-        f = fish.find((c) => (!id || c.id === id) && !c.controlled && !c.air)
-          || makeFish(id || 'driftback', { x: lure.x + 1.5, z: lure.z + 1.0, area: { x: lure.x, z: lure.z, r: 4 } });
+        f = (!variant && fish.find((c) => (!id || c.id === id) && !c.controlled && !c.air))
+          || makeFish(id || 'driftback', { x: lure.x + 1.5, z: lure.z + 1.0, area: { x: lure.x, z: lure.z, r: 4 } }, null, variant);
         if (!f) return null;
       }
       engaged = f;

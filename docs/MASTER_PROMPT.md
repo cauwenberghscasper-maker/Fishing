@@ -116,6 +116,13 @@ Travel by boat from the home pier. Unlock by coins + a catch requirement.
 - Buildings: Shop (sell/buy), Cooler (catch capacity), Smokehouse (turns fish into higher-value goods over time), Aquarium (displays caught species, earns visitor income, shows rare fish swimming), Boat dock (travel, boat upgrades), Workers' hut (hire fishers), Net & crab-pot spots.
 - **Every building level is its own model** (at least 3 levels each): for example the shop starts as a crate stall under a sail, becomes the upturned-hull shop, then a two-storey hull with a crow's nest. Workers you hire appear on the island as their own characters.
 
+**Fixed ids (every agent uses these):**
+- Island core: `sandbar` (what you start on). Plots, in a sensible buying order: `palm_spit`, `tidepool_shelf`, `wreck_beach`, `kelp_shallows`, `basalt_cliff`, `mooring_deep`. Model ids `plot_<plotId>` (terrain dressing; A sculpts the terrain shape).
+- Pier modules: `pier_*` from D's kit, bought as `pier_1` … `pier_6`.
+- Buildings × levels: `shop`, `cooler`, `smokehouse`, `aquarium`, `boat_dock`, `workers_hut`, each `l1`, `l2`, `l3` → model ids `<building>_l<n>` (e.g. `shop_l2` is the upturned-hull shop). Day one has only the `shop_l1` crate stall and the tarp lean-to `camp_l0`.
+- Boats: `rowboat` (start), `patched_skiff`, `sail_sloop`, `storm_cutter`.
+- Gear: the item ids in `public/data/items.json` (rods, reels, lines, baits); model ids `<slot>.<itemId>` (e.g. `rod.greenheart`).
+
 ### 4.6b Everything has its own model
 - **Gear:** every rod, reel and bait in `items.json` has its own 3D model. The rod and reel are visible in the player's hands, the bait on the hook, and all of them in a turning 3D preview in the shop. Lines are a material (colour, thickness, glow) on the line rope.
 - **Boats:** every boat upgrade is its own model (rowboat → patched skiff → sail sloop → later islands' boats), visible at the dock and used for travel.

@@ -105,21 +105,64 @@ export function createRod() {
   pivot.add(mesh);
   let fromAsset = false;
 
-  async function load() {
-    const id = pickAsset('character', ['rod', 'fishing_rod']);
-    if (!id) return false;
-    const m = await loadModel('character', id);
-    if (!m) return false;
-    const box = new THREE.Box3().setFromObject(m.scene);
-    length = Math.max(0.5, box.max.y - box.min.y);
-    uniforms.uBend.value.y = length;
-    pivot.remove(mesh);
-    applyBendToModel(m.scene, uniforms);
-    mesh = m.scene;
-    mesh.position.y = -length * 0.15;
-    pivot.add(mesh);
-    fromAsset = true;
-    return true;
+  // Bake a model into "rod space": grip at the origin, tip along +Y, so the bend shader works
+  // whatever axis the model was authored on. Returns the grip→tip length.
+  function bakeRodSpace(scene) {
+    scene.updateMatrixWorld(true);
+    const grip = scene.getObjectByName('grip');
+    const tipNode = scene.getObjectByName('tip');
+    const box = new THREE.Box3().setFromObject(scene);
+    const g = grip ? grip.getWorldPosition(new THREE.Vector3()) : new THREE.Vector3((box.min.x + box.max.x) / 2, box.min.y, (box.min.z + box.max.z) / 2);
+    let t;
+    if (tipNode) t = tipNode.getWorldPosition(new THREE.Vector3());
+    else {
+      // No tip node: the far end of the longest axis.
+      const size = box.getSize(new THREE.Vector3());
+      const axis = size.x > size.y && size.x > size.z ? 'x' : size.z > size.y ? 'z' : 'y';
+      t = g.clone();
+      t[axis] = Math.abs(box.max[axis] - g[axis]) > Math.abs(box.min[axis] - g[axis]) ? box.max[axis] : box.min[axis];
+    }
+    const dir = t.clone().sub(g);
+    const len = Math.max(0.3, dir.length());
+    const q = new THREE.Quaternion().setFromUnitVectors(dir.normalize(), new THREE.Vector3(0, 1, 0));
+    const toRod = new THREE.Matrix4().makeRotationFromQuaternion(q).multiply(new THREE.Matrix4().makeTranslation(-g.x, -g.y, -g.z));
+    const out = new THREE.Group();
+    scene.traverse((o) => {
+      if (!o.isMesh) return;
+      const geo = o.geometry.clone();
+      geo.applyMatrix4(new THREE.Matrix4().multiplyMatrices(toRod, o.matrixWorld));
+      const m = new THREE.Mesh(geo, o.material);
+      m.castShadow = true;
+      out.add(m);
+    });
+    return { group: out, length: len };
+  }
+
+  let loadedId = null;
+  // Equipped rod from Agent G's gear manifest (`rod.<itemId>`), else Agent D's fishing_rod,
+  // else the temporary cane above.
+  async function load(itemId) {
+    const candidates = [];
+    if (itemId) candidates.push(['gear', `rod.${itemId}`]);
+    candidates.push(['gear', 'rod.splitcane'], ['world', 'fishing_rod'], ['character', 'rod']);
+    for (const [kind, id] of candidates) {
+      if (!pickAsset(kind, [id])) continue;
+      if (loadedId === `${kind}/${id}`) return true;
+      const m = await loadModel(kind, id);
+      if (!m) continue;
+      const baked = bakeRodSpace(m.scene);
+      length = baked.length;
+      uniforms.uBend.value.y = length;
+      applyBendToModel(baked.group, uniforms);
+      pivot.remove(mesh);
+      mesh = baked.group;
+      mesh.position.y = 0;
+      pivot.add(mesh);
+      fromAsset = true;
+      loadedId = `${kind}/${id}`;
+      return true;
+    }
+    return false;
   }
 
   const tip = new THREE.Vector3();

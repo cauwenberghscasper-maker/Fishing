@@ -1,6 +1,6 @@
 {
   "storm_marlin": {
-    "path": null,
+    "path": "assets/fish/storm_marlin/model.glb",
     "preview": "assets/fish/storm_marlin/preview.webp",
     "previewSize": [
       512,
@@ -9,9 +9,13 @@
     "concept": "art/concepts/fish/storm_marlin.webp",
     "scale": 1,
     "body": "fusiform",
-    "tris": 0,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept"
+    "tris": 3314,
+    "signature": {
+      "vertexAttribute": "_SIGNATURE",
+      "texelMask": "emissiveTexture.a"
+    },
+    "licence": "generated: Qwen-Image (Apache-2.0) concept \u2192 Blender bpy build by Agent C (own work)",
+    "status": "temp"
   },
   "temple_manta": {
     "path": null,

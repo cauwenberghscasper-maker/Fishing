@@ -20,6 +20,8 @@ const randInt = (a, b) => Math.floor(rand(a, b + 1));
 const wrapAngle = (a) => Math.atan2(Math.sin(a), Math.cos(a));
 
 let uidCounter = 0;
+// Fish read larger than life from the high camera (the key art does the same).
+const DISPLAY_SCALE = 1.5;
 
 export function createFishSystem({ state, island, water, splashes, events, under, shadows, lighting, audio }) {
   const fish = [];
@@ -81,7 +83,7 @@ export function createFishSystem({ state, island, water, splashes, events, under
       stateTime: 0,
       timer: rand(1, 3),
       swim,
-      length: (behaviour.length || 0.8) * rand(0.88, 1.12),
+      length: (behaviour.length || 0.8) * DISPLAY_SCALE * rand(0.88, 1.12),
       fade: 0,
       highlight: 0,
       retract: 0,

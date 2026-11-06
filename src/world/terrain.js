@@ -52,7 +52,8 @@ export function createHeightFunction(layout) {
         t = t * t * (3 - 2 * t);
         hs = SHORE + (sh.top - SHORE) * t;
       } else {
-        hs = SHORE - maxDepth * (1 - Math.exp(-d / fall)) - d * 0.02;
+        // Gentle turquoise shelf near the shore, then a drop-off into deep teal.
+        hs = SHORE - maxDepth * (1 - Math.exp(-Math.pow(d / fall, 1.7))) - d * 0.01;
       }
       h = h === -Infinity ? hs : smax(h, hs, sh.cliff ? 0.9 : 1.6);
       rough = Math.max(rough, sh.rough * t);
@@ -145,19 +146,20 @@ export function createTerrain(layout, palette) {
           float fine = vnoise(p.xz * 3.7);
 
           // Sand: warm gold, wind ripples, darker wet band that follows the wash.
-          vec3 sand = uSandDry * (0.93 + 0.14 * big + 0.05 * fine);
-          float rip = sin(dot(p.xz, vec2(0.62, 0.78)) * 6.5 + mid * 7.0);
-          sand *= 1.0 + 0.045 * rip;
+          vec3 sand = uSandDry * (0.9 + 0.16 * big + 0.04 * fine);
+          float rip = sin(dot(p.xz, vec2(0.62, 0.78)) * 5.5 + mid * 7.0);
+          float ripMask = smoothstep(0.2, 0.9, p.y) * 0.9;
+          sand = mix(sand, sand * vec3(1.12, 1.08, 0.98), smoothstep(0.55, 1.0, rip) * ripMask * 0.6);
+          sand = mix(sand, sand * vec3(0.86, 0.84, 0.86), smoothstep(-0.55, -1.0, rip) * ripMask * 0.5);
           float wash = 0.26 + 0.1 * sin(uTime * 0.55 + mid * 2.5) + 0.05 * sin(uTime * 1.3 + p.x * 0.3);
           float wet = 1.0 - smoothstep(wash, wash + 0.32, p.y);
           sand = mix(sand, uSandWet * (0.9 + 0.2 * fine), wet * 0.9);
           float under = smoothstep(0.05, -1.2, p.y);
-          sand = mix(sand, uSandUnder * (0.85 + 0.25 * mid), under);
+          sand = mix(sand, uSandUnder * (0.95 + 0.08 * mid), under);
 
           // Grass: tops of cliffs and headlands, a few tufts at the back of the beach.
           float grassH = smoothstep(1.15, 1.9, p.y + mid * 0.7) * (1.0 - smoothstep(0.32, 0.55, slope));
-          float tufts = smoothstep(0.62, 0.7, p.y) * smoothstep(0.62, 0.78, fbm3(p.xz * 0.45 + 9.0) + 0.35) * (1.0 - smoothstep(0.25, 0.4, slope));
-          float grassMask = clamp(max(grassH, tufts * 0.85), 0.0, 1.0);
+          float grassMask = grassH;
           vec3 grass = mix(uGrassDark, uGrass, 0.55 + 0.45 * mid);
           grass = mix(grass, uGrassTip, smoothstep(0.2, 0.8, fine * 0.6 + big * 0.5 + 0.2));
 

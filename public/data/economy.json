@@ -1,10 +1,17 @@
 {
-  "_notes": "All balancing lives here (master prompt 4.7-4.8). Sell price = baseValue x weightFactor x sizeClass.mult x market x (1 + shop sellBonus), rounded, min 1. t = (weight - min) / (max - min) of the fish's weight range.",
+  "_notes": "Agent B. All balancing lives here (master prompt 4.6-4.8). Sell price = baseValue x weightFactor x sizeClass.mult x variant.valueMult x market x (1 + shop sellBonus), rounded, min 1. t = (weight - min) / (max - min) of the fish's weight range.",
   "start": {
     "coins": 15,
     "pearls": 0,
     "gear": { "rod": "splitcane", "reel": "click_reel", "line": "cotton_line", "bait": "breadcrust" },
-    "hearts": 3
+    "hearts": 3,
+    "island": {
+      "plots": ["sandbar"],
+      "piers": [],
+      "boat": "rowboat",
+      "buildings": { "shop": 1, "cooler": 0, "workers_hut": 0, "smokehouse": 0, "aquarium": 0, "boat_dock": 0 }
+    },
+    "_island": "Day one is tiny (4.6): the sandbar, a crooked pier stub (part of the sandbar, one fishing spot), the tarp lean-to camp_l0 with a wicker basket, the shop_l1 crate stall and the rowboat."
   },
   "sell": {
     "weightFactor": { "atMin": 0.8, "atMax": 1.2 },
@@ -17,14 +24,19 @@
     { "id": "trophy", "name": "Trophy", "below": 1.01, "mult": 1.8 }
   ],
   "weightRoll": {
-    "_notes": "Suggested roll for Agent A: t = random() ^ skew; a perfect cast uses perfectSkew (heavier fish more likely).",
+    "_notes": "Suggested roll for Agent A (rules.js rollWeight): t = random() ^ skew; a perfect cast uses perfectSkew (heavier fish more likely).",
     "skew": 1.35,
     "perfectSkew": 1.0
   },
   "pearls": {
-    "_notes": "Earned only, never sold. Granted per catch by tier, plus a bonus for a trophy.",
+    "_notes": "Earned only, never sold. Per catch by tier, plus a trophy bonus, plus the variant's pearls (variants.json).",
     "byTier": { "common": 0, "uncommon": 0, "rare": 1, "epic": 2, "big": 3, "legendary": 5, "boss": 10 },
     "trophyBonus": 1
+  },
+  "variantSets": {
+    "_notes": "Logbook goals per species. Reward coins = the fish's baseValue x coinsPerBase (x100 in test mode), paid once when the set is complete.",
+    "morphs": { "name": "Morph set", "ids": ["basic", "bleached", "inkdark", "gilded"], "coinsPerBase": 20, "pearls": 2 },
+    "all": { "name": "Every variant", "ids": "all", "coinsPerBase": 250, "pearls": 12 }
   },
   "market": {
     "hotFish": { "bonus": 1.5, "excludeTiers": ["big", "legendary", "boss"] },
@@ -37,116 +49,168 @@
     }
   },
   "workers": {
-    "_notes": "A crew member lands one fish every catchSeconds from the island's common and uncommon pool (by spawnWeight). It is sold on the spot for the pool's average baseValue x valueMult x hut rateMult x (1 + smokehouse bonus).",
-    "hireCost": 120,
+    "_notes": "A fisher needs a bunk (workers' hut) and a spot to fish from (the sandbar stub, every pier, and plots with crewSpots). Each lands one fish every catchSeconds from the home island's common and uncommon pool (by spawnWeight), sold on the spot for the pool's average baseValue x valueMult x hut rateMult x (1 + smokehouse crewBonus).",
+    "hireCost": 80,
     "costGrowth": 1.8,
     "catchSeconds": 90,
     "valueMult": 0.5,
     "pool": ["common", "uncommon"],
+    "baseSpots": 1,
     "names": ["Old Tobin", "Maris", "Pell", "Ines", "Corrie", "Bram", "Sol", "Juna", "Talley", "Ottoline", "Dace", "Fen", "Rook", "Annick", "Gale", "Morrow"]
   },
   "nets": {
     "_notes": "Crab pots and nets on owned land plots fill over time.",
     "coinsPerHour": 60
   },
-  "buildings": {
-    "shop": {
-      "name": "Shop",
-      "about": "Sells your catch. Better counters and buyers pay more.",
-      "levels": [
-        { "name": "Tackle Shed", "cost": 0, "sellBonus": 0 },
-        { "name": "Tackle & Trade", "cost": 500, "sellBonus": 0.05 },
-        { "name": "Harbour Market", "cost": 2500, "sellBonus": 0.1 },
-        { "name": "Merchant's Wharf", "cost": 9000, "sellBonus": 0.16 },
-        { "name": "Grand Exchange", "cost": 30000, "sellBonus": 0.25 }
-      ]
-    },
-    "cooler": {
-      "name": "Cooler",
-      "about": "Holds the fish you keep until you sell them.",
-      "levels": [
-        { "name": "Salt Barrel", "cost": 0, "capacity": 12 },
-        { "name": "Ice Chest", "cost": 150, "capacity": 18 },
-        { "name": "Ice House", "cost": 900, "capacity": 26 },
-        { "name": "Cold Cellar", "cost": 4000, "capacity": 38 },
-        { "name": "Frost Vault", "cost": 15000, "capacity": 56 }
-      ]
-    },
-    "workers_hut": {
-      "name": "Workers' hut",
-      "about": "Room for your crew. A bigger hut fits more fishers and they work faster.",
-      "levels": [
-        { "name": "Lean-to", "cost": 0, "slots": 2, "rateMult": 1.0 },
-        { "name": "Net Loft", "cost": 400, "slots": 3, "rateMult": 1.2 },
-        { "name": "Bunkhouse", "cost": 1800, "slots": 4, "rateMult": 1.4 },
-        { "name": "Crew Hall", "cost": 7000, "slots": 6, "rateMult": 1.7 },
-        { "name": "Guild House", "cost": 24000, "slots": 8, "rateMult": 2.0 }
-      ]
-    },
-    "smokehouse": {
-      "name": "Smokehouse",
-      "about": "Smokes part of the crew's catch so it sells for more.",
-      "levels": [
-        { "name": "Not built", "cost": 0, "crewBonus": 0 },
-        { "name": "Smoke Rack", "cost": 1500, "crewBonus": 0.25 },
-        { "name": "Smokehouse", "cost": 6000, "crewBonus": 0.5 },
-        { "name": "Cure House", "cost": 20000, "crewBonus": 0.8 }
-      ]
-    },
-    "aquarium": {
-      "name": "Aquarium",
-      "about": "Visitors pay to see every species in your logbook.",
-      "levels": [
-        { "name": "Not built", "cost": 0, "coinsPerSpeciesHour": 0 },
-        { "name": "Tide Tank", "cost": 2500, "coinsPerSpeciesHour": 8 },
-        { "name": "Glass Gallery", "cost": 9000, "coinsPerSpeciesHour": 14 },
-        { "name": "Aquarium Hall", "cost": 28000, "coinsPerSpeciesHour": 22 }
-      ]
-    },
-    "boat_dock": {
-      "name": "Boat dock",
-      "about": "Your boat. A bigger dock and boat reach farther islands.",
-      "levels": [
-        { "name": "Mooring Post", "cost": 0, "reach": 2 },
-        { "name": "Boat Dock", "cost": 2000, "reach": 4 },
-        { "name": "Shipwright's Slip", "cost": 10000, "reach": 6 },
-        { "name": "Harbour Mole", "cost": 35000, "reach": 8 }
-      ]
-    }
-  },
   "plots": {
-    "gull_spit": {
-      "name": "Gull Spit",
-      "about": "A sandbar the gulls already claimed. Room for a net.",
-      "cost": 1500,
+    "sandbar": {
+      "name": "The Sandbar",
+      "about": "Barely bigger than your boat. A pier stub, a tarp, a fire.",
+      "cost": 0,
+      "order": 0,
+      "model": "plot_sandbar",
+      "nets": 0,
+      "crewSpots": 0
+    },
+    "palm_spit": {
+      "name": "Palm Spit",
+      "about": "A crooked spit of sand with three leaning palms. Room for a crew to sleep.",
+      "cost": 70,
       "order": 1,
-      "nets": 1,
+      "model": "plot_palm_spit",
+      "nets": 0,
       "crewSpots": 0
     },
-    "tidewrack_flats": {
-      "name": "Tidewrack Flats",
-      "about": "Flat sand full of things the sea forgot. Room for two more fishers and a net.",
-      "cost": 6000,
+    "tidepool_shelf": {
+      "name": "Tide-pool Shelf",
+      "about": "Flat rock full of pools at low tide. Crabs, anemones, and a place for an aquarium.",
+      "cost": 700,
       "order": 2,
+      "model": "plot_tidepool_shelf",
       "nets": 1,
-      "crewSpots": 2
+      "crewSpots": 1
     },
-    "lantern_point": {
-      "name": "Lantern Point",
-      "about": "A rocky point with a view of every island. Two nets fit off the rocks.",
-      "cost": 18000,
+    "wreck_beach": {
+      "name": "Wreck Beach",
+      "about": "Where the red boat beached itself years ago. Good timber, good shelter, room for a dock.",
+      "cost": 2600,
       "order": 3,
-      "nets": 2,
-      "crewSpots": 0
+      "model": "plot_wreck_beach",
+      "nets": 0,
+      "crewSpots": 1
     },
     "kelp_shallows": {
       "name": "Kelp Shallows",
       "about": "Shallow water thick with kelp. The wraiths like it here.",
-      "cost": 45000,
+      "cost": 7500,
       "order": 4,
+      "model": "plot_kelp_shallows",
       "nets": 2,
       "crewSpots": 2
+    },
+    "basalt_cliff": {
+      "name": "Basalt Cliff",
+      "about": "Black columns rising out of the surf. One day a lighthouse will stand here.",
+      "cost": 18000,
+      "order": 5,
+      "model": "plot_basalt_cliff",
+      "nets": 0,
+      "crewSpots": 1
+    },
+    "mooring_deep": {
+      "name": "The Old Mooring's Deep",
+      "about": "The dark water where the Old Mooring has lived for fifty years.",
+      "cost": 40000,
+      "order": 6,
+      "model": "plot_mooring_deep",
+      "nets": 1,
+      "crewSpots": 2
     }
+  },
+  "piers": {
+    "_notes": "Bought in order. Each needs its plot, reaches deeper water (depth in metres, for Agent A) and gives the crew one more spot to fish from.",
+    "pier_1": { "name": "Plank Walk", "about": "Six planks past the stub. Just deep enough for the flounder.", "cost": 45, "order": 1, "plot": "sandbar", "depth": 5, "crewSpots": 1 },
+    "pier_2": { "name": "Palm Pier", "about": "Lashed to the palms and out over the sand drop.", "cost": 400, "order": 2, "plot": "palm_spit", "depth": 7, "crewSpots": 1 },
+    "pier_3": { "name": "Long Pier", "about": "Long enough to reach the kelp line.", "cost": 1400, "order": 3, "plot": "tidepool_shelf", "depth": 10, "crewSpots": 1 },
+    "pier_4": { "name": "Wreck Pier", "about": "Built on the red boat's ribs. Deep water on both sides.", "cost": 4200, "order": 4, "plot": "wreck_beach", "depth": 13, "crewSpots": 1 },
+    "pier_5": { "name": "Kelp Pier", "about": "Floats on barrels above the kelp forest.", "cost": 11000, "order": 5, "plot": "kelp_shallows", "depth": 16, "crewSpots": 1 },
+    "pier_6": { "name": "Mooring Pier", "about": "Ends right above the Old Mooring's hole.", "cost": 28000, "order": 6, "plot": "mooring_deep", "depth": 20, "crewSpots": 1 }
+  },
+  "buildings": {
+    "_notes": "Level 0 = not built. Each level has its own model <building>_l<n>. A building needs its site plot before level 1.",
+    "shop": {
+      "name": "Shop",
+      "site": "sandbar",
+      "about": "Sells your catch. A better shop draws better buyers.",
+      "levels": [
+        { "name": "Not built", "cost": 0, "sellBonus": 0 },
+        { "name": "Crate Stall", "about": "A crate stall under a patched sail.", "cost": 0, "sellBonus": 0, "model": "shop_l1" },
+        { "name": "Upturned Hull", "about": "An old hull flipped over and turned into a proper shop.", "cost": 650, "sellBonus": 0.08, "model": "shop_l2" },
+        { "name": "Crow's Nest Hull", "about": "Two storeys of hull, with a crow's nest to spot buyers from afar.", "cost": 9000, "sellBonus": 0.18, "model": "shop_l3" }
+      ]
+    },
+    "cooler": {
+      "name": "Cooler",
+      "site": "sandbar",
+      "about": "Holds the fish you keep until you sell them.",
+      "levels": [
+        { "name": "Wicker Basket", "about": "Lives under the tarp. Smells of yesterday.", "cost": 0, "capacity": 8 },
+        { "name": "Salt Barrel", "about": "A barrel of coarse salt. Keeps fish for days.", "cost": 60, "capacity": 14, "model": "cooler_l1" },
+        { "name": "Ice Chest", "about": "Lined with cork, packed with ice from who knows where.", "cost": 1000, "capacity": 24, "model": "cooler_l2" },
+        { "name": "Ice House", "about": "Stone walls, sawdust and ice blocks. Nothing spoils here.", "cost": 6000, "capacity": 40, "model": "cooler_l3" }
+      ]
+    },
+    "workers_hut": {
+      "name": "Workers' hut",
+      "site": "palm_spit",
+      "about": "Bunks for your crew. A bigger hut fits more fishers, and they work faster.",
+      "levels": [
+        { "name": "Not built", "cost": 0, "slots": 0, "rateMult": 1 },
+        { "name": "Net Loft", "about": "Hammocks strung between the palms, under a net roof.", "cost": 90, "slots": 2, "rateMult": 1, "model": "workers_hut_l1" },
+        { "name": "Bunkhouse", "about": "Proper walls, four bunks and a stove.", "cost": 1800, "slots": 4, "rateMult": 1.25, "model": "workers_hut_l2" },
+        { "name": "Crew Hall", "about": "A long hall with a table for the whole crew.", "cost": 9000, "slots": 6, "rateMult": 1.5, "model": "workers_hut_l3" }
+      ]
+    },
+    "smokehouse": {
+      "name": "Smokehouse",
+      "site": "wreck_beach",
+      "about": "Smokes part of the crew's catch so it sells for more.",
+      "levels": [
+        { "name": "Not built", "cost": 0, "crewBonus": 0 },
+        { "name": "Smoke Rack", "about": "Racks over a driftwood fire.", "cost": 2000, "crewBonus": 0.25, "model": "smokehouse_l1" },
+        { "name": "Smokehouse", "about": "A shed built from the wreck's planks, smoking day and night.", "cost": 7000, "crewBonus": 0.5, "model": "smokehouse_l2" },
+        { "name": "Cure House", "about": "Barrels of brine, hanging fish and a proper chimney.", "cost": 22000, "crewBonus": 0.8, "model": "smokehouse_l3" }
+      ]
+    },
+    "aquarium": {
+      "name": "Aquarium",
+      "site": "tidepool_shelf",
+      "about": "Visitors pay to see every species in your logbook.",
+      "levels": [
+        { "name": "Not built", "cost": 0, "coinsPerSpeciesHour": 0 },
+        { "name": "Tide Tank", "about": "A walled-off tide pool with a viewing plank.", "cost": 1500, "coinsPerSpeciesHour": 8, "model": "aquarium_l1" },
+        { "name": "Glass Gallery", "about": "Salvaged portholes set into rock tanks.", "cost": 8000, "coinsPerSpeciesHour": 14, "model": "aquarium_l2" },
+        { "name": "Aquarium Hall", "about": "A great glass hall. The rare fish glow after dark.", "cost": 26000, "coinsPerSpeciesHour": 22, "model": "aquarium_l3" }
+      ]
+    },
+    "boat_dock": {
+      "name": "Boat dock",
+      "site": "wreck_beach",
+      "about": "Where your boat ties up. A bigger dock can fit a bigger boat.",
+      "levels": [
+        { "name": "Not built", "cost": 0, "maxBoat": 1 },
+        { "name": "Plank Jetty", "about": "A jetty on the wreck's keel. Room for a skiff.", "cost": 1200, "maxBoat": 2, "model": "boat_dock_l1" },
+        { "name": "Boat Dock", "about": "A real dock with a crane for a sloop.", "cost": 9000, "maxBoat": 3, "model": "boat_dock_l2" },
+        { "name": "Shipwright's Slip", "about": "A slipway and a shipwright who never sleeps.", "cost": 30000, "maxBoat": 4, "model": "boat_dock_l3" }
+      ]
+    }
+  },
+  "boats": {
+    "_notes": "Bought in order. tier must fit the dock (boat_dock maxBoat). reach = the farthest island index the boat can sail to.",
+    "rowboat": { "name": "Rowboat", "about": "It leaks, but only a little.", "cost": 0, "tier": 1, "reach": 1 },
+    "patched_skiff": { "name": "Patched Skiff", "about": "More patch than skiff. Gets you to the reef and back.", "cost": 2000, "tier": 2, "reach": 3 },
+    "sail_sloop": { "name": "Sail Sloop", "about": "A real sail. The fjord and the caldera are in reach.", "cost": 15000, "tier": 3, "reach": 5 },
+    "storm_cutter": { "name": "Storm Cutter", "about": "Built to sail straight through lightning.", "cost": 60000, "tier": 4, "reach": 8 }
   },
   "offline": {
     "_notes": "Crew, nets and aquarium keep earning while the game is closed, up to capHours. The night watch raises the cap.",

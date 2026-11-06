@@ -1,0 +1,720 @@
+{
+ "gear.rod.splitcane": {
+  "path": "art/gear/rod_splitcane.webp",
+  "name": "Grandpa's Splitcane",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model rod.splitcane",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.rod.driftwood_whip": {
+  "path": "art/gear/rod_driftwood_whip.webp",
+  "name": "Driftwood Whip",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model rod.driftwood_whip",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.rod.greenheart": {
+  "path": "art/gear/rod_greenheart.webp",
+  "name": "Harbourmaster's Greenheart",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model rod.greenheart",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.rod.whalebone_arc": {
+  "path": "art/gear/rod_whalebone_arc.webp",
+  "name": "Whalebone Arc",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model rod.whalebone_arc",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.rod.tidecaster": {
+  "path": "art/gear/rod_tidecaster.webp",
+  "name": "Brass-Ferrule Tidecaster",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model rod.tidecaster",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.rod.lighthouse_spar": {
+  "path": "art/gear/rod_lighthouse_spar.webp",
+  "name": "Lighthouse Spar",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model rod.lighthouse_spar",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.reel.click_reel": {
+  "path": "art/gear/reel_click_reel.webp",
+  "name": "Rusty Click Reel",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model reel.click_reel",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.reel.tinker_winch": {
+  "path": "art/gear/reel_tinker_winch.webp",
+  "name": "Tinker's Brass Winch",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model reel.tinker_winch",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.reel.marigold_ratchet": {
+  "path": "art/gear/reel_marigold_ratchet.webp",
+  "name": "Marigold Ratchet",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model reel.marigold_ratchet",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.reel.lantern_drum": {
+  "path": "art/gear/reel_lantern_drum.webp",
+  "name": "Lantern-Drum Reel",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model reel.lantern_drum",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.reel.sextant_reel": {
+  "path": "art/gear/reel_sextant_reel.webp",
+  "name": "Sextant Gear Reel",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model reel.sextant_reel",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.line.cotton_line": {
+  "path": "art/gear/line_cotton_line.webp",
+  "name": "Mended Cotton Line",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.line.tarred_hemp": {
+  "path": "art/gear/line_tarred_hemp.webp",
+  "name": "Tarred Hemp",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.line.gutstring": {
+  "path": "art/gear/line_gutstring.webp",
+  "name": "Gutstring Twist",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.line.silkweed_braid": {
+  "path": "art/gear/line_silkweed_braid.webp",
+  "name": "Silkweed Braid",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.line.keepers_wire": {
+  "path": "art/gear/line_keepers_wire.webp",
+  "name": "Lighthouse Keeper's Wire",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.bait.breadcrust": {
+  "path": "art/gear/bait_breadcrust.webp",
+  "name": "Yesterday's Breadcrust",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model bait.breadcrust",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.bait.sandworms": {
+  "path": "art/gear/bait_sandworms.webp",
+  "name": "Low-Tide Sandworms",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model bait.sandworms",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.bait.glass_shrimp": {
+  "path": "art/gear/bait_glass_shrimp.webp",
+  "name": "Glass Shrimp",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model bait.glass_shrimp",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.bait.tar_leech": {
+  "path": "art/gear/bait_tar_leech.webp",
+  "name": "Tar Leech",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model bait.tar_leech",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "gear.bait.dusk_krill": {
+  "path": "art/gear/bait_dusk_krill.webp",
+  "name": "Dusk Krill",
+  "size": [
+   512,
+   512
+  ],
+  "alpha": true,
+  "usedBy": "ui/shop Buy gear card (B); build reference for Agent G model bait.dusk_krill",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "island.driftwood_cove": {
+  "path": "art/islands/driftwood_cove.webp",
+  "name": "Driftwood Cove",
+  "size": [
+   768,
+   512
+  ],
+  "alpha": false,
+  "usedBy": "ui/travel sea-chart island card (B)",
+  "concept": "art/concepts/world/driftwood_cove_key.webp",
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent D's key art"
+ },
+ "island.wreck_reef": {
+  "path": "art/islands/wreck_reef.webp",
+  "name": "Wreck Reef",
+  "size": [
+   768,
+   512
+  ],
+  "alpha": false,
+  "usedBy": "ui/travel sea-chart island card (B)",
+  "concept": "art/concepts/world/wreck_reef_key.webp",
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art"
+ },
+ "island.mossback_bayou": {
+  "path": "art/islands/mossback_bayou.webp",
+  "name": "Mossback Bayou",
+  "size": [
+   768,
+   512
+  ],
+  "alpha": false,
+  "usedBy": "ui/travel sea-chart island card (B)",
+  "concept": "art/concepts/world/mossback_bayou_key.webp",
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art"
+ },
+ "island.frostfang_fjord": {
+  "path": "art/islands/frostfang_fjord.webp",
+  "name": "Frostfang Fjord",
+  "size": [
+   768,
+   512
+  ],
+  "alpha": false,
+  "usedBy": "ui/travel sea-chart island card (B)",
+  "concept": "art/concepts/world/frostfang_fjord_key.webp",
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art"
+ },
+ "island.ember_caldera": {
+  "path": "art/islands/ember_caldera.webp",
+  "name": "Ember Caldera",
+  "size": [
+   768,
+   512
+  ],
+  "alpha": false,
+  "usedBy": "ui/travel sea-chart island card (B)",
+  "concept": "art/concepts/world/ember_caldera_key.webp",
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art"
+ },
+ "island.stormspire_isles": {
+  "path": "art/islands/stormspire_isles.webp",
+  "name": "Stormspire Isles",
+  "size": [
+   768,
+   512
+  ],
+  "alpha": false,
+  "usedBy": "ui/travel sea-chart island card (B)",
+  "concept": "art/concepts/world/stormspire_isles_key.webp",
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art"
+ },
+ "island.sunken_temple": {
+  "path": "art/islands/sunken_temple.webp",
+  "name": "Sunken Temple",
+  "size": [
+   768,
+   512
+  ],
+  "alpha": false,
+  "usedBy": "ui/travel sea-chart island card (B)",
+  "concept": "art/concepts/world/sunken_temple_key.webp",
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art"
+ },
+ "island.the_abyss": {
+  "path": "art/islands/the_abyss.webp",
+  "name": "The Abyss",
+  "size": [
+   768,
+   512
+  ],
+  "alpha": false,
+  "usedBy": "ui/travel sea-chart island card (B)",
+  "concept": "art/concepts/world/the_abyss_key.webp",
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art"
+ },
+ "building.shop.l1": {
+  "path": "art/buildings/shop_l1.webp",
+  "name": "Shop level 1",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model shop_l1",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.shop.l2": {
+  "path": "art/buildings/shop_l2.webp",
+  "name": "Shop level 2",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model shop_l2",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.shop.l3": {
+  "path": "art/buildings/shop_l3.webp",
+  "name": "Shop level 3",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model shop_l3",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.cooler.l1": {
+  "path": "art/buildings/cooler_l1.webp",
+  "name": "Cooler level 1",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model cooler_l1",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.cooler.l2": {
+  "path": "art/buildings/cooler_l2.webp",
+  "name": "Cooler level 2",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model cooler_l2",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.cooler.l3": {
+  "path": "art/buildings/cooler_l3.webp",
+  "name": "Cooler level 3",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model cooler_l3",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.smokehouse.l1": {
+  "path": "art/buildings/smokehouse_l1.webp",
+  "name": "Smokehouse level 1",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model smokehouse_l1",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.smokehouse.l2": {
+  "path": "art/buildings/smokehouse_l2.webp",
+  "name": "Smokehouse level 2",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model smokehouse_l2",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.smokehouse.l3": {
+  "path": "art/buildings/smokehouse_l3.webp",
+  "name": "Smokehouse level 3",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model smokehouse_l3",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.aquarium.l1": {
+  "path": "art/buildings/aquarium_l1.webp",
+  "name": "Aquarium level 1",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model aquarium_l1",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.aquarium.l2": {
+  "path": "art/buildings/aquarium_l2.webp",
+  "name": "Aquarium level 2",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model aquarium_l2",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.aquarium.l3": {
+  "path": "art/buildings/aquarium_l3.webp",
+  "name": "Aquarium level 3",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model aquarium_l3",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.boat_dock.l1": {
+  "path": "art/buildings/boat_dock_l1.webp",
+  "name": "Boat dock level 1",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model boat_dock_l1",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.boat_dock.l2": {
+  "path": "art/buildings/boat_dock_l2.webp",
+  "name": "Boat dock level 2",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model boat_dock_l2",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.boat_dock.l3": {
+  "path": "art/buildings/boat_dock_l3.webp",
+  "name": "Boat dock level 3",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model boat_dock_l3",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.workers_hut.l1": {
+  "path": "art/buildings/workers_hut_l1.webp",
+  "name": "Workers' hut level 1",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model workers_hut_l1",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.workers_hut.l2": {
+  "path": "art/buildings/workers_hut_l2.webp",
+  "name": "Workers' hut level 2",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model workers_hut_l2",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "building.workers_hut.l3": {
+  "path": "art/buildings/workers_hut_l3.webp",
+  "name": "Workers' hut level 3",
+  "size": [
+   768,
+   576
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model workers_hut_l3",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "variant.bleached": {
+  "path": "art/variants/bleached.webp",
+  "icon": "art/variants/bleached_128.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "variant.inkdark": {
+  "path": "art/variants/inkdark.webp",
+  "icon": "art/variants/inkdark_128.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "variant.gilded": {
+  "path": "art/variants/gilded.webp",
+  "icon": "art/variants/gilded_128.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "variant.storm": {
+  "path": "art/variants/storm.webp",
+  "icon": "art/variants/storm_128.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "variant.frost": {
+  "path": "art/variants/frost.webp",
+  "icon": "art/variants/frost_128.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "variant.ember": {
+  "path": "art/variants/ember.webp",
+  "icon": "art/variants/ember_128.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "variant.bloom": {
+  "path": "art/variants/bloom.webp",
+  "icon": "art/variants/bloom_128.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "variant.rune": {
+  "path": "art/variants/rune.webp",
+  "icon": "art/variants/rune_128.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "variant.abyss": {
+  "path": "art/variants/abyss.webp",
+  "icon": "art/variants/abyss_128.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "variant.tide": {
+  "path": "art/variants/tide.webp",
+  "icon": "art/variants/tide_128.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "variant.rust": {
+  "path": "art/variants/rust.webp",
+  "icon": "art/variants/rust_128.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "title.main": {
+  "path": "art/title/main.webp",
+  "size": [
+   1080,
+   1920
+  ],
+  "alpha": false,
+  "usedBy": "ui title screen background (B); logo goes in the calm top third",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "title.loading": {
+  "path": "art/title/loading.webp",
+  "size": [
+   1080,
+   1920
+  ],
+  "alpha": false,
+  "usedBy": "ui loading screen background (B); progress bar sits in the calm bottom quarter",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ }
+}

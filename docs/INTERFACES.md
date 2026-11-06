@@ -9,7 +9,17 @@ Read `docs/MASTER_PROMPT.md` first. This file is the contract that lets agents w
 4. `startUI({ root, state, events })` — `src/ui/app.js` (B). `root` is `#ui`.
 5. `startWorld({ canvas, state, events })` — `src/world/game.js` (A). `canvas` is `#game`. Sets `state.render = { THREE, scene, camera, renderer, clock }` and adds per-frame callbacks via `state.render.onFrame(fn(dt, t))`.
 6. `startVfx({ state, events })` — `src/vfx/index.js` (E). Uses `state.render` to draw into A's scene.
-7. `game:ready` is emitted; `window.__game = { state, events }`.
+7. `startNet({ state, events })` — `src/net/index.js` (H). Does nothing until the player hosts or joins (or the URL has `?join=CODE`).
+8. `game:ready` is emitted; `window.__game = { state, events }`.
+
+## Co-op (master prompt 4.10, Agent H)
+- `state.net` (H owns): `{ mode: 'solo'|'host'|'visitor', room, selfId, players: { [id]: { name, color, isHost } } }`. Everyone else only reads it. Solo = exactly the old single-player behaviour.
+- **Visitor mode rules:** B hides land/building/boat purchases when `state.net.mode === 'visitor'` (the visitor's own coins, gear, cooler and Fishdex still work, including selling at the shop). A renders the host's island from the `island:changed` that H emits with the host's island state (payload gets `source: 'net'`), not from the visitor's own profile.
+- **Fish authority (A provides, H uses):** `state.world.fish = { setAuthority(bool), snapshot() → [{ uid, fishId, variant, x, z, depth, state, heading }], apply(snapshotArray), forceBite(uid, playerId) }`. The host keeps authority, and H broadcasts `snapshot()` at ~2 Hz plus events. Visitors call `setAuthority(false)` and feed `apply()`, and their lures ask the host for bites.
+- **Local player state (A provides, H reads):** `state.world.self = { x, z, heading, anim, mode, lure: {x, z}|null, tension, fishUid }`.
+- **Remote avatars and their lines** are drawn by H into `state.render.scene` (D's character model, recoloured per player, name tag), and E's power effects are triggered for remote powers by H re-emitting `power:*` with `remote: true`.
+- **Events from H:** `net:joined`, `net:left`, `net:player-joined`, `net:player-left` (`{ id, name }`), `net:catch` (`{ playerId, fishId, variant, weight }`, so B shows a group toast), `net:help` (`{ fromId, toId }`, a friend helps land your fish; A applies the stamina drain), `net:emote` (`{ playerId, emote }`).
+- `#hud-net` (in index.html) is H's container for the invite/room button, the player list and emotes. Use B's theme classes.
 
 ## Variants and superpowers (master prompt 4.4b)
 - `public/data/variants.json` (B): `{ "<variantId>": { kind: "basic|morph|element", name, element?, chance, islandBoost: { "<islandId>": x }, weatherBoost?, valueMult, lore } }`. Ids: `basic`, `bleached`, `inkdark`, `gilded`, `storm`, `frost`, `ember`, `bloom`, `rune`, `abyss`, `tide`, `rust`.

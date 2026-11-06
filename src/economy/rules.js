@@ -1,5 +1,5 @@
-// Agent B. Pure economy rules: no state mutation, no DOM. Numbers come from public/data/economy.json.
-// Agent A may import sizeClassFor / rollWeight to stay consistent with the shop.
+// Agent B. Pure economy rules: no state mutation, no DOM. Numbers come from public/data/*.json.
+// Agent A may import sizeClassFor / rollWeight / rollVariant to stay consistent with the shop.
 
 export const SLOTS = [
   { slot: 'rod', group: 'rods', label: 'Rod' },
@@ -12,6 +12,7 @@ export const groupOf = (slot) => SLOTS.find((s) => s.slot === slot)?.group;
 export const BUILDINGS = ['shop', 'cooler', 'workers_hut', 'smokehouse', 'aquarium', 'boat_dock'];
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
+const entries = (obj) => Object.entries(obj ?? {}).filter(([k]) => !k.startsWith('_'));
 
 /** 0..1 position of a weight inside the fish's weight range. */
 export function weightT(fish, weight) {
@@ -41,30 +42,123 @@ export function rollWeight(data, fishId, perfect = false, rng = Math.random) {
   return Math.round((min + (max - min) * t) * 100) / 100;
 }
 
-// ---------------------------------------------------------------- buildings
+// ---------------------------------------------------------------- variants
+export const variantIds = (data) => entries(data.variants).map(([id]) => id);
+
+export function variantOf(data, id) {
+  const v = data.variants?.[id];
+  return v && !String(id).startsWith('_') ? { id, ...v } : { id: 'basic', kind: 'basic', name: '', valueMult: 1, pearls: 0, lore: '' };
+}
+
+/** Roll weights for the variants on an island in a weather (normalised to 1). */
+export function variantOdds(data, islandId, weather) {
+  const list = entries(data.variants).map(([id, v]) => {
+    const w = (v.chance ?? 0) * (v.islandBoost?.[islandId] ?? 1) * (weather ? v.weatherBoost?.[weather] ?? 1 : 1);
+    return [id, w];
+  });
+  const total = list.reduce((a, [, w]) => a + w, 0) || 1;
+  return Object.fromEntries(list.map(([id, w]) => [id, w / total]));
+}
+
+/** Roll a variant when a fish spawns (Agent A). */
+export function rollVariant(data, islandId = 'driftwood_cove', weather = null, rng = Math.random) {
+  const odds = variantOdds(data, islandId, weather);
+  let r = rng();
+  for (const [id, p] of Object.entries(odds)) {
+    r -= p;
+    if (r <= 0) return id;
+  }
+  return 'basic';
+}
+
+/** "Ember Driftback", "The Gilded Old Mooring". */
+export function fullName(fishName, variant) {
+  const vn = variant?.name;
+  if (!vn) return fishName;
+  return fishName.startsWith('The ') ? `The ${vn} ${fishName.slice(4)}` : `${vn} ${fishName}`;
+}
+
+/** Variant sets for the logbook: [{ id, name, ids, have, done }] */
+export function variantSets(data, dexEntry) {
+  const all = variantIds(data);
+  return entries(data.economy?.variantSets).map(([id, s]) => {
+    const ids = s.ids === 'all' ? all : s.ids;
+    const caught = dexEntry?.variants ?? {};
+    const have = ids.filter((v) => caught[v] > 0).length;
+    return { id, name: s.name, ids, have, total: ids.length, done: have >= ids.length, coinsPerBase: s.coinsPerBase, pearls: s.pearls };
+  });
+}
+
+// ---------------------------------------------------------------- buildings, land, piers, boats
 export function buildingLevel(data, profile, id) {
   const def = data.economy?.buildings?.[id];
   if (!def) return null;
   const i = Math.min(Math.max(0, profile.island?.buildings?.[id] ?? 0), def.levels.length - 1);
-  return { index: i, ...def.levels[i], next: def.levels[i + 1] ?? null, def };
+  const built = i > 0 || def.levels[0]?.name !== 'Not built';
+  return { index: i, level: i, ...def.levels[i], built, next: def.levels[i + 1] ?? null, def, siteOwned: (profile.island?.plots ?? []).includes(def.site ?? 'sandbar') };
 }
 
-export const coolerCapacity = (data, profile) => buildingLevel(data, profile, 'cooler')?.capacity ?? 12;
+export const coolerCapacity = (data, profile) => buildingLevel(data, profile, 'cooler')?.capacity ?? 8;
 export const shopBonus = (data, profile) => buildingLevel(data, profile, 'shop')?.sellBonus ?? 0;
 
+export function crewBunks(data, profile) {
+  return buildingLevel(data, profile, 'workers_hut')?.slots ?? 0;
+}
+export function crewSpots(data, profile) {
+  const e = data.economy ?? {};
+  const plots = (profile.island?.plots ?? []).reduce((n, id) => n + (e.plots?.[id]?.crewSpots ?? 0), 0);
+  const piers = (profile.island?.piers ?? []).reduce((n, id) => n + (e.piers?.[id]?.crewSpots ?? 0), 0);
+  return (e.workers?.baseSpots ?? 1) + plots + piers;
+}
+/** A fisher needs a bunk and a spot to fish from. */
 export function crewSlots(data, profile) {
-  const hut = buildingLevel(data, profile, 'workers_hut')?.slots ?? 2;
-  const plots = (profile.island?.plots ?? []).reduce((n, id) => n + (data.economy?.plots?.[id]?.crewSpots ?? 0), 0);
-  return hut + plots;
+  return Math.min(crewBunks(data, profile), crewSpots(data, profile));
 }
 
 export function hireCost(data, profile) {
-  const w = data.economy?.workers ?? { hireCost: 120, costGrowth: 1.8 };
+  const w = data.economy?.workers ?? { hireCost: 80, costGrowth: 1.8 };
   return Math.round(w.hireCost * Math.pow(w.costGrowth, profile.workers?.length ?? 0));
 }
 
 export function netCount(data, profile) {
   return (profile.island?.plots ?? []).reduce((n, id) => n + (data.economy?.plots?.[id]?.nets ?? 0), 0);
+}
+
+const byOrder = (obj) => entries(obj).sort((a, b) => (a[1].order ?? 0) - (b[1].order ?? 0));
+
+export function nextPlot(data, profile) {
+  const owned = profile.island?.plots ?? [];
+  return byOrder(data.economy?.plots).find(([id]) => !owned.includes(id))?.[0] ?? null;
+}
+
+/** Next pier in order, and whether its plot is owned. */
+export function nextPier(data, profile) {
+  const owned = profile.island?.piers ?? [];
+  const found = byOrder(data.economy?.piers).find(([id]) => !owned.includes(id));
+  if (!found) return null;
+  const [id, def] = found;
+  return { id, ...def, plotOwned: (profile.island?.plots ?? []).includes(def.plot ?? 'sandbar') };
+}
+
+/** Deepest water the piers reach (metres). The sandbar stub reaches about 3 m. */
+export function pierDepth(data, profile) {
+  return (profile.island?.piers ?? []).reduce((d, id) => Math.max(d, data.economy?.piers?.[id]?.depth ?? 0), 3);
+}
+
+export function boatOf(data, profile) {
+  const id = profile.island?.boat ?? 'rowboat';
+  const def = data.economy?.boats?.[id];
+  return def ? { id, ...def } : { id: 'rowboat', name: 'Rowboat', tier: 1, reach: 1 };
+}
+
+/** Next boat in tier order, and whether the dock fits it. */
+export function nextBoat(data, profile) {
+  const cur = boatOf(data, profile);
+  const found = entries(data.economy?.boats).sort((a, b) => a[1].tier - b[1].tier).find(([, b]) => b.tier > cur.tier);
+  if (!found) return null;
+  const [id, def] = found;
+  const maxBoat = buildingLevel(data, profile, 'boat_dock')?.maxBoat ?? 1;
+  return { id, ...def, dockFits: def.tier <= maxBoat };
 }
 
 // ---------------------------------------------------------------- market
@@ -107,7 +201,7 @@ export function testMult(data, test, kind) {
   return kind === 'idle' ? t.idleMult ?? 100 : t.coinMult ?? 100;
 }
 
-/** Sell price of one catch: base x weight factor x size class x market x shop. */
+/** Sell price of one catch: base x weight factor x size class x variant x market x shop. */
 export function priceOf(data, profile, test, c, extra = 0, hotId) {
   const fish = data.fish?.[c.fishId];
   if (!fish) return 0;
@@ -116,8 +210,9 @@ export function priceOf(data, profile, test, c, extra = 0, hotId) {
   const wf = e.sell?.weightFactor ?? { atMin: 0.8, atMax: 1.2 };
   const weightFactor = wf.atMin + (wf.atMax - wf.atMin) * t;
   const size = sizeClassById(data, c.sizeClass) ?? sizeClassFor(data, c.fishId, c.weight);
+  const variant = variantOf(data, c.variant ?? 'basic');
   const market = marketMult(data, profile, c.fishId, extra, hotId === undefined ? hotFishOf(data, profile) : hotId);
-  const raw = fish.baseValue * weightFactor * size.mult * market * (1 + shopBonus(data, profile));
+  const raw = fish.baseValue * weightFactor * size.mult * (variant.valueMult ?? 1) * market * (1 + shopBonus(data, profile));
   return Math.max(e.sell?.minPrice ?? 1, Math.round(raw)) * testMult(data, test, 'coins');
 }
 
@@ -140,18 +235,20 @@ export function itemOf(data, slot, id) {
 /** Derived stats the fishing code reads (state.gear). */
 export function deriveGear(data, profile) {
   const g = profile.gear ?? {};
-  const rod = itemOf(data, 'rod', g.rod)?.stats ?? {};
-  const reel = itemOf(data, 'reel', g.reel)?.stats ?? {};
-  const line = itemOf(data, 'line', g.line)?.stats ?? {};
-  const bait = itemOf(data, 'bait', g.bait)?.stats ?? {};
+  const rod = itemOf(data, 'rod', g.rod);
+  const reel = itemOf(data, 'reel', g.reel);
+  const line = itemOf(data, 'line', g.line);
+  const bait = itemOf(data, 'bait', g.bait);
   return {
     rodId: g.rod, reelId: g.reel, lineId: g.line, baitId: g.bait,
-    rodPower: rod.rodPower ?? 1,
-    castDistance: rod.castDistance ?? 14,
-    steadiness: rod.steadiness ?? 0.3,
-    reelSpeed: reel.reelSpeed ?? 1,
-    lineStrength: line.lineStrength ?? 1,
-    baitAttraction: bait.attraction ?? 1,
+    rodModel: rod?.model ?? null, reelModel: reel?.model ?? null, baitModel: bait?.model ?? null,
+    lineMaterial: line?.material ?? null,
+    rodPower: rod?.stats?.rodPower ?? 1,
+    castDistance: rod?.stats?.castDistance ?? 14,
+    steadiness: rod?.stats?.steadiness ?? 0.3,
+    reelSpeed: reel?.stats?.reelSpeed ?? 1,
+    lineStrength: line?.stats?.lineStrength ?? 1,
+    baitAttraction: bait?.stats?.attraction ?? 1,
     hearts: data.economy?.start?.hearts ?? 3,
   };
 }
@@ -215,7 +312,7 @@ export function islandRequirements(data, profile, islandId) {
   if (!isle) return null;
   const u = isle.unlock ?? {};
   const species = Object.keys(profile.fishdex ?? {}).length;
-  const reach = buildingLevel(data, profile, 'boat_dock')?.reach ?? 2;
+  const boat = boatOf(data, profile);
   const reqs = [];
   if (u.coins) reqs.push({ kind: 'coins', need: u.coins, have: profile.coins, met: profile.coins >= u.coins });
   if (u.species) reqs.push({ kind: 'species', need: u.species, have: species, met: species >= u.species });
@@ -223,6 +320,6 @@ export function islandRequirements(data, profile, islandId) {
     const have = !!profile.fishdex?.[u.legendary];
     reqs.push({ kind: 'legendary', fishId: u.legendary, have, met: have });
   }
-  reqs.push({ kind: 'dock', need: isle.index, have: reach, met: reach >= isle.index });
+  reqs.push({ kind: 'boat', need: isle.index, have: boat.reach, met: boat.reach >= isle.index });
   return reqs;
 }

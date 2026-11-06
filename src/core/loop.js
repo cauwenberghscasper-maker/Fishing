@@ -1,6 +1,9 @@
 // Frame loop with a world time scale (aim mode slows the world to ~25%).
 // Systems register update(dt, realDt, time) and run in registration order.
 export function createLoop({ maxDt = 1 / 20 } = {}) {
+  // Headless tests run at a few fps: ?maxdt=0.25 lets world time keep up.
+  const testMaxDt = Number(new URLSearchParams(location.search).get('maxdt'));
+  if (testMaxDt > 0) maxDt = Math.min(0.5, testMaxDt);
   const systems = [];
   let timeScale = 1;
   let targetScale = 1;

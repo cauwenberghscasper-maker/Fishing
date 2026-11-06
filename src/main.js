@@ -7,6 +7,7 @@ import { startEconomy } from './economy/index.js';
 import { startUI } from './ui/app.js';
 import { startWorld } from './world/game.js';
 import { startVfx } from './vfx/index.js';
+import { startNet } from './net/index.js';
 
 async function boot() {
   await loadData(state);
@@ -15,6 +16,7 @@ async function boot() {
   await startUI({ root: document.getElementById('ui'), state, events });
   await startWorld({ canvas: document.getElementById('game'), state, events });
   await startVfx({ state, events });
+  await startNet({ state, events });
   events.emit('game:ready', {});
   window.__game = { state, events };
 }

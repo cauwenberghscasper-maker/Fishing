@@ -8,5 +8,11 @@ export const state = {
     mode: 'explore',    // explore | aim | wait | hooked | fight | catch | menu
     zone: null,         // id of the interaction zone the player stands in (e.g. 'shop', 'pier_1')
   },
+  net: {                // Agent H: co-op. 'solo' until the player hosts or joins (docs/INTERFACES.md)
+    mode: 'solo',       // solo | host | visitor
+    room: null,
+    selfId: null,
+    players: {},
+  },
   test: new URLSearchParams(location.search).get('test') === '100',
 };

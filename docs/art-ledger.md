@@ -50,3 +50,13 @@ Daily quota ~25 min GPU, resets ~22:45 Brussels. Agent C budget ~18 min, Agent D
 | 6 Nov 11:38 | C | Qwen-Image | old_mooring A, B, C r2 (kept; still teeth/collar, needs another pass) | ~48 |
 | 6 Nov 11:42 | C | Qwen-Image-Edit-Angles | storm_marlin top view (failed: 'Error!', input URL from 5 Nov likely expired) | ~5 |
 | 6 Nov 11:42 | C | Qwen-Image | storm_marlin top-down render (unusable: model drew a side view again); top-view attempts stopped | ~16 |
+
+### Agent G (gear & boats) — 6 Nov (budget until the 22:45 reset: 3 min)
+| Time (Brussels) | Agent | Tool | What | GPU s (wall-clock incl. queue, upper bound) |
+|---|---|---|---|---|
+| 21:29 | G | Qwen-Image | rowboat concept, 4:3, seed 1380675061 (kept: oar mast with shirt sail, tin patch, blue plank) | 25 |
+| 21:30 | G | Qwen-Image | patched_skiff concept, 4:3, seed 1333915167 (kept: blue ship's door on a crate wheelhouse, stovepipe; hole left open in the art, the model patches it) | 25 |
+| 21:30 | G | Qwen-Image | sail_sloop concept, 4:3, seed 153471756 (kept: patched sail, arched cabin roof, brass porthole) | 25 |
+| 21:31 | G | Qwen-Image | storm_cutter concept, 4:3, seed 2120398157 (kept: tarred hull, copper rods + verdigris, storm sails with glowing scorch veins; the stray fern on the jib is not modelled) | 25 |
+
+**Agent G total before reset: 4 runs ≈ 100 s of the 180 s budget.**

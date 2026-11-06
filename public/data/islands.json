@@ -8,11 +8,18 @@
     "weather": "clear",
     "hazard": null,
     "palette": "warm sand, sun-bleached driftwood, turquoise shallows falling away to dark teal",
-    "fish": ["glasswing_sardine", "driftback", "compass_flounder", "shellback_blenny", "kelp_wraith", "seaglass_puffer", "old_mooring"],
+    "fish": [
+      "glasswing_sardine",
+      "driftback",
+      "compass_flounder",
+      "shellback_blenny",
+      "kelp_wraith",
+      "seaglass_puffer",
+      "old_mooring"
+    ],
     "bigFish": "old_mooring",
     "legendary": null,
-    "unlock": null,
-    "dockLevel": 1
+    "unlock": null
   },
   "wreck_reef": {
     "index": 2,
@@ -24,8 +31,10 @@
     "palette": "rust, coral pink, sea green, weathered brown",
     "fish": [],
     "legendary": "wreck_grouper",
-    "unlock": { "coins": 2500, "species": 5 },
-    "dockLevel": 1
+    "unlock": {
+      "coins": 1500,
+      "species": 5
+    }
   },
   "mossback_bayou": {
     "index": 3,
@@ -37,8 +46,11 @@
     "palette": "moss, bark, blossom pink, firefly yellow",
     "fish": [],
     "legendary": "mossback_carp",
-    "unlock": { "coins": 12000, "species": 10, "legendary": "wreck_grouper" },
-    "dockLevel": 2
+    "unlock": {
+      "coins": 12000,
+      "species": 10,
+      "legendary": "wreck_grouper"
+    }
   },
   "frostfang_fjord": {
     "index": 4,
@@ -50,8 +62,11 @@
     "palette": "ice blue, white, navy",
     "fish": [],
     "legendary": "glacier_pike",
-    "unlock": { "coins": 40000, "species": 15, "legendary": "mossback_carp" },
-    "dockLevel": 2
+    "unlock": {
+      "coins": 40000,
+      "species": 15,
+      "legendary": "mossback_carp"
+    }
   },
   "ember_caldera": {
     "index": 5,
@@ -63,8 +78,11 @@
     "palette": "black sand, lava orange, porcelain white, gold",
     "fish": [],
     "legendary": "kintsugi_koi",
-    "unlock": { "coins": 120000, "species": 20, "legendary": "glacier_pike" },
-    "dockLevel": 3
+    "unlock": {
+      "coins": 120000,
+      "species": 20,
+      "legendary": "glacier_pike"
+    }
   },
   "stormspire_isles": {
     "index": 6,
@@ -76,8 +94,11 @@
     "palette": "slate, iridescent blue, electric yellow",
     "fish": [],
     "legendary": "storm_marlin",
-    "unlock": { "coins": 300000, "species": 26, "legendary": "kintsugi_koi" },
-    "dockLevel": 3
+    "unlock": {
+      "coins": 300000,
+      "species": 26,
+      "legendary": "kintsugi_koi"
+    }
   },
   "sunken_temple": {
     "index": 7,
@@ -89,8 +110,11 @@
     "palette": "near-black, stone grey, turquoise glyph light",
     "fish": [],
     "legendary": "temple_manta",
-    "unlock": { "coins": 750000, "species": 32, "legendary": "storm_marlin" },
-    "dockLevel": 4
+    "unlock": {
+      "coins": 750000,
+      "species": 32,
+      "legendary": "storm_marlin"
+    }
   },
   "the_abyss": {
     "index": 8,
@@ -102,7 +126,10 @@
     "palette": "night blue, rose, violet, cyan",
     "fish": [],
     "legendary": "cathedral_jelly",
-    "unlock": { "coins": 2000000, "species": 38, "legendary": "temple_manta" },
-    "dockLevel": 4
+    "unlock": {
+      "coins": 2000000,
+      "species": 38,
+      "legendary": "temple_manta"
+    }
   }
 }

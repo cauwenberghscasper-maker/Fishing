@@ -52,9 +52,9 @@ const fragmentShader = /* glsl */`
 
     // Surface normal: two scrolling samples of the painted wavelet map.
     vec2 p = vWorldPos.xz;
-    vec4 s1 = texture2D(uNormalMap, p * 0.055 + vec2(uTime * 0.011, uTime * 0.007));
-    vec4 s2 = texture2D(uNormalMap, p * 0.093 + vec2(-uTime * 0.009, uTime * 0.013));
-    vec2 nxy = (s1.xy * 2.0 - 1.0) * 0.6 + (s2.xy * 2.0 - 1.0) * 0.45;
+    vec4 s1 = texture2D(uNormalMap, p * 0.045 + vec2(uTime * 0.011, uTime * 0.007));
+    vec4 s2 = texture2D(uNormalMap, p * 0.081 + vec2(-uTime * 0.009, uTime * 0.013));
+    vec2 nxy = (s1.xy * 2.0 - 1.0) * 0.32 + (s2.xy * 2.0 - 1.0) * 0.26;
     float foamNoise = texture2D(uNormalMap, p * 0.17 + vec2(uTime * 0.02, -uTime * 0.015)).a;
 
     // Ripple rings (splashes, nibbles, wakes): x, z, start time, strength.
@@ -73,7 +73,7 @@ const fragmentShader = /* glsl */`
       float ring2 = exp(-pow((dist - front * 0.62) * 6.0, 2.0)) * 0.6;
       vec2 dir = dist > 1e-3 ? d / dist : vec2(0.0);
       nxy += dir * (ring - ring2) * fade * 1.4;
-      ringFoam += (ring + ring2 * 0.5) * fade * smoothstep(0.35, 0.65, foamNoise + 0.25);
+      ringFoam += ring * fade * 0.55 * smoothstep(0.35, 0.65, foamNoise + 0.2) * smoothstep(0.05, 0.4, front);
     }
     vec3 N = normalize(vec3(nxy.x, 1.0, nxy.y));
 
@@ -98,12 +98,12 @@ const fragmentShader = /* glsl */`
     vec2 cp = rbed.xz;
     float c1 = texture2D(uCaustic, cp * 0.13 + vec2(uTime * 0.021, uTime * 0.012) + nxy * 0.02).r;
     float c2 = texture2D(uCaustic, cp * 0.17 + vec2(-uTime * 0.016, uTime * 0.018) - nxy * 0.02).r;
-    float caustic = min(c1, c2) * 2.2 + max(c1, c2) * 0.12;
-    float cBand = smoothstep(0.03, 0.45, rDepth) * (1.0 - smoothstep(1.4, 5.5, rDepth));
-    refr += uSunColor * caustic * cBand * 0.32 * uLight;
+    float caustic = min(c1, c2) * 1.4 + max(c1, c2) * 0.08;
+    float cBand = smoothstep(0.05, 0.6, rDepth) * (1.0 - smoothstep(1.2, 4.0, rDepth));
+    refr += uSunColor * caustic * cBand * 0.11 * uLight;
 
     // Absorption (red goes first: emerald-teal like the key art) and in-scatter colour by depth.
-    vec3 trans = exp(-vec3(0.62, 0.17, 0.23) * rThick);
+    vec3 trans = exp(-vec3(0.95, 0.3, 0.36) * rThick);
     vec3 scatter = mix(uShallow, uMid, smoothstep(0.25, 2.6, rDepth));
     scatter = mix(scatter, uDeep, smoothstep(2.2, 7.5, rDepth));
     scatter = mix(scatter, uAbyss, smoothstep(7.0, 18.0, rDepth));
@@ -115,7 +115,7 @@ const fragmentShader = /* glsl */`
     float fres = 0.02 + 0.98 * pow(1.0 - NdotV, 5.0);
     vec3 R = reflect(-V, N);
     vec3 sky = mix(uSkyHorizon, uSkyZenith, smoothstep(0.0, 0.55, R.y)) * uLight;
-    col = mix(col, sky, clamp(fres * 0.7, 0.0, 0.6));
+    col = mix(col, sky, clamp(fres * 0.45, 0.0, 0.35));
     vec3 H = normalize(uSunDir + V);
     float spec = pow(max(dot(N, H), 0.0), 180.0);
     col += uSunColor * (smoothstep(0.25, 0.85, spec) * 2.2 + spec * 0.4) * uLight;
@@ -182,7 +182,8 @@ export function createWater({ palette, sceneTarget, camera }) {
     vertexShader,
     fragmentShader,
     fog: true,
-    depthWrite: true,
+    // No depth write: fish silhouettes and the line under the surface are drawn after the water.
+    depthWrite: false,
   });
 
   const geo = new THREE.PlaneGeometry(420, 420, 210, 210);

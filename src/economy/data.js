@@ -6,7 +6,9 @@ const FILES = {
   items: 'data/items.json',
   economy: 'data/economy.json',
   fishBehaviour: 'data/fish-behaviour.json',
-  fishAssets: 'assets/fish/manifest.json',
+  variants: 'data/variants.json',            // Agent B
+  art: 'data/art.json',                      // Agent F's 2D art registry (B wires it into the UI)
+  fishAssets: 'assets/fish/manifest.json',   // Agent C
 };
 
 async function getJSON(path) {
@@ -24,14 +26,26 @@ export async function loadData(state) {
   for (const [key, value] of entries) {
     if (value) state.data[key] = value;
   }
-  for (const key of ['fish', 'islands', 'items', 'economy']) {
+  for (const key of ['fish', 'islands', 'items', 'economy', 'variants']) {
     if (!state.data[key]) {
       console.error(`[data] missing ${FILES[key]}`);
       state.data[key] = {};
     }
   }
   if (!state.data.fishAssets) state.data.fishAssets = {};
+  if (!state.data.art) state.data.art = {};
   return state.data;
+}
+
+/**
+ * Path of a 2D artwork in Agent F's registry (public/data/art.json), or null when it is not there yet.
+ * Keys: gear.<slot>.<itemId>, island.<islandId>, building.<buildingId>.<level> (l1..l3), variant.<variantId>,
+ * title.main, title.loading. The UI hides the slot when this returns null.
+ */
+export function artPath(state, key) {
+  const entry = state.data.art?.[key];
+  const path = typeof entry === 'string' ? entry : entry?.path;
+  return typeof path === 'string' && path ? path.replace(/^\//, '') : null;
 }
 
 /** Preview image path for a fish, or null when Agent C has not delivered one yet. */

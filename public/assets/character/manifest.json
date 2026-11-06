@@ -1,1 +1,348 @@
-{}
+{
+  "fisher_player": {
+    "path": "assets/character/fisher_player/model.glb",
+    "scale": 1,
+    "tris": 5283,
+    "bounds": {
+      "min": [
+        -0.8,
+        0,
+        -0.78
+      ],
+      "max": [
+        0.81,
+        1.99,
+        0.8
+      ]
+    },
+    "materials": [
+      "fisher_player_tex",
+      "cove_atlas",
+      "cove_glow"
+    ],
+    "bytes": 654172,
+    "licence": "CC0 base character (KayKit Character Pack: Adventurers 1.0, Kay Lousberg), recoloured + fisher gear + authored clips by Agent D",
+    "source": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0",
+    "base_mesh": "Rogue",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "story": "The fisher: sun-faded blue shirt, rust neckerchief, rolled ochre trousers, wide woven straw hat with a glowing teal scale from the first fish they ever caught tucked in the band, canvas tackle satchel on a tar-leather strap",
+    "height_m": 1.8,
+    "clips": {
+      "fish_idle": {
+        "action": "wait for bite",
+        "source": "waiting for a bite, rod held out (authored, loop)"
+      },
+      "cast_windup": {
+        "action": "aim:start",
+        "source": "aim start: rod drawn back (KayKit Throw 0-0.40 s, retimed)"
+      },
+      "cast_aim": {
+        "action": "aim mode (loop)",
+        "source": "hold while aiming, breathing sway (authored from Throw peak, loop)"
+      },
+      "cast_release": {
+        "action": "cast release",
+        "source": "cast release + follow-through (KayKit Throw 0.40-1.37 s)"
+      },
+      "reel_loop": {
+        "action": "reel (fight, holding)",
+        "source": "reeling, left hand cranks the reel (authored, loop)"
+      },
+      "struggle_loop": {
+        "action": "fight: strong pull / tension high",
+        "source": "fighting a strong fish: braced, leaning back, shaking (authored on KayKit Blocking, loop)"
+      },
+      "hold_up_fish": {
+        "action": "fish:landed-show / catch card",
+        "source": "holding the catch overhead for the catch card (authored, loop)"
+      },
+      "idle": {
+        "action": "idle",
+        "source": "standing idle (KayKit Idle)"
+      },
+      "walk": {
+        "action": "walk",
+        "source": "walk (KayKit Walking_A)"
+      },
+      "run": {
+        "action": "run",
+        "source": "run (KayKit Running_A)"
+      },
+      "celebrate": {
+        "action": "perfect cast / rare catch",
+        "source": "celebrate (KayKit Cheer)"
+      },
+      "dodge_left": {
+        "action": "boss dodge",
+        "source": "boss fight dodge (KayKit Dodge_Left)"
+      },
+      "dodge_right": {
+        "action": "boss dodge",
+        "source": "boss fight dodge (KayKit Dodge_Right)"
+      },
+      "dodge_back": {
+        "action": "boss dodge",
+        "source": "boss fight dodge (KayKit Dodge_Backward)"
+      },
+      "hit": {
+        "action": "boss hit",
+        "source": "hit by a boss attack (KayKit Hit_A)"
+      },
+      "pick_up": {
+        "action": "pick up",
+        "source": "pick up (KayKit PickUp)"
+      },
+      "interact": {
+        "action": "shop / building interaction",
+        "source": "use a building / talk (KayKit Interact)"
+      },
+      "sit_idle": {
+        "action": "idle rest (workers)",
+        "source": "sit on the pier edge / rest (KayKit Sit_Floor_Idle)"
+      }
+    },
+    "attach": {
+      "rod": "bone handslot.r (right hand); gear grip node goes on this bone",
+      "offhand": "bone handslot.l"
+    },
+    "missing_clips": [
+      "no true rod-specific cast anim: cast_windup/cast_release are KayKit Throw split + retimed (overhand throw, reads as an overhead cast)",
+      "reel_loop and struggle_loop are procedural layers (good at game-camera distance; would benefit from a hand-keyed pass or a mocap clip)",
+      "hold_up_fish holds hands at chest height (chibi arms cannot reach overhead)"
+    ],
+    "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
+    "placement": "ground",
+    "role": "player",
+    "preview": "assets/character/fisher_player/preview.webp"
+  },
+  "worker_netmender": {
+    "path": "assets/character/worker_netmender/model.glb",
+    "scale": 1,
+    "tris": 4521,
+    "bounds": {
+      "min": [
+        -0.66,
+        0,
+        -0.44
+      ],
+      "max": [
+        0.66,
+        2.1,
+        0.49
+      ]
+    },
+    "materials": [
+      "worker_netmender_tex",
+      "cove_atlas"
+    ],
+    "bytes": 403512,
+    "licence": "CC0 base character (KayKit Character Pack: Adventurers 1.0, Kay Lousberg), recoloured + fisher gear + authored clips by Agent D",
+    "source": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0",
+    "base_mesh": "Barbarian",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "story": "Old Wim, the net-mender: white beard, cream fisherman's sweater, rust knit cap, a bundle of net with floats over his shoulder",
+    "height_m": 1.8,
+    "clips": {
+      "fish_idle": {
+        "action": "wait for bite",
+        "source": "waiting for a bite, rod held out (authored, loop)"
+      },
+      "cast_windup": {
+        "action": "aim:start",
+        "source": "aim start: rod drawn back (KayKit Throw 0-0.40 s, retimed)"
+      },
+      "cast_release": {
+        "action": "cast release",
+        "source": "cast release + follow-through (KayKit Throw 0.40-1.37 s)"
+      },
+      "reel_loop": {
+        "action": "reel (fight, holding)",
+        "source": "reeling, left hand cranks the reel (authored, loop)"
+      },
+      "idle": {
+        "action": "idle",
+        "source": "standing idle (KayKit Idle)"
+      },
+      "walk": {
+        "action": "walk",
+        "source": "walk (KayKit Walking_A)"
+      },
+      "celebrate": {
+        "action": "perfect cast / rare catch",
+        "source": "celebrate (KayKit Cheer)"
+      },
+      "interact": {
+        "action": "shop / building interaction",
+        "source": "use a building / talk (KayKit Interact)"
+      },
+      "sit_idle": {
+        "action": "idle rest (workers)",
+        "source": "sit on the pier edge / rest (KayKit Sit_Floor_Idle)"
+      }
+    },
+    "attach": {
+      "rod": "bone handslot.r (right hand); gear grip node goes on this bone",
+      "offhand": "bone handslot.l"
+    },
+    "missing_clips": [],
+    "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
+    "placement": "ground",
+    "role": "idle worker NPC (hired fisher); rod attaches to handslot.r like the player; has its own clips: idle, walk, fish_idle, cast_windup, cast_release, reel_loop, celebrate, interact, sit_idle",
+    "preview": "assets/character/worker_netmender/preview.webp"
+  },
+  "worker_deckhand": {
+    "path": "assets/character/worker_deckhand/model.glb",
+    "scale": 1,
+    "tris": 4113,
+    "bounds": {
+      "min": [
+        -0.66,
+        0,
+        -0.38
+      ],
+      "max": [
+        0.66,
+        1.52,
+        0.4
+      ]
+    },
+    "materials": [
+      "worker_deckhand_tex",
+      "cove_atlas"
+    ],
+    "bytes": 382704,
+    "licence": "CC0 base character (KayKit Character Pack: Adventurers 1.0, Kay Lousberg), recoloured + fisher gear + authored clips by Agent D",
+    "source": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0",
+    "base_mesh": "Rogue_Hooded",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "story": "Juno, the deckhand: yellow oilskin hood and coat, dark trousers, black rubber boots, a coil of rope worn across the body",
+    "height_m": 1.8,
+    "clips": {
+      "fish_idle": {
+        "action": "wait for bite",
+        "source": "waiting for a bite, rod held out (authored, loop)"
+      },
+      "cast_windup": {
+        "action": "aim:start",
+        "source": "aim start: rod drawn back (KayKit Throw 0-0.40 s, retimed)"
+      },
+      "cast_release": {
+        "action": "cast release",
+        "source": "cast release + follow-through (KayKit Throw 0.40-1.37 s)"
+      },
+      "reel_loop": {
+        "action": "reel (fight, holding)",
+        "source": "reeling, left hand cranks the reel (authored, loop)"
+      },
+      "idle": {
+        "action": "idle",
+        "source": "standing idle (KayKit Idle)"
+      },
+      "walk": {
+        "action": "walk",
+        "source": "walk (KayKit Walking_A)"
+      },
+      "celebrate": {
+        "action": "perfect cast / rare catch",
+        "source": "celebrate (KayKit Cheer)"
+      },
+      "interact": {
+        "action": "shop / building interaction",
+        "source": "use a building / talk (KayKit Interact)"
+      },
+      "sit_idle": {
+        "action": "idle rest (workers)",
+        "source": "sit on the pier edge / rest (KayKit Sit_Floor_Idle)"
+      }
+    },
+    "attach": {
+      "rod": "bone handslot.r (right hand); gear grip node goes on this bone",
+      "offhand": "bone handslot.l"
+    },
+    "missing_clips": [],
+    "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
+    "placement": "ground",
+    "role": "idle worker NPC (hired fisher); rod attaches to handslot.r like the player; has its own clips: idle, walk, fish_idle, cast_windup, cast_release, reel_loop, celebrate, interact, sit_idle",
+    "preview": "assets/character/worker_deckhand/preview.webp"
+  },
+  "worker_angler": {
+    "path": "assets/character/worker_angler/model.glb",
+    "scale": 1,
+    "tris": 4409,
+    "bounds": {
+      "min": [
+        -0.78,
+        0,
+        -0.86
+      ],
+      "max": [
+        0.78,
+        1.99,
+        0.67
+      ]
+    },
+    "materials": [
+      "worker_angler_tex",
+      "cove_atlas_ds",
+      "cove_atlas"
+    ],
+    "bytes": 396472,
+    "licence": "CC0 base character (KayKit Character Pack: Adventurers 1.0, Kay Lousberg), recoloured + fisher gear + authored clips by Agent D",
+    "source": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0",
+    "base_mesh": "Mage",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "story": "Sef, the quiet angler: long olive oilcloth coat, wide conical straw hat, wicker creel on his back",
+    "height_m": 1.8,
+    "clips": {
+      "fish_idle": {
+        "action": "wait for bite",
+        "source": "waiting for a bite, rod held out (authored, loop)"
+      },
+      "cast_windup": {
+        "action": "aim:start",
+        "source": "aim start: rod drawn back (KayKit Throw 0-0.40 s, retimed)"
+      },
+      "cast_release": {
+        "action": "cast release",
+        "source": "cast release + follow-through (KayKit Throw 0.40-1.37 s)"
+      },
+      "reel_loop": {
+        "action": "reel (fight, holding)",
+        "source": "reeling, left hand cranks the reel (authored, loop)"
+      },
+      "idle": {
+        "action": "idle",
+        "source": "standing idle (KayKit Idle)"
+      },
+      "walk": {
+        "action": "walk",
+        "source": "walk (KayKit Walking_A)"
+      },
+      "celebrate": {
+        "action": "perfect cast / rare catch",
+        "source": "celebrate (KayKit Cheer)"
+      },
+      "interact": {
+        "action": "shop / building interaction",
+        "source": "use a building / talk (KayKit Interact)"
+      },
+      "sit_idle": {
+        "action": "idle rest (workers)",
+        "source": "sit on the pier edge / rest (KayKit Sit_Floor_Idle)"
+      }
+    },
+    "attach": {
+      "rod": "bone handslot.r (right hand); gear grip node goes on this bone",
+      "offhand": "bone handslot.l"
+    },
+    "missing_clips": [],
+    "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
+    "placement": "ground",
+    "role": "idle worker NPC (hired fisher); rod attaches to handslot.r like the player; has its own clips: idle, walk, fish_idle, cast_windup, cast_release, reel_loop, celebrate, interact, sit_idle",
+    "preview": "assets/character/worker_angler/preview.webp"
+  }
+}

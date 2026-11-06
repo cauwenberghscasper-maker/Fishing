@@ -6,7 +6,7 @@ export const driftwoodCove = {
   id: 'driftwood_cove',
   size: 150,               // terrain mesh extent (square)
   resolution: 220,         // terrain grid segments per side
-  seabed: { depth: 13.5, fall: 7.5 }, // max depth and how fast it drops off the shore
+  seabed: { depth: 14, fall: 11 }, // max depth and how fast it drops off the shore
 
   // Land shapes, merged with a smooth max. top = height of the shape's interior,
   // edge = metres over which it falls to the shore, rough = noise amplitude on top.
@@ -143,7 +143,7 @@ export const driftwoodCove = {
       skyHorizon: '#f7d79a',
       skyZenith: '#7cc3c8',
     },
-    sand: { dry: '#f0b64e', wet: '#a8742f', under: '#c8a05a' },
+    sand: { dry: '#e9b45a', wet: '#9c7438', under: '#b89a5c' },
     grass: { base: '#8a9a2c', tip: '#c9c046', dark: '#3f5a1d' },
     rock: { base: '#3a3631', light: '#6b6155', moss: '#7d8a2c' },
   },

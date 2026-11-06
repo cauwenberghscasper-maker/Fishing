@@ -4,7 +4,7 @@
 // - autosave on profile:changed (debounced), on visibilitychange/pagehide, and every 15 s
 import { BUILDINGS, deriveGear } from '../economy/rules.js';
 
-export const PROFILE_VERSION = 2;
+export const PROFILE_VERSION = 3;
 export const SAVE_KEY = 'fishing-v1';
 export const TEST_SAVE_KEY = 'fishing-test-v1';
 
@@ -42,11 +42,51 @@ export const MIGRATIONS = [
       return { ...p, cooler, fishdex, version: 2 };
     },
   },
+  {
+    to: 3,
+    // v3: island growth (master prompt 4.6). The old plots (gull_spit, tidewrack_flats, lantern_point, kelp_shallows)
+    // are refunded at their old price; the old 5-stage buildings map onto l1-l3; everyone starts with the rowboat.
+    up: (p) => {
+      const OLD_PLOT_COST = { gull_spit: 1500, tidewrack_flats: 6000, lantern_point: 18000, kelp_shallows: 45000 };
+      const oldPlots = Array.isArray(p.island?.plots) ? p.island.plots : [];
+      const refund = oldPlots.reduce((sum, id) => sum + (OLD_PLOT_COST[id] ?? 0), 0);
+      const b = p.island?.buildings ?? {};
+      const fivestage = (v) => [1, 2, 2, 3, 3][Math.max(0, Math.min(4, v | 0))];   // shop, cooler, workers_hut were always built
+      const fourstage = (v) => Math.max(0, Math.min(3, v | 0));                      // smokehouse, aquarium (0 = not built)
+      const buildings = {
+        shop: fivestage(b.shop),
+        cooler: fivestage(b.cooler),
+        workers_hut: fivestage(b.workers_hut),
+        smokehouse: fourstage(b.smokehouse),
+        aquarium: fourstage(b.aquarium),
+        boat_dock: fourstage(b.boat_dock),
+      };
+      // a v2 player already had a cove with a shop, cooler and hut: give them the land those stand on
+      const plots = ['sandbar', 'palm_spit'];
+      return {
+        ...p,
+        coins: (Number.isFinite(p.coins) ? p.coins : 0) + refund,
+        island: { plots, piers: [], buildings, boat: 'rowboat' },
+        cooler: Array.isArray(p.cooler) ? p.cooler.map((c) => ({ ...c, variant: c?.variant ?? 'basic' })) : p.cooler,
+        version: 3,
+      };
+    },
+  },
 ];
 
 const num = (v, fallback = 0, min = 0) => (Number.isFinite(v) && v >= min ? v : fallback);
 const int = (v, fallback = 0, min = 0) => Math.floor(num(v, fallback, min));
 const strArr = (v) => (Array.isArray(v) ? [...new Set(v.filter((x) => typeof x === 'string'))] : []);
+
+function startIsland(data) {
+  const s = data.economy?.start?.island ?? {};
+  return {
+    plots: [...(s.plots ?? ['sandbar'])],
+    piers: [...(s.piers ?? [])],
+    buildings: Object.fromEntries(BUILDINGS.map((b) => [b, s.buildings?.[b] ?? (b === 'shop' ? 1 : 0)])),
+    boat: s.boat ?? 'rowboat',
+  };
+}
 
 export function newProfile(data, test = false) {
   const start = data.economy?.start ?? {};
@@ -64,7 +104,7 @@ export function newProfile(data, test = false) {
     held: null,
     catchSeq: 0,
     fishdex: {},
-    island: { plots: [], buildings: Object.fromEntries(BUILDINGS.map((b) => [b, 0])) },
+    island: startIsland(data),
     workers: [],
     unlockedIslands: ['driftwood_cove'],
     currentIsland: 'driftwood_cove',
@@ -82,6 +122,7 @@ function cleanCatch(c) {
   return {
     id: typeof c.id === 'string' ? c.id : `c${Math.random().toString(36).slice(2, 9)}`,
     fishId: c.fishId,
+    variant: typeof c.variant === 'string' ? c.variant : 'basic',
     weight: num(c.weight, 0),
     sizeClass: typeof c.sizeClass === 'string' ? c.sizeClass : 'normal',
     islandId: typeof c.islandId === 'string' ? c.islandId : 'driftwood_cove',
@@ -124,22 +165,35 @@ export function sanitizeProfile(raw, data, test = false) {
   out.fishdex = {};
   for (const [id, r] of Object.entries(p.fishdex && typeof p.fishdex === 'object' ? p.fishdex : {})) {
     if (!r || typeof r !== 'object') continue;
+    const variants = {};
+    for (const [v, n] of Object.entries(r.variants && typeof r.variants === 'object' ? r.variants : {})) {
+      if (Number.isFinite(n) && n > 0) variants[v] = Math.floor(n);
+    }
+    if (!Object.keys(variants).length) variants.basic = int(r.count, 1, 0) || 1;   // records from before variants
     out.fishdex[id] = {
       count: int(r.count, 1, 0),
       heaviest: num(r.heaviest, 0),
       heaviestSize: typeof r.heaviestSize === 'string' ? r.heaviestSize : 'normal',
       first: num(r.first, Date.now()),
+      variants,
+      sets: Object.fromEntries(Object.entries(r.sets && typeof r.sets === 'object' ? r.sets : {}).filter(([, v]) => v === true)),
     };
   }
 
   const econ = data.economy ?? {};
-  out.island = { plots: [], buildings: { ...base.island.buildings } };
-  const plotIds = Object.keys(econ.plots ?? {});
-  out.island.plots = strArr(p.island?.plots).filter((id) => !plotIds.length || plotIds.includes(id));
+  out.island = { ...base.island, buildings: { ...base.island.buildings } };
+  const known = (obj) => Object.keys(obj ?? {}).filter((k) => !k.startsWith('_'));
+  const plotIds = known(econ.plots);
+  const pierIds = known(econ.piers);
+  out.island.plots = [...new Set([...base.island.plots, ...strArr(p.island?.plots).filter((id) => !plotIds.length || plotIds.includes(id))])];
+  out.island.piers = strArr(p.island?.piers).filter((id) => !pierIds.length || pierIds.includes(id));
+  out.island.boat = typeof p.island?.boat === 'string' && (!econ.boats || econ.boats[p.island.boat]) ? p.island.boat : base.island.boat;
   for (const b of BUILDINGS) {
     const max = (econ.buildings?.[b]?.levels?.length ?? 1) - 1;
-    out.island.buildings[b] = Math.min(int(p.island?.buildings?.[b], 0), Math.max(0, max));
+    const have = p.island?.buildings?.[b];
+    out.island.buildings[b] = Math.min(Number.isFinite(have) ? int(have, 0) : base.island.buildings[b], Math.max(0, max));
   }
+  out.island.buildings.shop = Math.max(base.island.buildings.shop ?? 1, out.island.buildings.shop);   // there is always a shop
 
   out.workers = (Array.isArray(p.workers) ? p.workers : [])
     .filter((w) => w && typeof w === 'object')

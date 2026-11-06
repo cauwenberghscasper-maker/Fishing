@@ -31,10 +31,10 @@ function periodicNoise(period, rand) {
 export function createWaterNormalTexture(size = 256) {
   const rand = makeRand(7);
   const octaves = [
-    { n: periodicNoise(4, rand), a: 1.0 },
-    { n: periodicNoise(8, rand), a: 0.55 },
-    { n: periodicNoise(16, rand), a: 0.3 },
-    { n: periodicNoise(32, rand), a: 0.14 },
+    { n: periodicNoise(6, rand), a: 0.45 },
+    { n: periodicNoise(12, rand), a: 1.0 },
+    { n: periodicNoise(24, rand), a: 0.5 },
+    { n: periodicNoise(48, rand), a: 0.22 },
   ];
   const foamNoise = [periodicNoise(8, rand), periodicNoise(24, rand)];
   const height = new Float32Array(size * size);
@@ -49,7 +49,7 @@ export function createWaterNormalTexture(size = 256) {
     }
   }
   const data = new Uint8Array(size * size * 4);
-  const strength = 3.2;
+  const strength = 2.2;
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
       const at = (i, j) => height[((j + size) % size) * size + ((i + size) % size)];

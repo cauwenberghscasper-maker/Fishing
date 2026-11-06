@@ -72,7 +72,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     else if (mode === 'aim') hud.setMainLabel('Aim');
     else if (mode === 'wait') {
       const biting = fishSystem.biteProgress();
-      hud.setMainLabel(biting ? 'Hook!' : flight.active ? '...' : 'Reel in');
+      hud.setMainLabel(biting ? 'Hook!' : flight.active ? '' : 'Reel', { ariaLabel: biting ? 'Hook the fish' : 'Reel the line in' });
     } else if (mode === 'fight' || mode === 'hooked') hud.setMainLabel('Reel', { ariaLabel: 'Hold to reel, drag sideways to steer' });
     else hud.setMainLabel('', { hidden: true });
   }

@@ -1,41 +1,71 @@
 {
-  "_notes": "Gear by slot, in upgrade order. Stats are absolute values; the UI shows the difference to what is equipped. cost 0 = starter, owned from the start. Baits are permanent supplies (buy once, equip any time).",
+  "_notes": "Gear by slot, in upgrade order. Stats are absolute values; the UI shows the difference to what is equipped. cost 0 = starter, owned from the start. Baits are permanent supplies (buy once, equip any time). model = Agent G's gear manifest key <slot>.<itemId>. Lines have no model: material is how Agent A draws the line rope (colour, thickness in mm, glow 0..1).",
   "rods": {
     "splitcane": {
       "name": "Grandpa's Splitcane",
       "flavour": "It's caught more fish than you have.",
       "cost": 0,
-      "stats": { "castDistance": 14, "steadiness": 0.30, "rodPower": 1.0 }
+      "model": "rod.splitcane",
+      "stats": {
+        "castDistance": 14,
+        "steadiness": 0.3,
+        "rodPower": 1.0
+      }
     },
     "driftwood_whip": {
       "name": "Driftwood Whip",
       "flavour": "Cut from a branch that washed in from somewhere warmer.",
       "cost": 40,
-      "stats": { "castDistance": 18, "steadiness": 0.40, "rodPower": 1.15 }
+      "model": "rod.driftwood_whip",
+      "stats": {
+        "castDistance": 18,
+        "steadiness": 0.4,
+        "rodPower": 1.15
+      }
     },
     "greenheart": {
       "name": "Harbourmaster's Greenheart",
       "flavour": "Lent to every apprentice for a hundred years. Never once returned.",
       "cost": 380,
-      "stats": { "castDistance": 22, "steadiness": 0.50, "rodPower": 1.35 }
+      "model": "rod.greenheart",
+      "stats": {
+        "castDistance": 22,
+        "steadiness": 0.5,
+        "rodPower": 1.35
+      }
     },
     "whalebone_arc": {
       "name": "Whalebone Arc",
       "flavour": "Bends like a bow and hums when a big one runs.",
       "cost": 1600,
-      "stats": { "castDistance": 27, "steadiness": 0.62, "rodPower": 1.6 }
+      "model": "rod.whalebone_arc",
+      "stats": {
+        "castDistance": 27,
+        "steadiness": 0.62,
+        "rodPower": 1.6
+      }
     },
     "tidecaster": {
       "name": "Brass-Ferrule Tidecaster",
       "flavour": "The ferrules were cut from a sunken ship's bell. Sometimes it rings.",
       "cost": 6000,
-      "stats": { "castDistance": 32, "steadiness": 0.74, "rodPower": 1.9 }
+      "model": "rod.tidecaster",
+      "stats": {
+        "castDistance": 32,
+        "steadiness": 0.74,
+        "rodPower": 1.9
+      }
     },
     "lighthouse_spar": {
       "name": "Lighthouse Spar",
       "flavour": "A spare from the lamp room. It still remembers the light.",
       "cost": 20000,
-      "stats": { "castDistance": 38, "steadiness": 0.86, "rodPower": 2.3 }
+      "model": "rod.lighthouse_spar",
+      "stats": {
+        "castDistance": 38,
+        "steadiness": 0.86,
+        "rodPower": 2.3
+      }
     }
   },
   "reels": {
@@ -43,31 +73,46 @@
       "name": "Rusty Click Reel",
       "flavour": "Clicks like a cricket. Mostly still turns.",
       "cost": 0,
-      "stats": { "reelSpeed": 1.0 }
+      "model": "reel.click_reel",
+      "stats": {
+        "reelSpeed": 1.0
+      }
     },
     "tinker_winch": {
       "name": "Tinker's Brass Winch",
       "flavour": "Built from a pocket watch and a grudge.",
       "cost": 110,
-      "stats": { "reelSpeed": 1.15 }
+      "model": "reel.tinker_winch",
+      "stats": {
+        "reelSpeed": 1.15
+      }
     },
     "marigold_ratchet": {
       "name": "Marigold Ratchet",
       "flavour": "Salvaged from the Marigold. She sank; the ratchet didn't.",
       "cost": 850,
-      "stats": { "reelSpeed": 1.35 }
+      "model": "reel.marigold_ratchet",
+      "stats": {
+        "reelSpeed": 1.35
+      }
     },
     "lantern_drum": {
       "name": "Lantern-Drum Reel",
       "flavour": "A little window in the drum glows brighter the harder a fish runs.",
       "cost": 3600,
-      "stats": { "reelSpeed": 1.6 }
+      "model": "reel.lantern_drum",
+      "stats": {
+        "reelSpeed": 1.6
+      }
     },
     "sextant_reel": {
       "name": "Sextant Gear Reel",
       "flavour": "Geared like a navigator's sextant. It counts every inch it wins back.",
       "cost": 14000,
-      "stats": { "reelSpeed": 1.9 }
+      "model": "reel.sextant_reel",
+      "stats": {
+        "reelSpeed": 1.9
+      }
     }
   },
   "lines": {
@@ -75,31 +120,66 @@
       "name": "Mended Cotton Line",
       "flavour": "A knot every arm's length. Each knot is a story.",
       "cost": 0,
-      "stats": { "lineStrength": 1.0 }
+      "material": {
+        "colour": "#e8dcc0",
+        "thickness": 1.2,
+        "glow": 0
+      },
+      "stats": {
+        "lineStrength": 1.0
+      }
     },
     "tarred_hemp": {
       "name": "Tarred Hemp",
       "flavour": "Smells like the dock. Holds like the dock.",
       "cost": 70,
-      "stats": { "lineStrength": 1.2 }
+      "material": {
+        "colour": "#3a2a1c",
+        "thickness": 1.4,
+        "glow": 0
+      },
+      "stats": {
+        "lineStrength": 1.2
+      }
     },
     "gutstring": {
       "name": "Gutstring Twist",
       "flavour": "Three strands, twisted by someone very patient.",
       "cost": 600,
-      "stats": { "lineStrength": 1.45 }
+      "material": {
+        "colour": "#c9a86a",
+        "thickness": 1.0,
+        "glow": 0
+      },
+      "stats": {
+        "lineStrength": 1.45
+      }
     },
     "silkweed_braid": {
       "name": "Silkweed Braid",
       "flavour": "Braided from kelp that grows where the light runs out.",
       "cost": 3000,
-      "stats": { "lineStrength": 1.75 }
+      "material": {
+        "colour": "#5f8a3a",
+        "thickness": 0.9,
+        "glow": 0.25
+      },
+      "stats": {
+        "lineStrength": 1.75
+      }
     },
     "keepers_wire": {
       "name": "Lighthouse Keeper's Wire",
       "flavour": "Meant for the lamp. The keeper had other ideas.",
       "cost": 12000,
-      "stats": { "lineStrength": 2.1 }
+      "material": {
+        "colour": "#f3d78f",
+        "thickness": 0.8,
+        "glow": 0.6
+      },
+      "stats": {
+        "lineStrength": 2.1
+      }
     }
   },
   "baits": {
@@ -107,31 +187,46 @@
       "name": "Yesterday's Breadcrust",
       "flavour": "The gulls are furious about this.",
       "cost": 0,
-      "stats": { "attraction": 1.0 }
+      "model": "bait.breadcrust",
+      "stats": {
+        "attraction": 1.0
+      }
     },
     "sandworms": {
       "name": "Low-Tide Sandworms",
       "flavour": "Dug at dawn and still arguing about it.",
       "cost": 25,
-      "stats": { "attraction": 1.1 }
+      "model": "bait.sandworms",
+      "stats": {
+        "attraction": 1.1
+      }
     },
     "glass_shrimp": {
       "name": "Glass Shrimp",
       "flavour": "See-through, like the things that eat them.",
       "cost": 200,
-      "stats": { "attraction": 1.25 }
+      "model": "bait.glass_shrimp",
+      "stats": {
+        "attraction": 1.25
+      }
     },
     "tar_leech": {
       "name": "Tar Leech",
       "flavour": "Black, sticky, and irresistible to anything old that lives on the bottom.",
       "cost": 1200,
-      "stats": { "attraction": 1.4 }
+      "model": "bait.tar_leech",
+      "stats": {
+        "attraction": 1.4
+      }
     },
     "dusk_krill": {
       "name": "Dusk Krill",
       "flavour": "They glow faintly. The shy ones come out for them.",
       "cost": 4500,
-      "stats": { "attraction": 1.55 }
+      "model": "bait.dusk_krill",
+      "stats": {
+        "attraction": 1.55
+      }
     }
   }
 }

@@ -141,6 +141,21 @@ Travel by boat from the home pier. Unlock by coins + a catch requirement.
 - All rates in data/economy.json so balancing never needs code changes.
 - Later: prestige ("New Tide") that resets coins/island for a permanent multiplier.
 
+### 4.10 Co-op: up to 4 friends on one island (Casper, 6 Nov)
+- **Model (Casper's choice): visit the host's island.** The host taps "Invite friends", gets a short room code and a share link (`?join=CODE`, Web Share API on phones). Up to 3 friends join, 4 players in total. A 5th is turned away politely.
+- Everyone keeps their **own** progress: their own coins, gear, cooler and Fishdex in their own save. The island, its plots, buildings and boat are the host's. Visitors can fish, sell at the host's shop (their own coins) and fight, but can't buy land or buildings on someone else's island.
+- **What makes it fun together:**
+  - see each other walk, aim, cast and fight, with name tags in each player's colour
+  - when a friend hooks something big, the others see the tension, can run over and **help land it** (a "Net it!" action that drains the fish's stamina)
+  - elemental superpowers hit everyone nearby (lightning on the pier, lava bombs, the rogue wave), so the group dodges together
+  - catches are announced to the group with the full reveal
+  - quick emotes: wave, cheer, "big one!", point
+  - later (M3), co-op boss fights where up to 4 lines are in the same boss
+- **No accounts, no cloud saves needed.** Supabase project `fishing` (free plan, separate from everything else) is used only for Realtime: broadcast plus presence on a channel per room. URL `https://lhnayyewhxgsamwwmcxe.supabase.co`; the publishable key goes in `src/net/config.js` (publishable keys are meant for the browser).
+- **Host-authoritative:** the host's game simulates the fish (spawns, AI, variants, bites for everyone's lures) and the island state; visitors send their own player state and actions and render what the host says. If the host leaves, the room ends gracefully and visitors go back to their own island with a message.
+- **Free-tier budget:** Realtime counts every delivered message. Send player state at 4–6 Hz only while something changes, events only on change, fish snapshots at ~2 Hz for fish near players, and interpolate. Target ≤ 30 messages/s for a full room of 4. Write the math in the handoff.
+- Single-player must work exactly as before when nobody joins, and offline.
+
 ### 4.9 Save
 - localStorage key `fishing-v1`, versioned, with `sanitizeProfile` + migrations. Players must never lose progress.
 - Debug hooks: `window.__game` (state), `?test=100` fast mode (100× coins/idle, unlock buttons) with a separate save key.
@@ -281,6 +296,7 @@ public/data/variants.json                                     Agent B (chances, 
 public/data/powers.json                                       Agent A (superpower mechanics, telegraphs, counters)
 public/art/  public/data/art.json                             Agent F (illustrations; B wires them into the UI)
 public/assets/gear/ public/assets/boats/ + manifests          Agent G (rods, reels, baits, boats)
+src/net/  (#hud-net contents)                                 Agent H (co-op multiplayer)
 tools/check-art.mjs                                           lead
 CREDITS.md                                                   Agent D (C, E, F, G append their sections)
 docs/                                                        lead (agents write docs/handoff/<agent>.md)
@@ -299,6 +315,7 @@ Stay inside your folders. Need something elsewhere → write it in your handoff 
 - **Agent D — World & Character Assets:** Driftwood Cove models (kits repainted + bespoke Blender builds), the island growth stages (starting sandbar, plot dressing sets), every building at every level, workers, the player character with clips; licences in CREDITS.md.
 - **Agent E — Variants & Superpower VFX:** the basic morph and elemental variant looks (shader overlays, auras, lights) and the over-the-top superpower effects (lightning storms, freezing sea, lava bombs, vines, glyph teleports, lights-out, rogue wave, anchor chain), with HF-generated textures and sprites. Code in `src/vfx/`, driven by A's events.
 - **Agent F — Illustrations:** painted art the UI shows: gear cards for every item, island cards for the sea chart, building cards per level, variant emblems, title/loading art. Registered in `public/data/art.json`; Agent B wires them in.
+- **Agent H — Co-op Multiplayer:** rooms, invites, presence, the Supabase Realtime transport (plus a local transport for testing), syncing players, fish, fights, powers and the host's island, remote player avatars, the co-op actions and emotes (section 4.10).
 - **Agent G — Gear & Boats:** a 3D model for every rod, reel and bait in `items.json` and every boat level, from HF concepts + Blender; rod tip and hand grip marked as nodes so A can attach the line and the hand.
 
 Every agent ends with `docs/handoff/<agent>.md`: what was done, what is missing, what needs Casper's decision, and screenshots/contact sheets where visual.

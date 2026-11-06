@@ -3,8 +3,8 @@
 // UI calls the `economy` API; other systems talk through events (docs/INTERFACES.md).
 import {
   SLOTS, BUILDINGS, groupOf, itemOf, deriveGear, priceOf, batchPrices, sizeClassFor, sizeClassById,
-  coolerCapacity, crewSlots, hireCost, buildingLevel, hotFishOf, incomeRates, offlineEarnings,
-  offlineCapHours, islandRequirements, dayKey, testMult,
+  coolerCapacity, crewSlots, crewBunks, crewSpots, hireCost, buildingLevel, hotFishOf, incomeRates, offlineEarnings,
+  offlineCapHours, islandRequirements, dayKey, testMult, variantOf, variantSets, nextPlot, nextPier, nextBoat, boatOf, pierDepth,
 } from './rules.js';
 
 let S = null;   // state
@@ -40,21 +40,44 @@ function refreshGear() {
 
 function islandChanged(extra = {}) {
   const p = P();
-  E.emit('island:changed', { plots: [...p.island.plots], buildings: { ...p.island.buildings }, workers: p.workers.length, ...extra });
+  E.emit('island:changed', {
+    plots: [...p.island.plots],
+    piers: [...p.island.piers],
+    buildings: { ...p.island.buildings },
+    boat: p.island.boat,
+    workers: p.workers.map((w) => ({ id: w.id, name: w.name })),
+    ...extra,
+  });
 }
 
 // ---------------------------------------------------------------- catches
 function recordCatch(c) {
   const p = P();
-  const dex = p.fishdex[c.fishId];
+  let dex = p.fishdex[c.fishId];
   const isNew = !dex;
   const isRecord = !isNew && c.weight > (dex.heaviest ?? 0);
-  if (isNew) p.fishdex[c.fishId] = { count: 1, heaviest: c.weight, heaviestSize: c.sizeClass, first: c.at };
+  if (isNew) dex = p.fishdex[c.fishId] = { count: 1, heaviest: c.weight, heaviestSize: c.sizeClass, first: c.at, variants: {}, sets: {} };
   else {
     dex.count += 1;
     if (isRecord) { dex.heaviest = c.weight; dex.heaviestSize = c.sizeClass; }
   }
-  return { isNew, isRecord };
+  dex.variants ??= {};
+  dex.sets ??= {};
+  const isNewVariant = !dex.variants[c.variant];
+  dex.variants[c.variant] = (dex.variants[c.variant] ?? 0) + 1;
+
+  // logbook goals: a complete morph set / every variant of this species pays once
+  const completed = [];
+  const fish = data().fish?.[c.fishId];
+  for (const set of variantSets(data(), dex)) {
+    if (!set.done || dex.sets[set.id]) continue;
+    dex.sets[set.id] = true;
+    const coins = Math.round((fish?.baseValue ?? 0) * (set.coinsPerBase ?? 0)) * testMult(data(), S.test, 'coins');
+    if (coins) addCoins(coins);
+    if (set.pearls) p.pearls += set.pearls;
+    completed.push({ id: set.id, name: set.name, coins, pearls: set.pearls ?? 0 });
+  }
+  return { isNew, isRecord, isNewVariant, completed };
 }
 
 function pearlsFor(fish, sizeClass) {
@@ -69,17 +92,19 @@ function onCaught(payload = {}) {
   if (!fish) console.warn('[economy] caught an unknown fish id', fishId);
   const weight = Number.isFinite(payload.weight) && payload.weight > 0 ? Math.round(payload.weight * 100) / 100 : fish?.weight?.[0] ?? 0.1;
   const sizeClass = sizeClassById(data(), payload.sizeClass)?.id ?? sizeClassFor(data(), fishId, weight).id;
+  const variant = variantOf(data(), payload.variant ?? 'basic');
   const entry = {
     id: `c${++p.catchSeq}`,
     fishId,
+    variant: variant.id,
     weight,
     sizeClass,
     islandId: payload.islandId ?? S.world?.islandId ?? 'driftwood_cove',
     perfect: !!payload.perfectCast,
     at: Date.now(),
   };
-  const { isNew, isRecord } = recordCatch(entry);
-  const pearls = pearlsFor(fish, sizeClass);
+  const { isNew, isRecord, isNewVariant, completed } = recordCatch(entry);
+  const pearls = pearlsFor(fish, sizeClass) + (variant.pearls ?? 0);
   if (pearls) p.pearls += pearls;
   p.stats.caught += 1;
 
@@ -92,7 +117,9 @@ function onCaught(payload = {}) {
 
   const value = priceOf(data(), p, S.test, entry);
   changed('cooler', 'fishdex', 'pearls', 'stats');
-  E.emit('catch:landed', { catch: entry, isNew, isRecord, value, pearls, coolerFull, hot: hotFishOf(data(), p) === fishId });
+  E.emit('catch:landed', {
+    catch: entry, variant, isNew, isRecord, isNewVariant, sets: completed, value, pearls, coolerFull, hot: hotFishOf(data(), p) === fishId,
+  });
 }
 
 function sellHeld() {
@@ -190,6 +217,13 @@ export const economy = {
   offlineCapHours: () => offlineCapHours(data(), P()),
   building: (id) => buildingLevel(data(), P(), id),
   crewSlots: () => crewSlots(data(), P()),
+  crewBunks: () => crewBunks(data(), P()),
+  crewSpots: () => crewSpots(data(), P()),
+  boat: () => boatOf(data(), P()),
+  nextBoat: () => nextBoat(data(), P()),
+  nextPier: () => nextPier(data(), P()),
+  pierDepth: () => pierDepth(data(), P()),
+  variant: (id) => variantOf(data(), id),
   hireCost: () => hireCost(data(), P()),
   islandRequirements: (id) => islandRequirements(data(), P(), id),
   /** A rough price for showing what a fish is worth (fair size, no market). */
@@ -277,6 +311,7 @@ export const economy = {
     const b = buildingLevel(data(), P(), id);
     if (!b) return fail('missing');
     if (!b.next) return fail('max');
+    if (!b.siteOwned) return fail('site', { plot: b.def.site });
     if (!spend(b.next.cost)) return fail('coins', { need: b.next.cost - P().coins });
     P().island.buildings[id] = b.index + 1;
     if (id === 'cooler') refillFromHeld();
@@ -284,12 +319,7 @@ export const economy = {
     islandChanged({ upgraded: id, level: b.index + 1 });
     return { ok: true, level: b.index + 1, name: b.next.name };
   },
-  nextPlot() {
-    const owned = P().island.plots;
-    return Object.entries(data().economy?.plots ?? {})
-      .sort((a, b) => (a[1].order ?? 0) - (b[1].order ?? 0))
-      .find(([id]) => !owned.includes(id))?.[0] ?? null;
-  },
+  nextPlot: () => nextPlot(data(), P()),
   buyPlot(id) {
     const def = data().economy?.plots?.[id];
     if (!def) return fail('missing');
@@ -301,9 +331,31 @@ export const economy = {
     islandChanged({ raised: id });
     return { ok: true, name: def.name };
   },
+  buyPier(id) {
+    const next = nextPier(data(), P());
+    if (!next || next.id !== id) return fail('order');
+    if (!next.plotOwned) return fail('site', { plot: next.plot });
+    if (!spend(next.cost)) return fail('coins', { need: next.cost - P().coins });
+    P().island.piers.push(id);
+    changed('island', 'coins');
+    islandChanged({ pierBuilt: id, depth: pierDepth(data(), P()) });
+    return { ok: true, name: next.name, depth: next.depth };
+  },
+  buyBoat(id) {
+    const next = nextBoat(data(), P());
+    if (!next || next.id !== id) return fail('order');
+    if (!next.dockFits) return fail('dock');
+    if (!spend(next.cost)) return fail('coins', { need: next.cost - P().coins });
+    P().island.boat = id;
+    changed('island', 'coins');
+    islandChanged({ boatBought: id });
+    return { ok: true, name: next.name };
+  },
   hireWorker() {
     const p = P();
-    if (p.workers.length >= crewSlots(data(), p)) return fail('slots');
+    if (p.workers.length >= crewSlots(data(), p)) {
+      return fail(p.workers.length >= crewBunks(data(), p) ? 'bunks' : 'spots');
+    }
     const cost = hireCost(data(), p);
     if (!spend(cost)) return fail('coins', { need: cost - p.coins });
     const names = data().economy?.workers?.names ?? ['Deckhand'];

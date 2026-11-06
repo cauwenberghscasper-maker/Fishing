@@ -3,11 +3,11 @@
 import * as THREE from 'three';
 
 const MODES = {
-  explore: { pitch: 55, width: 10.5, height: 13, lead: 2.2, ease: 4.5 },
-  aim: { pitch: 62, width: 12.5, height: 14.5, lead: 0, ease: 2.2 },
-  wait: { pitch: 58, width: 12, height: 14, lead: 0, ease: 2.0 },
-  fight: { pitch: 57, width: 14, height: 16, lead: 0, ease: 2.6 },
-  catch: { pitch: 50, width: 8.5, height: 10.5, lead: 0.5, ease: 3.0 },
+  explore: { pitch: 55, width: 15, height: 17, lead: 2.5, ease: 4.5 },
+  aim: { pitch: 62, width: 17.5, height: 19, lead: 0, ease: 2.2 },
+  wait: { pitch: 58, width: 16.5, height: 18, lead: 0, ease: 2.0 },
+  fight: { pitch: 57, width: 19, height: 21, lead: 0, ease: 2.6 },
+  catch: { pitch: 50, width: 11, height: 13, lead: 0.5, ease: 3.0 },
 };
 
 export function createCameraRig({ fov = 45 } = {}) {

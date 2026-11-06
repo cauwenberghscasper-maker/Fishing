@@ -1,47 +1,50 @@
-# Fish concept prompt template (house style)
+# Fish concept prompt template (house style, v3, round 2)
 
-Owner: Agent C. Used with Qwen-Image (`mcp-tools/Qwen-Image`, tool `Qwen_Image_generate_image`, 16 steps default).
-Reference: `art/concepts/reference/house-style.png` (Casper's rare fish sheet: sleek stylized 3D creatures, polished iridescent scales, crisp silhouettes, bioluminescent accents, dark teal background).
+Owner: Agent C. Tool: Qwen-Image (`mcp-tools/Qwen-Image`, `Qwen_Image_generate_image`, default 16 steps).
+Quality bar: `art/concepts/fish/temple_manta.webp` and `art/concepts/fish/storm_marlin.webp` (approved by Casper). Older style reference: `art/concepts/reference/house-style.png`.
 
-## Rules this template enforces
-- One fish, side view, full body, perfectly straight (no curl), head to the right, centred, plain dark teal background (clean cut-out for background removal and TRELLIS.2).
-- Element + ONE signature feature that reads from above (described as sitting on the back / top), strict 3-colour palette **mapped to body parts**, a personality.
-- Grounded anatomy ("realistic <species> anatomy") so the model does not drift into toy/cartoon proportions.
-- Small realistic dark eye. No googly or cartoon eyes, no random glowing dots, no limbs, no props unless they are the signature.
-- Bioluminescent accents only when the design names them (`{glow}`); otherwise the line says "no glow".
+## The rules the prompt must carry (master prompt 5.0 / 5.2)
+1. **The element is the anatomy.** Describe body, skin and fins *as* the idea ("its dorsal fin is a torn storm sail"), never "a fish with X on it". If a sentence can be read as "fish + object", rewrite it.
+2. **Silhouette test.** Name the outline shape in the prompt (cross, disc, star, beaded chain, coil...). Filled black, it must differ from every other fish.
+3. **Element + one signature (reads from above) + strict 3-colour palette.** The palette is mapped to body parts, with the **dark, rich base** named first.
+4. **Glow only on the signature part**, or "no glow anywhere".
+5. **No face acting:** small realistic eye (or glowing slit), mouth closed, no expression. The negative prompt bans cute, lips, smile, big pupils, pastel and plastic-toy gloss.
+6. **One-line story** goes into the prompt as a demeanour, because it changes posture and fin shape.
+7. Straight side view, head right, plain dark teal background (needed for cut-out and for the Blender build). Flat fish (flounder) use a high top view, because their identity is the top.
 
-## Template v2 (side view: fusiform / eel / bulky / flat fish)
+## Template
 
 ```
-A single {name}, an elegant stylized fantasy fish for a premium 3D mobile fishing game, {element} element.
-Strict side view profile, full body visible, perfectly straight horizontal body, head pointing right, tail to the left, centered with empty space around it.
-Realistic {species} anatomy, {body}.
-{material}.
-Signature feature: {signature}, clearly visible along its back and top.
-Strict three-colour palette: {c1} {part1}, {c2} {part2}, {c3} {part3}.
-{glow}
-Personality: {personality}, shown through posture and fin shape, small realistic dark eye.
-Sleek stylized 3D game creature render, polished glossy lacquered finish with a subtle iridescent sheen, crisp clean silhouette, hand-crafted collectible look, soft rim light, gentle top light.
+{Name}, a {tier} {element}-element creature for a premium stylized 3D fishing game, creature concept render.
+Strict side view profile, full body visible, perfectly straight horizontal body, head pointing right, tail to the left, centered with empty space around it. Silhouette: {outline}.
+Anatomy: {the body/skin/fins described AS the element idea}.
+Signature, readable from above: {signature part}.
+Strict three-colour palette: {dark base colour} base on {part}, {colour 2} on {part}, {colour 3} on {part}. Dark rich base, not pastel.
+{GLOW}
+Story: {one-line story}; it looks {demeanour}.
+Face: small realistic {eye} eye, mouth closed, no expression.
+Sleek stylized 3D game creature render in the style of premium collectible game art, crisp clean silhouette, polished iridescent surfaces where it fits, soft rim light, gentle top light.
 Plain dark teal studio background, no other objects.
 ```
 
-Aspect ratio: `16:9` for long fish (sardine, perch, goby, bass, eel, marlin); `4:3` for puffer and flounder; `1:1` for manta and jelly.
+- `{GLOW}` = `Bioluminescent glow only on {part}, nowhere else.` or `No glow anywhere.`
+- Flat fish: replace the view line with `Seen from a high top view, the flat body lying horizontal, head pointing right, centered with empty space around it.`
+- Aspect: `16:9` long fish and eels, `4:3` puffer and blenny, `1:1` flounder.
 
-## Top three-quarter variant (ray / jelly favourites)
-Replace the "Strict side view" line with:
+## Negative prompt (base; add per-fish bans)
 ```
-Seen from a high three-quarter top view, full body visible, symmetrical, centered with empty space around it.
+cute, kawaii, chibi, cartoon face, smile, lips, open mouth, big eyes, large pupils, googly eyes, eyebrows, facial expression, pastel colours, plastic toy, vinyl figure, accessories, hat, text, letters, watermark, logo, blurry, low resolution, arms, hands, legs, multiple creatures, school of fish, cluttered background, bubbles, seabed, photorealistic photo, curled body, bent body, cropped, random glowing dots, sparkles
 ```
+(Old Mooring removes `open mouth` only if a take needs the hooked jaw visible; kelp_wraith never bans "kelp", only "kelp forest background".)
 
-## Negative prompt (always)
-```
-text, watermark, logo, blurry, low resolution, googly eyes, big cartoon eyes, cute chibi, toy, arms, hands, legs, multiple creatures, school of fish, cluttered background, bubbles, seabed, coral, plants, photorealistic photo, curled body, bent body, cropped, random glowing dots, sparkles
-```
-
-## Glow line values
-- No glow: `No glowing parts, no bioluminescence.`
-- With glow: `Subtle bioluminescent accent only on {where}, nowhere else.`
+## Anti-generic check before keeping a take
+Put it next to the manta and the marlin:
+- Is the idea *in* the body, or stuck on it?
+- Dark base + one glow zone, or pastel all over?
+- Eye small, mouth shut, no "character" face?
+- Filled black, does it read as this fish and not "a fish"?
+- Could "<name> fantasy fish" in any generator give the same thing? If yes, redo.
 
 ## Changelog
-- v1 (test on driftwood_perch, seed 1537272886): good silhouette and nail, but cartoon eye with a big highlight, wood and scales mixed at random, generic "toy" feel. Kept in `.cache/agent-c/concepts/driftwood_perch_v1.webp` only.
-- v2 (driftwood_perch, seed 1237474659, kept): added "realistic <species> anatomy", "small realistic dark eye", "toy" in the negative, palette mapped to body parts, glossy lacquered finish with iridescent sheen. Result reads as a real perch made of driftwood, nail on the dorsal fin, teal perch bands. Much closer to the reference.
+- v1/v2 (5 Nov, round 1): normal fish + object; rejected by Casper except the manta and marlin, whose prompts already described the element as anatomy. v3 makes that the rule.
+- v3 (6 Nov): anatomy-first wording, silhouette line, dark-base palette, face line, story line, stronger negative prompt.

@@ -32,3 +32,13 @@ Daily quota ~25 min GPU, resets ~22:45 Brussels. Agent C budget ~18 min, Agent D
 | 11:19 | D | Qwen-Image | Driftwood Cove key art take 2, 3:4, seed 1214929966 (kept as `art/concepts/world/driftwood_cove_key.webp`) | ~20 |
 
 **Agent D total today (estimate): 2 Qwen-Image runs ≈ 40 s of the 4 min budget.**
+| 6 Nov 11:21 | C | Qwen-Image | glasswing_sardine take A (kept) | ~20 |
+| 6 Nov 11:21 | C | Qwen-Image | glasswing_sardine take B (kept) | ~20 |
+| 6 Nov 11:21 | C | Qwen-Image | glasswing_sardine take C r1 (rejected: arrow through mouth) | ~20 |
+| 6 Nov 11:22 | C | Qwen-Image | glasswing_sardine take C r2 (kept, weakest) | ~20 |
+| 6 Nov 11:23 | C | Qwen-Image | driftback takes A, B, C | ~60 |
+| 6 Nov 11:25 | C | Qwen-Image | compass_flounder takes A, B, C r1 (B kept; A smile, C badge rejected) | ~60 |
+| 6 Nov 11:26 | C | Qwen-Image | compass_flounder A r2, C r2 (kept with flaws noted) | ~40 |
+| 6 Nov 11:28 | C | Qwen-Image | shellback_blenny A, B, C r1 (all fail: toy gloss, lips, hook in mouth) | ~48 (16 s each, wall-clock upper bound from here on) |
+| 6 Nov 11:28 | C | Qwen-Image | shellback_blenny A r2 (kept) | ~16 |
+| 6 Nov 11:29 | C | Qwen-Image | shellback_blenny B r2, C r2 (kept) | ~32 |

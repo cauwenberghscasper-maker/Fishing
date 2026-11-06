@@ -1,0 +1,115 @@
+{
+  "pier_straight": {
+    "path": "assets/world/pier_straight/model.glb",
+    "preview": "assets/world/pier_straight/preview.webp",
+    "scale": 1,
+    "tris": 1298,
+    "bounds": {
+      "min": [
+        -1.13,
+        -1.6,
+        -1.56
+      ],
+      "max": [
+        1.18,
+        0.8,
+        1.56
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 37148,
+    "category": "structure",
+    "placement": "water",
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide",
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke",
+    "status": "temp"
+  },
+  "pier_straight_b": {
+    "path": "assets/world/pier_straight_b/model.glb",
+    "preview": "assets/world/pier_straight_b/preview.webp",
+    "scale": 1,
+    "tris": 1270,
+    "bounds": {
+      "min": [
+        -1.09,
+        -1.6,
+        -1.56
+      ],
+      "max": [
+        1.18,
+        1.1,
+        1.56
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 36236,
+    "category": "structure",
+    "placement": "water",
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide",
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke",
+    "status": "temp"
+  },
+  "pier_patched": {
+    "path": "assets/world/pier_patched/model.glb",
+    "preview": "assets/world/pier_patched/preview.webp",
+    "scale": 1,
+    "tris": 1414,
+    "bounds": {
+      "min": [
+        -1.12,
+        -1.6,
+        -1.56
+      ],
+      "max": [
+        1.19,
+        0.84,
+        1.56
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 42900,
+    "category": "structure",
+    "placement": "water",
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide",
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke",
+    "status": "temp"
+  },
+  "pier_end": {
+    "path": "assets/world/pier_end/model.glb",
+    "preview": "assets/world/pier_end/preview.webp",
+    "scale": 1,
+    "tris": 2591,
+    "bounds": {
+      "min": [
+        -1.17,
+        -1.6,
+        -1.6
+      ],
+      "max": [
+        1.18,
+        2.65,
+        1.56
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_glow"
+    ],
+    "bytes": 68508,
+    "category": "structure",
+    "placement": "water",
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide",
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke",
+    "status": "temp"
+  }
+}

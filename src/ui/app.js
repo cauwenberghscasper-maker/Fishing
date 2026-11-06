@@ -54,8 +54,8 @@ export async function startUI({ root, state, events }) {
     modalHost.replaceChildren(layer);
     modalHost.style.pointerEvents = 'auto';
     view.onOpen?.();
-    const focusable = view.el.querySelector('[data-autofocus]') ?? view.el.querySelector('button');
-    focusable?.focus({ preventScroll: true });
+    view.el.setAttribute('tabindex', '-1');
+    view.el.focus({ preventScroll: true });
   }
   function open(view, { queued = false } = {}) {
     if (current && queued) { queue.push(view); return; }
@@ -191,8 +191,7 @@ export async function startUI({ root, state, events }) {
   refreshHud();
   if (state.profile.pendingOffline) open(offlineLetter(ctx));
 
-  // in test mode the harbour is reachable without walking (handy before the island exists)
-  window.__ui = ui;
+  window.__ui = ui;   // debug hook next to window.__game (opens screens from the console or tests)
   return ui;
 }
 

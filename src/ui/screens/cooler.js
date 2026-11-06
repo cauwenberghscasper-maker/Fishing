@@ -1,6 +1,6 @@
 // Agent B. The cooler, opened from the top bar: what you are carrying and what it is worth today.
 // Selling happens at the shop (walking there is part of the loop); at the shop the button opens it.
-import { h, fmt, fmtKg, money, fishWindow } from '../dom.js';
+import { h, fmt, fmtKg, money, fishWindow, fill } from '../dom.js';
 import { fishPreview } from '../../economy/data.js';
 import { sizeClassById } from '../../economy/rules.js';
 import { sheetHead, keepScroll } from './shop.js';
@@ -34,12 +34,12 @@ export function coolerSheet(ctx) {
     const { total } = economy.sellAllPreview();
     const atShop = ui.atShop();
     const foot = h('footer.sheet__foot',
-      h('p.foot-note', h('b.t-num', `${p.cooler.length} of ${cap}`), ' fish', h('br'),
+      h('p.foot-note', h('b.t-num', `${p.cooler.length} of ${cap}`), ' fish ', h('br'),
         p.cooler.length ? ['worth ', h('b.t-num', fmt(total)), atShop ? ' here' : ' at the shop'] : 'Sell at the shop on the pier'),
       atShop && p.cooler.length
         ? h('button.btn.btn--primary', { on: { click: () => ui.openShop({ tab: 'sell' }) } }, 'Open the shop')
         : null);
-    root.replaceChildren(sheetHead(cooler?.name ?? 'Cooler', `Keeps up to ${cap} fish fresh.`, () => ui.close()), body, foot);
+    fill(root, sheetHead(cooler?.name ?? 'Cooler', `Keeps up to ${cap} fish fresh.`, () => ui.close()), body, foot);
   }
   render();
   return { id: 'cooler', el: root, refresh: () => keepScroll(root, render) };

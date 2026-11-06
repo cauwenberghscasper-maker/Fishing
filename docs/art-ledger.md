@@ -48,3 +48,5 @@ Daily quota ~25 min GPU, resets ~22:45 Brussels. Agent C budget ~18 min, Agent D
 | 6 Nov 11:35 | C | Qwen-Image | seaglass_puffer A, B, C r2 (kept; faces still fail: teeth/lips) | ~48 |
 | 6 Nov 11:37 | C | Qwen-Image | old_mooring A, B, C r1 (all fail: rope tied round neck, prompt text leaked, teeth) | ~48 |
 | 6 Nov 11:38 | C | Qwen-Image | old_mooring A, B, C r2 (kept; still teeth/collar, needs another pass) | ~48 |
+| 6 Nov 11:42 | C | Qwen-Image-Edit-Angles | storm_marlin top view (failed: 'Error!', input URL from 5 Nov likely expired) | ~5 |
+| 6 Nov 11:42 | C | Qwen-Image | storm_marlin top-down render (unusable: model drew a side view again); top-view attempts stopped | ~16 |

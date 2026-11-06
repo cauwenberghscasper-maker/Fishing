@@ -1,5 +1,5 @@
 // Agent B. Settings: sound, graphics, lettering preview (test mode), test mode, erase save.
-import { h, ico } from '../dom.js';
+import { h, ico, fill } from '../dom.js';
 import { sheetHead } from './shop.js';
 import { eraseSave, PROFILE_VERSION } from '../../save/profile.js';
 
@@ -62,7 +62,7 @@ export function settingsSheet(ctx) {
       }, confirmErase ? 'Erase' : 'Erase…')));
 
     body.append(h('p.settings-foot', `Progress is saved on this device (save version ${PROFILE_VERSION}). Coins and pearls are earned in the game only; nothing is ever sold for real money.`));
-    root.replaceChildren(sheetHead('Settings', null, () => ui.close()), body);
+    fill(root, sheetHead('Settings', null, () => ui.close()), body);
   }
   render();
   return { id: 'settings', el: root, onClose: () => { confirmErase = false; } };

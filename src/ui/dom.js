@@ -23,6 +23,13 @@ export function h(tag, attrs, ...children) {
   return el;
 }
 
+/** Replace an element's children, skipping null/false (unlike native replaceChildren). */
+export function fill(el, ...children) {
+  el.replaceChildren();
+  append(el, children);
+  return el;
+}
+
 function append(el, children) {
   for (const c of children.flat(Infinity)) {
     if (c == null || c === false) continue;

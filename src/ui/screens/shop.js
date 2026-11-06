@@ -1,5 +1,5 @@
 // Agent B. The harbour shop: sell the cooler, buy gear, grow the harbour (crew, buildings, land, night watch).
-import { h, ico, fmt, fmtKg, money, fishWindow, plural, fmtDuration } from '../dom.js';
+import { h, ico, fmt, fmtKg, money, fishWindow, plural, fmtDuration, fill } from '../dom.js';
 import { fishPreview } from '../../economy/data.js';
 import { SLOTS, BUILDINGS, sizeClassById, marketMult } from '../../economy/rules.js';
 
@@ -43,7 +43,7 @@ export function shopSheet(ctx, { tab = 'sell', focus = null } = {}) {
       on: { click: () => { current = t.id; focus = null; render(); root.querySelector('.sheet__body').scrollTop = 0; } },
     }, t.id === 'sell' && state.profile.cooler.length ? `${t.label} (${state.profile.cooler.length})` : t.label)));
     const parts = current === 'sell' ? sellTab(ctx) : current === 'buy' ? buyTab(ctx) : harbourTab(ctx);
-    root.replaceChildren(
+    fill(root, 
       sheetHead(shopName, SUBTITLE[current], () => ui.close()),
       tabs,
       h('div.sheet__body', { role: 'tabpanel' }, parts.body),
@@ -104,7 +104,7 @@ function sellTab({ state, economy, ui }) {
   const { total } = economy.sellAllPreview();
   const cap = economy.coolerCapacity();
   const foot = h('footer.sheet__foot',
-    h('p.foot-note', h('b.t-num', `${p.cooler.length} of ${cap}`), h('br'), 'in your cooler'),
+    h('p.foot-note', h('b.t-num', `${p.cooler.length} of ${cap}`), ' ', h('br'), 'in your cooler'),
     h('button.btn.btn--primary', {
       on: { click: () => { const r = economy.sellAll(); if (r.ok) ui.toast(`Sold ${plural(r.count, 'fish', 'fish')} for ${fmt(r.total)}`); } },
     }, h('span', 'Sell all for'), h('span.t-num', fmt(total))));
@@ -170,7 +170,7 @@ function gearTag({ state, economy, ui }, slot, id, item, equippedId, equipped) {
   let note = null;
   let button;
   if (isEquipped) {
-    button = h('button.btn', { disabled: true }, ico('check'), 'In use');
+    button = h('span.in-use', ico('check'), 'In use');
   } else if (isOwned) {
     button = h('button.btn', { on: { click: () => { economy.equipItem(slot, id); ui.toast(`${item.name} is ready`); } } }, 'Use this');
   } else {
@@ -191,7 +191,7 @@ function gearTag({ state, economy, ui }, slot, id, item, equippedId, equipped) {
   if (slot === 'bait') note = baitBrings(state, id) ?? note;
 
   return h(`li.gear.tag${isEquipped ? '.is-equipped' : ''}`,
-    h('div.gear__head', h('h4.gear__name', item.name), isEquipped ? h('span.pebble.pebble--glow', 'In use') : null),
+    h('div.gear__head', h('h4.gear__name', item.name)),
     h('p.gear__flavour', item.flavour),
     stats,
     h('div.gear__foot', h('span.slot-label', note ?? ''), button));
@@ -264,7 +264,7 @@ function harbourTab(ctx) {
   const capH = economy.offlineCapHours();
   crew.append(work('hourglass', 'Night watch', `Your harbour keeps earning for up to ${capH} hours while you are away.`,
     watch
-      ? h('div.work__next', h('p', `${watch.name}: ${watch.hours} hours. ${watch.about}`), priceButton(ctx, watch.cost, watch.name, () => economy.buyWatch(), (r) => `${r.name}: the harbour now earns for ${r.hours} hours`))
+      ? h('div.work__next', h('p', h('b', watch.name), `: ${watch.hours} hours.`, h('i', watch.about)), priceButton(ctx, watch.cost, watch.name, () => economy.buyWatch(), (r) => `${r.name}: the harbour now earns for ${r.hours} hours`))
       : h('div.work__next', h('p', 'The harbour never sleeps.'))));
   body.push(crew);
 
@@ -278,7 +278,7 @@ function harbourTab(ctx) {
     const title = built ? b.name : b.def.name;
     const now = built ? buildingEffect(state, id, b) : `Not built yet. ${b.def.about}`;
     const next = b.next
-      ? h('div.work__next', h('p', `${built ? 'Next' : 'Build'}: ${b.next.name}. ${buildingEffect(state, id, b.next)}`),
+      ? h('div.work__next', h('p', `${built ? 'Next' : 'Build'}: `, h('b', b.next.name), '. ', buildingEffect(state, id, b.next)),
         priceButton(ctx, b.next.cost, `${built ? 'Upgrade to' : 'Build'} ${b.next.name}`, () => economy.upgradeBuilding(id), (r) => `${b.def.name}: now the ${r.name}`))
       : h('div.work__next', h('p', 'As good as it gets.'));
     list.append(work(ui.buildingIcon(id), title, now, next, knots(b.index, b.def.levels.length), id));

@@ -44,7 +44,7 @@ export function catchCard(ctx, info) {
   const left = info.coolerFull
     ? h('button.btn', { on: { click: release } }, 'Let it go')
     : h('button.btn', { on: { click: keep } }, 'Keep');
-  const right = h('button.btn.btn--primary', { 'data-autofocus': true, on: { click: sell } }, h('span', 'Sell for'), h('span.t-num', fmt(info.value)));
+  const right = h('button.btn.btn--primary', { 'aria-label': `Sell for ${fmt(info.value)} coins`, on: { click: sell } }, h('span', 'Sell for'), h('span.t-num', fmt(info.value)));
 
   const card = h('article.catch.chart.chart--framed', { role: 'dialog', 'aria-modal': 'true', 'aria-label': `You caught a ${fish.name}` },
     stage,

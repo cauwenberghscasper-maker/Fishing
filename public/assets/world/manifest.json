@@ -782,26 +782,25 @@
     "path": "assets/world/shop_hullhouse/model.glb",
     "preview": "assets/world/shop_hullhouse/preview.webp",
     "scale": 1,
-    "tris": 7574,
+    "tris": 7602,
     "bounds": {
       "min": [
         -3.6,
         0,
-        -2.84
+        -2.99
       ],
       "max": [
         3.6,
         6.61,
-        2.84
+        2.99
       ]
     },
     "materials": [
       "cove_atlas",
       "cove_atlas_ds",
-      "cove_glow",
       "cove_net"
     ],
-    "bytes": 218444,
+    "bytes": 204592,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
@@ -818,25 +817,24 @@
     "path": "assets/world/fisher_hut/model.glb",
     "preview": "assets/world/fisher_hut/preview.webp",
     "scale": 1,
-    "tris": 4725,
+    "tris": 4689,
     "bounds": {
       "min": [
         -3.82,
         0,
-        -2.56
+        -2.44
       ],
       "max": [
         3.82,
         4.69,
-        2.56
+        2.44
       ]
     },
     "materials": [
       "cove_atlas",
-      "cove_atlas_ds",
-      "cove_glow"
+      "cove_atlas_ds"
     ],
-    "bytes": 139360,
+    "bytes": 136688,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
@@ -853,7 +851,7 @@
     "path": "assets/world/workers_hut/model.glb",
     "preview": "assets/world/workers_hut/preview.webp",
     "scale": 1,
-    "tris": 2378,
+    "tris": 2530,
     "bounds": {
       "min": [
         -2.2,
@@ -862,17 +860,16 @@
       ],
       "max": [
         2.2,
-        3.05,
+        3.02,
         2.49
       ]
     },
     "materials": [
       "cove_atlas",
       "cove_atlas_ds",
-      "cove_glow",
       "cove_net"
     ],
-    "bytes": 64808,
+    "bytes": 66436,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
@@ -923,16 +920,16 @@
     "path": "assets/world/boat_skiff/model.glb",
     "preview": "assets/world/boat_skiff/preview.webp",
     "scale": 1,
-    "tris": 2110,
+    "tris": 2090,
     "bounds": {
       "min": [
         -2,
-        -0.22,
+        -0.1,
         -0.75
       ],
       "max": [
         2.41,
-        2.9,
+        3,
         0.75
       ]
     },
@@ -940,7 +937,7 @@
       "cove_atlas",
       "cove_atlas_ds"
     ],
-    "bytes": 59872,
+    "bytes": 51060,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
@@ -1097,28 +1094,486 @@
     "path": "assets/world/pier_steps/model.glb",
     "preview": "assets/world/pier_steps/preview.webp",
     "scale": 1,
-    "tris": 408,
+    "tris": 464,
     "bounds": {
       "min": [
-        -1.03,
+        -1.04,
         0,
-        -0.86
+        -0.88
       ],
       "max": [
-        1.03,
-        1.76,
-        0.86
+        1.04,
+        1.75,
+        0.88
       ]
     },
     "materials": [
       "cove_atlas"
     ],
-    "bytes": 13624,
+    "bytes": 15272,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "category": "structure",
     "placement": "shore",
     "origin": "ground level at the bottom tread; top tread meets pier deck height 0.75 at +Z... see bounds"
+  },
+  "crate_stack": {
+    "path": "assets/world/crate_stack/model.glb",
+    "preview": "assets/world/crate_stack/preview.webp",
+    "scale": 1,
+    "tris": 460,
+    "bounds": {
+      "min": [
+        -0.39,
+        0,
+        -0.33
+      ],
+      "max": [
+        0.39,
+        0.55,
+        0.33
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 23388,
+    "licence": "CC0 base mesh (KayKit Medieval Hexagon Pack 1.0), modified by Agent D",
+    "source": "https://github.com/KayKit-Game-Assets/KayKit-Medieval-Hexagon-Pack-1.0",
+    "base_mesh": "crate_A_big+crate_B_small+crate_A_small",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground",
+    "note": "KayKit crates repainted with cove_atlas, re-stacked, rope lashing + tarp added"
+  },
+  "barrel": {
+    "path": "assets/world/barrel/model.glb",
+    "preview": "assets/world/barrel/preview.webp",
+    "scale": 1,
+    "tris": 744,
+    "bounds": {
+      "min": [
+        -0.31,
+        0,
+        -0.31
+      ],
+      "max": [
+        0.31,
+        0.85,
+        0.31
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 26972,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground"
+  },
+  "barrel_net": {
+    "path": "assets/world/barrel_net/model.glb",
+    "preview": "assets/world/barrel_net/preview.webp",
+    "scale": 1,
+    "tris": 1016,
+    "bounds": {
+      "min": [
+        -0.37,
+        0,
+        -0.34
+      ],
+      "max": [
+        0.37,
+        0.94,
+        0.34
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_net"
+    ],
+    "bytes": 34664,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground",
+    "note": "barrel with a net and floats thrown over it"
+  },
+  "barrel_lying": {
+    "path": "assets/world/barrel_lying/model.glb",
+    "preview": "assets/world/barrel_lying/preview.webp",
+    "scale": 1,
+    "tris": 240,
+    "bounds": {
+      "min": [
+        -0.35,
+        0,
+        -0.38
+      ],
+      "max": [
+        0.35,
+        0.69,
+        0.38
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 14644,
+    "licence": "CC0 base mesh (KayKit Medieval Hexagon Pack 1.0), modified by Agent D",
+    "source": "https://github.com/KayKit-Game-Assets/KayKit-Medieval-Hexagon-Pack-1.0",
+    "base_mesh": "barrel",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground",
+    "note": "KayKit barrel repainted (tar + rust hoops), lying on its side, mossy"
+  },
+  "fish_crate": {
+    "path": "assets/world/fish_crate/model.glb",
+    "preview": "assets/world/fish_crate/preview.webp",
+    "scale": 1,
+    "tris": 696,
+    "bounds": {
+      "min": [
+        -0.37,
+        0,
+        -0.24
+      ],
+      "max": [
+        0.37,
+        0.3,
+        0.24
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 16276,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground",
+    "note": "slatted crate with the day's catch (generic silver market fish, not a game species)"
+  },
+  "fish_crate_stack": {
+    "path": "assets/world/fish_crate_stack/model.glb",
+    "preview": "assets/world/fish_crate_stack/preview.webp",
+    "scale": 1,
+    "tris": 1443,
+    "bounds": {
+      "min": [
+        -0.7,
+        0,
+        -0.31
+      ],
+      "max": [
+        0.7,
+        0.59,
+        0.31
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 31400,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground"
+  },
+  "bucket": {
+    "path": "assets/world/bucket/model.glb",
+    "preview": "assets/world/bucket/preview.webp",
+    "scale": 1,
+    "tris": 561,
+    "bounds": {
+      "min": [
+        -0.19,
+        0,
+        -0.19
+      ],
+      "max": [
+        0.19,
+        0.45,
+        0.19
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 17956,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground",
+    "note": "stave bucket with sea water, rope handle, bait fish"
+  },
+  "rope_coil": {
+    "path": "assets/world/rope_coil/model.glb",
+    "preview": "assets/world/rope_coil/preview.webp",
+    "scale": 1,
+    "tris": 876,
+    "bounds": {
+      "min": [
+        -0.32,
+        0,
+        -0.44
+      ],
+      "max": [
+        0.32,
+        0.09,
+        0.44
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 17112,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground"
+  },
+  "net_pile": {
+    "path": "assets/world/net_pile/model.glb",
+    "preview": "assets/world/net_pile/preview.webp",
+    "scale": 1,
+    "tris": 550,
+    "bounds": {
+      "min": [
+        -0.6,
+        0,
+        -0.64
+      ],
+      "max": [
+        0.6,
+        0.39,
+        0.64
+      ]
+    },
+    "materials": [
+      "cove_net",
+      "cove_atlas"
+    ],
+    "bytes": 14940,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground"
+  },
+  "net_rack": {
+    "path": "assets/world/net_rack/model.glb",
+    "preview": "assets/world/net_rack/preview.webp",
+    "scale": 1,
+    "tris": 564,
+    "bounds": {
+      "min": [
+        -1.58,
+        0,
+        -0.29
+      ],
+      "max": [
+        1.58,
+        2.01,
+        0.29
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_net"
+    ],
+    "bytes": 16052,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground",
+    "note": "idle net spot: drying rack with net and floats"
+  },
+  "crab_pot": {
+    "path": "assets/world/crab_pot/model.glb",
+    "preview": "assets/world/crab_pot/preview.webp",
+    "scale": 1,
+    "tris": 396,
+    "bounds": {
+      "min": [
+        -0.73,
+        0,
+        -0.34
+      ],
+      "max": [
+        0.73,
+        0.5,
+        0.34
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_net"
+    ],
+    "bytes": 14036,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground",
+    "note": "idle crab-pot spot"
+  },
+  "cooler": {
+    "path": "assets/world/cooler/model.glb",
+    "preview": "assets/world/cooler/preview.webp",
+    "scale": 1,
+    "tris": 613,
+    "bounds": {
+      "min": [
+        -0.58,
+        0,
+        -0.33
+      ],
+      "max": [
+        0.58,
+        0.71,
+        0.33
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 20044,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground",
+    "story": "an old ship's sea chest lined for ice",
+    "note": "catch cooler (building level 1 / prop)"
+  },
+  "anchor": {
+    "path": "assets/world/anchor/model.glb",
+    "preview": "assets/world/anchor/preview.webp",
+    "scale": 1,
+    "tris": 212,
+    "bounds": {
+      "min": [
+        -0.62,
+        0,
+        -0.07
+      ],
+      "max": [
+        0.62,
+        1.02,
+        0.07
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 9384,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground"
+  },
+  "fishing_rod": {
+    "path": "assets/world/fishing_rod/model.glb",
+    "preview": "assets/world/fishing_rod/preview.webp",
+    "scale": 1,
+    "tris": 722,
+    "bounds": {
+      "min": [
+        -0.34,
+        -0.12,
+        -0.05
+      ],
+      "max": [
+        2.23,
+        0.03,
+        0.04
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 22500,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "gear",
+    "placement": "hand",
+    "origin": "grip point (where the hand holds it); rod points +X (Blender) = +X glTF, reel hangs below (-Y); tip at x=2.2",
+    "attach": "parent to the right hand bone (handslot.r); child node \"rod_tip\" marks the line start"
+  },
+  "bobber": {
+    "path": "assets/world/bobber/model.glb",
+    "preview": "assets/world/bobber/preview.webp",
+    "scale": 1,
+    "tris": 216,
+    "bounds": {
+      "min": [
+        -0.04,
+        -0.14,
+        -0.04
+      ],
+      "max": [
+        0.04,
+        0.1,
+        0.04
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_glow"
+    ],
+    "bytes": 7032,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "gear",
+    "placement": "water",
+    "origin": "waterline: float body is half under water; child node \"line_eye\" at the top"
+  },
+  "lure": {
+    "path": "assets/world/lure/model.glb",
+    "preview": "assets/world/lure/preview.webp",
+    "scale": 1,
+    "tris": 146,
+    "bounds": {
+      "min": [
+        -0.12,
+        -0.02,
+        -0.02
+      ],
+      "max": [
+        0.01,
+        0.01,
+        0.02
+      ]
+    },
+    "materials": [
+      "cove_atlas_ds",
+      "cove_atlas"
+    ],
+    "bytes": 8204,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "gear",
+    "placement": "line",
+    "origin": "line eye; lure hangs along -X"
   }
 }

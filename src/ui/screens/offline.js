@@ -1,5 +1,5 @@
 // Agent B. A letter from the harbour: what the crew, nets and aquarium earned while you were away.
-import { h, fmt, money, ledgerRow, fmtDuration, plural } from '../dom.js';
+import { h, fmt, money, ledgerRow, fmtDuration, plural, fill } from '../dom.js';
 
 export function offlineLetter(ctx) {
   const { state, economy, ui } = ctx;
@@ -13,21 +13,24 @@ export function offlineLetter(ctx) {
 
   function render() {
     const po = state.profile.pendingOffline;
-    if (!po) { root.replaceChildren(); return; }
+    if (!po) { fill(root); return; }
     const cap = economy.offlineCapHours();
+    const sources = [po.crew, po.nets, po.aquarium].filter((v) => v > 0).length;
     const text = po.crewFish > 0
       ? `Your crew fished for ${fmtDuration(po.seconds)} and landed ${plural(po.crewFish, 'fish', 'fish')}.`
       : `Your harbour kept earning for ${fmtDuration(po.seconds)}.`;
-    root.replaceChildren(
+    fill(root, 
       h('h2.letter__title', 'While you were away'),
       h('p.letter__text', text),
       h('dl.ledger',
-        po.crew ? ledgerRow('Crew catch', money(po.crew)) : null,
-        po.nets ? ledgerRow('Nets and pots', money(po.nets)) : null,
-        po.aquarium ? ledgerRow('Aquarium visitors', money(po.aquarium)) : null,
-        ledgerRow('Total', money(po.total), 'ledger__row--total')),
-      po.capped ? h('p.letter__note', `The crew stops after ${cap} hours. A night watch at the harbour keeps them going longer.`) : null,
-      h('button.btn.btn--primary', { 'data-autofocus': true, on: { click: collect } }, h('span', 'Collect'), h('span.t-num', fmt(po.total))),
+        sources > 1 && po.crew ? ledgerRow('Crew catch', money(po.crew)) : null,
+        sources > 1 && po.nets ? ledgerRow('Nets and pots', money(po.nets)) : null,
+        sources > 1 && po.aquarium ? ledgerRow('Aquarium visitors', money(po.aquarium)) : null,
+        ledgerRow(sources > 1 ? 'Total' : 'Earned', money(po.total), 'ledger__row--total')),
+      h('p.letter__note', po.capped
+        ? `The harbour stops after ${cap} hours. A night watch keeps it going longer.`
+        : `The harbour keeps earning for up to ${cap} hours while you are away.`),
+      h('button.btn.btn--primary', { 'aria-label': `Collect ${fmt(po.total)} coins`, on: { click: collect } }, h('span', 'Collect'), h('span.t-num', fmt(po.total))),
     );
   }
   render();

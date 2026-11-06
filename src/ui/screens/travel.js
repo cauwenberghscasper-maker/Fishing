@@ -1,5 +1,5 @@
 // Agent B. Sea chart at the boat dock: the island chain, what each one needs, and setting sail.
-import { h, ico, fmt, money } from '../dom.js';
+import { h, ico, fmt, money, fill } from '../dom.js';
 import { sheetHead, keepScroll } from './shop.js';
 
 export function travelSheet(ctx) {
@@ -25,15 +25,14 @@ export function travelSheet(ctx) {
       const charted = (isle.fish?.length ?? 0) > 0;
       let go;
       if (id === here) go = h('div.isle__go', h('span.pebble.pebble--glow', 'You are here'));
-      else if (!charted) go = h('div.isle__go', h('span', 'Not charted yet. Coming in a later voyage.'));
-      else if (unlocked) {
+      else if (unlocked && charted) {
         go = h('div.isle__go', h('span', ''), h('button.btn', { on: { click: () => { economy.travel(id); ui.close(); } } }, ico('boat'), 'Set sail'));
       } else {
         const reqs = economy.islandRequirements(id) ?? [];
         const allMet = reqs.every((r) => r.met);
         go = h('div.isle__go',
-          h('span', reqs.map(reqLine).filter(Boolean).flatMap((el, i) => (i ? [h('span', ' and '), el] : [el]))),
-          allMet ? h('button.btn', { on: { click: () => { const r = economy.unlockIsland(id); if (r.ok) ui.toast(`${isle.name} is on your chart`); } } }, 'Unlock') : null);
+          h('span.reqs', unlocked ? 'Unlocked. ' : 'Needs ', reqs.map(reqLine).filter(Boolean).flatMap((el, i) => (i ? [h('span', ' and '), el] : [el]))),
+          allMet && charted ? h('button.btn', { on: { click: () => { const r = economy.unlockIsland(id); if (r.ok) ui.toast(`${isle.name} is on your chart`); } } }, 'Unlock') : null);
       }
       list.append(h(`li.isle${id === here ? '.is-here' : ''}${unlocked ? '' : '.is-locked'}`,
         h('div.isle__no', String(isle.index)),
@@ -41,7 +40,9 @@ export function travelSheet(ctx) {
         h('div.isle__feel', isle.feel),
         go));
     }
-    root.replaceChildren(sheetHead('Sea chart', 'The island chain. Sail from the home pier.', () => ui.close()), h('div.sheet__body', list));
+    const charted = isles.filter(([, i]) => (i.fish?.length ?? 0) > 0).length;
+    const note = charted < isles.length ? h('p.chart-note', 'Only Driftwood Cove is charted so far. The other waters open in a later voyage.') : null;
+    fill(root, sheetHead('Sea chart', 'The island chain. Sail from the home pier.', () => ui.close()), h('div.sheet__body', note, list));
   }
   render();
   return { id: 'travel', el: root, refresh: () => keepScroll(root, render) };

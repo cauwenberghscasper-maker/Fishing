@@ -172,7 +172,7 @@
 .btn:active { transform: translateY(1px) scale(0.98); filter: brightness(0.94); }
 .btn:focus-visible { outline: none; text-decoration: underline 2px; text-underline-offset: 4px; filter: brightness(1.06); }
 .btn:disabled,
-.btn[aria-disabled="true"] { cursor: default; color: var(--c-ink-soft); --rule: var(--c-ink-soft); filter: saturate(0.4); }
+.btn[aria-disabled="true"] { cursor: default; color: var(--c-ink-soft); --rule: rgba(24, 44, 53, 0.45); }
 .btn:disabled:active { transform: none; }
 .btn svg { width: 1.25em; height: 1.25em; flex: none; }
 
@@ -183,6 +183,7 @@
   --rule: transparent;
   min-height: 52px;
   padding: 12px 34px 13px;
+  white-space: nowrap;
   color: var(--c-gold);
   font-family: var(--font-display);
   font-weight: var(--display-weight);

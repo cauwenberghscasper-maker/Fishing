@@ -1,5 +1,5 @@
 // Agent B. The logbook (Fishdex): every species, records, and an ink silhouette plus a hint for the ones you have not met.
-import { h, fmt, fmtKg, fishWindow } from '../dom.js';
+import { h, fmt, fmtKg, fishWindow, fill } from '../dom.js';
 import { fishPreview } from '../../economy/data.js';
 import { sizeClassById } from '../../economy/rules.js';
 import { sheetHead, keepScroll } from './shop.js';
@@ -40,7 +40,7 @@ export function logbookSheet(ctx) {
       body.append(h('h3.section-title', isle.name), list);
     }
     const sub = `${known} of ${total} species recorded.`;
-    root.replaceChildren(sheetHead('Logbook', sub, () => ui.close()), body);
+    fill(root, sheetHead('Logbook', sub, () => ui.close()), body);
   }
   render();
   return { id: 'logbook', el: root, refresh: () => keepScroll(root, render) };

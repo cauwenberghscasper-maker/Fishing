@@ -71,10 +71,14 @@ export function money(n, cls = '') {
  * A painted artwork from Agent F's registry (art.json), or null when the key is not registered yet,
  * so the caller can leave the slot out. If the file fails to load, the image (or `slot`) removes itself.
  */
-export function artImg(path, cls = '', { alt = '', slot = null, eager = false } = {}) {
+export function artImg(path, cls = '', { alt = '', slot = null, eager = true, onShow = null } = {}) {
   if (!path) return null;
   const img = h(`img${cls ? '.' + cls : ''}`, { src: path, alt, loading: eager ? 'eager' : 'lazy', decoding: 'async' });
-  img.addEventListener('error', () => { (slot ?? img).remove(); });
+  // the slot stays invisible until the painting has really arrived: no empty frames while art is in progress
+  const target = slot ?? img;
+  if (!img.complete || !img.naturalWidth) target.hidden = true;
+  img.addEventListener('load', () => { target.hidden = false; onShow?.(); });
+  img.addEventListener('error', () => { target.remove(); });
   return img;
 }
 

@@ -716,5 +716,157 @@
   "usedBy": "ui loading screen background (B); progress bar sits in the calm bottom quarter",
   "concept": null,
   "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "npc.shopkeeper": {
+  "path": "art/npc/shopkeeper.webp",
+  "name": "The shopkeeper",
+  "size": [
+   576,
+   768
+  ],
+  "alpha": false,
+  "usedBy": "ui/shop screen portrait of the keeper of the upturned-hull shop (B)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "fishdex.driftwood_cove": {
+  "path": "art/fishdex/driftwood_cove.webp",
+  "name": "Driftwood Cove waters",
+  "size": [
+   1024,
+   432
+  ],
+  "alpha": false,
+  "usedBy": "ui/logbook (Fishdex) header painting for the Driftwood Cove page (B): underwater, sunlit sandy shallows, driftwood and kelp",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "fishdex.wreck_reef": {
+  "path": "art/fishdex/wreck_reef.webp",
+  "name": "Wreck Reef waters",
+  "size": [
+   1024,
+   432
+  ],
+  "alpha": false,
+  "usedBy": "ui/logbook (Fishdex) header painting for the Wreck Reef page (B): underwater, a sunken hull, coral and cannons",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "fishdex.mossback_bayou": {
+  "path": "art/fishdex/mossback_bayou.webp",
+  "name": "Mossback Bayou waters",
+  "size": [
+   1024,
+   432
+  ],
+  "alpha": false,
+  "usedBy": "ui/logbook (Fishdex) header painting for the Mossback Bayou page (B): underwater, under the lily pads among mangrove roots",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "fishdex.frostfang_fjord": {
+  "path": "art/fishdex/frostfang_fjord.webp",
+  "name": "Frostfang Fjord waters",
+  "size": [
+   1024,
+   432
+  ],
+  "alpha": false,
+  "usedBy": "ui/logbook (Fishdex) header painting for the Frostfang Fjord page (B): underwater, under the ice floes",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "fishdex.ember_caldera": {
+  "path": "art/fishdex/ember_caldera.webp",
+  "name": "Ember Caldera waters",
+  "size": [
+   1024,
+   432
+  ],
+  "alpha": false,
+  "usedBy": "ui/logbook (Fishdex) header painting for the Ember Caldera page (B): underwater, black sand and glowing vents",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "fishdex.stormspire_isles": {
+  "path": "art/fishdex/stormspire_isles.webp",
+  "name": "Stormspire Isles waters",
+  "size": [
+   1024,
+   432
+  ],
+  "alpha": false,
+  "usedBy": "ui/logbook (Fishdex) header painting for the Stormspire Isles page (B): underwater, between sea-stack pillars under a lightning sky",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "fishdex.sunken_temple": {
+  "path": "art/fishdex/sunken_temple.webp",
+  "name": "Sunken Temple waters",
+  "size": [
+   1024,
+   432
+  ],
+  "alpha": false,
+  "usedBy": "ui/logbook (Fishdex) header painting for the Sunken Temple page (B): underwater, drowned temple stairs and glyphs",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "fishdex.the_abyss": {
+  "path": "art/fishdex/the_abyss.webp",
+  "name": "The Abyss waters",
+  "size": [
+   1024,
+   432
+  ],
+  "alpha": false,
+  "usedBy": "ui/logbook (Fishdex) header painting for the The Abyss page (B): underwater, the open night sea, bioluminescence",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+ },
+ "tip.1": {
+  "path": "art/tips/tip_1.webp",
+  "size": [
+   512,
+   384
+  ],
+  "alpha": true,
+  "usedBy": "ui loading screen tip vignette (B); the tip it illustrates: Patience steadies the cast: hold still while aiming and the reticle stops wobbling",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), soft oval vignette edge"
+ },
+ "tip.2": {
+  "path": "art/tips/tip_2.webp",
+  "size": [
+   512,
+   384
+  ],
+  "alpha": true,
+  "usedBy": "ui loading screen tip vignette (B); the tip it illustrates: Strike on the real bite: wait for the bobber to go under, not the nibbles",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), soft oval vignette edge"
+ },
+ "tip.3": {
+  "path": "art/tips/tip_3.webp",
+  "size": [
+   512,
+   384
+  ],
+  "alpha": true,
+  "usedBy": "ui loading screen tip vignette (B); the tip it illustrates: Let a running fish run: release before the line's tension maxes out",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), soft oval vignette edge"
+ },
+ "tip.4": {
+  "path": "art/tips/tip_4.webp",
+  "size": [
+   512,
+   384
+  ],
+  "alpha": true,
+  "usedBy": "ui loading screen tip vignette (B); the tip it illustrates: Your crew fishes while you are away: offline earnings wait in the harbour",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), soft oval vignette edge"
  }
 }

@@ -605,33 +605,33 @@
   },
   "tide_pool_a": {
     "path": "assets/world/tide_pool_a/model.glb",
-    "preview": "assets/world/tide_pool_a/preview.webp",
     "scale": 1,
-    "tris": 3638,
+    "tris": 1238,
     "bounds": {
       "min": [
-        -1.74,
+        -1.7,
         -0.32,
-        -1.96
+        -1.92
       ],
       "max": [
         1.93,
-        0.33,
-        1.94
+        0.31,
+        1.91
       ]
     },
     "materials": [
       "cove_atlas",
       "cove_atlas_ds"
     ],
-    "bytes": 78364,
+    "bytes": 31292,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "shore",
     "origin": "basin centre at sea level (y=0); basin floor ~-0.45 so the sea plane fills it",
-    "concept": "art/concepts/world/driftwood_cove_key.webp"
+    "preview": "assets/world/tide_pool_a/preview.webp"
   },
   "cliff_columns_a": {
     "path": "assets/world/cliff_columns_a/model.glb",
@@ -1634,5 +1634,1426 @@
     "origin": "line eye; lure hangs along -X",
     "concept": "art/concepts/world/driftwood_cove_key.webp",
     "note_owner": "temporary: Agent G owns gear and boats; remove when G ships its version"
+  },
+  "pier_stub": {
+    "path": "assets/world/pier_stub/model.glb",
+    "scale": 1,
+    "tris": 729,
+    "bounds": {
+      "min": [
+        -0.91,
+        -1.6,
+        -1.41
+      ],
+      "max": [
+        1.06,
+        1,
+        1.21
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 20792,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "structure",
+    "placement": "water",
+    "story": "day one: the crooked pier stub you start fishing from; one board missing, one post leaning",
+    "origin": "at water level like the other pier modules, deck ~0.6-0.75 m, ~2 m long",
+    "preview": "assets/world/pier_stub/preview.webp"
+  },
+  "camp_l0": {
+    "path": "assets/world/camp_l0/model.glb",
+    "scale": 1,
+    "tris": 2473,
+    "bounds": {
+      "min": [
+        -1.59,
+        0,
+        -1.88
+      ],
+      "max": [
+        1.59,
+        1.77,
+        1.88
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 55744,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "building",
+    "placement": "ground",
+    "story": "day one: a sailcloth tarp lean-to on two driftwood poles, bedroll, crate seat with a lantern, driftwood fire with a fish on the spit",
+    "light": "fire: warm point light at (0, 0.4, 1.2) local glTF, flicker; lantern at (1.35, 0.6, 0.55)",
+    "interaction": "fire is at +Z (front)",
+    "preview": "assets/world/camp_l0/preview.webp"
+  },
+  "hammock": {
+    "path": "assets/world/hammock/model.glb",
+    "scale": 1,
+    "tris": 296,
+    "bounds": {
+      "min": [
+        -1.71,
+        0,
+        -0.25
+      ],
+      "max": [
+        1.71,
+        1.05,
+        0.25
+      ]
+    },
+    "materials": [
+      "cove_atlas_ds",
+      "cove_atlas"
+    ],
+    "bytes": 12316,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "prop",
+    "placement": "ground",
+    "note": "hang between two palms ~3.4 m apart; ends at x=\u00b11.7, y=1.45",
+    "preview": "assets/world/hammock/preview.webp"
+  },
+  "wreck_ribs": {
+    "path": "assets/world/wreck_ribs/model.glb",
+    "scale": 1,
+    "tris": 292,
+    "bounds": {
+      "min": [
+        -2.1,
+        0,
+        -1.1
+      ],
+      "max": [
+        2.1,
+        1.8,
+        1.1
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 10896,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "prop",
+    "placement": "ground",
+    "story": "ribs of a much older wreck, half-buried in the sand",
+    "preview": "assets/world/wreck_ribs/preview.webp"
+  },
+  "mooring_dolphin": {
+    "path": "assets/world/mooring_dolphin/model.glb",
+    "scale": 1,
+    "tris": 723,
+    "bounds": {
+      "min": [
+        -0.38,
+        -1.6,
+        -0.38
+      ],
+      "max": [
+        1.22,
+        1.9,
+        0.92
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 21684,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "structure",
+    "placement": "water",
+    "story": "the Old Mooring: three lashed piles, an iron ring, frayed ropes into the deep where The Old Mooring (the big catfish) lives",
+    "origin": "water level",
+    "preview": "assets/world/mooring_dolphin/preview.webp"
+  },
+  "cairn_lantern": {
+    "path": "assets/world/cairn_lantern/model.glb",
+    "scale": 1,
+    "tris": 576,
+    "bounds": {
+      "min": [
+        -0.31,
+        0,
+        -0.31
+      ],
+      "max": [
+        0.31,
+        1.22,
+        0.31
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_glow"
+    ],
+    "bytes": 18512,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "prop",
+    "placement": "ground",
+    "story": "a stone cairn with a lantern: where the lighthouse will stand one day",
+    "light": "lantern at top, warm point light",
+    "preview": "assets/world/cairn_lantern/preview.webp"
+  },
+  "coconut_pile": {
+    "path": "assets/world/coconut_pile/model.glb",
+    "scale": 1,
+    "tris": 100,
+    "bounds": {
+      "min": [
+        -0.25,
+        0,
+        -0.3
+      ],
+      "max": [
+        0.25,
+        0.33,
+        0.3
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 7284,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "prop",
+    "placement": "ground",
+    "preview": "assets/world/coconut_pile/preview.webp"
+  },
+  "sandbar": {
+    "path": "assets/world/sandbar/model.glb",
+    "scale": 1,
+    "tris": 3703,
+    "bounds": {
+      "min": [
+        -4,
+        -1.6,
+        -2.96
+      ],
+      "max": [
+        4.16,
+        1,
+        4.87
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds.001"
+    ],
+    "bytes": 106308,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "plot",
+    "placement": "island",
+    "plot": "sandbar",
+    "footprint_m": [
+      9,
+      6
+    ],
+    "story": "Day one: a sandbar barely bigger than a boat. You washed up here with a rowboat; there is a crooked pier stub, a few rocks, the first driftwood and a crate the tide brought in.",
+    "items": [
+      {
+        "model": "pier_stub",
+        "placement": "water",
+        "scale": 1,
+        "pos": [
+          0.5,
+          0,
+          3.6
+        ],
+        "rotY": 0.1
+      },
+      {
+        "model": "rock_m",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -3.3,
+          0,
+          -0.8
+        ],
+        "rotY": 0.4
+      },
+      {
+        "model": "rock_s",
+        "placement": "ground",
+        "scale": 0.9,
+        "pos": [
+          -2.6,
+          0,
+          -1.8
+        ],
+        "rotY": 1.2
+      },
+      {
+        "model": "rock_shore",
+        "placement": "shore",
+        "scale": 0.9,
+        "pos": [
+          3.4,
+          0,
+          1.2
+        ],
+        "rotY": 2.5
+      },
+      {
+        "model": "driftwood_branch",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          2.2,
+          0,
+          -1.6
+        ],
+        "rotY": 0.7
+      },
+      {
+        "model": "seaweed_pile_a",
+        "placement": "ground",
+        "scale": 0.8,
+        "pos": [
+          -1.8,
+          0,
+          2
+        ],
+        "rotY": 0.3
+      },
+      {
+        "model": "starfish_a",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          1.2,
+          0,
+          1.9
+        ],
+        "rotY": 0.6
+      },
+      {
+        "model": "shells_a",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -0.6,
+          0,
+          -2.2
+        ],
+        "rotY": 2
+      },
+      {
+        "model": "beach_grass_b",
+        "placement": "ground",
+        "scale": 0.8,
+        "pos": [
+          -3,
+          0,
+          -2.4
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "crate_stack",
+        "placement": "ground",
+        "scale": 0.9,
+        "pos": [
+          2.8,
+          0,
+          -0.5
+        ],
+        "rotY": 0.6
+      }
+    ],
+    "origin": "plot centre at ground level (y=0); +Z (glTF) is the seaward side; water items sit below y=0",
+    "usage": "Either add the merged model as one object (it rises with the plot), or place each entry of `items` on your terrain: ground items raycast to the terrain, shore items at the waterline, water/underwater items at sea level + their y.",
+    "preview": "assets/world/sandbar/preview.webp"
+  },
+  "plot_palm_spit": {
+    "path": "assets/world/plot_palm_spit/model.glb",
+    "scale": 1,
+    "tris": 6930,
+    "bounds": {
+      "min": [
+        -8.15,
+        0,
+        -3.89
+      ],
+      "max": [
+        9.25,
+        5.79,
+        3.25
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds.001"
+    ],
+    "bytes": 204500,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "plot",
+    "placement": "island",
+    "plot": "palm_spit",
+    "footprint_m": [
+      18,
+      7
+    ],
+    "story": "A narrow spit of sand where the palms lean out to sea; the net-mender strung his hammock between the two oldest.",
+    "items": [
+      {
+        "model": "palm_tall",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -5.5,
+          0,
+          -0.5
+        ],
+        "rotY": 0.3
+      },
+      {
+        "model": "palm_tall",
+        "placement": "ground",
+        "scale": 0.9,
+        "pos": [
+          -2.1,
+          0,
+          -0.9
+        ],
+        "rotY": 2.2
+      },
+      {
+        "model": "hammock",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -3.8,
+          0,
+          -0.7
+        ],
+        "rotY": 0.12
+      },
+      {
+        "model": "palm_bent",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          3,
+          0,
+          1.2
+        ],
+        "rotY": 4.4
+      },
+      {
+        "model": "palm_twin",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          6.5,
+          0,
+          -1
+        ],
+        "rotY": 1.4
+      },
+      {
+        "model": "palm_young",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          0.6,
+          0,
+          -1.8
+        ],
+        "rotY": 3
+      },
+      {
+        "model": "palm_young",
+        "placement": "ground",
+        "scale": 0.8,
+        "pos": [
+          8,
+          0,
+          1.4
+        ],
+        "rotY": 0.8
+      },
+      {
+        "model": "bush_seagrape",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -0.8,
+          0,
+          1.5
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "bush_seagrape_s",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          4.6,
+          0,
+          -1.9
+        ],
+        "rotY": 1
+      },
+      {
+        "model": "bush_spiky",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -7.5,
+          0,
+          1
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "beach_grass_a",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -6.6,
+          0,
+          -2.2
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "beach_grass_b",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          1.8,
+          0,
+          2.4
+        ],
+        "rotY": 1
+      },
+      {
+        "model": "beach_grass_a",
+        "placement": "ground",
+        "scale": 0.8,
+        "pos": [
+          7.4,
+          0,
+          -2.4
+        ],
+        "rotY": 2
+      },
+      {
+        "model": "beach_grass_b",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -3.5,
+          0,
+          2.6
+        ],
+        "rotY": 3
+      },
+      {
+        "model": "coconut_pile",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -1.7,
+          0,
+          -0.2
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "driftwood_log",
+        "placement": "ground",
+        "scale": 0.9,
+        "pos": [
+          2,
+          0,
+          -2.4
+        ],
+        "rotY": 0.2
+      },
+      {
+        "model": "starfish_a",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          5.5,
+          0,
+          2.6
+        ],
+        "rotY": 1
+      }
+    ],
+    "origin": "plot centre at ground level (y=0); +Z (glTF) is the seaward side; water items sit below y=0",
+    "usage": "Either add the merged model as one object (it rises with the plot), or place each entry of `items` on your terrain: ground items raycast to the terrain, shore items at the waterline, water/underwater items at sea level + their y.",
+    "preview": "assets/world/plot_palm_spit/preview.webp"
+  },
+  "plot_tidepool_shelf": {
+    "path": "assets/world/plot_tidepool_shelf/model.glb",
+    "scale": 1,
+    "tris": 8519,
+    "bounds": {
+      "min": [
+        -6.51,
+        -0.6,
+        -4.22
+      ],
+      "max": [
+        7.34,
+        1.05,
+        5.33
+      ]
+    },
+    "materials": [
+      "cove_atlas.001",
+      "cove_atlas_ds.001",
+      "cove_net.001"
+    ],
+    "bytes": 200084,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "plot",
+    "placement": "island",
+    "plot": "tidepool_shelf",
+    "footprint_m": [
+      14,
+      10
+    ],
+    "story": "A shelf of black basalt that floods at high tide; the pools fill with starfish and the odd stranded fish. Someone left a bucket and a crab pot here.",
+    "items": [
+      {
+        "model": "tide_pool_a",
+        "placement": "shore",
+        "scale": 1,
+        "pos": [
+          -2.5,
+          0,
+          1.5
+        ],
+        "rotY": 0.3
+      },
+      {
+        "model": "tide_pool_a",
+        "placement": "shore",
+        "scale": 0.8,
+        "pos": [
+          3,
+          0,
+          2.6
+        ],
+        "rotY": 2
+      },
+      {
+        "model": "columns_steps",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          4.5,
+          0,
+          -2.2
+        ],
+        "rotY": 0.2
+      },
+      {
+        "model": "rock_shore",
+        "placement": "shore",
+        "scale": 1,
+        "pos": [
+          -5.8,
+          0,
+          3.6
+        ],
+        "rotY": 1.1
+      },
+      {
+        "model": "rock_shore",
+        "placement": "shore",
+        "scale": 1.1,
+        "pos": [
+          0.4,
+          0,
+          4.3
+        ],
+        "rotY": 2.4
+      },
+      {
+        "model": "rock_shore",
+        "placement": "shore",
+        "scale": 0.9,
+        "pos": [
+          6,
+          0,
+          4
+        ],
+        "rotY": 0.5
+      },
+      {
+        "model": "rock_cluster",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -5,
+          0,
+          -2.8
+        ],
+        "rotY": 0.8
+      },
+      {
+        "model": "rock_m",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          0.8,
+          0,
+          -2.6
+        ],
+        "rotY": 2.2
+      },
+      {
+        "model": "kelp_a",
+        "placement": "underwater",
+        "scale": 0.8,
+        "pos": [
+          -1,
+          -0.6,
+          5.2
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "starfish_a",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          0.5,
+          0,
+          -0.4
+        ],
+        "rotY": 2.3
+      },
+      {
+        "model": "shells_a",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -4.2,
+          0,
+          -0.6
+        ],
+        "rotY": 1.1
+      },
+      {
+        "model": "seaweed_pile_a",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          1.5,
+          0,
+          0.6
+        ],
+        "rotY": 0.6
+      },
+      {
+        "model": "bucket",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -0.6,
+          0,
+          -1.2
+        ],
+        "rotY": 0.4
+      },
+      {
+        "model": "crab_pot",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          1.8,
+          0,
+          -1.4
+        ],
+        "rotY": 2.6
+      }
+    ],
+    "origin": "plot centre at ground level (y=0); +Z (glTF) is the seaward side; water items sit below y=0",
+    "usage": "Either add the merged model as one object (it rises with the plot), or place each entry of `items` on your terrain: ground items raycast to the terrain, shore items at the waterline, water/underwater items at sea level + their y.",
+    "preview": "assets/world/plot_tidepool_shelf/preview.webp"
+  },
+  "plot_wreck_beach": {
+    "path": "assets/world/plot_wreck_beach/model.glb",
+    "scale": 1,
+    "tris": 8403,
+    "bounds": {
+      "min": [
+        -7.26,
+        0,
+        -3.96
+      ],
+      "max": [
+        7.53,
+        4.69,
+        4.62
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds.001",
+      "cove_net.001"
+    ],
+    "bytes": 232808,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "plot",
+    "placement": "island",
+    "plot": "wreck_beach",
+    "footprint_m": [
+      16,
+      10
+    ],
+    "story": "Wreck Beach: the red boat that brought you here, the Marigold, run aground and lived in; around it the ribs of a much older wreck and everything the storm threw up.",
+    "items": [
+      {
+        "model": "fisher_hut",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          0.5,
+          0,
+          -0.5
+        ],
+        "rotY": 0.35
+      },
+      {
+        "model": "wreck_ribs",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -5.2,
+          0,
+          1.5
+        ],
+        "rotY": 0.9
+      },
+      {
+        "model": "anchor",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          4.8,
+          0,
+          2.4
+        ],
+        "rotY": 2
+      },
+      {
+        "model": "barrel_lying",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -2.4,
+          0,
+          3.2
+        ],
+        "rotY": 1.2
+      },
+      {
+        "model": "crate_stack",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          5.4,
+          0,
+          -2.6
+        ],
+        "rotY": 0.3
+      },
+      {
+        "model": "driftwood_log",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -4,
+          0,
+          -3
+        ],
+        "rotY": 2.8
+      },
+      {
+        "model": "rope_coil",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          3.3,
+          0,
+          3.1
+        ],
+        "rotY": 0.5
+      },
+      {
+        "model": "seaweed_pile_a",
+        "placement": "ground",
+        "scale": 1.2,
+        "pos": [
+          -1,
+          0,
+          3.8
+        ],
+        "rotY": 1
+      },
+      {
+        "model": "net_pile",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          6.6,
+          0,
+          0.6
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "beach_grass_a",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -6.8,
+          0,
+          -3.4
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "rock_s",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          7.2,
+          0,
+          -3.6
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "starfish_a",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          2,
+          0,
+          4.2
+        ],
+        "rotY": 0.3
+      }
+    ],
+    "origin": "plot centre at ground level (y=0); +Z (glTF) is the seaward side; water items sit below y=0",
+    "usage": "Either add the merged model as one object (it rises with the plot), or place each entry of `items` on your terrain: ground items raycast to the terrain, shore items at the waterline, water/underwater items at sea level + their y.",
+    "preview": "assets/world/plot_wreck_beach/preview.webp"
+  },
+  "plot_kelp_shallows": {
+    "path": "assets/world/plot_kelp_shallows/model.glb",
+    "scale": 1,
+    "tris": 6168,
+    "bounds": {
+      "min": [
+        -6.8,
+        -0.9,
+        -4.29
+      ],
+      "max": [
+        6.55,
+        2.01,
+        5.83
+      ]
+    },
+    "materials": [
+      "cove_atlas_ds.001",
+      "cove_atlas",
+      "cove_net.001"
+    ],
+    "bytes": 139108,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "plot",
+    "placement": "island",
+    "plot": "kelp_shallows",
+    "footprint_m": [
+      14,
+      12
+    ],
+    "story": "Waist-deep shallows over a kelp bed; crab pots on lines, stepping stones out to the edge, nets drying on the beach.",
+    "items": [
+      {
+        "model": "kelp_a",
+        "placement": "underwater",
+        "scale": 1,
+        "pos": [
+          -3.5,
+          -0.6,
+          3
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "kelp_a",
+        "placement": "underwater",
+        "scale": 1.1,
+        "pos": [
+          -1.2,
+          -0.7,
+          4.4
+        ],
+        "rotY": 1.1
+      },
+      {
+        "model": "kelp_a",
+        "placement": "underwater",
+        "scale": 0.9,
+        "pos": [
+          1.5,
+          -0.6,
+          3.2
+        ],
+        "rotY": 2.2
+      },
+      {
+        "model": "kelp_a",
+        "placement": "underwater",
+        "scale": 1.2,
+        "pos": [
+          3.8,
+          -0.8,
+          4.6
+        ],
+        "rotY": 0.4
+      },
+      {
+        "model": "kelp_a",
+        "placement": "underwater",
+        "scale": 1,
+        "pos": [
+          0.2,
+          -0.9,
+          5.6
+        ],
+        "rotY": 2.8
+      },
+      {
+        "model": "kelp_a",
+        "placement": "underwater",
+        "scale": 1.1,
+        "pos": [
+          -4.6,
+          -0.9,
+          5.5
+        ],
+        "rotY": 1.7
+      },
+      {
+        "model": "crab_pot",
+        "placement": "water",
+        "scale": 1,
+        "pos": [
+          -2.2,
+          -0.35,
+          2
+        ],
+        "rotY": 0.5
+      },
+      {
+        "model": "crab_pot",
+        "placement": "water",
+        "scale": 1,
+        "pos": [
+          2.6,
+          -0.35,
+          1.6
+        ],
+        "rotY": 2
+      },
+      {
+        "model": "columns_steps",
+        "placement": "shore",
+        "scale": 0.8,
+        "pos": [
+          5.4,
+          -0.4,
+          2
+        ],
+        "rotY": 0.4
+      },
+      {
+        "model": "rock_shore",
+        "placement": "shore",
+        "scale": 1,
+        "pos": [
+          -6,
+          0,
+          1
+        ],
+        "rotY": 0.6
+      },
+      {
+        "model": "net_rack",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          0,
+          0,
+          -3
+        ],
+        "rotY": 0.05
+      },
+      {
+        "model": "beach_grass_b",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -4.6,
+          0,
+          -3.6
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "seaweed_pile_a",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          4.4,
+          0,
+          -2.6
+        ],
+        "rotY": 0.5
+      }
+    ],
+    "origin": "plot centre at ground level (y=0); +Z (glTF) is the seaward side; water items sit below y=0",
+    "usage": "Either add the merged model as one object (it rises with the plot), or place each entry of `items` on your terrain: ground items raycast to the terrain, shore items at the waterline, water/underwater items at sea level + their y.",
+    "preview": "assets/world/plot_kelp_shallows/preview.webp"
+  },
+  "plot_basalt_cliff": {
+    "path": "assets/world/plot_basalt_cliff/model.glb",
+    "scale": 1,
+    "tris": 5986,
+    "bounds": {
+      "min": [
+        -7.22,
+        0,
+        -4.43
+      ],
+      "max": [
+        6.25,
+        3.85,
+        4.29
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_glow"
+    ],
+    "bytes": 173020,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "plot",
+    "placement": "island",
+    "plot": "basalt_cliff",
+    "footprint_m": [
+      14,
+      10
+    ],
+    "story": "The high ground: hexagonal basalt columns stepping up from the sea. A lantern on a cairn marks where the lighthouse will stand.",
+    "items": [
+      {
+        "model": "cliff_columns_a",
+        "placement": "ground",
+        "scale": 1.2,
+        "pos": [
+          -3,
+          0,
+          -1.5
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "cliff_columns_b",
+        "placement": "ground",
+        "scale": 1.1,
+        "pos": [
+          2.6,
+          0,
+          -2.4
+        ],
+        "rotY": 0.3
+      },
+      {
+        "model": "columns_steps",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -0.4,
+          0,
+          1.8
+        ],
+        "rotY": 0.1
+      },
+      {
+        "model": "columns_steps",
+        "placement": "ground",
+        "scale": 0.9,
+        "pos": [
+          4.6,
+          0,
+          0.8
+        ],
+        "rotY": 2.6
+      },
+      {
+        "model": "cairn_lantern",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          0.4,
+          0,
+          -3.6
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "rock_l",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -5.8,
+          0,
+          2.6
+        ],
+        "rotY": 0.6
+      },
+      {
+        "model": "bush_spiky",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          5.6,
+          0,
+          -3.6
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "bush_seagrape_s",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -5.6,
+          0,
+          -3.8
+        ],
+        "rotY": 2
+      },
+      {
+        "model": "beach_grass_a",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          1.8,
+          0,
+          -0.4
+        ],
+        "rotY": 1
+      },
+      {
+        "model": "beach_grass_b",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -2,
+          0,
+          3.6
+        ],
+        "rotY": 0
+      }
+    ],
+    "origin": "plot centre at ground level (y=0); +Z (glTF) is the seaward side; water items sit below y=0",
+    "usage": "Either add the merged model as one object (it rises with the plot), or place each entry of `items` on your terrain: ground items raycast to the terrain, shore items at the waterline, water/underwater items at sea level + their y.",
+    "preview": "assets/world/plot_basalt_cliff/preview.webp"
+  },
+  "plot_mooring_deep": {
+    "path": "assets/world/plot_mooring_deep/model.glb",
+    "scale": 1,
+    "tris": 4874,
+    "bounds": {
+      "min": [
+        -5.47,
+        -1.6,
+        -4.29
+      ],
+      "max": [
+        5.21,
+        2.3,
+        5.36
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_glow"
+    ],
+    "bytes": 113000,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "plot",
+    "placement": "island",
+    "plot": "mooring_deep",
+    "footprint_m": [
+      12,
+      10
+    ],
+    "story": "The Old Mooring's Deep: where the shelf drops into dark water. Three lashed piles and an iron ring mark it; the ropes trail down to whoever lives at the bottom.",
+    "items": [
+      {
+        "model": "mooring_dolphin",
+        "placement": "water",
+        "scale": 1,
+        "pos": [
+          0.5,
+          0,
+          3.6
+        ],
+        "rotY": 0.4
+      },
+      {
+        "model": "rock_shore",
+        "placement": "shore",
+        "scale": 1.2,
+        "pos": [
+          -3.6,
+          0,
+          2.2
+        ],
+        "rotY": 1.4
+      },
+      {
+        "model": "rock_shore",
+        "placement": "shore",
+        "scale": 1,
+        "pos": [
+          3.8,
+          0,
+          2
+        ],
+        "rotY": 2.6
+      },
+      {
+        "model": "rock_cluster",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -4.2,
+          0,
+          -1.8
+        ],
+        "rotY": 0.3
+      },
+      {
+        "model": "lantern_post",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          1.6,
+          0,
+          0.6
+        ],
+        "rotY": 3.6
+      },
+      {
+        "model": "fence_rope",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          -0.6,
+          0,
+          -0.4
+        ],
+        "rotY": 0.1
+      },
+      {
+        "model": "anchor",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          3.8,
+          0,
+          -1.8
+        ],
+        "rotY": 2.6
+      },
+      {
+        "model": "beach_grass_b",
+        "placement": "ground",
+        "scale": 1,
+        "pos": [
+          4.6,
+          0,
+          -3.6
+        ],
+        "rotY": 0
+      },
+      {
+        "model": "kelp_a",
+        "placement": "underwater",
+        "scale": 1.2,
+        "pos": [
+          -1.8,
+          -1,
+          5
+        ],
+        "rotY": 0.7
+      }
+    ],
+    "origin": "plot centre at ground level (y=0); +Z (glTF) is the seaward side; water items sit below y=0",
+    "usage": "Either add the merged model as one object (it rises with the plot), or place each entry of `items` on your terrain: ground items raycast to the terrain, shore items at the waterline, water/underwater items at sea level + their y.",
+    "preview": "assets/world/plot_mooring_deep/preview.webp"
   }
 }

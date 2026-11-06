@@ -42,10 +42,16 @@ export async function loadData(state) {
  * Keys: gear.<slot>.<itemId>, island.<islandId>, building.<buildingId>.<level> (l1..l3), variant.<variantId>,
  * title.main, title.loading. The UI hides the slot when this returns null.
  */
-export function artPath(state, key) {
+export function artPath(state, key, { large = false } = {}) {
   const entry = state.data.art?.[key];
-  const path = typeof entry === 'string' ? entry : entry?.path;
+  const path = typeof entry === 'string' ? entry : (large && entry?.icon) || entry?.path;
   return typeof path === 'string' && path ? path.replace(/^\//, '') : null;
+}
+
+/** Extra text an art entry may carry (e.g. tip.1..4 captions). */
+export function artText(state, key) {
+  const entry = state.data.art?.[key];
+  return typeof entry === 'object' ? entry?.text ?? entry?.caption ?? null : null;
 }
 
 /** Preview image path for a fish, or null when Agent C has not delivered one yet. */

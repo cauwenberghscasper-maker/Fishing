@@ -31,9 +31,10 @@ export function catchCard(ctx, info) {
     stage = h('div.catch__stage.on-sea', img);
   }
 
-  const seal = kind !== 'basic' ? h('div.catch__seal') : null;
-  const emblem = seal ? artImg(artPath(state, `variant.${variant.id}`), 'catch__emblem', { alt: `${variant.name} emblem`, slot: seal, eager: true }) : null;
-  if (seal) { if (emblem) seal.append(emblem); }
+  let seal = kind !== 'basic' ? h('div.catch__seal') : null;
+  const emblem = seal ? artImg(artPath(state, `variant.${variant.id}`, { large: true }), 'catch__emblem', { alt: `${variant.name} emblem`, slot: seal, onShow: () => card.classList.add('has-seal') }) : null;
+  if (seal && emblem) seal.append(emblem);
+  else seal = null;
 
   const vToken = kind !== 'basic'
     ? h('span.pebble.vtoken', { style: { '--pebble': accent, color: inkOn(accent) } }, `${variant.name} ×${fmt(variant.valueMult)}`)
@@ -91,7 +92,6 @@ export function catchCard(ctx, info) {
     h('div.catch__actions', left, right),
   );
   if (!stage) card.classList.add('catch--noimg');
-  if (seal && emblem) card.classList.add('has-seal');
   if (kind !== 'basic') {
     card.style.setProperty('--el', accent);
     card.dataset.variant = variant.id;

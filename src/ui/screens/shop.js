@@ -1,7 +1,9 @@
-// Agent B. The harbour shop: sell the cooler, buy gear, grow the harbour (crew, buildings, land, night watch).
-import { h, ico, fmt, fmtKg, money, fishWindow, plural, fmtDuration, fill } from '../dom.js';
-import { fishPreview } from '../../economy/data.js';
-import { SLOTS, BUILDINGS, sizeClassById, marketMult } from '../../economy/rules.js';
+// Agent B. The harbour shop: sell the cooler, buy gear, grow the island (crew, land, piers, buildings, boats, night watch).
+import { h, ico, fmt, fmtKg, money, fishWindow, plural, fmtDuration, fill, artImg, inkOn } from '../dom.js';
+import { fishPreview, artPath } from '../../economy/data.js';
+import { SLOTS, BUILDINGS, sizeClassById, marketMult, fullName } from '../../economy/rules.js';
+import { attachGearPreview, detachAllGearPreviews, gearManifestReady, hasGearModel } from '../gear-preview.js';
+import { isVisitor, visitorLine } from '../net.js';
 
 const TABS = [
   { id: 'sell', label: 'Sell' },
@@ -11,7 +13,7 @@ const TABS = [
 const SUBTITLE = {
   sell: 'Sell what is in your cooler.',
   buy: 'Rods, reels, lines and bait.',
-  harbour: 'Crew, buildings and land.',
+  harbour: 'Crew, land, buildings and boats.',
 };
 const GROUP_TITLE = { rod: 'Rods', reel: 'Reels', line: 'Lines', bait: 'Bait' };
 
@@ -30,12 +32,20 @@ export function keepScroll(root, fn) {
   if (nb) nb.scrollTop = y;
 }
 
+/** A variant token for lists: "Ember ×14" in the variant's colour (nothing for basic). */
+export function variantToken(economy, variantId) {
+  const v = economy.variant(variantId ?? 'basic');
+  if (!v || v.kind === 'basic') return null;
+  return h('span.pebble.vtoken', { style: { '--pebble': v.accent, color: inkOn(v.accent) } }, `${v.name} ×${fmt(v.valueMult)}`);
+}
+
 export function shopSheet(ctx, { tab = 'sell', focus = null } = {}) {
   const { state, economy, ui } = ctx;
   let current = tab;
   const root = h('section.sheet.chart.chart--framed', { role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Shop' });
 
   function render() {
+    detachAllGearPreviews();
     const shopName = economy.building('shop')?.name ?? 'Shop';
     const tabs = h('div.tabs', { role: 'tablist' }, TABS.map((t) => h('button.tab', {
       role: 'tab',
@@ -43,7 +53,7 @@ export function shopSheet(ctx, { tab = 'sell', focus = null } = {}) {
       on: { click: () => { current = t.id; focus = null; render(); root.querySelector('.sheet__body').scrollTop = 0; } },
     }, t.id === 'sell' && state.profile.cooler.length ? `${t.label} (${state.profile.cooler.length})` : t.label)));
     const parts = current === 'sell' ? sellTab(ctx) : current === 'buy' ? buyTab(ctx) : harbourTab(ctx);
-    fill(root, 
+    fill(root,
       sheetHead(shopName, SUBTITLE[current], () => ui.close()),
       tabs,
       h('div.sheet__body', { role: 'tabpanel' }, parts.body),
@@ -58,9 +68,9 @@ export function shopSheet(ctx, { tab = 'sell', focus = null } = {}) {
     refresh: () => keepScroll(root, render),
     onOpen: () => {
       if (!focus) return;
-      const target = root.querySelector(`[data-focus="${focus}"]`);
-      target?.scrollIntoView({ block: 'start' });
+      root.querySelector(`[data-focus="${focus}"]`)?.scrollIntoView({ block: 'start' });
     },
+    onClose: () => detachAllGearPreviews(),
   };
 }
 
@@ -84,20 +94,22 @@ function sellTab({ state, economy, ui }) {
   const list = h('ul.lots');
   for (const c of p.cooler) {
     const f = fishData[c.fishId] ?? { name: c.fishId };
+    const name = fullName(f.name, economy.variant(c.variant));
     const size = sizeClassById(state.data, c.sizeClass);
     const price = economy.price(c);
     const mult = marketMult(state.data, p, c.fishId, 0, null);
     list.append(h('li.lot',
       fishWindow('lot__mark', fishPreview(state, c.fishId)),
       h('div.lot__main',
-        h('div.lot__name', f.name),
+        h('div.lot__name', name),
         h('div.lot__meta',
           h('span.t-num', fmtKg(c.weight)),
           size ? h(`span.stamp.stamp--${size.id}`, size.name) : null,
+          variantToken(economy, c.variant),
           c.fishId === hotId ? h('span.pebble.pebble--amber', 'In demand') : null,
           mult < 0.95 ? h('span.lot__drop', 'Price falling') : null)),
       h('div.lot__sell',
-        h('button.btn', { 'aria-label': `Sell ${f.name} for ${fmt(price)}`, on: { click: () => { economy.sellCatch(c.id); } } }, money(price)))));
+        h('button.btn', { 'aria-label': `Sell ${name} for ${fmt(price)}`, on: { click: () => { economy.sellCatch(c.id); } } }, money(price)))));
   }
   body.push(list);
 
@@ -134,7 +146,7 @@ function baitBrings(state, baitId) {
 }
 
 function buyTab(ctx) {
-  const { state, economy, ui } = ctx;
+  const { state, economy } = ctx;
   const p = state.profile;
   const body = [];
   for (const { slot, group } of SLOTS) {
@@ -154,6 +166,32 @@ function buyTab(ctx) {
     body.push(list);
   }
   return { body };
+}
+
+/**
+ * The showcase strip at the top of a gear tag: Agent F's painting (art.json gear.<slot>.<id>) as the backdrop,
+ * Agent G's model (gear manifest <slot>.<id>) turning in front of it. Either alone works; with neither the strip is left out.
+ */
+function gearShowcase(state, slot, id, item) {
+  const art = artPath(state, `gear.${slot}.${id}`);
+  const modelId = slot === 'line' ? null : item.model;
+  if (!art && !modelId) return null;
+  const show = h('div.gear__show', { hidden: true });
+  const reveal = () => { show.hidden = false; };
+  const img = artImg(art, 'gear__art', { alt: '', onShow: reveal });
+  if (img) show.append(img);
+  if (modelId) {
+    const canvas = h('canvas.gear__model', { 'aria-hidden': 'true' });
+    show.append(canvas);
+    gearManifestReady().then(() => {
+      if (!hasGearModel(modelId)) { canvas.remove(); return; }
+      attachGearPreview(canvas, modelId, {
+        onReady: () => { canvas.classList.add('is-live'); reveal(); },
+        onMissing: () => canvas.remove(),
+      });
+    });
+  }
+  return show;
 }
 
 function gearTag({ state, economy, ui }, slot, id, item, equippedId, equipped) {
@@ -190,8 +228,13 @@ function gearTag({ state, economy, ui }, slot, id, item, equippedId, equipped) {
   }
   if (slot === 'bait') note = baitBrings(state, id) ?? note;
 
+  const lineSwatch = slot === 'line' && item.material
+    ? h('span.line-swatch', { style: { '--line': item.material.colour, '--glow': item.material.glow ?? 0 }, 'aria-hidden': 'true' })
+    : null;
+
   return h(`li.gear.tag${isEquipped ? '.is-equipped' : ''}`,
-    h('div.gear__head', h('h4.gear__name', item.name)),
+    gearShowcase(state, slot, id, item),
+    h('div.gear__head', h('h4.gear__name', item.name), lineSwatch),
     h('p.gear__flavour', item.flavour),
     stats,
     h('div.gear__foot', h('span.slot-label', note ?? ''), button));
@@ -203,24 +246,25 @@ function buildingEffect(state, id, lvl) {
   switch (id) {
     case 'shop': return lvl.sellBonus ? `Buyers pay ${Math.round(lvl.sellBonus * 100)}% more for every fish.` : 'Buyers pay the going rate.';
     case 'cooler': return `Holds ${lvl.capacity} fish.`;
-    case 'workers_hut': return `Room for ${lvl.slots} fishers${lvl.rateMult > 1 ? `, who work ${Math.round((lvl.rateMult - 1) * 100)}% faster` : ''}.`;
+    case 'workers_hut': return lvl.slots ? `Bunks for ${lvl.slots} fishers${lvl.rateMult > 1 ? `, who work ${Math.round((lvl.rateMult - 1) * 100)}% faster` : ''}.` : 'No bunks yet.';
     case 'smokehouse': return lvl.crewBonus ? `The crew's catch sells for ${Math.round(lvl.crewBonus * 100)}% more.` : 'Smokes the crew’s catch so it sells for more.';
     case 'aquarium': return lvl.coinsPerSpeciesHour ? `Visitors pay ${lvl.coinsPerSpeciesHour} an hour for each species in your logbook.` : 'Visitors would pay to see your logbook species.';
     case 'boat_dock': {
-      const isle = Object.values(state.data.islands ?? {}).find((i) => i.index === lvl.reach);
-      return `Your boat reaches as far as ${isle?.name ?? `island ${lvl.reach}`}.`;
+      const boat = Object.values(state.data.economy?.boats ?? {}).find((b) => b?.tier === lvl.maxBoat);
+      return lvl.maxBoat > 1 ? `Room for a ${boat?.name?.toLowerCase() ?? 'bigger boat'}.` : 'Your rowboat is pulled up on the sand.';
     }
     default: return '';
   }
 }
 
-function priceButton({ state, ui }, cost, label, action, okText) {
+function priceButton({ state, ui }, cost, label, action, okText, blocked = null) {
   const short = cost - state.profile.coins;
   return h('button.btn', {
-    'aria-disabled': short > 0 ? 'true' : null,
+    'aria-disabled': short > 0 || blocked ? 'true' : null,
     'aria-label': `${label} for ${fmt(cost)}`,
     on: {
       click: () => {
+        if (blocked) { ui.toast(blocked, 'danger'); return; }
         const r = action();
         if (r.ok) ui.toast(okText(r));
         else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need ?? short)} more coins`, 'danger');
@@ -229,8 +273,15 @@ function priceButton({ state, ui }, cost, label, action, okText) {
   }, money(cost));
 }
 
-function work(icon, name, now, next, extra = null, focusId = null) {
-  return h('li.work', focusId ? { 'data-focus': focusId } : null,
+/** A harbour row. `art` (optional) is a painted card from art.json shown as a banner. */
+function work({ icon, name, now, next, extra = null, focusId = null, art = null }) {
+  const banner = art ? h('div.work__art') : null;
+  if (banner) {
+    const img = artImg(art, '', { alt: '', slot: banner });
+    if (img) banner.append(img);
+  }
+  return h(`li.work${banner ? '.has-art' : ''}`, focusId ? { 'data-focus': focusId } : null,
+    banner,
     h('div.work__icon', ico(icon)),
     h('div.work__name', name, extra),
     h('div.work__now', now),
@@ -238,35 +289,75 @@ function work(icon, name, now, next, extra = null, focusId = null) {
 }
 
 function knots(level, total) {
-  return h('span.knots', { 'aria-label': `Stage ${level + 1} of ${total}` }, Array.from({ length: total }, (_, i) => h(`i${i <= level ? '.on' : ''}`)));
+  return h('span.knots', { 'aria-label': `Stage ${level} of ${total}` }, Array.from({ length: total }, (_, i) => h(`i${i < level ? '.on' : ''}`)));
 }
+
+const plotName = (state, id) => state.data.economy?.plots?.[id]?.name ?? id;
 
 function harbourTab(ctx) {
   const { state, economy, ui } = ctx;
   const p = state.profile;
   const body = [];
+
+  if (isVisitor(state)) {
+    body.push(h('p.chart-note', visitorLine(state)));
+    return { body };
+  }
+
   const rates = economy.incomeRates();
+  const plots = state.data.economy?.plots ?? {};
 
   // crew
   body.push(h('h3.section-title', { 'data-focus': 'crew' }, 'Crew'));
   const crew = h('ul.works');
-  const slots = economy.crewSlots();
+  const bunks = economy.crewBunks();
+  const spots = economy.crewSpots();
+  const slots = Math.min(bunks, spots);
   const names = p.workers.map((w) => w.name);
   const crewNow = names.length
-    ? `${names.length > 1 ? names.slice(0, -1).join(', ') + ' and ' + names.at(-1) : names[0]} ${names.length > 1 ? 'fish' : 'fishes'} the shallows for you: about ${fmt(rates.crew * 60)} coins a minute, also while you are away.`
-    : 'Nobody fishes for you yet. A hired fisher works the shallows all day and keeps going while you are away.';
-  const hireNext = p.workers.length < slots
-    ? h('div.work__next', h('p', `${p.workers.length} of ${slots} bunks taken.`), priceButton(ctx, economy.hireCost(), 'Hire a fisher', () => economy.hireWorker(), (r) => `${r.name} joined your crew`))
-    : h('div.work__next', h('p', `All ${slots} bunks are taken. A bigger workers' hut or new land makes room.`));
-  crew.append(work('hat', 'Hire a fisher', crewNow, hireNext));
-
-  const watch = economy.nextWatch();
-  const capH = economy.offlineCapHours();
-  crew.append(work('hourglass', 'Night watch', `Your harbour keeps earning for up to ${capH} hours while you are away.`,
-    watch
-      ? h('div.work__next', h('p', h('b', watch.name), `: ${watch.hours} hours.`, h('i', watch.about)), priceButton(ctx, watch.cost, watch.name, () => economy.buyWatch(), (r) => `${r.name}: the harbour now earns for ${r.hours} hours`))
-      : h('div.work__next', h('p', 'The harbour never sleeps.'))));
+    ? `${names.length > 1 ? names.slice(0, -1).join(', ') + ' and ' + names.at(-1) : names[0]} ${names.length > 1 ? 'fish' : 'fishes'} for you: about ${fmt(rates.crew * 60)} coins a minute, also while you are away.`
+    : 'Nobody fishes for you yet. A hired fisher works all day and keeps going while you are away.';
+  let hireNext;
+  if (p.workers.length < slots) {
+    hireNext = h('div.work__next', h('p', `${p.workers.length} of ${slots} places taken.`),
+      priceButton(ctx, economy.hireCost(), 'Hire a fisher', () => economy.hireWorker(), (r) => `${r.name} joined your crew`));
+  } else if (bunks === 0) {
+    hireNext = h('div.work__next', h('p', `A fisher needs a bunk. Build the workers' hut on ${plotName(state, state.data.economy?.buildings?.workers_hut?.site)}.`));
+  } else if (p.workers.length >= bunks) {
+    hireNext = h('div.work__next', h('p', `All ${bunks} bunks are taken. A bigger workers' hut makes room.`));
+  } else {
+    hireNext = h('div.work__next', h('p', `Every fishing spot is taken (${spots}). Another pier or new land gives the crew somewhere to stand.`));
+  }
+  crew.append(work({ icon: 'hat', name: 'Hire a fisher', now: crewNow, next: hireNext, focusId: 'workers_hut' }));
   body.push(crew);
+
+  // land and piers
+  body.push(h('h3.section-title', { 'data-focus': 'land' }, 'Land and piers'));
+  const land = h('ul.works');
+  const nextPlotId = economy.nextPlot();
+  if (nextPlotId) {
+    const def = plots[nextPlotId];
+    land.append(work({
+      icon: 'plot', name: def.name, now: def.about,
+      next: h('div.work__next', h('p', 'Raise it from the sea.'),
+        priceButton(ctx, def.cost, `Raise ${def.name}`, () => economy.buyPlot(nextPlotId), (r) => `${r.name} rose from the sea`)),
+    }));
+  }
+  const pier = economy.nextPier();
+  if (pier) {
+    land.append(work({
+      icon: 'boat', name: pier.name, now: `${pier.about} Reaches water ${pier.depth} m deep.`,
+      next: h('div.work__next',
+        h('p', pier.plotOwned ? 'One more fishing spot for the crew.' : `Needs ${plotName(state, pier.plot)} first.`),
+        priceButton(ctx, pier.cost, `Build ${pier.name}`, () => economy.buyPier(pier.id), (r) => `${r.name} is built: water ${r.depth} m deep`,
+          pier.plotOwned ? null : `Raise ${plotName(state, pier.plot)} first`)),
+      focusId: 'pier',
+    }));
+  }
+  const ownedPlots = p.island.plots.map((id) => plots[id]?.name ?? id);
+  const ownedPiers = p.island.piers.map((id) => state.data.economy?.piers?.[id]?.name ?? id);
+  land.append(h('li.crew-names', `Your island: ${ownedPlots.join(', ')}${ownedPiers.length ? `. Piers: ${ownedPiers.join(', ')}` : ''}.`));
+  body.push(land);
 
   // buildings
   body.push(h('h3.section-title', { 'data-focus': 'buildings' }, 'Buildings'));
@@ -274,34 +365,58 @@ function harbourTab(ctx) {
   for (const id of BUILDINGS) {
     const b = economy.building(id);
     if (!b) continue;
-    const built = !(b.index === 0 && b.name === 'Not built');
-    const title = built ? b.name : b.def.name;
-    const now = built ? buildingEffect(state, id, b) : `Not built yet. ${b.def.about}`;
-    const next = b.next
-      ? h('div.work__next', h('p', `${built ? 'Next' : 'Build'}: `, h('b', b.next.name), '. ', buildingEffect(state, id, b.next)),
-        priceButton(ctx, b.next.cost, `${built ? 'Upgrade to' : 'Build'} ${b.next.name}`, () => economy.upgradeBuilding(id), (r) => `${b.def.name}: now the ${r.name}`))
-      : h('div.work__next', h('p', 'As good as it gets.'));
-    list.append(work(ui.buildingIcon(id), title, now, next, knots(b.index, b.def.levels.length), id));
+    const title = b.built ? b.name : b.def.name;
+    const now = b.built ? [b.about ? `${b.about} ` : '', buildingEffect(state, id, b)] : `Not built yet. ${b.def.about}`;
+    // the painting shows the stage you have, or the first stage while it is not built yet
+    const artLevel = b.built && b.index > 0 ? b.index : 1;
+    const art = artPath(state, `building.${id}.l${artLevel}`);
+    let next;
+    if (!b.next) next = h('div.work__next', h('p', 'As good as it gets.'));
+    else {
+      const blocked = b.siteOwned ? null : `Raise ${plotName(state, b.def.site)} first`;
+      next = h('div.work__next',
+        h('p', `${b.built ? 'Next' : 'Build'}: `, h('b', b.next.name), '. ', buildingEffect(state, id, b.next), b.siteOwned ? '' : ` Stands on ${plotName(state, b.def.site)}.`),
+        priceButton(ctx, b.next.cost, `${b.built ? 'Upgrade to' : 'Build'} ${b.next.name}`, () => economy.upgradeBuilding(id), (r) => `${b.def.name}: now the ${r.name}`, blocked));
+    }
+    const stages = b.def.levels.length - 1;
+    list.append(work({ icon: ui.buildingIcon(id), name: title, now, next, extra: knots(b.index, stages), focusId: id, art }));
   }
   body.push(list);
 
-  // land
-  body.push(h('h3.section-title', { 'data-focus': 'land' }, 'Land'));
-  const land = h('ul.works');
-  const nextPlot = economy.nextPlot();
-  const plots = state.data.economy?.plots ?? {};
-  if (nextPlot) {
-    const def = plots[nextPlot];
-    land.append(work('plot', def.name, def.about,
-      h('div.work__next', h('p', 'Raise it from the sea.'), priceButton(ctx, def.cost, `Raise ${def.name}`, () => economy.buyPlot(nextPlot), (r) => `${r.name} rose from the sea`))));
-  }
-  if (p.island.plots.length) {
-    land.append(h('li.crew-names', `Your land: ${p.island.plots.map((id) => plots[id]?.name ?? id).join(', ')}.`));
-  } else if (!nextPlot) {
-    land.append(h('li.crew-names', 'Every plot is raised.'));
-  }
-  body.push(land);
+  // boats
+  body.push(h('h3.section-title', { 'data-focus': 'boats' }, 'Boats'));
+  const boats = h('ul.works');
+  const boat = economy.boat();
+  const nb = economy.nextBoat();
+  boats.append(work({
+    icon: 'boat', name: boat.name, now: `${boat.about ?? ''} Sails as far as ${islandAt(state, boat.reach)}.`,
+    next: nb
+      ? h('div.work__next',
+        h('p', 'Next: ', h('b', nb.name), `. ${nb.about} `, nb.dockFits ? '' : 'Needs a bigger boat dock.'),
+        priceButton(ctx, nb.cost, `Buy the ${nb.name}`, () => economy.buyBoat(nb.id), (r) => `The ${r.name} is tied up at the dock`, nb.dockFits ? null : 'Build a bigger boat dock first'))
+      : h('div.work__next', h('p', 'The finest boat on the islands.')),
+  }));
+  body.push(boats);
+
+  // night watch
+  body.push(h('h3.section-title', 'While you are away'));
+  const away = h('ul.works');
+  const watch = economy.nextWatch();
+  const capH = economy.offlineCapHours();
+  away.append(work({
+    icon: 'hourglass', name: 'Night watch', now: `Your harbour keeps earning for up to ${capH} hours while you are away.`,
+    next: watch
+      ? h('div.work__next', h('p', h('b', watch.name), `: ${watch.hours} hours.`, h('i', watch.about)),
+        priceButton(ctx, watch.cost, watch.name, () => economy.buyWatch(), (r) => `${r.name}: the harbour now earns for ${r.hours} hours`))
+      : h('div.work__next', h('p', 'The harbour never sleeps.')),
+  }));
+  body.push(away);
   return { body };
+}
+
+function islandAt(state, index) {
+  if (index <= 1) return 'the edge of the cove';
+  return Object.values(state.data.islands ?? {}).find((i) => i.index === index)?.name ?? `island ${index}`;
 }
 
 export { fmtDuration };

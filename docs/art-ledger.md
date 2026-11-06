@@ -76,3 +76,5 @@ Wall-clock measured with timestamps around each call; Qwen-Image-Fast (8 steps) 
 ### Agent F (illustrations) — quota day from the 22:45 reset (budget 7 min = 420 s)
 | Time (Brussels) | Agent | Tool | What | GPU s (wall-clock upper bound) |
 |---|---|---|---|---|
+| 6 Nov 23:10 | C | Qwen-Image | old_mooring r3 #1 (tail frays into hemp broom; binding band + rivets; kept as alternative in .cache) | 25 (measured wall) |
+| 6 Nov 23:11 | C | Qwen-Image | old_mooring r3 #2 (kept: tail, anal and rear dorsal are frayed hemp, closed mouth, no collar, no text) → art/concepts/fish/old_mooring.webp | 16 (measured wall) |

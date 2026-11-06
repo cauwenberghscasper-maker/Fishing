@@ -1,0 +1,261 @@
+{
+ "_notes": "Agent E VFX texture registry. Every file here is loaded by src/vfx (by key). 'sprites' is a 4x4 atlas packed from 16 generated sprites (frames -> cell). Raw generations and seeds: .cache/agent-e/raw/ and docs/art-ledger.md.",
+ "ov_storm": {
+  "path": "assets/vfx/ov_storm.webp",
+  "usedBy": "storm variant: body overlay (lightning veins), underglow decal",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "seamless tileable pattern of branching electric lightning veins spreading like cracks across the whole square, glowing electric yellow-white cores with blue halos, thin forked filaments, evenly filling the frame, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "overlay",
+  "tileable": true,
+  "size": 512
+ },
+ "ov_frost": {
+  "path": "assets/vfx/ov_frost.webp",
+  "usedBy": "frost variant: body overlay (glacier crust), underglow, screen-edge frost in the frost power",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "seamless tileable pattern of hoarfrost, feathery frost-fern crystals and rime crust covering the whole square, pale ice blue and white, crisp ice needles, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "overlay",
+  "tileable": true,
+  "size": 512
+ },
+ "ov_ember": {
+  "path": "assets/vfx/ov_ember.webp",
+  "usedBy": "ember variant: body overlay (molten cracks), underglow, boiling-water decal in the ember power",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "seamless tileable pattern of molten cracks, a network of glowing orange and gold lava fissures with crimson edges, like cracked cooling magma, evenly filling the frame, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "overlay",
+  "tileable": true,
+  "size": 512
+ },
+ "ov_bloom": {
+  "path": "assets/vfx/ov_bloom.webp",
+  "usedBy": "bloom variant: body overlay (moss and blossoms), underglow",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "seamless tileable pattern of a living moss carpet with tiny pink and white blossoms and curled fern sprouts, lush green and blossom pink, dense small details, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "overlay",
+  "tileable": true,
+  "size": 512
+ },
+ "ov_rune": {
+  "path": "assets/vfx/ov_rune.webp",
+  "usedBy": "rune variant: body overlay (glyph bands), underglow",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "seamless tileable pattern of invented ancient glyphs glowing turquoise, interlocking angular spiral marks like carved temple stone, not an alphabet, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "overlay",
+  "tileable": true,
+  "size": 512
+ },
+ "ov_abyss": {
+  "path": "assets/vfx/ov_abyss.webp",
+  "usedBy": "abyss variant: body overlay (ink + plankton specks), underglow, lights-out ink edges",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "seamless tileable pattern of drifting black ink tendrils with tiny bioluminescent violet and cyan specks, deep sea plankton glow, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "overlay",
+  "tileable": true,
+  "size": 512
+ },
+ "ov_tide": {
+  "path": "assets/vfx/ov_tide.webp",
+  "usedBy": "tide variant: body overlay (foam lace), underglow, tide flood decal; bleached morph salt crust",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "seamless tileable pattern of white sea-foam lace, swirling bubbly foam lines, white and pale aqua, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "overlay",
+  "tileable": true,
+  "size": 512
+ },
+ "ov_rust": {
+  "path": "assets/vfx/ov_rust.webp",
+  "usedBy": "rust variant: body overlay (chain-link scales, barnacles), underglow",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "seamless tileable pattern of overlapping rusted iron chain-link scales with barnacles and verdigris, rust orange, weathered brown, sea green, filling the frame, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "overlay",
+  "tileable": true,
+  "size": 512
+ },
+ "ov_gilt": {
+  "path": "assets/vfx/ov_gilt.webp",
+  "usedBy": "gilded morph: gold-leaf edges on the body",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "seamless tileable pattern of crackled gold leaf flakes, burnished gilding with tiny cracks, warm metallic gold, scattered flakes, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "overlay",
+  "tileable": true,
+  "size": 512
+ },
+ "sprites": {
+  "path": "assets/vfx/sprites.webp",
+  "usedBy": "every particle effect (auras, powers, reveal): one instanced draw call per particle layer",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "atlas",
+  "grid": [
+   4,
+   4
+  ],
+  "size": 1024,
+  "frames": {
+   "spark": 0,
+   "ember": 1,
+   "snow": 2,
+   "smoke": 3,
+   "petal": 4,
+   "leaf": 5,
+   "glyph_a": 6,
+   "glyph_b": 7,
+   "glyph_c": 8,
+   "glyph_d": 9,
+   "eye": 10,
+   "foam": 11,
+   "metal_spark": 12,
+   "lava": 13,
+   "shard": 14,
+   "flare": 15
+  },
+  "sources": {
+   "spark": {
+    "prompt": "a single crackling electric spark burst, tiny forked lightning star, electric yellow-white core with blue fringe, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "storm aura, storm power sparks along the line",
+    "raw": ".cache/agent-e/raw/sp_spark.webp"
+   },
+   "ember": {
+    "prompt": "a single glowing ember mote, a drifting fleck of burning ash with orange-gold core and red edge, soft glow, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "ember aura, lava-bomb trails, reveal",
+    "raw": ".cache/agent-e/raw/sp_ember.webp"
+   },
+   "snow": {
+    "prompt": "a single delicate ice crystal snowflake with six irregular arms, pale blue and white, frosted, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "frost aura snow swirl, frost power",
+    "raw": ".cache/agent-e/raw/sp_snow.webp"
+   },
+   "smoke": {
+    "prompt": "a single soft billowing smoke puff, grey-white cloud with soft edges, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "frost breath, ember steam and smoke, rune teleport mist",
+    "raw": ".cache/agent-e/raw/sp_smoke.webp"
+   },
+   "petal": {
+    "prompt": "a single blossom petal, soft pink with a darker base and fine veins, slightly curled, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "bloom aura, bloom power petal burst",
+    "raw": ".cache/agent-e/raw/sp_petal.webp"
+   },
+   "leaf": {
+    "prompt": "a single small ragged kelp leaf, olive green with an amber edge, translucent, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "bloom power vine cut, bloom aura",
+    "raw": ".cache/agent-e/raw/sp_leaf.webp"
+   },
+   "glyphs": {
+    "prompt": "four different invented glowing turquoise glyph sigils arranged in a 2 by 2 grid, each a circular carved sign of spirals and angular lines, ancient temple style, not an alphabet, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "rune aura orbiting glyphs, rune power (sliced into glyph_a..d)",
+    "raw": ".cache/agent-e/raw/sp_glyphs.webp"
+   },
+   "eye": {
+    "prompt": "a single glowing deep-sea creature eye, almond shape, amber-gold iris with a thin vertical slit pupil, dark lid edge, bioluminescent rim glow, centered, eerie, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "abyss aura eyes, abyss lights-out eyes",
+    "raw": ".cache/agent-e/raw/sp_eye.webp"
+   },
+   "foam": {
+    "prompt": "a single splash of white sea foam spray droplets, bubbly foam clump, white and pale aqua, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "tide aura foam crown, rogue wave spray, splashes",
+    "raw": ".cache/agent-e/raw/sp_foam.webp"
+   },
+   "metal_spark": {
+    "prompt": "a single shower of grinding metal sparks, bright orange-white streaks flying out from one point, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "rust aura grinding sparks, anchor chain power",
+    "raw": ".cache/agent-e/raw/sp_metal_spark.webp"
+   },
+   "lava": {
+    "prompt": "a single molten lava bomb rock, black crusted stone cracked open with glowing orange magma inside, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "ember power lava bombs",
+    "raw": ".cache/agent-e/raw/sp_lava.webp"
+   },
+   "shard": {
+    "prompt": "a single jagged ice shard crystal standing upright, translucent pale blue with white facets and a glowing cyan core, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "frost power ice shards (tap targets), frost shatter",
+    "raw": ".cache/agent-e/raw/sp_shard.webp"
+   },
+   "flare": {
+    "prompt": "a single radiant four-point star glint with a soft halo, warm white-gold, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+    "usedBy": "reveal sparkle, morph shine, impact flashes",
+    "raw": ".cache/agent-e/raw/sp_flare.webp"
+   }
+  }
+ },
+ "rb_lightning": {
+  "path": "assets/vfx/rb_lightning.webp",
+  "usedBy": "storm power lightning ribbons, storm aura arcs, reveal bolts",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "a single vertical jagged lightning bolt from top to bottom with small side forks, white-hot core, electric yellow and blue glow, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "ribbon",
+  "aspect": "9:16",
+  "tileable": false
+ },
+ "rb_vine": {
+  "path": "assets/vfx/rb_vine.webp",
+  "usedBy": "bloom power vines erupting and wrapping the line",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "a single vertical twisting sea vine, braided kelp stem with leaves and small pink blossoms, from bottom to top, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "ribbon",
+  "aspect": "9:16",
+  "tileable": false
+ },
+ "rb_chain": {
+  "path": "assets/vfx/rb_chain.webp",
+  "usedBy": "rust power anchor chain",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "a single vertical rusted iron anchor chain hanging straight, large heavy links, rust orange and dark iron with barnacles, centered, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "ribbon",
+  "aspect": "9:16",
+  "tileable": false
+ },
+ "dc_rune_circle": {
+  "path": "assets/vfx/dc_rune_circle.webp",
+  "usedBy": "rune power glyph circles on the water, rune reveal circle",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "a glowing turquoise glyph circle seen from directly above, concentric rings of invented angular temple glyphs and spiral marks, carved stone seal motif, not an alphabet, symmetrical, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "decal",
+  "aspect": "1:1",
+  "tileable": false
+ },
+ "dc_ring": {
+  "path": "assets/vfx/dc_ring.webp",
+  "usedBy": "every telegraph warning circle (tinted per element), ember impact zones",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "a single warning ring seen from above, a thick brush-stroke circle with ragged painterly edges and a thinner inner ring with tick marks, white glowing paint, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "decal",
+  "aspect": "1:1",
+  "tileable": false
+ },
+ "dc_ice": {
+  "path": "assets/vfx/dc_ice.webp",
+  "usedBy": "frost power ice sheet spreading over the water",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "seamless tileable top-down texture of a frozen sea surface, pale blue ice sheet with white cracks, trapped bubbles and frost streaks, filling the frame, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "decal",
+  "aspect": "1:1",
+  "tileable": true
+ },
+ "tx_wave": {
+  "path": "assets/vfx/tx_wave.webp",
+  "usedBy": "tide power rogue wave face and pier flood",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "seamless tileable texture of a breaking wave face, deep teal water streaked with white foam lines and spray, filling the frame, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "surface",
+  "aspect": "1:1",
+  "tileable": true
+ },
+ "tx_beam": {
+  "path": "assets/vfx/tx_beam.webp",
+  "usedBy": "reveal light pillar, rune teleport pillar",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "a single vertical beam of light rising upward, soft god ray column with streaks, warm white center fading at the edges, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "ribbon",
+  "aspect": "9:16",
+  "tileable": false
+ },
+ "tx_burst": {
+  "path": "assets/vfx/tx_burst.webp",
+  "usedBy": "reveal burst, lightning impact flash, shatter flash",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "prompt": "a radial burst of light rays exploding from the center, streaks, white-gold, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "kind": "decal",
+  "aspect": "1:1",
+  "tileable": false
+ }
+}

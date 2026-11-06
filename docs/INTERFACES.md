@@ -7,8 +7,15 @@ Read `docs/MASTER_PROMPT.md` first. This file is the contract that lets agents w
 2. `loadProfile(state, events)` — `src/save/profile.js` (B) fills `state.profile` and `state.gear`.
 3. `startEconomy({ state, events })` — `src/economy/index.js` (B).
 4. `startUI({ root, state, events })` — `src/ui/app.js` (B). `root` is `#ui`.
-5. `startWorld({ canvas, state, events })` — `src/world/game.js` (A). `canvas` is `#game`.
-6. `game:ready` is emitted; `window.__game = { state, events }`.
+5. `startWorld({ canvas, state, events })` — `src/world/game.js` (A). `canvas` is `#game`. Sets `state.render = { THREE, scene, camera, renderer, clock }` and adds per-frame callbacks via `state.render.onFrame(fn(dt, t))`.
+6. `startVfx({ state, events })` — `src/vfx/index.js` (E). Uses `state.render` to draw into A's scene.
+7. `game:ready` is emitted; `window.__game = { state, events }`.
+
+## Variants and superpowers (master prompt 4.4b)
+- `public/data/variants.json` (B): `{ "<variantId>": { kind: "basic|morph|element", name, element?, chance, islandBoost: { "<islandId>": x }, weatherBoost?, valueMult, lore } }`. Ids: `basic`, `bleached`, `inkdark`, `gilded`, `storm`, `frost`, `ember`, `bloom`, `rune`, `abyss`, `tide`, `rust`.
+- `public/data/powers.json` (A): per elemental variant the fight mechanic: `{ "<variantId>": { power, telegraph: seconds, duration, cooldown, effect: {...}, counter: "slack|tap|step|swipe|reaim|follow|hold|pump" } }`.
+- `public/data/variants-look.json` (E): per variant the visual settings (overlay texture, colours, aura, light, sound cue name).
+- A rolls the variant when a fish spawns (B's chances), shows it, runs its power in the fight; E draws every look and effect; B prices it and records it in the Fishdex.
 
 ## Event bus (`src/core/events.js`)
 `events.on(name, fn) → off()`, `events.once(name, fn)`, `events.emit(name, payload)`.
@@ -23,8 +30,13 @@ Read `docs/MASTER_PROMPT.md` first. This file is the contract that lets agents w
 | `hook:result` | `{ fishId, success }` | |
 | `fight:start` | `{ fishId, weight, sizeClass, strength }` | fish hooked |
 | `fight:update` | `{ tension, stamina, hp? }` 0..1 | throttled ~10/s |
-| `fish:caught` | `{ fishId, weight, sizeClass, islandId, perfectCast }` | fish landed |
-| `fish:lost` | `{ fishId, reason }` reason: `snap`, `escape`, `spooked` | |
+| `fish:caught` | `{ fishId, variant, weight, sizeClass, islandId, perfectCast }` | fish landed (`variant` defaults to `basic`) |
+| `fish:lost` | `{ fishId, variant, reason }` reason: `snap`, `escape`, `spooked` | |
+| `fish:spawn` / `fish:despawn` | `{ uid, fishId, variant, object }` (`object` = the fish's THREE.Object3D) | a fish appears/disappears (E attaches the variant look) |
+| `fish:landed-show` | `{ uid, fishId, variant, object }` | the fish is held up / shown at the catch (E plays the reveal burst) |
+| `power:telegraph` | `{ uid, variant, power, target: {x, z}, duration }` | a superpower is about to fire (E shows the warning) |
+| `power:start` / `power:end` | `{ uid, variant, power, target, success? }` | the superpower fires / ends (`success` = player countered it) |
+| `island:grown` | `{ plotId }` | A finished the land-rising animation for a plot |
 
 ### Emitted by Agent B (economy / UI / save)
 | Event | Payload | When |
@@ -57,7 +69,15 @@ Until B lands the theme, A uses these names anyway; nothing else.
 - `fish-behaviour.json` (A): `{ "<id>": { body: "fusiform|eel|ray|jelly|bulky|flat|shelled", personality, stamina, pull, moves: [...], swim: { amp, freq, speed } } }`
 - `islands.json`, `items.json`, `economy.json` (B).
 
+## 2D art registry (`public/data/art.json`, Agent F; B and E read it)
+```json
+{ "gear.rod.greenheart": { "path": "art/gear/rod_greenheart.webp", "usedBy": "ui/shop gear card", "concept": null, "licence": "generated: Qwen-Image (Apache-2.0)" } }
+```
+Key scheme: `gear.<slot>.<itemId>`, `island.<islandId>`, `building.<buildingId>.<level>`, `variant.<variantId>` (emblem), `title.main`, `title.loading`, `vfx.<name>` (E). The UI looks art up by key and hides the slot when an entry is missing.
+
 ## Asset manifests
+Model manifests: `public/assets/fish/manifest.json` (C), `public/assets/world/manifest.json` + `public/assets/character/manifest.json` (D), `public/assets/gear/manifest.json` + `public/assets/boats/manifest.json` (G). Gear ids equal the item ids in `items.json` (G's manifest key `rod.greenheart` etc.); every gear model has empty nodes `grip` (where the hand holds it) and, for rods, `tip` (where the line starts). Building levels in D's manifest are ids like `shop_l1`, `shop_l2`, `shop_l3`; island plots `plot_<plotId>` with their dressing.
+Every manifest entry may carry `concept` (the concept image it was built from) so `tools/check-art.mjs` can see the concept is used.
 `public/assets/fish/manifest.json` (C), `public/assets/world/manifest.json` and `public/assets/character/manifest.json` (D):
 ```json
 { "chartfish": { "path": "assets/fish/chartfish/model.glb", "scale": 1, "body": "flat", "tris": 4200, "licence": "generated (Qwen-Image Apache-2.0 → TRELLIS.2 MIT)", "status": "final|temp" } }

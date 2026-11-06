@@ -71,7 +71,27 @@ These were open questions; the team proceeds on these until Casper says otherwis
 - Tiers: common, uncommon, rare, epic, legendary, boss. Size classes per catch (small, normal, large, trophy) with a weight roll.
 - **Strength scales with island and tier:** stamina, pull force, move set, aggression.
 - Every fish entry (data/fish.json): id, name, island, tier, element, personality, moves, depth band, time of day/weather, bait preference, base value, weight range, model id, swim profile, signature feature.
-- **Fishdex** collection with records (heaviest), silhouettes for unknown fish.
+- **Fishdex** collection with records (heaviest), silhouettes for unknown fish, and every variant caught per species.
+
+### 4.4b Variants and elemental superpowers (Casper: "really over the top")
+Every catch rolls a variant when the fish spawns. The same species can show up plain or supercharged.
+- **Basic** (most catches): the species exactly as designed.
+- **Basic morphs** (uncommon, modest value bonus ×1.5–2, a look change only): `bleached` (sun-bleached, pale, almost white), `inkdark` (near-black, its signature glow brighter), `gilded` (gold-leaf edges). Done with a material/palette shift on the same model.
+- **Elemental variants** (rare to very rare, value ×5–25, chance boosted on the matching island and weather): the fish is overcharged by one of the 8 elements. **Over the top is the point**: a full-body shader overlay, a particle aura, its own light, and in the fight a **superpower** that throws the whole screen into chaos, which the player has to counter. Every power has a clear telegraph and a counter so it stays fair on a phone.
+
+| Variant | Look (overlay + aura) | Superpower in the fight | Player's counter |
+|---|---|---|---|
+| `storm` | crackling lightning veins, arcs jumping between fins, static sparks | the sky goes dark, it calls **lightning strikes down along your line**, screen flash + shake + slow-mo crack | slack the line (release) during the telegraph or it snaps |
+| `frost` | glacier-ice crust, frost breath, snow swirl | **freezes the sea** around the lure into a sheet of ice, the reel freezes solid | tap the ice shards to break free, then reel fast |
+| `ember` | molten cracks, ember trail, heat haze | **boils the water**, the line overheats, **lava bombs** rain onto the pier | step out of the marked impact zones, ease off to cool the line |
+| `bloom` | moss and flowers erupting along the body, pollen | **kelp and vines erupt** from the water and tangle your line | swipe to cut the vines |
+| `rune` | glowing glyph rings orbiting the body | draws **glyph circles and teleports** between them, the pull direction flips | re-aim the pull toward the new circle |
+| `abyss` | ink-black body, dozens of glowing eyes opening | **lights out**: the screen goes black, only its glow and your line are visible | follow the glow, pull against it |
+| `tide` | water spiralling around it, foam crown | raises a **rogue wave** that floods the pier and lifts the fish into the sky | hold steady (don't reel) while the wave passes |
+| `rust` | anchor-chain scales, barnacle armour, sparks of grinding metal | **anchors itself**: a huge chain drags the line down, the heaviest pull in the game | pump the rod in rhythm |
+
+- Variant name shows on the catch card and in the Fishdex ("Ember Driftback"). Collecting every variant of a species is a long-term goal (bonus coins, pearls).
+- Variants are visual and mechanical layers on the shared fish model: no separate model per variant.
 
 ### 4.5 Islands
 Each island = its own element, look, weather/hazard, fish roster and legendary/boss.
@@ -89,10 +109,17 @@ Each island = its own element, look, weather/hazard, fish roster and legendary/b
 
 Travel by boat from the home pier. Unlock by coins + a catch requirement.
 
-### 4.6 Home island upgrades and expansion
-- The home island **grows**: buy new land plots that rise out of the sea (animated), new piers, buildings.
+### 4.6 Home island: start small, grow big (Casper: "start small, get bigger over time")
+- **Day one is tiny:** a sandbar barely bigger than a boat, one crooked pier stub, a tarp lean-to, a driftwood fire, your rowboat. The rest of the cove from the key art is still sea and rocks; it has to be earned.
+- **The island grows in real 3D:** buying a land plot raises it out of the sea (animated: water drains off, sand settles, plants pop up). Plots have their own shape and character, for example the Palm Spit, Tide-pool Shelf, Basalt Cliff (later the lighthouse), Kelp Shallows, Wreck Beach (the beached red boat), and the Old Mooring's Deep. The full-grown island matches the key art and goes beyond it.
+- **Piers grow too:** pier modules are bought and placed; each new pier reaches deeper water and new fish.
 - Buildings: Shop (sell/buy), Cooler (catch capacity), Smokehouse (turns fish into higher-value goods over time), Aquarium (displays caught species, earns visitor income, shows rare fish swimming), Boat dock (travel, boat upgrades), Workers' hut (hire fishers), Net & crab-pot spots.
-- Each building has levels with visible model changes.
+- **Every building level is its own model** (at least 3 levels each): for example the shop starts as a crate stall under a sail, becomes the upturned-hull shop, then a two-storey hull with a crow's nest. Workers you hire appear on the island as their own characters.
+
+### 4.6b Everything has its own model
+- **Gear:** every rod, reel and bait in `items.json` has its own 3D model. The rod and reel are visible in the player's hands, the bait on the hook, and all of them in a turning 3D preview in the shop. Lines are a material (colour, thickness, glow) on the line rope.
+- **Boats:** every boat upgrade is its own model (rowboat → patched skiff → sail sloop → later islands' boats), visible at the dock and used for travel.
+- **Workers, nets, crab pots, smokehouse racks, aquarium tanks**: all real models, levelled where they upgrade.
 
 ### 4.7 Shop and economy
 - Currency: coins. Later a second earned-only currency (e.g. pearls from rare catches) for special gear. **Never sold for real money**, no paid currency.
@@ -152,6 +179,7 @@ If you could get the result by typing "<thing> fantasy game asset" into any gene
   | `kelp_wraith` | Kelp Wraith | uncommon | eel | the whole body is built from overlapping kelp blades (leafy-seadragon idea), amber float-bulbs along the spine that glow at dusk | olive, amber, deep brown | invisible in the kelp until it moves |
   | `seaglass_puffer` | Seaglass Puffer | rare | bulky | body *is* a cluster of frosted sea-glass shards; inflating spreads them into a spiky glass sphere; small sharp eyes, no smile | bottle green, frosted white, amber | the tide polished it for a hundred years |
   | `old_mooring` | The Old Mooring | big (tutorial) | huge catfish | barbels *are* frayed mooring ropes, iron mooring ring through its lip, jaw bristling with old hooks and lures from every angler who lost it, barnacle-crusted tar-black hide | tar black, rope tan, rust | the one that got away, for fifty years |
+- **Picks (6 Nov, Casper didn't object to the recommendations):** glasswing_sardine A, driftback A, compass_flounder B, shellback_blenny C, kelp_wraith A, seaglass_puffer A (B = its inflated pose). old_mooring: direction C (fins and tail fray into hemp rope fibre), needs a new pass. Takes live in `art/concepts/fish/_takes/<id>_<A|B|C>.webp`. Font: **Chartroom** (IM Fell English SC + Alegreya Sans). Shop: the **upturned-hull** shop from `driftwood_cove_shop_detail.webp`.
 - **Approved (quality bar):** `storm_marlin`, `temple_manta`. **Not approved yet:** `cathedral_jelly` (redo later, not needed for M1). **Rejected:** `bellbuoy_bass` and the first versions of the other six commons; their old ids (`sunscale_sardine`, `driftwood_perch`, `chartfish`, `tidepool_goby`, `kelp_ribbon`) are retired.
 
 ### 5.3 World
@@ -177,6 +205,10 @@ If you could get the result by typing "<thing> fantasy game asset" into any gene
    - Animation reference clips: Wan 2.2 image-to-video (optional).
    - HF ZeroGPU quota is about 25 min/day and resets around 22:45 Brussels time. Keep a quota ledger in `docs/art-ledger.md`; stop and report before you run out.
 3. Never fall back to primitives. If an asset is missing, the feature waits or uses a clearly temporary model from a CC0 kit.
+
+**Everything generated gets used (Casper's rule).** Never generate an image or model without a destination. Before generating, add its entry to the right registry: fish/world/gear manifests for models, `public/data/art.json` for 2D art (illustrations, cards, badges, VFX textures, title art), each with `path` and `usedBy` (which screen, system or model uses it). Concept and reference images live in `art/concepts/` and must be referenced by the model or design they fed (manifest field `concept`). `node tools/check-art.mjs` lists every shipped file that nothing references and every registry entry whose file is missing; the lead runs it before each commit, and the list must be empty except for work in progress named in a handoff note.
+
+**HF quota is the bottleneck for "a lot of art":** share it with the ledger in `docs/art-ledger.md`. Use `mcp-tools/Qwen-Image-Fast` for volume work (icons, gear, VFX textures) when it passes the anti-generic bar; full `mcp-tools/Qwen-Image` for hero art. Measure real GPU time per call and write it in the ledger. On a quota error: stop generating, carry on with non-GPU work, continue after the reset (~22:45 Brussels).
 
 **Downloads:** the work sandbox can only reach GitHub and the package registries (npm, pip). Respect that limit: never route downloads around it (no CI relays, proxies, mirrors of blocked sites or other tricks). What works:
 - Files that the Hugging Face tools return arrive as local files in the tool results.
@@ -236,8 +268,14 @@ public/data/fish-behaviour.json                              Agent A
 public/fonts/                                                Agent B
 art/concepts/fish/   art/concepts/world/   concept images    Agent C / Agent D
 public/assets/fish/<id>/ + public/assets/fish/manifest.json  Agent C
-public/assets/world/ public/assets/character/ + manifests    Agent D
-CREDITS.md                                                   Agent D (C appends its section)
+public/assets/world/ public/assets/character/ + manifests    Agent D (island growth stages, buildings per level, workers)
+src/vfx/  public/assets/vfx/  public/data/variants-look.json Agent E (variant looks + superpower VFX)
+public/data/variants.json                                     Agent B (chances, multipliers, names, lore)
+public/data/powers.json                                       Agent A (superpower mechanics, telegraphs, counters)
+public/art/  public/data/art.json                             Agent F (illustrations; B wires them into the UI)
+public/assets/gear/ public/assets/boats/ + manifests          Agent G (rods, reels, baits, boats)
+tools/check-art.mjs                                           lead
+CREDITS.md                                                   Agent D (C, E, F, G append their sections)
 docs/                                                        lead (agents write docs/handoff/<agent>.md)
 .cache/          raw downloads and work files (git-ignored)  everyone, in a subfolder per agent
 ```
@@ -251,7 +289,10 @@ Stay inside your folders. Need something elsewhere → write it in your handoff 
 - **Agent A — Engine & Fishing:** renderer, camera, water, island scene, input, player movement, aim/cast/bite/reel/fight, fish swim shader and AI.
 - **Agent B — Economy, UI & Save:** data files, shop, market, idle workers/buildings, island upgrades, offline earnings, save/migrations, all UI, typography (3 pairings for Casper first).
 - **Agent C — Fish Art:** concepts in the house style (favourites first), background removal, TRELLIS.2 models, cleanup to spec, preview renders, quota ledger.
-- **Agent D — World & Character Assets:** find and import CC0 kits for Driftwood Cove first (sand, rocks, palms, piers, shop, huts, boat, props), the player character with clips, rod; licences in CREDITS.md; generate landmarks only when no kit fits.
+- **Agent D — World & Character Assets:** Driftwood Cove models (kits repainted + bespoke Blender builds), the island growth stages (starting sandbar, plot dressing sets), every building at every level, workers, the player character with clips; licences in CREDITS.md.
+- **Agent E — Variants & Superpower VFX:** the basic morph and elemental variant looks (shader overlays, auras, lights) and the over-the-top superpower effects (lightning storms, freezing sea, lava bombs, vines, glyph teleports, lights-out, rogue wave, anchor chain), with HF-generated textures and sprites. Code in `src/vfx/`, driven by A's events.
+- **Agent F — Illustrations:** painted art the UI shows: gear cards for every item, island cards for the sea chart, building cards per level, variant emblems, title/loading art. Registered in `public/data/art.json`; Agent B wires them in.
+- **Agent G — Gear & Boats:** a 3D model for every rod, reel and bait in `items.json` and every boat level, from HF concepts + Blender; rod tip and hand grip marked as nodes so A can attach the line and the hand.
 
 Every agent ends with `docs/handoff/<agent>.md`: what was done, what is missing, what needs Casper's decision, and screenshots/contact sheets where visual.
 
@@ -266,5 +307,5 @@ Every agent ends with `docs/handoff/<agent>.md`: what was done, what is missing,
 ## 10. Definition of done (every change)
 - `npm run build` passes, no console errors, loads on a phone-size viewport.
 - Screenshot at 390×844 checked by eye: no primitives visible, text readable, nothing overflows.
-- Art matches section 5; licences recorded.
+- Art matches section 5; licences recorded; `node tools/check-art.mjs` reports nothing unused.
 - Committed with a player-facing message and pushed. Big or risky work goes to a branch + PR for Casper.

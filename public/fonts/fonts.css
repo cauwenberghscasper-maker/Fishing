@@ -1,18 +1,9 @@
 /* Self-hosted OFL fonts (Agent B). Licences: OFL-*.txt in this folder, credits in CREDITS.md.
    Loaded at runtime by src/ui/app.js as <link href="fonts/fonts.css"> (relative, works under /Fishing/).
-   Browsers only download the faces the active pairing actually uses. */
+   Type: "Chartroom" (picked by Casper): IM Fell English SC for titles and names, Alegreya Sans for text and numbers. */
 
-/* Pairing 1 "Chartroom": IM Fell English SC + Alegreya Sans */
 @font-face { font-family: 'IM Fell English SC'; src: url('./im-fell-english-sc-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Alegreya Sans'; src: url('./alegreya-sans-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Alegreya Sans'; src: url('./alegreya-sans-500-italic.woff2') format('woff2'); font-weight: 500; font-style: italic; font-display: swap; }
 @font-face { font-family: 'Alegreya Sans'; src: url('./alegreya-sans-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Alegreya Sans'; src: url('./alegreya-sans-800.woff2') format('woff2'); font-weight: 800; font-style: normal; font-display: swap; }
-
-/* Pairing 2 "Dockside": Caprasimo + Signika */
-@font-face { font-family: 'Caprasimo'; src: url('./caprasimo-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Signika'; src: url('./signika-var.woff2') format('woff2-variations'), url('./signika-var.woff2') format('woff2'); font-weight: 300 700; font-style: normal; font-display: swap; }
-
-/* Pairing 3 "Lantern": Kalnia + Faculty Glyphic */
-@font-face { font-family: 'Kalnia'; src: url('./kalnia-var.woff2') format('woff2-variations'), url('./kalnia-var.woff2') format('woff2'); font-weight: 100 700; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Faculty Glyphic'; src: url('./faculty-glyphic-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }

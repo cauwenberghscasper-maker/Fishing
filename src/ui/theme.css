@@ -14,13 +14,12 @@
      sea glass    = small status tokens (new, hot, equipped)
      glow ink     = rare moments (new species, records, bioluminescence)
 
-   Type pairing: set by src/ui/type-pairing.js (one line) as <html data-type="...">.
-   :root falls back to "chartroom" so the HUD is themed even before the UI boots.
+   Type: "Chartroom" (IM Fell English SC + Alegreya Sans), picked by Casper on 6 Nov.
+   The comparison with the two other pairings is kept in docs/handoff/shots/type-specimen.png.
    ========================================================================== */
 
-:root,
-[data-type="chartroom"] {
-  /* Pairing 1 — Chartroom: engraved sea-chart capitals + calm humanist sans */
+:root {
+  /* Type: "Chartroom", picked by Casper. Engraved sea-chart capitals + a calm humanist sans. */
   --font-display: 'IM Fell English SC', 'Iowan Old Style', Georgia, serif;
   --font-body: 'Alegreya Sans', 'Gill Sans', 'Trebuchet MS', sans-serif;
   --font-num: 'Alegreya Sans', 'Gill Sans', 'Trebuchet MS', sans-serif;
@@ -30,32 +29,6 @@
   --body-weight: 500;
   --body-strong: 800;
   --num-weight: 800;
-}
-
-[data-type="dockside"] {
-  /* Pairing 2 — Dockside: fat sign-painter display + wayfinding sans */
-  --font-display: 'Caprasimo', Georgia, serif;
-  --font-body: 'Signika', 'Trebuchet MS', sans-serif;
-  --font-num: 'Signika', 'Trebuchet MS', sans-serif;
-  --display-weight: 400;
-  --display-scale: 0.94;
-  --display-tracking: 0;
-  --body-weight: 400;
-  --body-strong: 650;
-  --num-weight: 700;
-}
-
-[data-type="lantern"] {
-  /* Pairing 3 — Lantern: sharp leaded-glass display + carved glyphic sans */
-  --font-display: 'Kalnia', Georgia, serif;
-  --font-body: 'Faculty Glyphic', 'Optima', 'Trebuchet MS', sans-serif;
-  --font-num: 'Faculty Glyphic', 'Optima', 'Trebuchet MS', sans-serif;
-  --display-weight: 600;
-  --display-scale: 0.96;
-  --display-tracking: 0.005em;
-  --body-weight: 400;
-  --body-strong: 400;
-  --num-weight: 400;
 }
 
 :root {

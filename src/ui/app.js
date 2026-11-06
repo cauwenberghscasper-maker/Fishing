@@ -2,7 +2,6 @@
 import './theme.css';
 import './ui.css';
 import { h, ico, fmt, money } from './dom.js';
-import { activePairing } from './type-pairing.js';
 import { economy } from '../economy/index.js';
 import { catchCard } from './screens/catch.js';
 import { shopSheet } from './screens/shop.js';
@@ -25,7 +24,6 @@ function injectFonts() {
 
 export async function startUI({ root, state, events }) {
   injectFonts();
-  document.documentElement.dataset.type = activePairing();
 
   const ctx = { state, events, economy, ui: null };
 

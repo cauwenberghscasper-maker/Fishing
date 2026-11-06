@@ -1,4 +1,4 @@
-// Agent B. Settings: sound, graphics, lettering preview (test mode), test mode, erase save.
+// Agent B. Settings: sound, graphics, test mode (with test helpers), erase save.
 import { h, ico, fill } from '../dom.js';
 import { sheetHead } from './shop.js';
 import { eraseSave, PROFILE_VERSION } from '../../save/profile.js';
@@ -33,10 +33,7 @@ export function settingsSheet(ctx) {
     );
 
     if (state.test) {
-      const type = document.documentElement.dataset.type;
       body.append(
-        row('Lettering', 'Preview a type pairing. Casper picks the final one.',
-          choice([['chartroom', 'Chart'], ['dockside', 'Dock'], ['lantern', 'Glass']], type, (v) => { document.documentElement.dataset.type = v; render(); }, 'Lettering')),
         row('Test coins', 'Adds 10,000 coins.', h('button.btn', { on: { click: () => { economy.testGrantCoins(); ui.toast('10,000 coins added'); } } }, 'Add')),
         row('Islands', 'Unlock every island on the chart.', h('button.btn', { on: { click: () => { economy.testUnlockIslands(); ui.toast('Every island unlocked'); } } }, 'Unlock')),
         row('Time away', 'Pretend you were gone for 3 hours.', h('button.btn', { on: { click: () => { ui.close(); economy.simulateAway(3 * 3600); } } }, ico('hourglass'), '3 h')),

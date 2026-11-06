@@ -9,16 +9,21 @@ const TURN_RATE = 12;
 
 // Clip name patterns per game action, best match first. Gaps are listed in the handoff.
 const CLIP_PATTERNS = {
-  idle: [/^idle$/i, /fish.*idle/i, /idle/i],
-  walk: [/^walk(ing)?(_a)?$/i, /walk/i],
-  run: [/^run(ning)?(_a)?$/i, /run/i],
-  castWind: [/cast.*wind|wind.?up/i, /aim/i, /spellcast_raise|raise/i],
-  cast: [/cast.*release|^cast$/i, /throw/i, /spellcast_shoot|shoot/i],
-  reel: [/reel/i, /use_item|interact/i, /spellcasting/i],
-  struggle: [/struggle|lean/i, /block(ing)?$/i, /hit/i],
-  celebrate: [/celebrat|cheer|victory/i],
-  holdUp: [/hold.*up|show/i, /pick.?up/i],
-  dodge: [/dodge|roll/i],
+  idle: [/^idle$/i, /idle/i],
+  waitIdle: [/^fish_idle$/i, /^idle$/i],
+  walk: [/^walk$/i, /^walk(ing)?(_a)?$/i, /walk/i],
+  run: [/^run$/i, /^run(ning)?(_a)?$/i, /run/i],
+  castWind: [/^cast_windup$/i, /cast.*wind|wind.?up/i, /throw/i],
+  aimLoop: [/^cast_aim$/i, /aim/i],
+  cast: [/^cast_release$/i, /cast.*release|^cast$/i, /throw/i],
+  reel: [/^reel_loop$/i, /reel/i, /use_item|interact/i],
+  struggle: [/^struggle_loop$/i, /struggle|lean/i, /block(ing)?$/i],
+  celebrate: [/^celebrate$/i, /celebrat|cheer|victory/i],
+  holdUp: [/^hold_up_fish$/i, /hold.*up|show/i, /pick.?up/i],
+  dodge: [/^dodge_left$/i, /dodge|roll/i],
+  hit: [/^hit$/i, /hit/i],
+  interact: [/^interact$/i],
+  sit: [/^sit_idle$/i, /sit.*idle/i],
 };
 
 function makeContactShadowTexture() {
@@ -68,7 +73,7 @@ export function createPlayer({ island, input, cameraRig, water, events, state })
   shadowRoot.add(shadow);
 
   async function loadCharacter() {
-    const id = pickAsset('character', ['player', 'fisher', 'angler', 'hero']);
+    const id = pickAsset('character', ['fisher_player', 'player', 'fisher']);
     if (!id) return false;
     const m = await loadModel('character', id);
     if (!m) return false;
@@ -78,10 +83,8 @@ export function createPlayer({ island, input, cameraRig, water, events, state })
     root.add(model);
     mixer = new THREE.AnimationMixer(model);
     const all = m.animations;
-    // An optional clip map in the manifest wins over name guessing.
-    const map = entry.clips || {};
     for (const [action, patterns] of Object.entries(CLIP_PATTERNS)) {
-      let clip = map[action] ? all.find((c) => c.name === map[action]) : null;
+      let clip = null;
       for (const re of patterns) {
         if (clip) break;
         clip = all.find((c) => re.test(c.name)) || null;
@@ -96,12 +99,22 @@ export function createPlayer({ island, input, cameraRig, water, events, state })
       handAnchor.position.set(0, 0, 0);
       handBone.add(handAnchor);
     }
+    // One-shot clips can chain into a loop (cast wind-up → aim hold).
+    mixer.addEventListener('finished', (e) => {
+      if (chainNext && e.action === currentAction) {
+        const next = chainNext;
+        chainNext = null;
+        play(next, 0.15);
+      }
+    });
     play('idle', 0);
     return true;
   }
+  let chainNext = null;
 
-  function play(name, fade = 0.22, { once = false, timeScale = 1 } = {}) {
-    const action = clips[name] || (name === 'run' ? clips.walk : null) || clips.idle;
+  function play(name, fade = 0.22, { once = false, timeScale = 1, then = null } = {}) {
+    chainNext = once ? then : null;
+    const action = clips[name] || (name === 'run' ? clips.walk : null) || (name === 'aimLoop' ? clips.castWind : null) || clips.idle;
     if (!action || (action === currentAction && !once)) return;
     action.reset();
     action.enabled = true;

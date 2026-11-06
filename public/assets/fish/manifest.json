@@ -29,7 +29,8 @@
     "body": "ray",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept"
+    "status": "concept",
+    "topView": "art/concepts/fish/temple_manta_top.webp"
   },
   "cathedral_jelly": {
     "path": null,
@@ -44,5 +45,113 @@
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept, not approved yet",
     "status": "concept"
+  },
+  "glasswing_sardine": {
+    "path": null,
+    "preview": "assets/fish/glasswing_sardine/preview.webp",
+    "previewSize": [
+      512,
+      301
+    ],
+    "concept": "art/concepts/fish/glasswing_sardine.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
+    "status": "concept",
+    "topView": "art/concepts/fish/glasswing_sardine_top.webp"
+  },
+  "driftback": {
+    "path": null,
+    "preview": "assets/fish/driftback/preview.webp",
+    "previewSize": [
+      512,
+      263
+    ],
+    "concept": "art/concepts/fish/driftback.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
+    "status": "concept",
+    "topView": "art/concepts/fish/driftback_top.webp"
+  },
+  "shellback_blenny": {
+    "path": null,
+    "preview": "assets/fish/shellback_blenny/preview.webp",
+    "previewSize": [
+      512,
+      438
+    ],
+    "concept": "art/concepts/fish/shellback_blenny.webp",
+    "scale": 1,
+    "body": "shelled",
+    "tris": 0,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
+    "status": "concept",
+    "topView": "art/concepts/fish/shellback_blenny_top.webp"
+  },
+  "kelp_wraith": {
+    "path": null,
+    "preview": "assets/fish/kelp_wraith/preview.webp",
+    "previewSize": [
+      512,
+      255
+    ],
+    "concept": "art/concepts/fish/kelp_wraith.webp",
+    "scale": 1,
+    "body": "eel",
+    "tris": 0,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
+    "status": "concept",
+    "topView": "art/concepts/fish/kelp_wraith_top.webp"
+  },
+  "old_mooring": {
+    "path": null,
+    "preview": "assets/fish/old_mooring/preview.webp",
+    "previewSize": [
+      512,
+      245
+    ],
+    "concept": "art/concepts/fish/old_mooring.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
+    "status": "concept",
+    "topView": "art/concepts/fish/old_mooring_top.webp"
+  },
+  "compass_flounder": {
+    "path": null,
+    "preview": "assets/fish/compass_flounder/preview.webp",
+    "previewSize": [
+      512,
+      413
+    ],
+    "concept": "art/concepts/fish/compass_flounder.webp",
+    "scale": 1,
+    "body": "flat",
+    "tris": 0,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
+    "status": "concept",
+    "sideView": "art/concepts/fish/compass_flounder_side.webp"
+  },
+  "seaglass_puffer": {
+    "path": null,
+    "preview": "assets/fish/seaglass_puffer/preview.webp",
+    "previewSize": [
+      512,
+      390
+    ],
+    "concept": "art/concepts/fish/seaglass_puffer.webp",
+    "scale": 1,
+    "body": "bulky",
+    "tris": 0,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
+    "status": "concept",
+    "topView": "art/concepts/fish/seaglass_puffer_top.webp",
+    "inflated": {
+      "image": "art/concepts/fish/seaglass_puffer_inflated.webp"
+    }
   }
 }

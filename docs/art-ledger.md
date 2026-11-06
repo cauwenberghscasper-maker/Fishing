@@ -78,3 +78,21 @@ Wall-clock measured with timestamps around each call; Qwen-Image-Fast (8 steps) 
 |---|---|---|---|---|
 | 6 Nov 23:10 | C | Qwen-Image | old_mooring r3 #1 (tail frays into hemp broom; binding band + rivets; kept as alternative in .cache) | 25 (measured wall) |
 | 6 Nov 23:11 | C | Qwen-Image | old_mooring r3 #2 (kept: tail, anal and rear dorsal are frayed hemp, closed mouth, no collar, no text) → art/concepts/fish/old_mooring.webp | 16 (measured wall) |
+
+### Agent E (VFX) — 6 Nov after the reset (budget 5 min). Qwen-Image-Fast measured 4.1 s wall-clock per call (incl. network) on the first call.
+| Time (Brussels) | Agent | Tool | What | GPU s (wall-clock upper bound) |
+|---|---|---|---|---|
+| 23:10 | E | Qwen-Image-Fast | ov_storm lightning veins, 1:1, seed 1026350579 (kept) | 4.1 |
+| 23:11 | E | Qwen-Image-Fast | ov_frost frost ferns, seed 1080126647 (kept) | ~5 |
+| 23:11 | E | Qwen-Image-Fast | ov_ember molten cracks, seed 540948197 (kept, corner squiggle cropped) | ~5 |
+| 23:11 | E | Qwen-Image-Fast | ov_bloom moss + blossoms, seed 1327665935 (kept) | ~5 |
+| 23:11 | E | Qwen-Image-Fast | ov_rune glyph diamonds, seed 226330997 (kept, stone border cropped off) | ~5 |
+| 23:11 | E | Qwen-Image-Fast | ov_abyss r1, seed 2105944050 (rejected: jellyfish wallpaper, not ink) | ~5 |
+| 23:11 | E | Qwen-Image-Fast | ov_tide foam swirls, seed 1615269290 (kept, lace border cropped off) | ~5 |
+| 23:12 | E | Qwen-Image-Fast | ov_abyss r2 ink smoke, seed 135192334 (kept; cropped to the ink, three small jellyfish cut out) | ~4 |
+| 23:12 | E | Qwen-Image-Fast | ov_rust chain-link scales, seed 631845911 (kept; anchor icon cropped out) | ~4 |
+| 23:12 | E | Qwen-Image-Fast | ov_gilt gold leaf, seed 706702832 (kept) | ~4 |
+| 23:12 | E | Qwen-Image-Fast | sprite spark, seed 1985022120 (kept; grunge frame cropped) | ~4 |
+| 23:12 | E | Qwen-Image-Fast | sprite ember, seed 1696627362 (kept as a flame lick; coals cropped) | ~4 |
+| 23:12 | E | Qwen-Image-Fast | sprite snow crystal, seed 1488150069 (kept) | ~4 |
+| 6 Nov 23:13 | C | Qwen-Image-Edit-Angles | glasswing_sardine bird's-eye (tilt -1): output is a mirrored side view, not a top view → top views for side-profile fish dropped, back painted from concept colours instead | 12 (measured wall) |

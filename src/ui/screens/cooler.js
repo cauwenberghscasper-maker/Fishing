@@ -2,8 +2,8 @@
 // Selling happens at the shop (walking there is part of the loop); at the shop the button opens it.
 import { h, fmt, fmtKg, money, fishWindow, fill } from '../dom.js';
 import { fishPreview } from '../../economy/data.js';
-import { sizeClassById } from '../../economy/rules.js';
-import { sheetHead, keepScroll } from './shop.js';
+import { sizeClassById, fullName } from '../../economy/rules.js';
+import { sheetHead, keepScroll, variantToken } from './shop.js';
 
 export function coolerSheet(ctx) {
   const { state, economy, ui } = ctx;
@@ -24,8 +24,9 @@ export function coolerSheet(ctx) {
         const size = sizeClassById(state.data, c.sizeClass);
         list.append(h('li.lot',
           fishWindow('lot__mark', fishPreview(state, c.fishId)),
-          h('div.lot__main', h('div.lot__name', f.name),
+          h('div.lot__main', h('div.lot__name', fullName(f.name, economy.variant(c.variant))),
             h('div.lot__meta', h('span.t-num', fmtKg(c.weight)), size ? h(`span.stamp.stamp--${size.id}`, size.name) : null,
+              variantToken(economy, c.variant),
               c.fishId === hotId ? h('span.pebble.pebble--amber', 'In demand') : null)),
           h('div.lot__sell.lot__worth', money(economy.price(c)))));
       }

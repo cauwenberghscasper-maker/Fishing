@@ -91,7 +91,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     aim.pointer(x, y);
     loop.setTimeScale(AIM_TIME_SCALE, 6);
     setMode('aim');
-    player.pose('castWind', { timeScale: 0.6 });
+    player.pose('castWind', { once: true, then: 'aimLoop', timeScale: 1.6 });
     events.emit('aim:start', {});
     return true;
   }
@@ -162,7 +162,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     if (c.perfect) { hud.toast('Perfect cast'); audio.perfect(); }
     rod.tipWorld(tip);
     line.setLength(tip.distanceTo(lure.pos) * 1.05);
-    player.pose(null);
+    player.pose('waitIdle');
     refreshButton();
   }
 
@@ -247,8 +247,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       events.emit('fish:landed-show', { uid: fish.uid, fishId: fish.id, variant: fish.variant || 'basic', object: fish.object });
       line.hide();
       lure.inWater = false;
-      player.pose('celebrate', { once: true });
-      catchTimer = 2.0;
+      player.pose('holdUp');
+      catchTimer = 2.2;
       setMode('catch');
     } else {
       events.emit('fish:lost', { fishId: fish.id, variant: fish.variant || 'basic', reason: status });

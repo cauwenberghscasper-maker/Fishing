@@ -60,3 +60,19 @@ Daily quota ~25 min GPU, resets ~22:45 Brussels. Agent C budget ~18 min, Agent D
 | 21:31 | G | Qwen-Image | storm_cutter concept, 4:3, seed 2120398157 (kept: tarred hull, copper rods + verdigris, storm sails with glowing scorch veins; the stray fern on the jib is not modelled) | 25 |
 
 **Agent G total before reset: 4 runs ≈ 100 s of the 180 s budget.**
+
+### Agent F (illustrations) — 6 Nov, before the 22:45 reset (budget 3 min)
+Wall-clock measured with timestamps around each call; Qwen-Image-Fast (8 steps) runs ~4–6 s per call when called back to back, so the GPU share is lower than these numbers.
+| Time (Brussels) | Agent | Tool | What | GPU s (wall-clock upper bound) |
+|---|---|---|---|---|
+| 21:31 | F | Qwen-Image-Fast | template test 1: rod greenheart, 1:1, seed 4101 (rejected: came with a reel) | 12 |
+| 21:31 | F | Qwen-Image-Fast | template test 2: reel tinker_winch, 1:1, seed 4102 (kept, final) | 12 |
+| 21:33 | F | Qwen-Image-Fast | 6 rods v1, seeds 4201–4206 (all rejected: Fast ignores "no reel", every rod got a reel + line) | 33 (6 calls) |
+| 21:34 | F | Qwen-Image-Fast | rod splitcane v2, reel-free wording, seed 4301 (kept) | 5 |
+| 21:35 | F | Qwen-Image-Fast | rods driftwood_whip, greenheart, whalebone_arc, tidecaster, lighthouse_spar v2, seeds 4302–4306 (all kept) | 25 (5 calls) |
+
+**Agent F total before reset: 14 Fast calls ≈ 87 s wall-clock (upper bound) of the 180 s budget.**
+
+### Agent F (illustrations) — quota day from the 22:45 reset (budget 7 min = 420 s)
+| Time (Brussels) | Agent | Tool | What | GPU s (wall-clock upper bound) |
+|---|---|---|---|---|

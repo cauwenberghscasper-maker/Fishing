@@ -119,9 +119,6 @@ const fragmentShader = /* glsl */`
     vec3 H = normalize(uSunDir + V);
     float spec = pow(max(dot(N, H), 0.0), 180.0);
     col += uSunColor * (smoothstep(0.25, 0.85, spec) * 2.2 + spec * 0.4) * uLight;
-    // Small bright crests on the wavelets (the key art's broken light on the surface).
-    float crest = smoothstep(0.72, 0.95, s1.b * 0.6 + s2.b * 0.6) * smoothstep(0.3, 2.0, vDepth);
-    col += uSunColor * crest * 0.06 * uLight;
 
     // Shoreline: solid contact foam, then white wash lines rolling in over the shallows.
     float contact = 1.0 - smoothstep(0.015, 0.16 + foamNoise * 0.16, vDepth);

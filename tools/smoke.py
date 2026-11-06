@@ -2,7 +2,7 @@
 """Start-up check: build is served under /Fishing/ like GitHub Pages, opened at phone size.
 usage: npm run build && python3 -I tools/smoke.py [out.png] [query]
 Fails (exit 1) on page errors or when the game never becomes ready."""
-import asyncio, os, shutil, subprocess, sys, tempfile, time
+import asyncio, os, shutil, socket, subprocess, sys, tempfile, time
 from playwright.async_api import async_playwright
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -12,7 +12,9 @@ QUERY = sys.argv[2] if len(sys.argv) > 2 else ''
 async def main():
     site = tempfile.mkdtemp()
     shutil.copytree(os.path.join(ROOT, 'dist'), os.path.join(site, 'Fishing'))
-    srv = subprocess.Popen([sys.executable, '-m', 'http.server', '4399'], cwd=site, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    with socket.socket() as s_:
+        s_.bind(('127.0.0.1', 0)); port = s_.getsockname()[1]   # free port: several agents run this at once
+    srv = subprocess.Popen([sys.executable, '-m', 'http.server', str(port), '--bind', '127.0.0.1'], cwd=site, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     time.sleep(1)
     errors, logs = [], []
     try:
@@ -21,7 +23,7 @@ async def main():
             pg = await b.new_page(viewport={'width': 390, 'height': 844})
             pg.on('pageerror', lambda e: errors.append(f'PAGEERROR: {e}'))
             pg.on('console', lambda m: (errors if m.type == 'error' and '404' not in m.text else logs).append(f'{m.type}: {m.text}'))
-            await pg.goto(f'http://127.0.0.1:4399/Fishing/{QUERY}', wait_until='load', timeout=60000)
+            await pg.goto(f'http://127.0.0.1:{port}/Fishing/{QUERY}', wait_until='load', timeout=60000)
             ready = False
             for _ in range(40):
                 await pg.wait_for_timeout(500)

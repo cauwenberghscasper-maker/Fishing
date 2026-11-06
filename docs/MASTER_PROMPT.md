@@ -150,7 +150,7 @@ Travel by boat from the home pier. Unlock by coins + a catch requirement.
 ## 5. Art direction
 
 ### 5.1 House style (locked by Casper)
-Reference: the "rare fish sheet" Casper picked — sleek stylized 3D creatures with polished, iridescent scales, crisp silhouettes and **bioluminescent accents**, glowing beautifully against dark teal water. World art is in the matching painterly-stylized direction (Casper picked style B: hand-painted adventure, warm light, rich colour).
+Reference: the "rare fish sheet" Casper picked (`art/concepts/reference/house-style.png`) — sleek stylized 3D creatures with polished, iridescent scales, crisp silhouettes and **bioluminescent accents**, glowing beautifully against dark teal water. World art is in the matching painterly-stylized direction (Casper picked style B: hand-painted adventure, warm light, rich colour).
 
 **Casper's verdict on the first concept round (6 Nov):** `temple_manta` is the best, `storm_marlin` is good. **These two are the quality bar.** Everything else was not good enough; `bellbuoy_bass` (Old Bellbuoy) is rejected. Casper's standing order: **everything unique, nothing AI generic.**
 

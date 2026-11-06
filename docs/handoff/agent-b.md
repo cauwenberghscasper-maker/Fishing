@@ -9,7 +9,7 @@ Round 1 (done):
 - [x] Save, economy, all UI screens; verified at 390×844, 320×568, 844×390
 
 Round 2 (Casper's new features):
-- [ ] Lock Chartroom (remove the other pairings)
+- [x] Lock Chartroom: the other pairings' CSS, fonts, `?type` switch and Settings row are removed; the specimen page shows Chartroom only, and `type-specimen.png` keeps the comparison
 - [ ] Variants: `public/data/variants.json`, pricing, catch card moment, logbook variants + set bonuses
 - [ ] Island growth: sandbar + fixed plots, `pier_1`…`pier_6`, buildings l1–l3, boats; first-15-minutes tuning
 - [ ] Art registry wiring (`public/data/art.json`): gear, islands, buildings, variant emblems, title/loading

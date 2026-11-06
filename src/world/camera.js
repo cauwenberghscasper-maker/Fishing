@@ -20,6 +20,7 @@ export function createCameraRig({ fov = 45 } = {}) {
   let height = MODES.explore.height;
   let mode = 'explore';
   let shake = 0;
+  const timedShakes = []; // { amp, dur, t }
   let aspect = 1;
   let snapNext = true;
 
@@ -39,6 +40,8 @@ export function createCameraRig({ fov = 45 } = {}) {
     setFocus(x, y, z) { focus.set(x, y, z); },
     snap() { snapNext = true; },
     shake(amount) { shake = Math.min(1.2, shake + amount); },
+    // Additive shake that decays over `seconds` (state.render.shake for effects).
+    shakeFor(amp, seconds = 0.4) { timedShakes.push({ amp: Math.max(0, Number(amp) || 0), dur: Math.max(0.05, Number(seconds) || 0.4), t: 0 }); },
     update(realDt) {
       const m = MODES[mode];
       const k = snapNext ? 1 : 1 - Math.exp(-m.ease * realDt);
@@ -53,7 +56,14 @@ export function createCameraRig({ fov = 45 } = {}) {
       const dist = distanceFor(width, height);
       const pr = THREE.MathUtils.degToRad(pitch);
       shake = Math.max(0, shake - realDt * 2.5);
-      const s = shake * shake * 0.25;
+      let timed = 0;
+      for (let i = timedShakes.length - 1; i >= 0; i--) {
+        const ts = timedShakes[i];
+        ts.t += realDt;
+        if (ts.t >= ts.dur) { timedShakes.splice(i, 1); continue; }
+        timed += ts.amp * (1 - ts.t / ts.dur);
+      }
+      const s = shake * shake * 0.25 + Math.min(1.5, timed) * 0.35;
       shakeOffset.set((Math.random() - 0.5) * s, (Math.random() - 0.5) * s, (Math.random() - 0.5) * s);
       camera.position.set(target.x, target.y + Math.sin(pr) * dist, target.z + Math.cos(pr) * dist).add(shakeOffset);
       camera.lookAt(target.x + shakeOffset.x * 0.5, target.y, target.z + shakeOffset.z * 0.5);

@@ -107,7 +107,11 @@ export async function startWorld({ canvas, state, events }) {
     waterDepthAt: (x, z) => island.waterDepthAt(x, z),
     addRipple: (x, z, s, delay) => water.addRipple(x, z, s, delay),
     splash: (x, z, s) => splashes.splash(x, z, s),
-    shake: (a) => cameraRig.shake(a),
+    // Additive camera shake (amp ~0.1 subtle .. 1 huge) decaying over `seconds`.
+    shake: (amp, seconds = 0.4) => cameraRig.shakeFor(amp, seconds),
+    // Scale sim/animation time (fish, fight, particles) for `seconds`, then ease back to 1.
+    // UI, input and the camera stay real-time.
+    slowmo: (scale, seconds = 0.5) => loop.slowmo(scale, seconds),
     get player() { return player.root; },
     get lure() { return fishing.lure.pos; },
     get rodTip() { return fishing.rod.tipWorld(new THREE.Vector3()); },

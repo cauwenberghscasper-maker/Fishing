@@ -116,12 +116,23 @@ Travel by boat from the home pier. Unlock by coins + a catch requirement.
 ## 5. Art direction
 
 ### 5.1 House style (locked by Casper)
-Reference: the "rare fish sheet" Casper picked — sleek stylized 3D creatures with polished, iridescent scales, crisp silhouettes and **bioluminescent accents**, glowing beautifully against dark teal water. World art is in the matching painterly-stylized direction (Casper picked style B: hand-painted adventure, warm light, rich colour). Confirmed favourites: **swordfish/marlin, manta, jellyfish** (anglerfish and crystal koi pending Casper's yes).
+Reference: the "rare fish sheet" Casper picked — sleek stylized 3D creatures with polished, iridescent scales, crisp silhouettes and **bioluminescent accents**, glowing beautifully against dark teal water. World art is in the matching painterly-stylized direction (Casper picked style B: hand-painted adventure, warm light, rich colour).
+
+**Casper's verdict on the first concept round (6 Nov):** `temple_manta` is the best, `storm_marlin` is good. **These two are the quality bar.** Everything else was not good enough; `bellbuoy_bass` (Old Bellbuoy) is rejected. Casper's standing order: **everything unique, nothing AI generic.**
+
+### 5.0 The anti-generic test (applies to every deliverable: fish, world, UI, text)
+If you could get the result by typing "<thing> fantasy game asset" into any generator or by dropping a free kit into a scene, it is generic and it gets redone. Every piece needs one specific idea that only this game has.
+
+**Why the first round failed and the manta/marlin passed:** the failures were a normal fish with an object stuck on it (a bell on a bass, an anemone "hat" on a goby, a printed world map on a flounder, gold coins on a sardine), plus cute cartoon faces and pastel all-over colour. The manta and marlin work because the element *is* the anatomy: the manta's wings *are* carved temple stone with a rune seal grown into its back, the marlin's bill *is* a lightning rod and its dorsal fin *is* a torn storm sail. Dark, rich base colour, glow only on the signature part, strong silhouette, no face acting.
 
 ### 5.2 Rules for every fish
-- **Element + one signature feature + strict 3-colour palette.** A fish must be recognisable from its silhouette and signature alone.
+- **The element is the anatomy, not an accessory.** Never a normal fish with a thing attached. The body, fins or skin themselves are made of the idea.
+- **Silhouette test:** filled solid black, the fish is still recognisable and different from every other fish in the game.
+- **Element + one signature feature + strict 3-colour palette.** Dark, rich base; glow only where the design calls for it.
 - **Identity on top:** the camera looks down, so the signature feature must read from above (back, dorsal fin, top pattern).
-- **No AI-generic look:** no googly/huge cartoon eyes, no random glowing dots, no "fantasy fish #47". No two fish share a body plan + palette.
+- **No face acting:** small realistic eyes (or glowing slits), no lips, no smiles, no big pupils, no cute. Not plastic-toy gloss, not pastel all over.
+- **A one-line story** per fish (who it is, why it fights) that drives its design and its moves.
+- No two fish share a body plan + palette. No random glowing dots, no "fantasy fish #47".
 - Design briefs (redo all in the house style):
   - **Storm Marlin** (Storm): bill is a lightning rod with copper coil bands and jumping sparks; dorsal fin a tattered storm sail with glowing lightning veins. Palette: iridescent blue, silver, electric yellow.
   - **Temple Manta** (Rune): back is an ancient relic, carved stone plates on the wing edges and a glowing turquoise rune seal in the centre; light ribbons trail from the wingtips. Palette: near-black, stone grey, turquoise.
@@ -131,34 +142,38 @@ Reference: the "rare fish sheet" Casper picked — sleek stylized 3D creatures w
   - **Mossback Carp** (Bloom): ancient sleepy carp with a tiny living garden and a frog on its back, root barbels. Palette: moss, bark, blossom pink.
   - **Wreck Grouper** (Rust): grumpy veteran, anchor chain in its jaw, broken cutlass in its back, barnacle crown. Palette: rust, sea green, weathered brown.
   - Commons/uncommons per island follow the same rules (simpler, smaller, but each with one hook).
-- **M1 roster, Driftwood Cove (Tide)** — ids are fixed, every agent uses them:
-  | id | Name | Tier | Body | Signature (reads from above) | Palette |
-  |---|---|---|---|---|---|
-  | `sunscale_sardine` | Sunscale Sardine | common | fusiform, small | scales are little mirror coins that flash sunlight; swims in schools | silver, gold, deep blue |
-  | `driftwood_perch` | Driftwood Perch | common | fusiform | body grained like sun-bleached driftwood, one rusty nail as a fin spine | bleached tan, grey, teal |
-  | `chartfish` | Chartfish | common | flat (flounder) | back is a faded sea chart with a small red X | parchment, ink blue, red |
-  | `tidepool_goby` | Tidepool Goby | uncommon | fusiform, tiny | wears a sea anemone like a hat that sways | coral orange, cream, violet |
-  | `kelp_ribbon` | Kelp Ribbonfish | uncommon | eel | looks like a strand of kelp with gold air-bladder beads | olive, gold, brown |
-  | `seaglass_puffer` | Seaglass Puffer | rare | bulky | inflates into a ball of frosted sea-glass pebbles | sea-glass green, white, amber |
-  | `bellbuoy_bass` | Old Bellbuoy | big (tutorial) | fusiform, large | a barnacled brass bell grown into its forehead that rings when it thrashes | bronze, sea green, cream |
+- **M1 roster, Driftwood Cove (Tide)**, redesigned after Casper's feedback. Ids are fixed; every agent uses them. Each design is a starting brief: the fish-art agent makes 3 clearly different takes per fish for Casper to choose from.
+  | id | Name | Tier | Body | Signature = anatomy (reads from above) | Palette | Story |
+  |---|---|---|---|---|---|---|
+  | `glasswing_sardine` | Glasswing Sardine | common | fusiform, small, schools | body clear as blown glass with one glowing spine line inside; long wing-like pectoral fins | clear glass, turquoise, silver | schools skip over the surface like thrown pebbles |
+  | `driftback` | Driftback | common | fusiform | the fish *is* a twisted, sun-bleached driftwood branch: grain for scales, knot-holes for eyes, dried-seaweed fronds for a dorsal fin | bleached grey, sea green, rust | lies still among real driftwood, then bolts |
+  | `compass_flounder` | Compass Flounder | common | flat | round flat disc divided into a compass rose by raised bone ridges; a long needle-spine on its back that slowly turns to point north | brass, sand, ink blue | old navigators followed it home |
+  | `shellback_blenny` | Shellback Blenny | uncommon | small, rear half coiled | lives in a spiral seashell like a hermit crab; only a frilled head and fins stick out | coral pink, cream, deep violet | bites the hook, then retreats into its shell |
+  | `kelp_wraith` | Kelp Wraith | uncommon | eel | the whole body is built from overlapping kelp blades (leafy-seadragon idea), amber float-bulbs along the spine that glow at dusk | olive, amber, deep brown | invisible in the kelp until it moves |
+  | `seaglass_puffer` | Seaglass Puffer | rare | bulky | body *is* a cluster of frosted sea-glass shards; inflating spreads them into a spiky glass sphere; small sharp eyes, no smile | bottle green, frosted white, amber | the tide polished it for a hundred years |
+  | `old_mooring` | The Old Mooring | big (tutorial) | huge catfish | barbels *are* frayed mooring ropes, iron mooring ring through its lip, jaw bristling with old hooks and lures from every angler who lost it, barnacle-crusted tar-black hide | tar black, rope tan, rust | the one that got away, for fifty years |
+- **Approved (quality bar):** `storm_marlin`, `temple_manta`. **Not approved yet:** `cathedral_jelly` (redo later, not needed for M1). **Rejected:** `bellbuoy_bass` and the first versions of the other six commons; their old ids (`sunscale_sardine`, `driftwood_perch`, `chartfish`, `tidepool_goby`, `kelp_ribbon`) are retired.
 
 ### 5.3 World
 - Camera: perspective, angled top-down (~55° pitch), soft follow, slight zoom-out while fighting.
 - **Water is the star of every screen:** a custom stylized shader with depth colour, shoreline foam, caustics in shallows, visible fish shadows, splash and ripple effects. Dark, rich teal in deep water so glowing fish pop.
 - Each island has its own palette, light and particles (fireflies, snow, embers, rain, glyph motes).
+- **Key art first:** before building an island, make one key-art image of it from the game camera (Qwen-Image, style B) at `art/concepts/world/<island>_key.webp`. Every model, texture, light and colour on that island is judged against it.
+- **Free kits are base meshes, not the look.** Everyone recognises the out-of-the-box Kenney, KayKit and Quaternius style; shipping it unchanged is generic. Kit pieces get repainted with our own painted texture atlas, weathered (edge wear, salt crust, moss, rope wraps, nails, patches), made asymmetric and combined into new shapes. Signature pieces (shop, piers, boat dock, workers' hut, boat) are bespoke builds in Blender (`bpy`) with a story: who built it, what was patched, what washed up against it.
 
 ### 5.4 Hard bans
 - **No visible primitive geometry** (three.js boxes, spheres, cylinders, cones) as game art, ever. Primitives only for invisible colliders and debug.
 - No paid assets. No assets without a licence that allows it. No assets from Ascendant Arena.
 - **No AI-generic fonts.** Banned: Inter, Roboto, Poppins, Montserrat, Open Sans, Lato, Nunito, Arial/Helvetica, system-ui, and the overused "mobile game" faces Fredoka, Lilita One, Luckiest Guy, Bangers, Baloo. Typography must have character that belongs to this world (sea charts, carved wood, stained glass, bioluminescence). Free fonts only (Google Fonts / OFL), self-hosted. The UI agent shows Casper 3 type pairings in a real game-UI mock before locking one.
-- No generic default UI (plain rounded rectangles, default shadows). UI is themed.
+- No generic default UI. Banned: rounded-rectangle cards with soft drop shadows, gradient pill buttons, glassmorphism panels, emoji, icon sets used raw, flat "Level 2 Rod" labels. The UI is made of this world's materials: chart paper, brass instruments, carved driftwood, rope, sea glass, bioluminescent ink. Gear has names and a line of flavour text.
 
 ### 5.5 Asset sources, in this order
 1. **Free CC0 kits** for environment, props and characters: Quaternius, KayKit, Kenney, Poly Pizza (CC0 only). Check the licence of every file; record it in `CREDITS.md`.
 2. **Generated on Casper's Hugging Face** when no free asset fits (all fish, landmarks, signature buildings):
    - Concepts: **Qwen-Image** (`mcp-tools/Qwen-Image`, final quality). Z-Image Turbo only for quick tests.
    - Background removal: `not-lain/background-removal` before 3D.
-   - 3D: **TRELLIS.2** image → 3D (MIT).
+   - 3D: **TRELLIS.2** image → 3D (MIT) gives the best meshes, but it only returns an `hf.space` link this workspace can't download. It is used only when Casper runs it himself and attaches the `.glb` files.
+   - **Default fish 3D route: Blender (`bpy` from PyPI; a venv already exists in `.cache/agent-d/venv`).** Build each fish from its approved concept: a straight side view plus a matching top view (`mcp-tools/Qwen-Image-Edit-Angles` or a second Qwen-Image render with the same description), loft the body from the two silhouettes, project the painted concept onto it, fins as alpha-cut cards from the concept, export glTF to spec (5.6). Start with `storm_marlin` and judge it before doing more.
    - Animation reference clips: Wan 2.2 image-to-video (optional).
    - HF ZeroGPU quota is about 25 min/day and resets around 22:45 Brussels time. Keep a quota ledger in `docs/art-ledger.md`; stop and report before you run out.
 3. Never fall back to primitives. If an asset is missing, the feature waits or uses a clearly temporary model from a CC0 kit.
@@ -186,6 +201,8 @@ Reference: the "rare fish sheet" Casper picked — sleek stylized 3D creatures w
 | Ray | sinusoidal wing flap, phase from front to back, gentle glide | manta |
 | Jelly | bell pulse (scale squash), tentacles sway with delay | jellyfish |
 | Bulky | slow wobble + fin flutter | puffers, anglers |
+| Flat | whole-body ripple along the edge fins, hugs the bottom, bursts of sand when it moves | flounders |
+| Shelled | body stays still, head and fins flutter, pulls back into the shell when scared | shellback blenny |
 
 States for every fish: idle swim, approach/inspect, nibble, bite, thrash on line, run, dive, leap (whole-body arc + splash), tired, landed flop, catch-card turntable. Bosses add: charge, slam, element special, phase roar. Shader parameters (amplitude, frequency, speed) are per-fish data so states blend smoothly.
 

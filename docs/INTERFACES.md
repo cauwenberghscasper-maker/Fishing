@@ -54,7 +54,7 @@ Until B lands the theme, A uses these names anyway; nothing else.
 
 ## Data files (`public/data/`)
 - `fish.json` (B): `{ "<id>": { name, island, tier, element, baseValue, weight: [min,max], depth: [min,max], bait: [...], time: "any|day|night", weather: "any|...", model: "<id>" } }`
-- `fish-behaviour.json` (A): `{ "<id>": { body: "fusiform|eel|ray|jelly|bulky|flat", personality, stamina, pull, moves: [...], swim: { amp, freq, speed } } }`
+- `fish-behaviour.json` (A): `{ "<id>": { body: "fusiform|eel|ray|jelly|bulky|flat|shelled", personality, stamina, pull, moves: [...], swim: { amp, freq, speed } } }`
 - `islands.json`, `items.json`, `economy.json` (B).
 
 ## Asset manifests
@@ -62,7 +62,7 @@ Until B lands the theme, A uses these names anyway; nothing else.
 ```json
 { "chartfish": { "path": "assets/fish/chartfish/model.glb", "scale": 1, "body": "flat", "tris": 4200, "licence": "generated (Qwen-Image Apache-2.0 → TRELLIS.2 MIT)", "status": "final|temp" } }
 ```
-Agent A's loader (`src/core/assets.js`) reads all manifests. Missing entry = the thing is not shown (never a primitive placeholder).
+`status` is `concept` (only art, `path: null`), `temp` or `final`. Fish entries may also have `preview` (path to `preview.webp`). Agent A's loader (`src/core/assets.js`) reads all manifests and skips entries whose `path` is null. Missing model = the thing is not shown (never a primitive placeholder).
 
 ## Downloads
 See master prompt 5.5: GitHub, npm and Hugging Face tool outputs only. Work files and raw downloads go in `.cache/` (git-ignored); only cleaned, licensed assets go into `public/assets/...`.

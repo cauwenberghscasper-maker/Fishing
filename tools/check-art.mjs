@@ -52,7 +52,8 @@ for (const file of registries) {
       if (typeof v === 'string' && ['path', 'preview', 'concept', 'texture', 'image', 'icon', 'topView', 'sideView'].includes(k)) {
         const p = norm(v.replace(/^\//, ''));
         used.add(p);
-        const onDisk = p.startsWith('art/') ? join(ROOT, p) : join(PUB, p);
+        // concept images live in the repo's art/concepts/; everything else is public-relative (incl. public/art/)
+        const onDisk = p.startsWith('art/concepts/') ? join(ROOT, p) : join(PUB, p);
         if (!existsSync(onDisk)) missing.push(`${rel(file, ROOT)} → ${key ?? ''}.${k}: ${p}`);
       } else if (typeof v === 'object') visit(v, key ?? k);
     }

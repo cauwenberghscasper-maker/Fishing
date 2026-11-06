@@ -66,6 +66,20 @@ function loadGltf(kind, id) {
   return gltfCache.get(key);
 }
 
+// World GLBs share one painted atlas through a few named materials (cove_atlas, cove_atlas_ds,
+// cove_glow, cove_net). Keep one instance per name so the GPU holds one texture and draws batch.
+const sharedMaterials = new Map();
+
+function dedupeMaterial(mat) {
+  if (!mat?.name) return mat;
+  const key = `${mat.name}|${mat.vertexColors ? 'vc' : ''}|${mat.side}`;
+  const known = sharedMaterials.get(key);
+  if (known) return known;
+  if (mat.name === 'cove_net' || mat.alphaTest > 0) mat.alphaTest = mat.alphaTest || 0.5;
+  sharedMaterials.set(key, mat);
+  return mat;
+}
+
 // Returns { scene, animations, entry } with a fresh clone, or null when the asset is missing.
 export async function loadModel(kind, id) {
   const gltf = await loadGltf(kind, id);
@@ -75,9 +89,11 @@ export async function loadModel(kind, id) {
   const scale = Number(entry.scale) || 1;
   if (scale !== 1) scene.scale.multiplyScalar(scale);
   scene.traverse((o) => {
-    if (o.isMesh) {
-      o.castShadow = entry.castShadow !== false;
-      o.receiveShadow = entry.receiveShadow !== false;
+    if (!o.isMesh) return;
+    o.castShadow = entry.castShadow !== false;
+    o.receiveShadow = entry.receiveShadow !== false;
+    if (kind === 'world') {
+      o.material = Array.isArray(o.material) ? o.material.map(dedupeMaterial) : dedupeMaterial(o.material);
     }
   });
   return { scene, animations: gltf.animations || [], entry };

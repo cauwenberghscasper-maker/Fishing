@@ -45,3 +45,6 @@ Daily quota ~25 min GPU, resets ~22:45 Brussels. Agent C budget ~18 min, Agent D
 | 6 Nov 11:31 | C | Qwen-Image | kelp_wraith A, B, C r1 (A kept; B necklace, C cloth hood rejected) | ~48 |
 | 6 Nov 11:32 | C | Qwen-Image | kelp_wraith B r2, C r2 (kept, flaws noted) | ~32 |
 | 6 Nov 11:34 | C | Qwen-Image | seaglass_puffer A, B, C r1 (all lips; C fake signature text) | ~48 |
+| 6 Nov 11:35 | C | Qwen-Image | seaglass_puffer A, B, C r2 (kept; faces still fail: teeth/lips) | ~48 |
+| 6 Nov 11:37 | C | Qwen-Image | old_mooring A, B, C r1 (all fail: rope tied round neck, prompt text leaked, teeth) | ~48 |
+| 6 Nov 11:38 | C | Qwen-Image | old_mooring A, B, C r2 (kept; still teeth/collar, needs another pass) | ~48 |

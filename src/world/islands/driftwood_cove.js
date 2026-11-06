@@ -21,46 +21,93 @@ export const driftwoodCove = {
 
   spawn: { x: 2.2, z: -3.2, facing: Math.PI },
 
-  // Walkable decks (piers). A deck only exists when its model loaded (asset ids, first match wins).
-  decks: [
-    { id: 'pier_main', asset: ['pier_main', 'pier_long', 'pier'], from: [3.2, -1.5], to: [5.4, 13.5], width: 2.3, height: 0.85 },
+  // Piers are chains of Agent D's 3 m modules (deck top 0.75 m, origin at water level).
+  // The deck is walkable only when its modules loaded.
+  piers: [
+    {
+      id: 'pier_main',
+      from: [3.0, -1.6],
+      to: [4.6, 13.6],
+      width: 2.0,
+      modules: ['pier_straight', 'pier_patched', 'pier_straight_b', 'pier_straight', 'pier_end'],
+    },
   ],
 
   // Interaction zones (zone:enter / zone:exit). kind: shop | pier | boat | building | plot
   zones: [
-    { id: 'shop', kind: 'shop', x: -1.2, z: -8.4, r: 2.6 },
-    { id: 'pier_1', kind: 'pier', x: 5.2, z: 11.6, r: 2.8, needsDeck: 'pier_main' },
+    { id: 'shop', kind: 'shop', x: -1.2, z: -8.2, r: 2.6 },
+    { id: 'pier_1', kind: 'pier', x: 4.45, z: 11.8, r: 2.6, needsDeck: 'pier_main' },
     { id: 'shore_1', kind: 'pier', x: -4.5, z: 0.6, r: 3.2 },
-    { id: 'boat_dock', kind: 'boat', x: 6.6, z: 6.4, r: 1.8, needsDeck: 'pier_main' },
+    { id: 'boat_dock', kind: 'boat', x: 4.1, z: 7.2, r: 1.6, needsDeck: 'pier_main' },
     { id: 'workers_hut', kind: 'building', x: 10.2, z: -6.2, r: 2.4 },
     { id: 'plot_east', kind: 'plot', x: 17.5, z: 2.5, r: 3.0 },
   ],
 
-  // Props from Agent D's world manifest. Missing asset = not placed.
+  // Props from Agent D's world manifest (ids are stable). Missing asset = not placed.
+  // Y comes from the manifest placement: water/shore assets sit at sea level, others on the ground.
   // collide: radius of the invisible collider (0 = walk through).
   props: [
-    { asset: ['shop', 'cove_shop', 'shop_hull'], x: -1.2, z: -11.6, rot: 0, collide: 3.0 },
-    { asset: ['beached_boat', 'fisher_hut', 'boat_wreck'], x: -10.5, z: -6.0, rot: 0.55, collide: 2.6 },
-    { asset: ['workers_hut', 'worker_hut', 'hut'], x: 10.8, z: -9.0, rot: -0.35, collide: 2.4 },
-    { asset: ['pier_main', 'pier_long', 'pier'], x: 4.3, z: 6.0, rot: -0.15, collide: 0 },
-    { asset: ['skiff', 'boat', 'rowboat'], x: 7.6, z: 10.0, rot: -0.1, collide: 0, float: true },
-    { asset: ['mast_post', 'lantern_post'], x: 2.0, z: -9.4, rot: 0, collide: 0.4 },
-    { asset: ['lantern_post', 'rope_post'], x: 12.5, z: -1.0, rot: 0.3, collide: 0.35 },
-    { asset: ['rope_post'], x: 1.8, z: -2.4, rot: 0.2, collide: 0.3 },
-    { asset: ['rope_post'], x: 6.6, z: -3.6, rot: -0.4, collide: 0.3 },
-    { asset: ['net_rack', 'drying_net'], x: 6.5, z: -9.6, rot: -0.2, collide: 1.2 },
-    { asset: ['barrels', 'barrel'], x: 2.8, z: -10.4, rot: 0.6, collide: 0.7 },
-    { asset: ['crates', 'crate'], x: -5.2, z: -9.8, rot: -0.3, collide: 0.8 },
-    { asset: ['driftwood_log', 'driftwood'], x: 11.0, z: -4.2, rot: 1.1, collide: 0.9 },
-    { asset: ['driftwood_log', 'driftwood'], x: -6.5, z: -1.4, rot: -0.4, collide: 0.9 },
-    { asset: ['rock_large', 'basalt_rock', 'rock'], x: -13.5, z: 2.5, rot: 0.3, collide: 1.6, scale: 1.4 },
-    { asset: ['rock_large', 'basalt_rock', 'rock'], x: -9.5, z: 12.4, rot: 1.9, collide: 0, scale: 1.1 },
-    { asset: ['rock_medium', 'rock'], x: 15.5, z: 1.2, rot: 0.8, collide: 1.0 },
-    { asset: ['rock_small', 'rock'], x: -2.5, z: 4.6, rot: 2.4, collide: 0, scale: 0.8 },
-    { asset: ['starfish'], x: -6.0, z: -3.4, rot: 0.3, collide: 0 },
-    { asset: ['starfish'], x: 8.2, z: -4.8, rot: 1.4, collide: 0 },
-    { asset: ['grass_tuft', 'grass'], x: -3.5, z: -6.8, rot: 0, collide: 0 },
-    { asset: ['grass_tuft', 'grass'], x: 8.5, z: -7.5, rot: 1, collide: 0 },
+    // Signature buildings (D, coming)
+    { asset: ['shop'], x: -1.2, z: -11.6, rot: 0, collide: 3.0 },
+    { asset: ['fisher_hut'], x: -10.5, z: -6.0, rot: 0.55, collide: 2.6 },
+    { asset: ['workers_hut'], x: 10.8, z: -9.0, rot: -0.35, collide: 2.4 },
+    { asset: ['boat_dock'], x: 6.2, z: 7.4, rot: 0.1, collide: 0 },
+    { asset: ['skiff'], x: 6.6, z: 10.4, rot: -0.15, collide: 0, float: true },
+
+    // Basalt columns at the foot of the cliffs
+    { asset: ['cliff_columns_a'], x: -6.6, z: -12.4, rot: 0.05, collide: 1.7 },
+    { asset: ['cliff_columns_b'], x: 6.4, z: -12.6, rot: -0.1, collide: 1.5 },
+    { asset: ['cliff_columns_a'], x: 13.8, z: -10.6, rot: -0.45, collide: 1.7, scale: 0.9 },
+    { asset: ['columns_steps'], x: -4.0, z: -10.8, rot: 0.2, collide: 1.1 },
+    { asset: ['cliff_columns_b'], x: -15.2, z: -6.4, rot: 0.6, collide: 1.5 },
+
+    // Shore rocks, tide pool, islet
+    { asset: ['tide_pool_a'], x: -10.7, z: 4.4, rot: 0.4, collide: 1.6 },
+    { asset: ['rock_shore'], x: -8.4, z: 2.0, rot: 2.6, collide: 0.8 },
+    { asset: ['rock_shore'], x: 12.4, z: 1.2, rot: -0.6, collide: 0.8 },
+    { asset: ['rock_shore'], x: 7.8, z: 1.6, rot: 0.9, collide: 0.7, scale: 0.8 },
+    { asset: ['rock_l'], x: -9.6, z: 12.4, rot: 1.9, collide: 0, scale: 1.25 },
+    { asset: ['rock_cluster'], x: 15.6, z: 0.4, rot: 0.8, collide: 1.2 },
+    { asset: ['rock_l'], x: -14.2, z: 1.4, rot: 0.3, collide: 1.3 },
+    { asset: ['rock_m'], x: -12.4, z: -3.0, rot: 1.2, collide: 0.6 },
+    { asset: ['rock_m'], x: 9.4, z: -2.2, rot: 2.2, collide: 0.6 },
+    { asset: ['rock_s'], x: -2.6, z: 3.4, rot: 2.4, collide: 0 },
+    { asset: ['rock_s'], x: 1.0, z: -6.2, rot: 0.4, collide: 0.3 },
+
+    // Trees and greenery (sparingly: the key art is cliffs, sand and grass)
+    { asset: ['palm_bent'], x: 15.0, z: -2.2, rot: 2.6, collide: 0.45 },
+    { asset: ['palm_young'], x: -5.6, z: -9.8, rot: 0.8, collide: 0.35 },
+    { asset: ['palm_twin'], x: 12.8, z: -6.6, rot: 4.0, collide: 0.5 },
+    { asset: ['palm_tall'], x: -16.0, z: -2.6, rot: 1.0, collide: 0.45 },
+    { asset: ['bush_seagrape'], x: -8.0, z: -9.4, rot: 0.3, collide: 0.6 },
+    { asset: ['bush_seagrape'], x: 8.6, z: -10.6, rot: 2.1, collide: 0.6 },
+    { asset: ['bush_seagrape_s'], x: 3.8, z: -11.2, rot: 1.0, collide: 0.35 },
+    { asset: ['bush_spiky'], x: -13.4, z: -1.0, rot: 0.6, collide: 0.5 },
+    { asset: ['bush_spiky'], x: 16.4, z: -5.4, rot: 2.0, collide: 0.5 },
+    { asset: ['beach_grass_a'], x: -3.2, z: -7.6, rot: 0.2, collide: 0 },
+    { asset: ['beach_grass_b'], x: 1.6, z: -9.0, rot: 1.4, collide: 0 },
+    { asset: ['beach_grass_a'], x: 6.8, z: -7.4, rot: 2.8, collide: 0 },
+    { asset: ['beach_grass_b'], x: -9.2, z: -2.6, rot: 0.9, collide: 0 },
+    { asset: ['beach_grass_a'], x: 11.8, z: -3.6, rot: 1.9, collide: 0 },
+    { asset: ['beach_grass_b'], x: -12.0, z: 0.2, rot: 2.4, collide: 0 },
+
+    // Beach clutter washed up by the tide
+    { asset: ['driftwood_log'], x: 10.8, z: -4.4, rot: 1.1, collide: 0.9 },
+    { asset: ['driftwood_branch'], x: -6.6, z: -1.6, rot: -0.4, collide: 0 },
+    { asset: ['driftwood_branch'], x: -5.6, z: 2.6, rot: 0.7, collide: 0 },
+    { asset: ['seaweed_pile_a'], x: -2.4, z: 0.4, rot: 0.3, collide: 0 },
+    { asset: ['seaweed_pile_a'], x: 9.0, z: -0.2, rot: 1.7, collide: 0 },
+    { asset: ['shells_a'], x: -4.2, z: -2.8, rot: 0.5, collide: 0 },
+    { asset: ['starfish_a'], x: -6.0, z: -3.6, rot: 0.3, collide: 0 },
+    { asset: ['starfish_a'], x: 8.2, z: -4.8, rot: 1.4, collide: 0 },
+    { asset: ['starfish_a'], x: 0.6, z: 0.6, rot: 2.6, collide: 0 },
+  ],
+
+  // Scattered beds (seeded so the cove looks the same every time).
+  scatter: [
+    { asset: ['kelp_a'], x: -6, z: 15, r: 4.2, count: 11, scale: [1.2, 1.9], seed: 3, minDepth: 1.8 },
+    { asset: ['kelp_a'], x: 13, z: 14.5, r: 2.8, count: 6, scale: [1.1, 1.7], seed: 8, minDepth: 1.8 },
+    { asset: ['kelp_a'], x: -13, z: 9, r: 2.2, count: 4, scale: [0.9, 1.3], seed: 5, minDepth: 1.2 },
   ],
 
   // Where each fish habitat lives (fish-behaviour.json `habitat`). Areas are circles.
@@ -74,7 +121,7 @@ export const driftwoodCove = {
     deep: { minDepth: 6.0, areas: [{ x: 6, z: 26, r: 8 }] },
   },
 
-  // Kelp beds drawn as swaying under-water silhouettes (no model needed).
+  // Kelp drawn as swaying silhouettes only when the kelp model is missing.
   kelpBeds: [{ x: -6, z: 15, r: 4.5, count: 14 }, { x: 13, z: 15, r: 3, count: 7 }],
 
   // Lighting matched to art/concepts/world/driftwood_cove_key.webp

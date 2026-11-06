@@ -777,5 +777,348 @@
     "category": "nature",
     "placement": "ground",
     "note": "spiky dune shrub"
+  },
+  "shop_hullhouse": {
+    "path": "assets/world/shop_hullhouse/model.glb",
+    "preview": "assets/world/shop_hullhouse/preview.webp",
+    "scale": 1,
+    "tris": 7574,
+    "bounds": {
+      "min": [
+        -3.6,
+        0,
+        -2.84
+      ],
+      "max": [
+        3.6,
+        6.61,
+        2.84
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow",
+      "cove_net"
+    ],
+    "bytes": 218444,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "structure",
+    "placement": "ground",
+    "story": "The Hull House: an old fishing boat turned keel-up for a roof, walls of salvaged boards, a red-dyed patched sail as the awning on two oars, an old oar hung on ropes as the shop sign, the boat's mast still standing at the back with its furled sail",
+    "interaction": "counter at front centre (+Z side), door front-left",
+    "footprint": [
+      4.6,
+      3.4
+    ]
+  },
+  "fisher_hut": {
+    "path": "assets/world/fisher_hut/model.glb",
+    "preview": "assets/world/fisher_hut/preview.webp",
+    "scale": 1,
+    "tris": 4725,
+    "bounds": {
+      "min": [
+        -3.82,
+        0,
+        -2.56
+      ],
+      "max": [
+        3.82,
+        4.69,
+        2.56
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 139360,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "structure",
+    "placement": "ground",
+    "story": "The Marigold: the red boat that brought you here, run aground and lived in; cabin of salvaged boards, blue ship's door, tarp roof, gangplank on the port side",
+    "interaction": "gangplank at +X/-Z... see bounds; door on the front (+Z) of the cabin",
+    "footprint": [
+      6.4,
+      2.6
+    ]
+  },
+  "workers_hut": {
+    "path": "assets/world/workers_hut/model.glb",
+    "preview": "assets/world/workers_hut/preview.webp",
+    "scale": 1,
+    "tris": 2378,
+    "bounds": {
+      "min": [
+        -2.2,
+        0,
+        -2.49
+      ],
+      "max": [
+        2.2,
+        3.05,
+        2.49
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow",
+      "cove_net"
+    ],
+    "bytes": 64808,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "structure",
+    "placement": "ground",
+    "story": "The workers sleep under the patched sail of the boat that brought them, stretched over A-frames of crossed oars; nets dry on an oar rack",
+    "interaction": "open end faces -X; net rack on the +Z side",
+    "footprint": [
+      3.8,
+      3
+    ]
+  },
+  "boat_dock": {
+    "path": "assets/world/boat_dock/model.glb",
+    "preview": "assets/world/boat_dock/preview.webp",
+    "scale": 1,
+    "tris": 4314,
+    "bounds": {
+      "min": [
+        -2.27,
+        -1.6,
+        -1.75
+      ],
+      "max": [
+        2.29,
+        4.27,
+        1.56
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_glow"
+    ],
+    "bytes": 111132,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "structure",
+    "placement": "water",
+    "story": "Two great ribs from the wreck crossed into an arch over the dock; cannons as bollards; the wreck's wheel leans against the arch",
+    "origin": "footprint centre at water level (y=0), deck top y=0.75, 4.2 x 3.0 m; arch on the +Z (shore) edge, boats moor on the -Z edge",
+    "footprint": [
+      4.2,
+      3
+    ]
+  },
+  "boat_skiff": {
+    "path": "assets/world/boat_skiff/model.glb",
+    "preview": "assets/world/boat_skiff/preview.webp",
+    "scale": 1,
+    "tris": 2110,
+    "bounds": {
+      "min": [
+        -2,
+        -0.22,
+        -0.75
+      ],
+      "max": [
+        2.41,
+        2.9,
+        0.75
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 59872,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "vehicle",
+    "placement": "water",
+    "story": "small sailing skiff, white with teal gunwales, one bright replacement strake from a rock strike, patched sail",
+    "origin": "hull centre at water level (y=0), draws ~0.22 m; bow points +X"
+  },
+  "fence_rope": {
+    "path": "assets/world/fence_rope/model.glb",
+    "preview": "assets/world/fence_rope/preview.webp",
+    "scale": 1,
+    "tris": 472,
+    "bounds": {
+      "min": [
+        -1.67,
+        0,
+        -0.09
+      ],
+      "max": [
+        1.67,
+        1.14,
+        0.09
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 12452,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "structure",
+    "placement": "ground",
+    "note": "3 posts, 3.2 m long along X; chain end-to-end"
+  },
+  "fence_planks": {
+    "path": "assets/world/fence_planks/model.glb",
+    "preview": "assets/world/fence_planks/preview.webp",
+    "scale": 1,
+    "tris": 256,
+    "bounds": {
+      "min": [
+        -1.15,
+        0,
+        -0.1
+      ],
+      "max": [
+        1.15,
+        1.27,
+        0.1
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 10904,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "structure",
+    "placement": "ground",
+    "note": "2.3 m section along X",
+    "base_mesh": "layout after Kenney Fantasy Town fence (rebuilt)"
+  },
+  "lantern_post": {
+    "path": "assets/world/lantern_post/model.glb",
+    "preview": "assets/world/lantern_post/preview.webp",
+    "scale": 1,
+    "tris": 567,
+    "bounds": {
+      "min": [
+        -0.32,
+        0,
+        -0.12
+      ],
+      "max": [
+        0.32,
+        2.3,
+        0.12
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_glow"
+    ],
+    "bytes": 17584,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground",
+    "light": "point light at (0.4, 1.86, 0) local, warm #ffc35a, intensity ~2, range 6"
+  },
+  "lantern_hanging": {
+    "path": "assets/world/lantern_hanging/model.glb",
+    "preview": "assets/world/lantern_hanging/preview.webp",
+    "scale": 1,
+    "tris": 244,
+    "bounds": {
+      "min": [
+        -0.12,
+        0,
+        -0.13
+      ],
+      "max": [
+        0.12,
+        0.41,
+        0.13
+      ]
+    },
+    "materials": [
+      "cove_glow",
+      "cove_atlas"
+    ],
+    "bytes": 11312,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground",
+    "origin": "hook point at top (y=0.45)",
+    "light": "point light at (0, 0.2, 0) local, warm #ffc35a"
+  },
+  "signpost": {
+    "path": "assets/world/signpost/model.glb",
+    "preview": "assets/world/signpost/preview.webp",
+    "scale": 1,
+    "tris": 192,
+    "bounds": {
+      "min": [
+        -0.64,
+        0,
+        -0.51
+      ],
+      "max": [
+        0.64,
+        2.31,
+        0.51
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 7940,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "prop",
+    "placement": "ground",
+    "note": "blank arrow boards: red, blue, white; destinations are shown by UI"
+  },
+  "pier_steps": {
+    "path": "assets/world/pier_steps/model.glb",
+    "preview": "assets/world/pier_steps/preview.webp",
+    "scale": 1,
+    "tris": 408,
+    "bounds": {
+      "min": [
+        -1.03,
+        0,
+        -0.86
+      ],
+      "max": [
+        1.03,
+        1.76,
+        0.86
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 13624,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "structure",
+    "placement": "shore",
+    "origin": "ground level at the bottom tread; top tread meets pier deck height 0.75 at +Z... see bounds"
   }
 }

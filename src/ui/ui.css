@@ -352,6 +352,26 @@
 .lot__sell .btn .money { font-family: var(--font-num); font-weight: var(--num-weight); font-variant-numeric: tabular-nums lining-nums; font-size: var(--fs-l); }
 .lot__drop { font-size: var(--fs-xs); color: var(--c-danger); font-weight: var(--body-strong); }
 
+.lot__worth { font-family: var(--font-num); font-weight: var(--num-weight); font-variant-numeric: tabular-nums lining-nums; font-size: var(--fs-l); }
+.hot-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0 4px;
+  padding: 8px 12px;
+  font-size: var(--fs-s);
+  font-weight: var(--body-strong);
+  line-height: 1.3;
+  color: var(--c-ink);
+  background: rgba(227, 164, 70, 0.28);
+  border-left: 4px solid var(--c-amber);
+}
+.hot-line svg { width: 26px; height: 26px; flex: none; color: var(--c-rust); }
+.worth { display: inline-flex; align-items: center; gap: 8px; }
+.worth .money { font-family: var(--font-num); font-weight: var(--num-weight); font-variant-numeric: tabular-nums lining-nums; }
+.pebble svg { width: 14px; height: 14px; }
+.locker-note { padding-left: 40px; }
+
 /* --------------------------------------------------------------------------
    Gear tags (buy)
    -------------------------------------------------------------------------- */

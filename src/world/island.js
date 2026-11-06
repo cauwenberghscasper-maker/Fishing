@@ -22,12 +22,13 @@ export function createIsland({ layout, events, state }) {
   const activeZones = new Set();
   let currentZone = null;
 
-  function buildDeck(def) {
+  // A pier is a straight chain of 3 m modules; its deck is an oriented rectangle.
+  function pierFrame(def) {
     const [x0, z0] = def.from;
     const [x1, z1] = def.to;
     const dx = x1 - x0, dz = z1 - z0;
     const len = Math.hypot(dx, dz);
-    return { ...def, x0, z0, ux: dx / len, uz: dz / len, len };
+    return { x0, z0, ux: dx / len, uz: dz / len, len, rot: Math.atan2(dx, dz) };
   }
 
   function deckAt(x, z) {
@@ -35,32 +36,96 @@ export function createIsland({ layout, events, state }) {
       const rx = x - d.x0, rz = z - d.z0;
       const along = rx * d.ux + rz * d.uz;
       const across = -rx * d.uz + rz * d.ux;
-      if (along >= -0.2 && along <= d.len + 0.2 && Math.abs(across) <= d.width / 2) return d;
+      if (along >= -0.15 && along <= d.len + 0.05 && Math.abs(across) <= d.width / 2 - 0.12) return d;
     }
     return null;
+  }
+
+  function placementY(entry, x, z, float) {
+    if (float) return 0;
+    const placement = entry?.placement || 'ground';
+    if (placement === 'water' || placement === 'shore') return 0;
+    // Sink ground props a touch so slopes never show a floating edge.
+    return terrain.heightAt(x, z) - 0.04;
+  }
+
+  async function addProp(id, x, z, rot, scale, float) {
+    const model = await loadModel('world', id);
+    if (!model) return null;
+    const obj = model.scene;
+    obj.position.set(x, placementY(model.entry, x, z, float), z);
+    obj.rotation.y = rot || 0;
+    if (scale && scale !== 1) obj.scale.multiplyScalar(scale);
+    propsGroup.add(obj);
+    return obj;
+  }
+
+  function seeded(seed) {
+    let s = seed * 9301 + 49297;
+    return () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
   }
 
   async function placeProps() {
     propsGroup.clear();
     colliders = [];
-    const loadedIds = new Set();
-    const jobs = layout.props.map(async (p) => {
+    const jobs = [];
+    const builtPiers = [];
+
+    for (const p of layout.props) {
       const id = pickAsset('world', p.asset);
-      if (!id) return;
-      const model = await loadModel('world', id);
-      if (!model) return;
-      loadedIds.add(id);
-      const obj = model.scene;
-      obj.position.set(p.x, p.float ? 0 : terrain.heightAt(p.x, p.z), p.z);
-      obj.rotation.y = p.rot || 0;
-      if (p.scale) obj.scale.multiplyScalar(p.scale);
-      obj.userData.prop = { ...p, id };
-      propsGroup.add(obj);
-      if (p.collide > 0) colliders.push({ x: p.x, z: p.z, r: p.collide });
-    });
+      if (!id) continue;
+      jobs.push(addProp(id, p.x, p.z, p.rot, p.scale, p.float).then((obj) => {
+        if (obj && p.collide > 0) colliders.push({ x: p.x, z: p.z, r: p.collide });
+      }));
+    }
+
+    for (const pier of layout.piers || []) {
+      const f = pierFrame(pier);
+      const count = pier.modules.length;
+      let complete = true;
+      pier.modules.forEach((mod, i) => {
+        const id = pickAsset('world', [mod, 'pier_straight']);
+        if (!id) { complete = false; return; }
+        const along = (i + 0.5) * (f.len / count);
+        jobs.push(addProp(id, f.x0 + f.ux * along, f.z0 + f.uz * along, f.rot, 1, true));
+      });
+      if (complete) builtPiers.push({ ...f, id: pier.id, width: pier.width, height: 0.75 });
+    }
+
+    for (const bed of layout.scatter || []) {
+      const id = pickAsset('world', bed.asset);
+      if (!id) continue;
+      const rand = seeded(bed.seed || 1);
+      let placed = 0;
+      for (let tries = 0; tries < bed.count * 6 && placed < bed.count; tries++) {
+        const a = rand() * Math.PI * 2;
+        const r = Math.sqrt(rand()) * bed.r;
+        const x = bed.x + Math.cos(a) * r, z = bed.z + Math.sin(a) * r;
+        const scale = bed.scale[0] + rand() * (bed.scale[1] - bed.scale[0]);
+        const rot = rand() * Math.PI * 2;
+        if (bed.minDepth && -terrain.heightAt(x, z) < bed.minDepth) continue;
+        placed++;
+        jobs.push(addProp(id, x, z, rot, scale, false).then((obj) => {
+          if (obj) obj.userData.sway = { phase: rand() * 6.28, amount: 0.06 + rand() * 0.05 };
+        }));
+      }
+    }
+
     await Promise.all(jobs);
-    decks = layout.decks.filter((d) => pickAsset('world', d.asset)).map(buildDeck);
-    return loadedIds;
+    decks = builtPiers;
+    hasKelpModel = Boolean(pickAsset('world', ['kelp_a']));
+  }
+
+  let hasKelpModel = false;
+
+  // Underwater plants sway gently (no skeleton: a small rotation wobble per instance).
+  function updateSway(time) {
+    for (const obj of propsGroup.children) {
+      const s = obj.userData.sway;
+      if (!s) continue;
+      obj.rotation.x = Math.sin(time * 0.9 + s.phase) * s.amount;
+      obj.rotation.z = Math.cos(time * 0.7 + s.phase * 1.3) * s.amount * 0.7;
+    }
   }
 
   function groundAt(x, z) {
@@ -138,8 +203,11 @@ export function createIsland({ layout, events, state }) {
     waterDepthAt,
     updateZones,
     get decks() { return decks; },
+    get hasKelpModel() { return hasKelpModel; },
+    updateSway,
     get colliders() { return colliders; },
     get props() { return propsGroup; },
     zone(id) { return layout.zones.find((z) => z.id === id) || null; },
+    deckAt,
   };
 }

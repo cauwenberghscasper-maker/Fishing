@@ -5,7 +5,7 @@ _Updated after each step. Status at the top._
 ## Status
 - [x] Fonts self-hosted in `public/fonts/` (+ `fonts.css`, OFL licences)
 - [x] `src/ui/theme.css` — the contract for Agent A (variables + `.btn`, `.btn--primary`, `.btn--round`, `.meter`, `.meter__fill`, `.meter--tension`, `.meter--stamina`, `.toast`)
-- [ ] `docs/type-specimen.html` + screenshot
+- [x] `docs/type-specimen.html` + `docs/handoff/shots/type-specimen.png` (sent to lead)
 - [ ] Data files (`fish.json`, `islands.json`, `items.json`, `economy.json`)
 - [ ] Save (`src/save/profile.js`)
 - [ ] Economy (`src/economy/`)

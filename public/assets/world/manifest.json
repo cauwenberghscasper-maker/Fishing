@@ -19,13 +19,13 @@
     "materials": [
       "cove_atlas"
     ],
-    "bytes": 37148,
+    "bytes": 37152,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
     "category": "structure",
     "placement": "water",
-    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide",
-    "licence": "original (Agent D, Blender bpy build, CC0)",
-    "source": "bespoke",
-    "status": "temp"
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)"
   },
   "pier_straight_b": {
     "path": "assets/world/pier_straight_b/model.glb",
@@ -47,13 +47,13 @@
     "materials": [
       "cove_atlas"
     ],
-    "bytes": 36236,
+    "bytes": 36228,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
     "category": "structure",
     "placement": "water",
-    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide",
-    "licence": "original (Agent D, Blender bpy build, CC0)",
-    "source": "bespoke",
-    "status": "temp"
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)"
   },
   "pier_patched": {
     "path": "assets/world/pier_patched/model.glb",
@@ -76,12 +76,12 @@
       "cove_atlas"
     ],
     "bytes": 42900,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
     "category": "structure",
     "placement": "water",
-    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide",
-    "licence": "original (Agent D, Blender bpy build, CC0)",
-    "source": "bespoke",
-    "status": "temp"
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)"
   },
   "pier_end": {
     "path": "assets/world/pier_end/model.glb",
@@ -105,11 +105,677 @@
       "cove_glow"
     ],
     "bytes": 68508,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
     "category": "structure",
     "placement": "water",
-    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide",
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)"
+  },
+  "beach_grass_a": {
+    "path": "assets/world/beach_grass_a/model.glb",
+    "preview": "assets/world/beach_grass_a/preview.webp",
+    "scale": 1,
+    "tris": 90,
+    "bounds": {
+      "min": [
+        -0.46,
+        0,
+        -0.56
+      ],
+      "max": [
+        0.46,
+        0.66,
+        0.56
+      ]
+    },
+    "materials": [
+      "cove_atlas_ds"
+    ],
+    "bytes": 5596,
     "licence": "original (Agent D, Blender bpy build, CC0)",
-    "source": "bespoke",
-    "status": "temp"
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground"
+  },
+  "beach_grass_b": {
+    "path": "assets/world/beach_grass_b/model.glb",
+    "preview": "assets/world/beach_grass_b/preview.webp",
+    "scale": 1,
+    "tris": 120,
+    "bounds": {
+      "min": [
+        -0.61,
+        0,
+        -0.69
+      ],
+      "max": [
+        0.61,
+        0.5,
+        0.69
+      ]
+    },
+    "materials": [
+      "cove_atlas_ds"
+    ],
+    "bytes": 6524,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground"
+  },
+  "driftwood_branch": {
+    "path": "assets/world/driftwood_branch/model.glb",
+    "preview": "assets/world/driftwood_branch/preview.webp",
+    "scale": 1,
+    "tris": 328,
+    "bounds": {
+      "min": [
+        -0.88,
+        0,
+        -0.27
+      ],
+      "max": [
+        0.88,
+        0.2,
+        0.27
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 13412,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground"
+  },
+  "driftwood_log": {
+    "path": "assets/world/driftwood_log/model.glb",
+    "preview": "assets/world/driftwood_log/preview.webp",
+    "scale": 1,
+    "tris": 384,
+    "bounds": {
+      "min": [
+        -1.58,
+        0,
+        -0.55
+      ],
+      "max": [
+        1.58,
+        0.37,
+        0.55
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 15020,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground",
+    "story": "bleached trunk with its root ball, washed up in the big storm"
+  },
+  "kelp_a": {
+    "path": "assets/world/kelp_a/model.glb",
+    "preview": "assets/world/kelp_a/preview.webp",
+    "scale": 1,
+    "tris": 540,
+    "bounds": {
+      "min": [
+        -0.32,
+        0,
+        -0.17
+      ],
+      "max": [
+        0.32,
+        1.79,
+        0.17
+      ]
+    },
+    "materials": [
+      "cove_atlas_ds",
+      "cove_atlas"
+    ],
+    "bytes": 15424,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "underwater",
+    "origin": "base on the seabed; blades rise ~1.6 m, amber float bulbs (glow cell, not emissive)"
+  },
+  "palm_bent": {
+    "path": "assets/world/palm_bent/model.glb",
+    "preview": "assets/world/palm_bent/preview.webp",
+    "scale": 1,
+    "tris": 716,
+    "bounds": {
+      "min": [
+        -2.09,
+        0,
+        -1.81
+      ],
+      "max": [
+        2.09,
+        4.36,
+        1.81
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 28584,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground"
+  },
+  "palm_tall": {
+    "path": "assets/world/palm_tall/model.glb",
+    "preview": "assets/world/palm_tall/preview.webp",
+    "scale": 1,
+    "tris": 736,
+    "bounds": {
+      "min": [
+        -2.04,
+        0,
+        -2.1
+      ],
+      "max": [
+        2.04,
+        5.79,
+        2.1
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 28676,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground",
+    "story": "leans toward the sea after decades of onshore wind; one storm-killed frond still hangs on"
+  },
+  "palm_twin": {
+    "path": "assets/world/palm_twin/model.glb",
+    "preview": "assets/world/palm_twin/preview.webp",
+    "scale": 1,
+    "tris": 1332,
+    "bounds": {
+      "min": [
+        -2.86,
+        0,
+        -2.06
+      ],
+      "max": [
+        2.86,
+        5.17,
+        2.06
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 49360,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground"
+  },
+  "palm_young": {
+    "path": "assets/world/palm_young/model.glb",
+    "preview": "assets/world/palm_young/preview.webp",
+    "scale": 1,
+    "tris": 576,
+    "bounds": {
+      "min": [
+        -1.43,
+        0,
+        -1.41
+      ],
+      "max": [
+        1.43,
+        2.74,
+        1.41
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 24816,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground"
+  },
+  "rock_cluster": {
+    "path": "assets/world/rock_cluster/model.glb",
+    "preview": "assets/world/rock_cluster/preview.webp",
+    "scale": 1,
+    "tris": 960,
+    "bounds": {
+      "min": [
+        -1.38,
+        0,
+        -1.11
+      ],
+      "max": [
+        1.38,
+        0.95,
+        1.11
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 24336,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground"
+  },
+  "rock_l": {
+    "path": "assets/world/rock_l/model.glb",
+    "preview": "assets/world/rock_l/preview.webp",
+    "scale": 1,
+    "tris": 1280,
+    "bounds": {
+      "min": [
+        -1.47,
+        0,
+        -1.16
+      ],
+      "max": [
+        1.47,
+        1.23,
+        1.16
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 27636,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground"
+  },
+  "rock_m": {
+    "path": "assets/world/rock_m/model.glb",
+    "preview": "assets/world/rock_m/preview.webp",
+    "scale": 1,
+    "tris": 320,
+    "bounds": {
+      "min": [
+        -0.72,
+        0,
+        -0.57
+      ],
+      "max": [
+        0.72,
+        0.68,
+        0.57
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 10680,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground"
+  },
+  "rock_s": {
+    "path": "assets/world/rock_s/model.glb",
+    "preview": "assets/world/rock_s/preview.webp",
+    "scale": 1,
+    "tris": 320,
+    "bounds": {
+      "min": [
+        -0.33,
+        0,
+        -0.27
+      ],
+      "max": [
+        0.33,
+        0.31,
+        0.27
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 10724,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground",
+    "note": "scatter freely, rotate/scale ±20%"
+  },
+  "rock_shore": {
+    "path": "assets/world/rock_shore/model.glb",
+    "preview": "assets/world/rock_shore/preview.webp",
+    "scale": 1,
+    "tris": 640,
+    "bounds": {
+      "min": [
+        -0.76,
+        -0.35,
+        -0.66
+      ],
+      "max": [
+        1.37,
+        0.31,
+        0.76
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 16396,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "shore",
+    "origin": "base centre; sits 0.35 m into the water/sand, wet band at the bottom"
+  },
+  "seaweed_pile_a": {
+    "path": "assets/world/seaweed_pile_a/model.glb",
+    "preview": "assets/world/seaweed_pile_a/preview.webp",
+    "scale": 1,
+    "tris": 252,
+    "bounds": {
+      "min": [
+        -0.59,
+        0,
+        -0.75
+      ],
+      "max": [
+        0.59,
+        0.11,
+        0.75
+      ]
+    },
+    "materials": [
+      "cove_atlas_ds"
+    ],
+    "bytes": 12168,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground_or_shallows"
+  },
+  "shells_a": {
+    "path": "assets/world/shells_a/model.glb",
+    "preview": "assets/world/shells_a/preview.webp",
+    "scale": 1,
+    "tris": 496,
+    "bounds": {
+      "min": [
+        -0.24,
+        0,
+        -0.19
+      ],
+      "max": [
+        0.24,
+        0.24,
+        0.19
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 23088,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground"
+  },
+  "starfish_a": {
+    "path": "assets/world/starfish_a/model.glb",
+    "preview": "assets/world/starfish_a/preview.webp",
+    "scale": 1,
+    "tris": 38,
+    "bounds": {
+      "min": [
+        -0.14,
+        0,
+        -0.16
+      ],
+      "max": [
+        0.14,
+        0.03,
+        0.16
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 3616,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground_or_shallows"
+  },
+  "tide_pool_a": {
+    "path": "assets/world/tide_pool_a/model.glb",
+    "preview": "assets/world/tide_pool_a/preview.webp",
+    "scale": 1,
+    "tris": 3638,
+    "bounds": {
+      "min": [
+        -1.74,
+        -0.32,
+        -1.96
+      ],
+      "max": [
+        1.93,
+        0.33,
+        1.94
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 78364,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "shore",
+    "origin": "basin centre at sea level (y=0); basin floor ~-0.45 so the sea plane fills it"
+  },
+  "cliff_columns_a": {
+    "path": "assets/world/cliff_columns_a/model.glb",
+    "preview": "assets/world/cliff_columns_a/preview.webp",
+    "scale": 1,
+    "tris": 1160,
+    "bounds": {
+      "min": [
+        -1.97,
+        0,
+        -1.33
+      ],
+      "max": [
+        1.97,
+        3.21,
+        1.33
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 44004,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground",
+    "story": "the cove is held between hexagonal basalt columns; the tops are mossy stepping stones",
+    "origin": "base centre; columns rise toward the back (+Z is front)"
+  },
+  "cliff_columns_b": {
+    "path": "assets/world/cliff_columns_b/model.glb",
+    "preview": "assets/world/cliff_columns_b/preview.webp",
+    "scale": 1,
+    "tris": 1160,
+    "bounds": {
+      "min": [
+        -1.5,
+        0,
+        -1.59
+      ],
+      "max": [
+        1.5,
+        2.35,
+        1.59
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 44068,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground"
+  },
+  "columns_steps": {
+    "path": "assets/world/columns_steps/model.glb",
+    "preview": "assets/world/columns_steps/preview.webp",
+    "scale": 1,
+    "tris": 560,
+    "bounds": {
+      "min": [
+        -1.24,
+        0,
+        -1
+      ],
+      "max": [
+        1.24,
+        1.05,
+        1
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 22648,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground",
+    "note": "low basalt columns, walkable stepping stones / shore edge"
+  },
+  "bush_seagrape": {
+    "path": "assets/world/bush_seagrape/model.glb",
+    "preview": "assets/world/bush_seagrape/preview.webp",
+    "scale": 1,
+    "tris": 540,
+    "bounds": {
+      "min": [
+        -0.72,
+        0,
+        -0.7
+      ],
+      "max": [
+        0.72,
+        1.03,
+        0.7
+      ]
+    },
+    "materials": [
+      "cove_atlas_ds"
+    ],
+    "bytes": 12856,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground",
+    "note": "round-leaf sea-grape bush"
+  },
+  "bush_seagrape_s": {
+    "path": "assets/world/bush_seagrape_s/model.glb",
+    "preview": "assets/world/bush_seagrape_s/preview.webp",
+    "scale": 1,
+    "tris": 300,
+    "bounds": {
+      "min": [
+        -0.42,
+        0,
+        -0.45
+      ],
+      "max": [
+        0.42,
+        0.71,
+        0.45
+      ]
+    },
+    "materials": [
+      "cove_atlas_ds"
+    ],
+    "bytes": 8460,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground"
+  },
+  "bush_spiky": {
+    "path": "assets/world/bush_spiky/model.glb",
+    "preview": "assets/world/bush_spiky/preview.webp",
+    "scale": 1,
+    "tris": 180,
+    "bounds": {
+      "min": [
+        -0.65,
+        0,
+        -0.68
+      ],
+      "max": [
+        0.65,
+        0.95,
+        0.68
+      ]
+    },
+    "materials": [
+      "cove_atlas_ds"
+    ],
+    "bytes": 6884,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "category": "nature",
+    "placement": "ground",
+    "note": "spiky dune shrub"
   }
 }

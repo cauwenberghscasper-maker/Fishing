@@ -22,8 +22,31 @@ _Updated after every step. Status: IN PROGRESS._
 2. [x] Shared painted atlas `public/assets/world/_shared/cove_atlas.jpg` (1024², 4×4 hand-painted swatches: driftwood, plank, tar wood, chipped red/blue/white/teal paint, patched sailcloth, rope, basalt, sand, foliage, grass, moss, brass, rust, shell, coral, lantern glow), plus `cove_net.png` (alpha net). Painted procedurally by our own script; palette sampled from the key art.
 3. [x] Nature: palms ×4 (bespoke), basalt boulders ×5, basalt-column cliffs ×3 (signature edge of the cove), sea-grape bushes ×3, beach grass ×2, driftwood ×2, starfish, shells, kelp, seaweed pile, tide pool
 4. [x] Bespoke Blender builds: Hull House shop, Marigold fisher's hut, sail-tent workers' hut, rib-arch boat dock, skiff, pier modules ×4 + steps, fences ×2, lantern post + hanging lantern, signpost
-5. [ ] Player character (KayKit base, recoloured, fisher gear) + clips; worker NPC
-6. [ ] Contact sheets, CREDITS, final notes
+5. [x] Player character `fisher_player` (KayKit Rogue, CC0) recoloured (faded blue shirt, rust neckerchief, ochre rolled trousers, tar-brown boots), with fisher gear on bones: woven straw hat with a glowing teal fish-scale charm in the band (head), tackle satchel on a tar-leather strap (chest/hips), rolled cuffs (lower legs). 18 clips, see the character manifest. Rod attaches to bone `handslot.r`.
+6. [x] Workers on the same rig: `worker_netmender` (Barbarian: white beard, cream sweater, rust knit cap, net bundle with floats), `worker_deckhand` (Rogue_Hooded: yellow oilskin hood + coat, rope bandolier), `worker_angler` (Mage: olive oilcloth coat, conical straw hat, wicker creel). 9 clips each, incl. fish_idle, cast, reel_loop, sit_idle.
+7. [ ] Island growth: `sandbar`, `camp_l0`, plot dressings `plot_<plotId>` ×6
+8. [ ] Buildings × 3 levels (`<building>_l1..l3`), concepts = Agent F's building cards when they land
+9. [ ] Contact sheets, CREDITS, final notes
+
+## Character clips (fisher_player)
+| clip | game action | source |
+|---|---|---|
+| idle / walk / run | idle, walk, run | KayKit Idle / Walking_A / Running_A |
+| fish_idle | waiting for a bite, rod out | authored (Idle + rod-holding arm layer) |
+| cast_windup | aim:start | KayKit Throw 0–0.40 s, retimed |
+| cast_aim | aim mode loop | authored from the Throw peak + breathing sway |
+| cast_release | cast release | KayKit Throw 0.40–1.37 s |
+| reel_loop | reeling (fight) | authored: left hand cranks, 2 turns per loop |
+| struggle_loop | strong pull / high tension | authored on KayKit Blocking: braced legs, lean back, shaking |
+| hold_up_fish | fish:landed-show / catch card | authored: catch presented at chest height |
+| celebrate | rare catch / perfect cast | KayKit Cheer |
+| dodge_left / dodge_right / dodge_back | boss dodge | KayKit Dodge_* |
+| hit, pick_up, interact, sit_idle | boss hit, pick up, buildings, rest | KayKit Hit_A, PickUp, Interact, Sit_Floor_Idle |
+
+**Gaps (honest):** there is no true rod-cast motion in any CC0 pack on GitHub. The cast is KayKit's overhand Throw split in two; it reads as an overhead cast. reel_loop, struggle_loop and hold_up_fish are procedural layers that read well at game-camera distance but would benefit from a hand-keyed or mocap pass. Chibi proportions mean "hold up" is at chest height, not overhead. A rod-specific clip set could come from Quaternius *Universal Animation Library 2* (CC0, has fishing; itch.io/quaternius.com only, so Casper would need to attach it; see Downloads).
+
+## Gear and boats → Agent G
+`fishing_rod`, `bobber`, `lure`, `boat_skiff` stay in the world manifest as `temp` until G's versions land; then the lead or I remove them.
 
 ## Sources checked (GitHub/npm only)
 - KayKit Adventurers 1.0 — github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0 — CC0 (LICENSE.txt checked)

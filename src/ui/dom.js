@@ -67,6 +67,26 @@ export function money(n, cls = '') {
   return h(`span.money${cls ? '.' + cls : ''}`, ico('coin'), h('span.t-num', fmt(n)));
 }
 
+/**
+ * A painted artwork from Agent F's registry (art.json), or null when the key is not registered yet,
+ * so the caller can leave the slot out. If the file fails to load, the image (or `slot`) removes itself.
+ */
+export function artImg(path, cls = '', { alt = '', slot = null, eager = false } = {}) {
+  if (!path) return null;
+  const img = h(`img${cls ? '.' + cls : ''}`, { src: path, alt, loading: eager ? 'eager' : 'lazy', decoding: 'async' });
+  img.addEventListener('error', () => { (slot ?? img).remove(); });
+  return img;
+}
+
+/** Ink for text on a coloured token: dark on light accents, paper on dark ones. */
+export function inkOn(hex) {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex ?? '');
+  if (!m) return 'var(--c-ink)';
+  const n = parseInt(m[1], 16);
+  const lum = (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
+  return lum > 0.5 ? 'var(--c-ink)' : 'var(--c-paper)';
+}
+
 /** A fish window: Agent C's preview if it exists, else an ink silhouette. `unknown` blacks the preview out. */
 export function fishWindow(cls, src, { unknown = false } = {}) {
   const box = h(`div.${cls}`);

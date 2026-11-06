@@ -162,6 +162,8 @@ export async function startWorld({ canvas, state, events }) {
     fishing,
     quality,
     lighting,
+    water,
+    pipeline,
     manifests: getManifests,
     fish: () => fishSystem.list.map((f) => ({ uid: f.uid, id: f.id, variant: f.variant, state: f.state, x: +f.pos.x.toFixed(2), z: +f.pos.z.toFixed(2), depth: +f.depth.toFixed(2) })),
     spawnFish: (id, x, z, variant) => {

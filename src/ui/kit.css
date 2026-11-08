@@ -349,3 +349,10 @@
   .ktabs-spacer { height: 46px; }
   .tilegrid { grid-auto-rows: minmax(122px, auto); }
 }
+/* the word must always fit: the icon takes only the space left over (Casper: "text is cut off") */
+.ktab { display: grid; grid-template-rows: minmax(0, 1fr) auto; justify-items: center; align-items: center; gap: 2px; padding: 5px 2px 6px; }
+.ktab__icon { width: auto; height: 100%; max-width: 78%; aspect-ratio: 1; min-height: 0; }
+.ktab__icon img, .ktab__icon svg { width: 100%; height: 100%; }
+.ktab__word { line-height: 1.15; padding-bottom: 1px; }
+.ktabs--l2 .ktab__icon { width: auto; max-width: 70%; }
+@media (max-height: 700px) { .ktab__icon, .ktabs--l2 .ktab__icon { width: auto; } }

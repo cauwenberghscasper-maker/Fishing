@@ -222,3 +222,5 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 8 Nov 19:47 | C | Qwen-Image-Fast ×3 | portraits: old_mooring, storm_marlin (teeth inpainted), temple_manta (kept) | 10 total (measured wall) |
 | 8 Nov 19:50 | lead | Qwen-Image-Fast ×10 | casting HUD set (cast, reel, 2 gauges, stamina, ring, tag, strike splash, line band, crack); pressed/aim states and needle derived in code | ~45 |
 | 8 Nov 20:05 | lead | Qwen-Image-Fast ×2 + Qwen-Image ×1 | 18 category icons (two 3×3 sheets, sliced); new shopkeeper portrait (Marin) | ~40 |
+| 8 Nov 21:00 | lead | Qwen-Image-Fast ×3 | 24 tackle cards (hooks, sinkers, floats, leaders, lures, tools) as 3 sheets, sliced | ~15 |
+| 8 Nov 21:05 | lead | Qwen-Image-Fast ×2 | 18 building cards (6 buildings × 3 levels) as 2 sheets, sliced | ~10 |

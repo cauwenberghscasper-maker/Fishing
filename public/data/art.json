@@ -261,8 +261,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model hook.bent_pin",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.hook.tinned_j": {
     "path": "art/gear/hook_tinned_j.webp",
@@ -274,8 +273,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model hook.tinned_j",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.hook.circle_hook": {
     "path": "art/gear/hook_circle_hook.webp",
@@ -287,8 +285,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model hook.circle_hook",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.hook.barbed_bronze": {
     "path": "art/gear/hook_barbed_bronze.webp",
@@ -300,8 +297,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model hook.barbed_bronze",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.sinker.pebble_sinker": {
     "path": "art/gear/sinker_pebble_sinker.webp",
@@ -313,8 +309,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model sinker.pebble_sinker",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.sinker.split_shot": {
     "path": "art/gear/sinker_split_shot.webp",
@@ -326,8 +321,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model sinker.split_shot",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.sinker.bell_lead": {
     "path": "art/gear/sinker_bell_lead.webp",
@@ -339,8 +333,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model sinker.bell_lead",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.sinker.cannon_shot": {
     "path": "art/gear/sinker_cannon_shot.webp",
@@ -352,8 +345,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model sinker.cannon_shot",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.float.cork_float": {
     "path": "art/gear/float_cork_float.webp",
@@ -365,8 +357,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model float.cork_float",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.float.gull_quill": {
     "path": "art/gear/float_gull_quill.webp",
@@ -378,8 +369,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model float.gull_quill",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.float.glass_ball": {
     "path": "art/gear/float_glass_ball.webp",
@@ -391,8 +381,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model float.glass_ball",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.leader.gut_leader": {
     "path": "art/gear/leader_gut_leader.webp",
@@ -404,8 +393,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.leader.copper_wire": {
     "path": "art/gear/leader_copper_wire.webp",
@@ -417,8 +405,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.leader.silkweed_leader": {
     "path": "art/gear/leader_silkweed_leader.webp",
@@ -430,8 +417,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.lure.tin_spoon": {
     "path": "art/gear/lure_tin_spoon.webp",
@@ -443,8 +429,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model lure.tin_spoon",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.lure.feather_jig": {
     "path": "art/gear/lure_feather_jig.webp",
@@ -456,8 +441,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model lure.feather_jig",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.lure.glass_minnow": {
     "path": "art/gear/lure_glass_minnow.webp",
@@ -469,8 +453,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model lure.glass_minnow",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.lure.ember_plug": {
     "path": "art/gear/lure_ember_plug.webp",
@@ -482,8 +465,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model lure.ember_plug",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.lure.rune_spinner": {
     "path": "art/gear/lure_rune_spinner.webp",
@@ -495,8 +477,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model lure.rune_spinner",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.tool.landing_net": {
     "path": "art/gear/tool_landing_net.webp",
@@ -508,8 +489,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model tool.landing_net",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.tool.gaff": {
     "path": "art/gear/tool_gaff.webp",
@@ -521,8 +501,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model tool.gaff",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.tool.polarized_glasses": {
     "path": "art/gear/tool_polarized_glasses.webp",
@@ -534,8 +513,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model tool.polarized_glasses",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.tool.tackle_box": {
     "path": "art/gear/tool_tackle_box.webp",
@@ -547,8 +525,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model tool.tackle_box",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "gear.tool.bait_bucket": {
     "path": "art/gear/tool_bait_bucket.webp",
@@ -560,8 +537,7 @@
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B); build reference for Agent G model tool.bait_bucket",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "island.driftwood_cove": {
     "path": "art/islands/driftwood_cove.webp",
@@ -677,8 +653,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model shop_l1",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.shop.l2": {
     "path": "art/buildings/shop_l2.webp",
@@ -690,8 +665,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model shop_l2",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.shop.l3": {
     "path": "art/buildings/shop_l3.webp",
@@ -703,8 +677,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model shop_l3",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.cooler.l1": {
     "path": "art/buildings/cooler_l1.webp",
@@ -716,8 +689,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model cooler_l1",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.cooler.l2": {
     "path": "art/buildings/cooler_l2.webp",
@@ -729,8 +701,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model cooler_l2",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.cooler.l3": {
     "path": "art/buildings/cooler_l3.webp",
@@ -742,8 +713,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model cooler_l3",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.smokehouse.l1": {
     "path": "art/buildings/smokehouse_l1.webp",
@@ -755,8 +725,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model smokehouse_l1",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.smokehouse.l2": {
     "path": "art/buildings/smokehouse_l2.webp",
@@ -768,8 +737,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model smokehouse_l2",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.smokehouse.l3": {
     "path": "art/buildings/smokehouse_l3.webp",
@@ -781,8 +749,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model smokehouse_l3",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.aquarium.l1": {
     "path": "art/buildings/aquarium_l1.webp",
@@ -794,8 +761,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model aquarium_l1",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.aquarium.l2": {
     "path": "art/buildings/aquarium_l2.webp",
@@ -807,8 +773,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model aquarium_l2",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.aquarium.l3": {
     "path": "art/buildings/aquarium_l3.webp",
@@ -820,8 +785,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model aquarium_l3",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.boat_dock.l1": {
     "path": "art/buildings/boat_dock_l1.webp",
@@ -833,8 +797,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model boat_dock_l1",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.boat_dock.l2": {
     "path": "art/buildings/boat_dock_l2.webp",
@@ -846,8 +809,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model boat_dock_l2",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.boat_dock.l3": {
     "path": "art/buildings/boat_dock_l3.webp",
@@ -859,8 +821,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model boat_dock_l3",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.workers_hut.l1": {
     "path": "art/buildings/workers_hut_l1.webp",
@@ -872,8 +833,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model workers_hut_l1",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.workers_hut.l2": {
     "path": "art/buildings/workers_hut_l2.webp",
@@ -885,8 +845,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model workers_hut_l2",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "building.workers_hut.l3": {
     "path": "art/buildings/workers_hut_l3.webp",
@@ -898,8 +857,7 @@
     "alpha": false,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model workers_hut_l3",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "variant.bleached": {
     "path": "art/variants/bleached.webp",

@@ -93,7 +93,8 @@
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
     "status": "concept",
-    "hero": "assets/fish/shellback_blenny/hero.webp"
+    "hero": "assets/fish/shellback_blenny/hero.webp",
+    "rest": "assets/fish/shellback_blenny/rest.webp"
   },
   "kelp_wraith": {
     "path": null,

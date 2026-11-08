@@ -8,7 +8,7 @@ const RUN_SPEED = 5.4;
 const TURN_RATE = 12;
 
 // Clip name patterns per game action, best match first. Gaps are listed in the handoff.
-const CLIP_PATTERNS = {
+export const CLIP_PATTERNS = {
   idle: [/^idle$/i, /idle/i],
   waitIdle: [/^fish_idle$/i, /^idle$/i],
   walk: [/^walk$/i, /^walk(ing)?(_a)?$/i, /walk/i],

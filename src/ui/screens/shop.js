@@ -1,143 +1,196 @@
-// Agent B. The harbour shop: sell the cooler, buy gear, grow the island (crew, land, piers, buildings, boats, night watch).
-import { h, ico, fmt, fmtKg, money, fishWindow, plural, fmtDuration, fill, artImg, inkOn } from '../dom.js';
-import { fishPreview, artPath } from '../../economy/data.js';
-import { SLOTS, BUILDINGS, sizeClassById, marketMult, fullName } from '../../economy/rules.js';
+// Agent B. The shop at the counter (master prompt 9b.1, docs/UI_BIBLE.md §2):
+// sections Sell / Gear / Tackle / Bait / Build, sub-tabs per section, 3-up tiles, details in a bottom drawer.
+// Paintings: Agent F's screen.shop.l<n> backdrop, npc.shopkeeper, gear.<slot>.<id> and building.<id>.l<n> cards.
+// Models: Agent G's gear/boats manifests and Agent D's world manifest (building levels, plots), turning in the drawer.
+import { h, ico, fmt, fmtKg, money, fill, artImg, inkOn, plural, fmtDuration } from '../dom.js';
+import { fishPose, artPath } from '../../economy/data.js';
+import { BUILDINGS, sizeClassById, fullName, slotInfo } from '../../economy/rules.js';
 import { attachGearPreview, detachAllGearPreviews, gearManifestReady, hasGearModel } from '../gear-preview.js';
-import { isVisitor, visitorLine } from '../net.js';
+import { Place, Tabs, Tile, TileGrid, Drawer, Plate, StatRow } from '../kit.js';
+import { isVisitor, hostName } from '../net.js';
 
-const TABS = [
-  { id: 'sell', label: 'Sell' },
-  { id: 'buy', label: 'Buy gear' },
-  { id: 'harbour', label: 'Harbour' },
+const SECTIONS = [
+  { id: 'sell', icon: 'scale', label: 'Sell' },
+  { id: 'gear', icon: 'rod', label: 'Gear' },
+  { id: 'tackle', icon: 'hook', label: 'Tackle' },
+  { id: 'bait', icon: 'worm', label: 'Bait' },
+  { id: 'build', icon: 'hammer', label: 'Build' },
 ];
-const SUBTITLE = {
-  sell: 'Sell what is in your cooler.',
-  buy: 'Rods, reels, lines and bait.',
-  harbour: 'Crew, land, buildings and boats.',
+const SUBS = {
+  gear: [{ id: 'rod', icon: 'rod', label: 'Rods' }, { id: 'reel', icon: 'reel', label: 'Reels' }, { id: 'line', icon: 'line', label: 'Lines' }],
+  tackle: [
+    { id: 'hook', icon: 'hook', label: 'Hooks' }, { id: 'sinker', icon: 'sinker', label: 'Sinkers' }, { id: 'float', icon: 'float', label: 'Floats' },
+    { id: 'leader', icon: 'leader', label: 'Leaders' }, { id: 'lure', icon: 'lure', label: 'Lures' }, { id: 'tool', icon: 'net', label: 'Tools' },
+  ],
+  build: [
+    { id: 'buildings', icon: 'house', label: 'Houses' }, { id: 'land', icon: 'plot', label: 'Land' }, { id: 'piers', icon: 'pier', label: 'Piers' },
+    { id: 'boats', icon: 'boat', label: 'Boats' }, { id: 'crew', icon: 'crew', label: 'Crew' },
+  ],
 };
-const GROUP_TITLE = { rod: 'Rods', reel: 'Reels', line: 'Lines', bait: 'Bait' };
+const SLOT_ICON = { rod: 'rod', reel: 'reel', line: 'line', bait: 'worm', hook: 'hook', sinker: 'sinker', float: 'float', leader: 'leader', lure: 'lure', tool: 'net' };
+const TOOL_LINE = {
+  landing_net: 'Lands the last metre: fewer fish slip off at your feet.',
+  gaff: 'Lands the giants the net cannot hold.',
+  polarized_glasses: 'Shows fish shadows deeper under the surface.',
+  tackle_box: 'Saves most of your tackle when the line snaps.',
+  bait_bucket: 'Every bait stack lasts longer.',
+};
 
+// helpers other screens still import
 export function sheetHead(title, subtitle, onClose, portrait = null) {
-  return h('header.sheet__head',
-    portrait,
-    h('div.sheet__title', h('h2', title), subtitle ? h('p', subtitle) : null),
+  return h('header.sheet__head', portrait, h('div.sheet__title', h('h2', title), subtitle ? h('p', subtitle) : null),
     h('button.btn.btn--round.sheet__close', { 'aria-label': 'Close', on: { click: onClose } }, ico('close')));
 }
-
-/** Re-render a sheet body while keeping the scroll position. */
 export function keepScroll(root, fn) {
-  const body = root.querySelector('.sheet__body');
+  const body = root.querySelector('.sheet__body, .tilegrid');
   const y = body?.scrollTop ?? 0;
   fn();
-  const nb = root.querySelector('.sheet__body');
+  const nb = root.querySelector('.sheet__body, .tilegrid');
   if (nb) nb.scrollTop = y;
 }
-
-/** A variant token for lists: "Ember ×14" in the variant's colour (nothing for basic). */
 export function variantToken(economy, variantId) {
   const v = economy.variant(variantId ?? 'basic');
   if (!v || v.kind === 'basic') return null;
   return h('span.pebble.vtoken', { style: { '--pebble': v.accent, color: inkOn(v.accent) } }, `${v.name} ×${fmt(v.valueMult)}`);
 }
 
+/** A turning 3D model (+ painting behind it) for the drawer. kind: gear | boats | world. */
+function showcase(art, modelId, kind = 'gear') {
+  if (!art && !modelId) return null;
+  const show = h('div.showcase', { hidden: true });
+  const reveal = () => { show.hidden = false; };
+  const img = artImg(art, 'showcase__art', { alt: '', onShow: reveal });
+  if (img) show.append(img);
+  if (modelId) {
+    const canvas = h('canvas.showcase__model', { 'aria-hidden': 'true' });
+    show.append(canvas);
+    gearManifestReady().then(() => {
+      if (!hasGearModel(modelId, kind)) { canvas.remove(); return; }
+      attachGearPreview(canvas, modelId, { kind, onReady: () => { canvas.classList.add('is-live'); reveal(); }, onMissing: () => canvas.remove() });
+    });
+  }
+  return show;
+}
+
 export function shopSheet(ctx, { tab = 'sell', focus = null } = {}) {
   const { state, economy, ui } = ctx;
-  let current = tab;
-  const root = h('section.sheet.chart.chart--framed', { role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Shop' });
+  // old entry points: tab 'buy' → gear, 'harbour' → build
+  let section = { buy: 'gear', harbour: 'build' }[tab] ?? tab;
+  const subOf = { gear: 'rod', tackle: 'hook', build: focus === 'land' ? 'land' : focus === 'crew' || focus === 'workers_hut' ? 'crew' : 'buildings' };
+  const shopLevel = economy.building('shop')?.index || 1;
+  const place = Place({
+    id: 'shop',
+    art: artPath(state, `screen.shop.l${shopLevel}`) ?? artPath(state, 'screen.shop'),
+    sign: economy.building('shop')?.name ?? 'Shop',
+    label: 'Shop',
+    onClose: () => ui.close(),
+  });
+  const drawer = Drawer(place.drawerHost);
+  let drawerFor = null;   // re-render the open drawer after a purchase
+
+  // the shopkeeper, behind the counter (a cut-out painting; left out until it exists)
+  const keeper = h('div.shopkeeper');
+  const face = artImg(artPath(state, 'npc.shopkeeper'), '', { alt: 'The shopkeeper', slot: keeper });
+  if (face) keeper.append(face);
 
   function render() {
     detachAllGearPreviews();
-    const shopName = economy.building('shop')?.name ?? 'Shop';
-    const tabs = h('div.tabs', { role: 'tablist' }, TABS.map((t) => h('button.tab', {
-      role: 'tab',
-      'aria-selected': String(t.id === current),
-      on: { click: () => { current = t.id; focus = null; render(); root.querySelector('.sheet__body').scrollTop = 0; } },
-    }, t.id === 'sell' && state.profile.cooler.length ? `${t.label} (${state.profile.cooler.length})` : t.label)));
-    const parts = current === 'sell' ? sellTab(ctx) : current === 'buy' ? buyTab(ctx) : harbourTab(ctx);
-    // Agent F's shopkeeper portrait (art.json npc.shopkeeper) in a brass porthole, when it exists
-    const portrait = h('div.npc-portrait');
-    const face = artImg(artPath(state, 'npc.shopkeeper'), '', { alt: 'The shopkeeper', slot: portrait });
-    if (face) portrait.append(face);
-    fill(root,
-      sheetHead(shopName, SUBTITLE[current], () => ui.close(), face ? portrait : null),
-      tabs,
-      h('div.sheet__body', { role: 'tabpanel' }, parts.body),
-      parts.foot ?? null,
-    );
+    const p = state.profile;
+    const tabs = Tabs(SECTIONS.map((s) => ({ ...s, badge: s.id === 'sell' && p.cooler.length ? String(p.cooler.length) : null })), section,
+      (id) => { section = id; drawer.close(); render(); }, { label: 'Shop sections' });
+    const sub = SUBS[section] ? Tabs(SUBS[section], subOf[section], (id) => { subOf[section] = id; drawer.close(); render(); }, { level: 2, label: 'Categories' }) : null;
+    let view;
+    if (section === 'sell') view = sellView(ctx, drawer, setDrawer);
+    else if (section === 'gear' || section === 'tackle') view = gearView(ctx, subOf[section], drawer, setDrawer);
+    else if (section === 'bait') view = gearView(ctx, 'bait', drawer, setDrawer);
+    else view = buildView(ctx, subOf.build, drawer, setDrawer);
+    fill(place.body, face ? keeper : null, h('div.counter', tabs, sub, view.grid, view.plate ?? null));
+    if (drawer.isOpen && drawerFor) drawerFor();
   }
+  function setDrawer(fn) { drawerFor = fn; fn(); }
 
   render();
   return {
     id: 'shop',
-    el: root,
-    refresh: () => keepScroll(root, render),
-    onOpen: () => {
-      if (!focus) return;
-      root.querySelector(`[data-focus="${focus}"]`)?.scrollIntoView({ block: 'start' });
-    },
+    el: place.root,
+    layerClass: 'is-place',
+    refresh: render,
     onClose: () => detachAllGearPreviews(),
+    dismiss: () => { if (drawer.isOpen) drawer.close(); else ui.close(); },
   };
 }
 
-// ---------------------------------------------------------------- sell
-function sellTab({ state, economy, ui }) {
+// ---------------------------------------------------------------- Sell: fish on the counter, the scale below
+function sellView(ctx, drawer, setDrawer) {
+  const { state, economy, ui } = ctx;
   const p = state.profile;
-  const fishData = state.data.fish ?? {};
   const hotId = economy.hotFish();
-  const body = [];
-
-  if (hotId && fishData[hotId]) {
-    const bonus = Math.round(((state.data.economy?.market?.hotFish?.bonus ?? 1.5) - 1) * 100);
-    body.push(h('p.hot-line', ico('flame'), h('span', `Buyers want ${fishData[hotId].name} today. They pay ${bonus}% more for it.`)));
-  }
-
   if (!p.cooler.length) {
-    body.push(h('div.empty', h('strong', 'Nothing to sell'), 'Your cooler is empty. Cast a line from the pier and bring something back.'));
-    return { body, foot: null };
+    return { grid: h('p.counter__empty', 'Nothing on the counter yet. Bring fish from the pier.') };
   }
-
-  const list = h('ul.lots');
-  for (const c of p.cooler) {
-    const f = fishData[c.fishId] ?? { name: c.fishId };
-    const name = fullName(f.name, economy.variant(c.variant));
-    const size = sizeClassById(state.data, c.sizeClass);
-    const price = economy.price(c);
-    const mult = marketMult(state.data, p, c.fishId, 0, null);
-    list.append(h('li.lot',
-      fishWindow('lot__mark', fishPreview(state, c.fishId)),
-      h('div.lot__main',
-        h('div.lot__name', name),
-        h('div.lot__meta',
-          h('span.t-num', fmtKg(c.weight)),
-          size ? h(`span.stamp.stamp--${size.id}`, size.name) : null,
-          variantToken(economy, c.variant),
-          c.fishId === hotId ? h('span.pebble.pebble--amber', 'In demand') : null,
-          mult < 0.95 ? h('span.lot__drop', 'Price falling') : null)),
-      h('div.lot__sell',
-        h('button.btn', { 'aria-label': `Sell ${name} for ${fmt(price)}`, on: { click: () => { economy.sellCatch(c.id); } } }, money(price)))));
-  }
-  body.push(list);
-
+  const tiles = p.cooler.map((c) => {
+    const f = state.data.fish?.[c.fishId] ?? { name: c.fishId };
+    const v = economy.variant(c.variant);
+    const name = fullName(f.name, v);
+    return Tile({
+      fish: true,
+      art: fishPose(state, c.fishId, 'rest'),
+      name,
+      value: [money(economy.price(c))],
+      badge: c.fishId === hotId ? 'Hot' : v.kind !== 'basic' ? `×${fmt(v.valueMult)}` : null,
+      label: `${name}, ${fmtKg(c.weight)}, worth ${fmt(economy.price(c))}`,
+      onTap: () => setDrawer(() => drawer.open(...fishDrawer(ctx, c, drawer))),
+    });
+  });
   const { total } = economy.sellAllPreview();
-  const cap = economy.coolerCapacity();
-  const foot = h('footer.sheet__foot',
-    h('p.foot-note', h('b.t-num', `${p.cooler.length} of ${cap}`), ' ', h('br'), 'in your cooler'),
-    h('button.btn.btn--primary', {
-      on: { click: () => { const r = economy.sellAll(); if (r.ok) ui.toast(`Sold ${plural(r.count, 'fish', 'fish')} for ${fmt(r.total)}`); } },
-    }, h('span', 'Sell all for'), h('span.t-num', fmt(total))));
-  return { body, foot };
+  const grid = TileGrid(tiles, { label: 'Your catch' });
+  grid.classList.add('tilegrid--fish');
+  const plate = Plate([h('span', 'Sell all'), money(total)], (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const r = economy.sellAll();
+    if (r.ok) ui.flyCoins?.(rect, r.total);
+  }, { label: `Sell all ${p.cooler.length} fish for ${fmt(total)} coins` });
+  return { grid, plate };
 }
 
-// ---------------------------------------------------------------- buy
-const STAT_ROWS = {
-  rod: [
-    { key: 'castDistance', label: 'Reach', fmt: (v) => `${v} m`, diff: (d) => `${d > 0 ? '+' : ''}${d}` },
-    { key: 'steadiness', label: 'Steady', fmt: (v) => `${Math.round(v * 100)}`, diff: (d) => `${d > 0 ? '+' : ''}${Math.round(d * 100)}` },
-    { key: 'rodPower', label: 'Power', fmt: (v) => `${v.toFixed(2)}×`, diff: (d) => `${d > 0 ? '+' : ''}${d.toFixed(2)}` },
-  ],
-  reel: [{ key: 'reelSpeed', label: 'Reel speed', fmt: (v) => `${v.toFixed(2)}×`, diff: (d) => `${d > 0 ? '+' : ''}${d.toFixed(2)}` }],
-  line: [{ key: 'lineStrength', label: 'Strength', fmt: (v) => `${v.toFixed(2)}×`, diff: (d) => `${d > 0 ? '+' : ''}${d.toFixed(2)}` }],
-  bait: [{ key: 'attraction', label: 'Lure', fmt: (v) => `${v.toFixed(2)}×`, diff: (d) => `${d > 0 ? '+' : ''}${d.toFixed(2)}` }],
+export function fishDrawer(ctx, c, drawer, { keepLabel = 'Keep' } = {}) {
+  const { state, economy, ui } = ctx;
+  const f = state.data.fish?.[c.fishId] ?? { name: c.fishId };
+  const v = economy.variant(c.variant);
+  const name = fullName(f.name, v);
+  const size = sizeClassById(state.data, c.sizeClass);
+  const price = economy.price(c);
+  const art = fishPose(state, c.fishId, 'hero');
+  const pic = h('div.drawer__fish');
+  const img = artImg(art, '', { alt: '' });
+  if (img) pic.append(img); else pic.append(ico('fish'));
+  return [
+    pic,
+    h('h3.drawer__title', name),
+    h('div.drawer__facts', h('span.t-num', fmtKg(c.weight)), size ? h(`span.stamp.stamp--${size.id}`, size.name) : null, variantToken(economy, c.variant)),
+    h('div.drawer__actions',
+      Plate(keepLabel, () => drawer.close(), { kind: 'wood' }),
+      Plate([h('span', 'Sell'), money(price)], (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const r = economy.sellCatch(c.id);
+        drawer.close();
+        if (r.ok) ui.flyCoins?.(rect, r.price);
+      }, { label: `Sell ${name} for ${fmt(price)} coins` })),
+  ];
+}
+
+// ---------------------------------------------------------------- Gear / Tackle / Bait
+const STATS = {
+  rod: [['Reach', 'castDistance', (v) => `${v} m`], ['Steady', 'steadiness', (v) => `${Math.round(v * 100)}`], ['Power', 'rodPower', (v) => `${v.toFixed(2)}×`], ['Rated', 'rating', (v) => `${v} kg`]],
+  reel: [['Reel speed', 'reelSpeed', (v) => `${v.toFixed(2)}×`]],
+  line: [['Strength', 'strength', (v) => `${v} kg`]],
+  bait: [['Lure', 'attraction', (v) => `${v.toFixed(2)}×`]],
+  hook: [['Hold', 'hookHold', (v) => `${v.toFixed(2)}×`], ['Bite window', 'biteWindow', (v) => `${v.toFixed(2)}×`]],
+  sinker: [['Depth', 'depthReach', (v) => `${v} m`]],
+  float: [['Bite window', 'biteWindow', (v) => `${v.toFixed(2)}×`]],
+  leader: [['Leader', 'leader', (v) => `${v} kg`]],
+  lure: [['Lure', 'lure', (v) => `${v.toFixed(2)}×`]],
+  tool: [],
 };
 
 function baitBrings(state, baitId) {
@@ -145,283 +198,257 @@ function baitBrings(state, baitId) {
   if (!fish.length) return null;
   const known = fish.filter(([id]) => state.profile.fishdex[id]).map(([, f]) => f.name);
   const unknown = fish.length - known.length;
-  const parts = [...known];
-  if (unknown) parts.push(unknown === 1 ? 'one fish you have not met' : `${unknown} fish you have not met`);
-  return `Brings ${parts.length > 1 ? parts.slice(0, -1).join(', ') + ' and ' + parts.at(-1) : parts[0]}.`;
+  return `Brings ${[...known, unknown ? `${unknown} unknown` : null].filter(Boolean).join(', ')}.`;
 }
 
-function buyTab(ctx) {
-  const { state, economy } = ctx;
+function gearView(ctx, slot, drawer, setDrawer) {
+  const { state, economy, ui } = ctx;
   const p = state.profile;
-  const body = [];
-  for (const { slot, group } of SLOTS) {
-    const all = Object.entries(state.data.items?.[group] ?? {}).sort((a, b) => a[1].cost - b[1].cost);
-    const owned = all.filter(([id]) => p.owned[group].includes(id));
-    const next = all.filter(([id]) => !p.owned[group].includes(id)).slice(0, 2);
-    const equippedId = p.gear[slot];
-    const equipped = economy.item(slot, equippedId);
-    // older rods, reels and lines are strictly worse: keep them in the locker. Every bait brings different fish: show all.
-    const eqCost = equipped?.cost ?? 0;
-    const ownedShown = slot === 'bait' ? owned : owned.filter(([id, it]) => id === equippedId || it.cost >= eqCost);
-    const older = owned.length - ownedShown.length;
-    body.push(h('h3.section-title', { 'data-focus': slot }, GROUP_TITLE[slot]));
-    const list = h('ul.gear-list');
-    for (const [id, item] of [...ownedShown, ...next]) list.append(gearTag(ctx, slot, id, item, equippedId, equipped));
-    if (older > 0) list.append(h('li.slot-label.locker-note', `${plural(older, 'older piece')} in your locker.`));
-    body.push(list);
-  }
-  return { body };
-}
-
-/**
- * The showcase strip at the top of a gear tag: Agent F's painting (art.json gear.<slot>.<id>) as the backdrop,
- * Agent G's model (gear manifest <slot>.<id>) turning in front of it. Either alone works; with neither the strip is left out.
- */
-function gearShowcase(state, slot, id, item) {
-  const art = artPath(state, `gear.${slot}.${id}`);
-  const modelId = slot === 'line' ? null : item.model;
-  if (!art && !modelId) return null;
-  const show = h('div.gear__show', { hidden: true });
-  const reveal = () => { show.hidden = false; };
-  const img = artImg(art, 'gear__art', { alt: '', onShow: reveal });
-  if (img) show.append(img);
-  if (modelId) {
-    const canvas = h('canvas.gear__model', { 'aria-hidden': 'true' });
-    show.append(canvas);
-    gearManifestReady().then(() => {
-      if (!hasGearModel(modelId)) { canvas.remove(); return; }
-      attachGearPreview(canvas, modelId, {
-        onReady: () => { canvas.classList.add('is-live'); reveal(); },
-        onMissing: () => canvas.remove(),
-      });
+  const group = slotInfo(slot)?.group;
+  const items = Object.entries(state.data.items?.[group] ?? {}).sort((a, b) => a[1].cost - b[1].cost);
+  const equippedId = p.gear[slot];
+  const tiles = items.map(([id, item]) => {
+    const owned = economy.owns(slot, id);
+    const equipped = slot === 'tool' ? owned : id === equippedId;
+    const broken = slot === 'rod' && p.condition?.rodBroken?.[id];
+    const stack = Number.isFinite(item.stack) ? economy.stackOf(id) : null;
+    const value = equipped && slot !== 'tool' ? h('span.tile__state', 'In use')
+      : owned && slot === 'tool' ? h('span.tile__state', 'Owned')
+      : owned && !Number.isFinite(item.stack) ? h('span.tile__state', 'Owned')
+      : item.unlimited ? h('span.tile__state', 'Free')
+      : money(item.cost);
+    return Tile({
+      art: artPath(state, `gear.${slot}.${id}`),
+      icon: SLOT_ICON[slot],
+      name: item.name,
+      value,
+      state: broken ? 'broken' : equipped ? 'equipped' : owned ? 'owned' : null,
+      badge: stack ? `×${stack}` : null,
+      label: `${item.name}${broken ? ', broken' : equipped ? ', in use' : owned ? ', owned' : `, ${fmt(item.cost)} coins`}`,
+      onTap: () => setDrawer(() => drawer.open(...gearDrawer(ctx, slot, id, item, drawer))),
+    });
+  });
+  // the repair / re-spool spot, only when something needs it
+  let plate = null;
+  if (slot === 'rod' && (p.condition?.rodBroken?.[equippedId] || economy.rodStrain() > 0.5)) {
+    const cost = economy.repairCost();
+    plate = Plate([ico('wrench'), h('span', p.condition.rodBroken?.[equippedId] ? 'Repair rod' : 'Mend rod'), money(cost)], () => {
+      const r = economy.repairRod();
+      if (r.ok) ui.toast('Your rod is good as new');
+      else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need)} more coins`, 'danger');
+    });
+  } else if (slot === 'line' && (p.condition?.lineWear ?? 0) > 0.25) {
+    const cost = economy.respoolCost();
+    plate = Plate([ico('line'), h('span', `Re-spool (${Math.round(p.condition.lineWear * 100)}% worn)`), money(cost)], () => {
+      const r = economy.respool();
+      if (r.ok) ui.toast('Fresh line on the reel');
+      else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need)} more coins`, 'danger');
     });
   }
-  return show;
+  return { grid: TileGrid(tiles, { label: slotInfo(slot)?.label ?? slot }), plate };
 }
 
-function gearTag({ state, economy, ui }, slot, id, item, equippedId, equipped) {
+function gearDrawer(ctx, slot, id, item, drawer) {
+  const { state, economy, ui } = ctx;
   const p = state.profile;
-  const isEquipped = id === equippedId;
-  const isOwned = economy.owns(slot, id);
-  const stats = h('ul.gear__stats', STAT_ROWS[slot].map((row) => {
-    const v = item.stats?.[row.key] ?? 0;
-    const d = v - (equipped?.stats?.[row.key] ?? 0);
-    const dEl = !isEquipped && Math.abs(d) > 1e-6 ? h(`span.d.${d > 0 ? 'd--up' : 'd--down'}`, row.diff(d)) : null;
-    return h('li', row.label, h('span.v', row.fmt(v)), dEl);
-  }));
+  const equippedId = p.gear[slot];
+  const equipped = equippedId ? economy.item(slot, equippedId) : null;
+  const owned = economy.owns(slot, id);
+  const isTool = slot === 'tool';
+  const isEquipped = !isTool && id === equippedId;
+  const rows = (STATS[slot] ?? []).map(([label, key, f]) => {
+    const now = equipped?.stats?.[key];
+    const then = item.stats?.[key];
+    if (then == null) return null;
+    if (isEquipped || now == null) return StatRow(label, f(then), null);
+    return StatRow(label, f(now), f(then), then > now ? true : then < now ? false : null);
+  });
+  const lines = [];
+  if (slot === 'bait') lines.push(baitBrings(state, id));
+  if (slot === 'lure' && item.targets?.length) lines.push(`Best for ${item.targets.map((t) => state.data.fish?.[t]?.name ?? t).join(', ')}.`);
+  if (isTool) lines.push(TOOL_LINE[id] ?? null);
+  if (slot === 'rod' && item.unbreakable) lines.push('Never breaks.');
+  if (slot === 'rod' && isEquipped && economy.rodStrain() > 0) lines.push(p.condition.rodBroken?.[id] ? 'Broken. Repair it here at the counter.' : `Strained ${Math.round(economy.rodStrain() * 100)}%.`);
+  if (slot === 'line' && isEquipped && p.condition.lineWear > 0.01) lines.push(`${Math.round(p.condition.lineWear * 100)}% worn.`);
 
-  let note = null;
-  let button;
-  if (isEquipped) {
-    button = h('span.in-use', ico('check'), 'In use');
-  } else if (isOwned) {
-    button = h('button.btn', { on: { click: () => { economy.equipItem(slot, id); ui.toast(`${item.name} is ready`); } } }, 'Use this');
+  const buy = (packs = 1) => (e) => {
+    const r = economy.buyItem(slot, id, packs);
+    if (r.ok) ui.toast(Number.isFinite(item.stack) ? `+${r.added} ${item.name}` : `Bought the ${item.name}`);
+    else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need)} more coins`, 'danger');
+  };
+  const actions = [];
+  const short = (n) => item.cost * n > p.coins;
+  if (Number.isFinite(item.stack)) {
+    actions.push(Plate([h('span', `×${item.stack}`), money(item.cost)], buy(1), { disabled: short(1), kind: 'wood', label: `Buy ${item.stack} for ${fmt(item.cost)}` }));
+    actions.push(Plate([h('span', `×${item.stack * 4}`), money(item.cost * 4)], buy(4), { disabled: short(4), label: `Buy ${item.stack * 4} for ${fmt(item.cost * 4)}` }));
+    if (owned && !isEquipped) actions.unshift(Plate('Use', () => { economy.equipItem(slot, id); }, { kind: 'wood' }));
+  } else if (isTool) {
+    actions.push(owned ? h('p.drawer__done', ico('check'), 'Always with you') : Plate([h('span', 'Buy'), money(item.cost)], buy(1), { disabled: short(1) }));
+  } else if (!owned && !item.unlimited) {
+    actions.push(Plate([h('span', 'Buy'), money(item.cost)], buy(1), { disabled: short(1) }));
+  } else if (!isEquipped) {
+    actions.push(Plate('Use this', () => economy.equipItem(slot, id)));
   } else {
-    const short = item.cost - p.coins;
-    button = h('button.btn', {
-      'aria-disabled': short > 0 ? 'true' : null,
-      'aria-label': `Buy ${item.name} for ${fmt(item.cost)}`,
-      on: {
-        click: () => {
-          const r = economy.buyItem(slot, id);
-          if (r.ok) ui.toast(`Bought the ${item.name}`);
-          else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need)} more coins`, 'danger');
-        },
-      },
-    }, money(item.cost));
-    note = short > 0 ? `${fmt(short)} more to go` : equipped ? `Replaces ${equipped.name}` : null;
+    if (slot === 'rod' && (p.condition.rodBroken?.[id] || economy.rodStrain() > 0)) {
+      actions.push(Plate([ico('wrench'), h('span', 'Repair'), money(economy.repairCost(id))], () => economy.repairRod(id)));
+    } else if (slot === 'line' && p.condition.lineWear > 0.01) {
+      actions.push(Plate([h('span', 'Re-spool'), money(economy.respoolCost())], () => economy.respool()));
+    } else actions.push(h('p.drawer__done', ico('check'), 'In use'));
+    if (slotInfo(slot)?.optional) actions.push(Plate('Take off', () => economy.equipItem(slot, null), { kind: 'wood' }));
   }
-  if (slot === 'bait') note = baitBrings(state, id) ?? note;
-
-  const lineSwatch = slot === 'line' && item.material
-    ? h('span.line-swatch', { style: { '--line': item.material.colour, '--glow': item.material.glow ?? 0 }, 'aria-hidden': 'true' })
-    : null;
-
-  return h(`li.gear.tag${isEquipped ? '.is-equipped' : ''}`,
-    gearShowcase(state, slot, id, item),
-    h('div.gear__head', h('h4.gear__name', item.name), lineSwatch),
-    h('p.gear__flavour', item.flavour),
-    stats,
-    h('div.gear__foot', h('span.slot-label', note ?? ''), button));
+  const stack = Number.isFinite(item.stack) ? economy.stackOf(id) : null;
+  return [
+    showcase(artPath(state, `gear.${slot}.${id}`), slot === 'line' ? null : item.model),
+    h('h3.drawer__title', item.name, stack ? h('span.drawer__stack.t-num', ` ×${stack}`) : null),
+    h('p.drawer__line', item.flavour),
+    rows.some(Boolean) ? h('div.drawer__stats', rows) : null,
+    ...lines.filter(Boolean).map((l) => h('p.drawer__note', l)),
+    h('div.drawer__actions', actions),
+  ];
 }
 
-// ---------------------------------------------------------------- harbour
-function buildingEffect(state, id, lvl) {
+// ---------------------------------------------------------------- Build: buildings, land, piers, boats, crew
+function levelPath(def, current) {
+  return h('ol.levelpath', def.levels.slice(1).map((l, i) => h(`li${i + 1 <= current ? '.is-done' : ''}${i + 1 === current + 1 ? '.is-next' : ''}`, h('span.t-num', `${i + 1}`), h('span', l.name))));
+}
+
+function buildingLine(state, id, lvl) {
   if (!lvl) return '';
   switch (id) {
-    case 'shop': return lvl.sellBonus ? `Buyers pay ${Math.round(lvl.sellBonus * 100)}% more for every fish.` : 'Buyers pay the going rate.';
+    case 'shop': return lvl.sellBonus ? `Buyers pay ${Math.round(lvl.sellBonus * 100)}% more.` : 'Buyers pay the going rate.';
     case 'cooler': return `Holds ${lvl.capacity} fish.`;
-    case 'workers_hut': return lvl.slots ? `Bunks for ${lvl.slots} fishers${lvl.rateMult > 1 ? `, who work ${Math.round((lvl.rateMult - 1) * 100)}% faster` : ''}.` : 'No bunks yet.';
-    case 'smokehouse': return lvl.crewBonus ? `The crew's catch sells for ${Math.round(lvl.crewBonus * 100)}% more.` : 'Smokes the crew’s catch so it sells for more.';
-    case 'aquarium': return lvl.coinsPerSpeciesHour ? `Visitors pay ${lvl.coinsPerSpeciesHour} an hour for each species in your logbook.` : 'Visitors would pay to see your logbook species.';
-    case 'boat_dock': {
-      const boat = Object.values(state.data.economy?.boats ?? {}).find((b) => b?.tier === lvl.maxBoat);
-      return lvl.maxBoat > 1 ? `Room for a ${boat?.name?.toLowerCase() ?? 'bigger boat'}.` : 'Your rowboat is pulled up on the sand.';
-    }
+    case 'workers_hut': return `Bunks for ${lvl.slots}${lvl.rateMult > 1 ? `, ${Math.round((lvl.rateMult - 1) * 100)}% faster` : ''}.`;
+    case 'smokehouse': return `Crew catch sells for ${Math.round((lvl.crewBonus ?? 0) * 100)}% more.`;
+    case 'aquarium': return `${lvl.coinsPerSpeciesHour ?? 0} an hour per species.`;
+    case 'boat_dock': return `Fits a ${(Object.values(state.data.economy?.boats ?? {}).find((b) => b?.tier === lvl.maxBoat)?.name ?? 'boat').toLowerCase()}.`;
     default: return '';
   }
 }
 
-function priceButton({ state, ui }, cost, label, action, okText, blocked = null) {
-  const short = cost - state.profile.coins;
-  return h('button.btn', {
-    'aria-disabled': short > 0 || blocked ? 'true' : null,
-    'aria-label': `${label} for ${fmt(cost)}`,
-    on: {
-      click: () => {
-        if (blocked) { ui.toast(blocked, 'danger'); return; }
-        const r = action();
-        if (r.ok) ui.toast(okText(r));
-        else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need ?? short)} more coins`, 'danger');
-      },
-    },
-  }, money(cost));
-}
-
-/** A harbour row. `art` (optional) is a painted card from art.json shown as a banner. */
-function work({ icon, name, now, next, extra = null, focusId = null, art = null }) {
-  const banner = art ? h('div.work__art') : null;
-  if (banner) {
-    const img = artImg(art, '', { alt: '', slot: banner });
-    if (img) banner.append(img);
-  }
-  return h(`li.work${banner ? '.has-art' : ''}`, focusId ? { 'data-focus': focusId } : null,
-    banner,
-    h('div.work__icon', ico(icon)),
-    h('div.work__name', name, extra),
-    h('div.work__now', now),
-    next);
-}
-
-function knots(level, total) {
-  return h('span.knots', { 'aria-label': `Stage ${level} of ${total}` }, Array.from({ length: total }, (_, i) => h(`i${i < level ? '.on' : ''}`)));
-}
-
-const plotName = (state, id) => state.data.economy?.plots?.[id]?.name ?? id;
-
-function harbourTab(ctx) {
+function buildView(ctx, sub, drawer, setDrawer) {
   const { state, economy, ui } = ctx;
   const p = state.profile;
-  const body = [];
-
-  if (isVisitor(state)) {
-    body.push(h('p.chart-note', visitorLine(state)));
-    return { body };
-  }
-
-  const rates = economy.incomeRates();
+  if (isVisitor(state)) return { grid: h('p.counter__empty', `This is ${hostName(state)}'s island. Build on your own.`) };
   const plots = state.data.economy?.plots ?? {};
-
-  // crew
-  body.push(h('h3.section-title', { 'data-focus': 'crew' }, 'Crew'));
-  const crew = h('ul.works');
-  const bunks = economy.crewBunks();
-  const spots = economy.crewSpots();
-  const slots = Math.min(bunks, spots);
-  const names = p.workers.map((w) => w.name);
-  const crewNow = names.length
-    ? `${names.length > 1 ? names.slice(0, -1).join(', ') + ' and ' + names.at(-1) : names[0]} ${names.length > 1 ? 'fish' : 'fishes'} for you: about ${fmt(rates.crew * 60)} coins a minute, also while you are away.`
-    : 'Nobody fishes for you yet. A hired fisher works all day and keeps going while you are away.';
-  let hireNext;
-  if (p.workers.length < slots) {
-    hireNext = h('div.work__next', h('p', `${p.workers.length} of ${slots} places taken.`),
-      priceButton(ctx, economy.hireCost(), 'Hire a fisher', () => economy.hireWorker(), (r) => `${r.name} joined your crew`));
-  } else if (bunks === 0) {
-    hireNext = h('div.work__next', h('p', `A fisher needs a bunk. Build the workers' hut on ${plotName(state, state.data.economy?.buildings?.workers_hut?.site)}.`));
-  } else if (p.workers.length >= bunks) {
-    hireNext = h('div.work__next', h('p', `All ${bunks} bunks are taken. A bigger workers' hut makes room.`));
+  const plotName = (id) => plots[id]?.name ?? id;
+  const start = (kind, id) => {
+    const r = economy.startBuild(kind, id);
+    if (r.ok) { ui.close(); ui.toast(kind === 'plot' ? `${r.name}: rising from the sea` : `${r.name}: choose a spot`); }
+    else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need)} more coins`, 'danger');
+    else if (r.reason === 'site') ui.toast(`Raise ${plotName(r.plot)} first`, 'danger');
+    else if (r.reason === 'busy') ui.toast('Finish the build you started first', 'danger');
+  };
+  let tiles = [];
+  if (sub === 'buildings') {
+    tiles = BUILDINGS.map((id) => {
+      const b = economy.building(id);
+      const level = b.built && b.index > 0 ? b.index : 0;
+      const next = b.next;
+      const art = artPath(state, `building.${id}.l${Math.max(1, next ? level + 1 : level)}`);
+      return Tile({
+        art, icon: ctx.ui.buildingIcon(id), name: b.def.name,
+        value: next ? money(next.cost) : h('span.tile__state', 'Finished'),
+        state: !next ? 'owned' : !b.siteOwned ? 'locked' : null,
+        badge: level ? `L${level}` : null,
+        onTap: () => setDrawer(() => {
+          const bb = economy.building(id);
+          const nn = bb.next;
+          const lvlNow = bb.built && bb.index > 0 ? bb.index : 0;
+          drawer.open(
+            showcase(artPath(state, `building.${id}.l${Math.max(1, nn ? lvlNow + 1 : lvlNow)}`), nn?.model ?? bb.model ?? null, 'world'),
+            h('h3.drawer__title', nn ? nn.name : bb.name),
+            h('p.drawer__line', nn ? `${nn.about ?? ''} ${buildingLine(state, id, nn)}` : buildingLine(state, id, bb)),
+            levelPath(bb.def, lvlNow),
+            !bb.siteOwned ? h('p.drawer__note', `Stands on ${plotName(bb.def.site)}. Raise it first.`) : null,
+            h('div.drawer__actions', nn
+              ? Plate([h('span', lvlNow ? 'Upgrade' : 'Place it'), money(nn.cost)], () => start('building', id), { disabled: !bb.siteOwned || nn.cost > p.coins })
+              : h('p.drawer__done', ico('check'), 'Finished')));
+        }),
+      });
+    });
+  } else if (sub === 'land') {
+    const next = economy.nextPlot();
+    tiles = Object.entries(plots).filter(([k]) => !k.startsWith('_') && k !== 'sandbar').sort((a, b) => a[1].order - b[1].order).map(([id, def]) => {
+      const owned = p.island.plots.includes(id);
+      return Tile({
+        icon: 'plot', name: def.name,
+        value: owned ? h('span.tile__state', 'Yours') : money(def.cost),
+        state: owned ? 'owned' : id === next ? null : 'locked',
+        onTap: () => setDrawer(() => drawer.open(
+          showcase(null, def.model, 'world'),
+          h('h3.drawer__title', def.name),
+          h('p.drawer__line', def.about),
+          h('div.drawer__actions', owned ? h('p.drawer__done', ico('check'), 'Yours')
+            : id === next ? Plate([h('span', 'Raise it'), money(def.cost)], () => start('plot', id), { disabled: def.cost > p.coins })
+            : h('p.drawer__note', `Raise ${plotName(next)} first.`)))),
+      });
+    });
+  } else if (sub === 'piers') {
+    const next = economy.nextPier();
+    tiles = Object.entries(state.data.economy?.piers ?? {}).filter(([k]) => !k.startsWith('_')).map(([id, def]) => {
+      const owned = p.island.piers.includes(id);
+      const isNext = next?.id === id;
+      return Tile({
+        icon: 'pier', name: def.name,
+        value: owned ? h('span.tile__state', `${def.depth} m`) : money(def.cost),
+        state: owned ? 'owned' : isNext && next.plotOwned ? null : 'locked',
+        onTap: () => setDrawer(() => drawer.open(
+          h('h3.drawer__title', def.name),
+          h('p.drawer__line', `${def.about} Water ${def.depth} m deep.`),
+          h('div.drawer__actions', owned ? h('p.drawer__done', ico('check'), 'Built')
+            : isNext && next.plotOwned ? Plate([h('span', 'Build it'), money(def.cost)], () => start('pier', id), { disabled: def.cost > p.coins })
+            : h('p.drawer__note', isNext ? `Needs ${plotName(def.plot)}.` : 'Build the piers before it first.')))),
+      });
+    });
+  } else if (sub === 'boats') {
+    const cur = economy.boat();
+    const nb = economy.nextBoat();
+    tiles = Object.entries(state.data.economy?.boats ?? {}).filter(([k]) => !k.startsWith('_')).sort((a, b) => a[1].tier - b[1].tier).map(([id, def]) => {
+      const owned = def.tier <= cur.tier;
+      const isNext = nb?.id === id;
+      return Tile({
+        icon: 'boat', name: def.name,
+        value: id === cur.id ? h('span.tile__state', 'Yours') : owned ? h('span.tile__state', 'Sold') : money(def.cost),
+        state: id === cur.id ? 'equipped' : owned ? 'owned' : isNext && nb.dockFits ? null : 'locked',
+        onTap: () => setDrawer(() => drawer.open(
+          showcase(null, id, 'boats'),
+          h('h3.drawer__title', def.name),
+          h('p.drawer__line', def.about),
+          h('div.drawer__actions', id === cur.id ? h('p.drawer__done', ico('check'), 'Tied up at your dock')
+            : isNext && nb.dockFits ? Plate([h('span', 'Buy'), money(def.cost)], () => { const r = economy.buyBoat(id); if (r.ok) ui.toast(`The ${r.name} is tied up at the dock`); }, { disabled: def.cost > p.coins })
+            : h('p.drawer__note', isNext ? 'Needs a bigger boat dock.' : owned ? 'Traded in for a better boat.' : 'Buy the boats before it first.')))),
+      });
+    });
   } else {
-    hireNext = h('div.work__next', h('p', `Every fishing spot is taken (${spots}). Another pier or new land gives the crew somewhere to stand.`));
-  }
-  crew.append(work({ icon: 'hat', name: 'Hire a fisher', now: crewNow, next: hireNext, focusId: 'workers_hut' }));
-  body.push(crew);
-
-  // land and piers
-  body.push(h('h3.section-title', { 'data-focus': 'land' }, 'Land and piers'));
-  const land = h('ul.works');
-  const nextPlotId = economy.nextPlot();
-  if (nextPlotId) {
-    const def = plots[nextPlotId];
-    land.append(work({
-      icon: 'plot', name: def.name, now: def.about,
-      next: h('div.work__next', h('p', 'Raise it from the sea.'),
-        priceButton(ctx, def.cost, `Raise ${def.name}`, () => economy.buyPlot(nextPlotId), (r) => `${r.name} rose from the sea`)),
+    // crew: everyone you hired, one tile to hire, one for the night watch
+    const slots = economy.crewSlots();
+    const bunks = economy.crewBunks();
+    tiles = p.workers.map((w) => Tile({ icon: 'hat', name: w.name, value: h('span.tile__state', 'Fishing'), state: 'owned', onTap: () => {} }));
+    const canHire = p.workers.length < slots;
+    tiles.push(Tile({
+      icon: 'crew', name: 'Hire a fisher', value: canHire ? money(economy.hireCost()) : h('span.tile__state', bunks ? 'No room' : 'No hut'),
+      state: canHire ? null : 'locked',
+      onTap: () => setDrawer(() => drawer.open(
+        h('h3.drawer__title', 'Hire a fisher'),
+        h('p.drawer__line', `About ${fmt(economy.incomeRates().crew * 60 / Math.max(1, p.workers.length) || 4.7)} coins a minute each, also while you are away.`),
+        h('p.drawer__note', `${p.workers.length} of ${slots} places. ${bunks === 0 ? "Build the workers' hut first." : p.workers.length >= bunks ? 'A bigger hut makes room.' : p.workers.length >= slots ? 'A pier or new land gives them a spot.' : ''}`),
+        h('div.drawer__actions', canHire
+          ? Plate([h('span', 'Hire'), money(economy.hireCost())], () => { const r = economy.hireWorker(); if (r.ok) ui.toast(`${r.name} joined your crew`); else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need)} more coins`, 'danger'); }, { disabled: economy.hireCost() > p.coins })
+          : null))),
+    }));
+    const watch = economy.nextWatch();
+    tiles.push(Tile({
+      icon: 'hourglass', name: 'Night watch', value: watch ? money(watch.cost) : h('span.tile__state', `${economy.offlineCapHours()} h`),
+      state: watch ? null : 'owned',
+      onTap: () => setDrawer(() => drawer.open(
+        h('h3.drawer__title', watch ? watch.name : 'Night watch'),
+        h('p.drawer__line', `The harbour earns for ${economy.offlineCapHours()} h while you are away${watch ? `; this makes it ${watch.hours} h` : ''}.`),
+        h('div.drawer__actions', watch
+          ? Plate([h('span', 'Hire'), money(watch.cost)], () => { const r = economy.buyWatch(); if (r.ok) ui.toast(`${r.name}: ${r.hours} hours`); }, { disabled: watch.cost > p.coins })
+          : h('p.drawer__done', ico('check'), 'The harbour never sleeps')))),
     }));
   }
-  const pier = economy.nextPier();
-  if (pier) {
-    land.append(work({
-      icon: 'boat', name: pier.name, now: `${pier.about} Reaches water ${pier.depth} m deep.`,
-      next: h('div.work__next',
-        h('p', pier.plotOwned ? 'One more fishing spot for the crew.' : `Needs ${plotName(state, pier.plot)} first.`),
-        priceButton(ctx, pier.cost, `Build ${pier.name}`, () => economy.buyPier(pier.id), (r) => `${r.name} is built: water ${r.depth} m deep`,
-          pier.plotOwned ? null : `Raise ${plotName(state, pier.plot)} first`)),
-      focusId: 'pier',
-    }));
-  }
-  const ownedPlots = p.island.plots.map((id) => plots[id]?.name ?? id);
-  const ownedPiers = p.island.piers.map((id) => state.data.economy?.piers?.[id]?.name ?? id);
-  land.append(h('li.crew-names', `Your island: ${ownedPlots.join(', ')}${ownedPiers.length ? `. Piers: ${ownedPiers.join(', ')}` : ''}.`));
-  body.push(land);
-
-  // buildings
-  body.push(h('h3.section-title', { 'data-focus': 'buildings' }, 'Buildings'));
-  const list = h('ul.works');
-  for (const id of BUILDINGS) {
-    const b = economy.building(id);
-    if (!b) continue;
-    const title = b.built ? b.name : b.def.name;
-    const now = b.built ? [b.about ? `${b.about} ` : '', buildingEffect(state, id, b)] : `Not built yet. ${b.def.about}`;
-    // the painting shows the stage you have, or the first stage while it is not built yet
-    const artLevel = b.built && b.index > 0 ? b.index : 1;
-    const art = artPath(state, `building.${id}.l${artLevel}`);
-    let next;
-    if (!b.next) next = h('div.work__next', h('p', 'As good as it gets.'));
-    else {
-      const blocked = b.siteOwned ? null : `Raise ${plotName(state, b.def.site)} first`;
-      next = h('div.work__next',
-        h('p', `${b.built ? 'Next' : 'Build'}: `, h('b', b.next.name), '. ', buildingEffect(state, id, b.next), b.siteOwned ? '' : ` Stands on ${plotName(state, b.def.site)}.`),
-        priceButton(ctx, b.next.cost, `${b.built ? 'Upgrade to' : 'Build'} ${b.next.name}`, () => economy.upgradeBuilding(id), (r) => `${b.def.name}: now the ${r.name}`, blocked));
-    }
-    const stages = b.def.levels.length - 1;
-    list.append(work({ icon: ui.buildingIcon(id), name: title, now, next, extra: knots(b.index, stages), focusId: id, art }));
-  }
-  body.push(list);
-
-  // boats
-  body.push(h('h3.section-title', { 'data-focus': 'boats' }, 'Boats'));
-  const boats = h('ul.works');
-  const boat = economy.boat();
-  const nb = economy.nextBoat();
-  boats.append(work({
-    icon: 'boat', name: boat.name, now: `${boat.about ?? ''} Sails as far as ${islandAt(state, boat.reach)}.`,
-    next: nb
-      ? h('div.work__next',
-        h('p', 'Next: ', h('b', nb.name), `. ${nb.about} `, nb.dockFits ? '' : 'Needs a bigger boat dock.'),
-        priceButton(ctx, nb.cost, `Buy the ${nb.name}`, () => economy.buyBoat(nb.id), (r) => `The ${r.name} is tied up at the dock`, nb.dockFits ? null : 'Build a bigger boat dock first'))
-      : h('div.work__next', h('p', 'The finest boat on the islands.')),
-  }));
-  body.push(boats);
-
-  // night watch
-  body.push(h('h3.section-title', 'While you are away'));
-  const away = h('ul.works');
-  const watch = economy.nextWatch();
-  const capH = economy.offlineCapHours();
-  away.append(work({
-    icon: 'hourglass', name: 'Night watch', now: `Your harbour keeps earning for up to ${capH} hours while you are away.`,
-    next: watch
-      ? h('div.work__next', h('p', h('b', watch.name), `: ${watch.hours} hours.`, h('i', watch.about)),
-        priceButton(ctx, watch.cost, watch.name, () => economy.buyWatch(), (r) => `${r.name}: the harbour now earns for ${r.hours} hours`))
-      : h('div.work__next', h('p', 'The harbour never sleeps.')),
-  }));
-  body.push(away);
-  return { body };
+  return { grid: TileGrid(tiles, { label: sub }) };
 }
 
-function islandAt(state, index) {
-  if (index <= 1) return 'the edge of the cove';
-  return Object.values(state.data.islands ?? {}).find((i) => i.index === index)?.name ?? `island ${index}`;
-}
-
-export { fmtDuration };
+export { fmtDuration, plural };

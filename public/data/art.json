@@ -992,8 +992,7 @@
     "alpha": false,
     "usedBy": "ui title screen background (B); logo goes in the calm top third",
     "concept": null,
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image (Apache-2.0)"
   },
   "title.loading": {
     "path": "art/title/loading.webp",
@@ -1004,8 +1003,7 @@
     "alpha": false,
     "usedBy": "ui loading screen background (B); progress bar sits in the calm bottom quarter",
     "concept": null,
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image (Apache-2.0)"
   },
   "npc.shopkeeper": {
     "path": "art/npc/shopkeeper.webp",

@@ -225,3 +225,4 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 8 Nov 21:00 | lead | Qwen-Image-Fast ×3 | 24 tackle cards (hooks, sinkers, floats, leaders, lures, tools) as 3 sheets, sliced | ~15 |
 | 8 Nov 21:05 | lead | Qwen-Image-Fast ×2 | 18 building cards (6 buildings × 3 levels) as 2 sheets, sliced | ~10 |
 | 8 Nov 21:10 | lead | Qwen-Image-Fast ×3 | bent pin redo; 11 variant emblems (sheet); 8 island stamps (sheet), their pictures reused as island chart cards | ~15 |
+| 8 Nov 21:12 | lead | Qwen-Image ×1 | title art (storm marlin over the cove), also darkened for the loading screen | ~20 |

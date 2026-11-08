@@ -108,7 +108,13 @@
     },
     "missing_clips": [],
     "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
-    "preview": "assets/character/fisher_player/preview.webp"
+    "preview": "assets/character/fisher_player/preview.webp",
+    "collider": {
+      "type": "circle",
+      "r": 0.35,
+      "x": 0,
+      "z": 0
+    }
   },
   "worker_netmender": {
     "path": "assets/character/worker_netmender/model.glb",
@@ -184,7 +190,13 @@
     "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
     "placement": "ground",
     "role": "idle worker NPC (hired fisher); rod attaches to handslot.r like the player; has its own clips: idle, walk, fish_idle, cast_windup, cast_release, reel_loop, celebrate, interact, sit_idle",
-    "preview": "assets/character/worker_netmender/preview.webp"
+    "preview": "assets/character/worker_netmender/preview.webp",
+    "collider": {
+      "type": "circle",
+      "r": 0.35,
+      "x": 0,
+      "z": 0
+    }
   },
   "worker_deckhand": {
     "path": "assets/character/worker_deckhand/model.glb",
@@ -260,7 +272,13 @@
     "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
     "placement": "ground",
     "role": "idle worker NPC (hired fisher); rod attaches to handslot.r like the player; has its own clips: idle, walk, fish_idle, cast_windup, cast_release, reel_loop, celebrate, interact, sit_idle",
-    "preview": "assets/character/worker_deckhand/preview.webp"
+    "preview": "assets/character/worker_deckhand/preview.webp",
+    "collider": {
+      "type": "circle",
+      "r": 0.35,
+      "x": 0,
+      "z": 0
+    }
   },
   "worker_angler": {
     "path": "assets/character/worker_angler/model.glb",
@@ -337,6 +355,12 @@
     "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
     "placement": "ground",
     "role": "idle worker NPC (hired fisher); rod attaches to handslot.r like the player; has its own clips: idle, walk, fish_idle, cast_windup, cast_release, reel_loop, celebrate, interact, sit_idle",
-    "preview": "assets/character/worker_angler/preview.webp"
+    "preview": "assets/character/worker_angler/preview.webp",
+    "collider": {
+      "type": "circle",
+      "r": 0.35,
+      "x": 0,
+      "z": 0
+    }
   }
 }

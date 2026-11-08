@@ -343,7 +343,7 @@
     "raw": ".cache/agent-e/raw/im_spray_fan.webp"
    },
    "steam_plume": {
-    "prompt": "a rising plume of soft white steam curling upward, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "prompt": "a rising plume of soft white steam curling upward from the bottom centre, wispy painterly edges, hand-painted stylized game VFX, gouache, isolated on a pure black background, no text, no frame",
     "usedBy": "ember boiling water steam, frost melt steam",
     "raw": ".cache/agent-e/raw/im_steam_plume.webp"
    },
@@ -354,75 +354,99 @@
    }
   }
  },
- "backdrop_storm": {
-  "path": "assets/vfx/backdrop_storm.webp",
-  "usedBy": "catch card backdrop for storm variants (Agent B shows it behind the catch card; key backdrop_storm)",
-  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
-  "kind": "backdrop",
-  "aspect": "9:16",
-  "prompt": "a torn storm sky over a dark sea, black-blue clouds split open by branching yellow lightning that frames the edges, slanting rain, a calm dark teal empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
- },
- "backdrop_frost": {
-  "path": "assets/vfx/backdrop_frost.webp",
-  "usedBy": "catch card backdrop for frost variants (Agent B shows it behind the catch card; key backdrop_frost)",
-  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
-  "kind": "backdrop",
-  "aspect": "9:16",
-  "prompt": "a frozen fjord at night, glacier walls and hanging icicles framing the edges, drifting snow, pale aurora light, a calm dark navy empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
- },
- "backdrop_ember": {
-  "path": "assets/vfx/backdrop_ember.webp",
-  "usedBy": "catch card backdrop for ember variants (Agent B shows it behind the catch card; key backdrop_ember)",
-  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
-  "kind": "backdrop",
-  "aspect": "9:16",
-  "prompt": "a volcanic caldera at dusk, lava falls and glowing cracks framing the edges, rising embers and smoke, a calm dark red-black empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
- },
- "backdrop_bloom": {
-  "path": "assets/vfx/backdrop_bloom.webp",
-  "usedBy": "catch card backdrop for bloom variants (Agent B shows it behind the catch card; key backdrop_bloom)",
-  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
-  "kind": "backdrop",
-  "aspect": "9:16",
-  "prompt": "a swamp grotto overgrown with moss, roots, hanging vines and pink blossoms framing the edges, fireflies and pollen, a calm dark green empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
- },
- "backdrop_rune": {
-  "path": "assets/vfx/backdrop_rune.webp",
-  "usedBy": "catch card backdrop for rune variants (Agent B shows it behind the catch card; key backdrop_rune)",
-  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
-  "kind": "backdrop",
-  "aspect": "9:16",
-  "prompt": "a half-drowned temple interior, carved stone pillars with glowing turquoise glyphs framing the edges, light shafts through water, a calm dark teal empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
- },
- "backdrop_abyss": {
-  "path": "assets/vfx/backdrop_abyss.webp",
-  "usedBy": "catch card backdrop for abyss variants (Agent B shows it behind the catch card; key backdrop_abyss)",
-  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
-  "kind": "backdrop",
-  "aspect": "9:16",
-  "prompt": "the deep night sea, darkness with dozens of faint glowing eyes and bioluminescent plankton framing the edges, a calm pitch-black empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
- },
- "backdrop_tide": {
-  "path": "assets/vfx/backdrop_tide.webp",
-  "usedBy": "catch card backdrop for tide variants (Agent B shows it behind the catch card; key backdrop_tide)",
-  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
-  "kind": "backdrop",
-  "aspect": "9:16",
-  "prompt": "inside a curling turquoise wave, white foam and spray framing the edges, sunlight through the water, a calm deep teal empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
- },
- "backdrop_rust": {
-  "path": "assets/vfx/backdrop_rust.webp",
-  "usedBy": "catch card backdrop for rust variants (Agent B shows it behind the catch card; key backdrop_rust)",
-  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
-  "kind": "backdrop",
-  "aspect": "9:16",
-  "prompt": "a sunken shipwreck hold, rusted anchor chains, hull ribs and barnacles framing the edges, orange light glinting on metal, a calm dark sea-green empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
- },
  "coin": {
   "path": "assets/vfx/coin.webp",
   "usedBy": "catch reveal: window.__vfx.flyCoins (coins with a shine trail flying into the purse)",
   "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
   "kind": "sprite",
   "prompt": "one old gold doubloon coin seen slightly tilted, worn stamped rim, a small wave and compass mark in the middle, warm gold with a bright glint, centered, hand-painted gouache, on a pure black background, no text, no letters"
+ },
+ "backdrop.storm": {
+  "path": "assets/vfx/backdrop_storm.webp",
+  "usedBy": "catch reveal backdrop for storm variants: Agent B shows it behind the hero pose (key backdrop.storm); window.__vfx.revealLayer draws the storm burst over it",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "size": [
+   1080,
+   2340
+  ],
+  "prompt": "a storm sky over a dark sea: at the top centre a blinding white-gold lightning strike bursts down out of churning black-blue clouds, branching electric veins spread across the upper third, slanting rain, a calm dark teal haze in the middle, a dark rolling sea at the bottom, tall portrait painting, the main light source glowing at the top centre, the middle sixty percent is calm, simple and softly lit for a fish to be placed there later, the bottom quarter is dark and quiet, calm edges, hand-painted adventure illustration, painterly brush strokes, warm rich colour, no fish, no creatures in the middle, no people, no text, no frame"
+ },
+ "backdrop.frost": {
+  "path": "assets/vfx/backdrop_frost.webp",
+  "usedBy": "catch reveal backdrop for frost variants: Agent B shows it behind the hero pose (key backdrop.frost); window.__vfx.revealLayer draws the frost burst over it",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "size": [
+   1080,
+   2340
+  ],
+  "prompt": "a frozen fjord at night: at the top centre a pale cold moon glows behind a green-blue aurora curtain, hanging icicles and glacier ice along the top edge, drifting snow, calm misty navy air in the middle, dark cracked sea ice at the bottom, tall portrait painting, the main light source glowing at the top centre, the middle sixty percent is calm, simple and softly lit for a fish to be placed there later, the bottom quarter is dark and quiet, calm edges, hand-painted adventure illustration, painterly brush strokes, warm rich colour, no fish, no creatures in the middle, no people, no text, no frame"
+ },
+ "backdrop.ember": {
+  "path": "assets/vfx/backdrop_ember.webp",
+  "usedBy": "catch reveal backdrop for ember variants: Agent B shows it behind the hero pose (key backdrop.ember); window.__vfx.revealLayer draws the ember burst over it",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "size": [
+   1080,
+   2340
+  ],
+  "prompt": "a volcanic caldera at dusk: at the top centre a volcano throws a fountain of glowing lava into a red sky, lava bombs and embers rain across the upper third, calm smoky dark red haze in the middle, black sand with glowing cracks at the bottom, tall portrait painting, the main light source glowing at the top centre, the middle sixty percent is calm, simple and softly lit for a fish to be placed there later, the bottom quarter is dark and quiet, calm edges, hand-painted adventure illustration, painterly brush strokes, warm rich colour, no fish, no creatures in the middle, no people, no text, no frame"
+ },
+ "backdrop.bloom": {
+  "path": "assets/vfx/backdrop_bloom.webp",
+  "usedBy": "catch reveal backdrop for bloom variants: Agent B shows it behind the hero pose (key backdrop.bloom); window.__vfx.revealLayer draws the bloom burst over it",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "size": [
+   1080,
+   2340
+  ],
+  "prompt": "an overgrown swamp grotto: at the top centre warm sunlight breaks through a canopy of mangrove roots, hanging vines and pink blossoms, petals and golden pollen drifting down, calm hazy dark green air with fireflies in the middle, dark swamp water with lily pads at the bottom, tall portrait painting, the main light source glowing at the top centre, the middle sixty percent is calm, simple and softly lit for a fish to be placed there later, the bottom quarter is dark and quiet, calm edges, hand-painted adventure illustration, painterly brush strokes, warm rich colour, no fish, no creatures in the middle, no people, no text, no frame"
+ },
+ "backdrop.rune": {
+  "path": "assets/vfx/backdrop_rune.webp",
+  "usedBy": "catch reveal backdrop for rune variants: Agent B shows it behind the hero pose (key backdrop.rune); window.__vfx.revealLayer draws the rune burst over it",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "size": [
+   1080,
+   2340
+  ],
+  "prompt": "a sunken temple under water: at the top centre a huge glowing turquoise glyph seal shines like a sun, light shafts fall between carved stone pillars with glowing sigils along the upper edges, calm dark teal water in the middle, dark temple floor stones at the bottom, tall portrait painting, the main light source glowing at the top centre, the middle sixty percent is calm, simple and softly lit for a fish to be placed there later, the bottom quarter is dark and quiet, calm edges, hand-painted adventure illustration, painterly brush strokes, warm rich colour, no fish, no creatures in the middle, no people, no text, no frame"
+ },
+ "backdrop.abyss": {
+  "path": "assets/vfx/backdrop_abyss.webp",
+  "usedBy": "catch reveal backdrop for abyss variants: Agent B shows it behind the hero pose (key backdrop.abyss); window.__vfx.revealLayer draws the abyss burst over it",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "size": [
+   1080,
+   2340
+  ],
+  "prompt": "the deep night sea: at the top centre a faint cold shaft of light from far above, the upper third full of dozens of glowing amber eyes and violet bioluminescent plankton in the dark water, calm pitch black in the middle, the darkest abyss with faint specks at the bottom, tall portrait painting, the main light source glowing at the top centre, the middle sixty percent is calm, simple and softly lit for a fish to be placed there later, the bottom quarter is dark and quiet, calm edges, hand-painted adventure illustration, painterly brush strokes, warm rich colour, no fish, no creatures in the middle, no people, no text, no frame"
+ },
+ "backdrop.tide": {
+  "path": "assets/vfx/backdrop_tide.webp",
+  "usedBy": "catch reveal backdrop for tide variants: Agent B shows it behind the hero pose (key backdrop.tide); window.__vfx.revealLayer draws the tide burst over it",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "size": [
+   1080,
+   2340
+  ],
+  "prompt": "inside a giant curling wave: at the top centre sunlight bursts through the turquoise lip of the wave, white foam and spray flying across the upper third, calm deep teal water in the middle, dark churning water with foam lines at the bottom, tall portrait painting, the main light source glowing at the top centre, the middle sixty percent is calm, simple and softly lit for a fish to be placed there later, the bottom quarter is dark and quiet, calm edges, hand-painted adventure illustration, painterly brush strokes, warm rich colour, no fish, no creatures in the middle, no people, no text, no frame"
+ },
+ "backdrop.rust": {
+  "path": "assets/vfx/backdrop_rust.webp",
+  "usedBy": "catch reveal backdrop for rust variants: Agent B shows it behind the hero pose (key backdrop.rust); window.__vfx.revealLayer draws the rust burst over it",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "size": [
+   1080,
+   2340
+  ],
+  "prompt": "a sunken shipwreck hold: at the top centre warm orange light shines down through a hole in the hull, huge rusted anchor chains with barnacles hang down through the upper third, falling grinding sparks, calm dark sea-green water in the middle, dark wreck planks and silt at the bottom, tall portrait painting, the main light source glowing at the top centre, the middle sixty percent is calm, simple and softly lit for a fish to be placed there later, the bottom quarter is dark and quiet, calm edges, hand-painted adventure illustration, painterly brush strokes, warm rich colour, no fish, no creatures in the middle, no people, no text, no frame"
  }
 }

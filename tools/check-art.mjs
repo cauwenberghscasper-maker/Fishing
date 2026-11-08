@@ -20,6 +20,7 @@ const norm = (p) => posix.normalize(p).replace(/^\.\//, '');
 const used = new Set();          // public-relative paths (or art/... for concepts)
 const patterns = [];             // regexes from template strings in code
 const missing = [];
+const planned = [];              // registered with planned: true — not generated yet, the game skips them
 
 // 1. code + html + css: literal paths and `${}` templates
 const texts = [...walk(join(ROOT, 'src')), join(ROOT, 'index.html'), ...walk(PUB).filter((p) => /\.(css|json|html|js)$/.test(p))]
@@ -46,16 +47,17 @@ const registries = walk(PUB).filter((p) => p.endsWith('manifest.json') || p.ends
 for (const file of registries) {
   let json;
   try { json = JSON.parse(readFileSync(file, 'utf8')); } catch { console.log(`BROKEN JSON  ${rel(file, ROOT)}`); process.exitCode = 1; continue; }
-  const visit = (node, key) => {
+  const visit = (node, key, isPlanned = false) => {
     if (!node || typeof node !== 'object') return;
+    isPlanned = isPlanned || node.planned === true;
     for (const [k, v] of Object.entries(node)) {
       if (typeof v === 'string' && ['path', 'preview', 'concept', 'texture', 'image', 'icon', 'topView', 'sideView'].includes(k)) {
         const p = norm(v.replace(/^\//, ''));
         used.add(p);
         // concept images live in the repo's art/concepts/; everything else is public-relative (incl. public/art/)
         const onDisk = p.startsWith('art/concepts/') ? join(ROOT, p) : join(PUB, p);
-        if (!existsSync(onDisk)) missing.push(`${rel(file, ROOT)} → ${key ?? ''}.${k}: ${p}`);
-      } else if (typeof v === 'object') visit(v, key ?? k);
+        if (!existsSync(onDisk)) (isPlanned ? planned : missing).push(`${rel(file, ROOT)} → ${key ?? ''}.${k}: ${p}`);
+      } else if (typeof v === 'object') visit(v, key ?? k, isPlanned);
     }
   };
   visit(json);
@@ -92,5 +94,6 @@ const archived = concepts.filter((p) => ARCHIVE.test(p)).length;
 console.log(`shipped art files: ${shipped.length}, concept images: ${concepts.length - archived} (+${archived} archived takes/rejects)`);
 if (unused.length) { console.log(`\nUNUSED (${unused.length}) — nothing references these:`); unused.forEach((p) => console.log('  ' + p)); }
 if (missing.length) { console.log(`\nMISSING (${missing.length}) — registered but no file:`); missing.forEach((p) => console.log('  ' + p)); }
-if (!unused.length && !missing.length) console.log('OK: every art file is used and every entry has its file.');
+if (planned.length) console.log(`\nPLANNED (${planned.length}) — registered with planned: true, not generated yet (the game skips these):`), planned.forEach((p) => console.log('  ' + p));
+if (!unused.length && !missing.length) console.log(planned.length ? 'OK so far: everything shipped is used; planned art still to make.' : 'OK: every art file is used and every entry has its file.');
 if (unused.length || missing.length) process.exitCode = 1;

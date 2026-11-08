@@ -162,3 +162,10 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 |---|---|---|---|---|
 | 6 Nov 23:17 | E | Qwen-Image-Fast | tx_wave r2 (kept, top sky strip cropped), impact_storm, impact_frost, impact_ember, impact_bloom, impact_rune (all kept) — logged late, made at the end of the 6 Nov session | ~25 |
 | 8 Nov 14:45 | C | — | registered hero/rest/portrait slots for 9 fish (manifest ) before generating; budget 450 s | 0 |
+| 8 Nov 14:47 | C | Qwen-Image | 3 heroes parallel: glasswing_sardine (kept, seed 1826341839, fishing line erased), driftback (kept, seed 2020121917), compass_flounder r1 (weak: needle reads as a dart, no coin flip) | 61 total (measured wall) |
+| 8 Nov 14:41 | E | Qwen-Image-Fast | impact_abyss, seed 1979775937 (kept; a jellyfish in the centre masked out) | ~4 (20 s wall-clock, queue) |
+| 8 Nov 14:41 | E | Qwen-Image-Fast | impact_tide splash crown from above, seed 2090758680 (kept) | ~4 (20 s wall) |
+| 8 Nov 14:42 | E | Qwen-Image-Fast | impact_rust, seed 2030689579 (kept) | ~4 (20 s wall) |
+| 8 Nov 14:42 | E | Qwen-Image-Fast | splash_crown side view, seed 2095431640 (kept; water strip cropped) | ~4 (20 s wall) |
+| 8 Nov 14:43 | E | Qwen-Image-Fast | foam_ring, seed 1122456442 (kept; outer doily lace masked off) | ~4 (20 s wall) |
+| 8 Nov 14:43 | E | Qwen-Image-Fast | spray_fan, seed 1140175299 (kept; water strip cropped) | ~4 (20 s wall) |

@@ -6,14 +6,14 @@ import * as THREE from 'three';
 // Every hour stays readable on a phone (9b.8): moody at night, never muddy. Night is moonlit
 // teal-blue with a strong sky fill; dusk keeps warm sand. `exp` lifts the tone curve.
 const KEYS = [
-  { h: 0, az: 3.6, el: 0.85, sun: '#b4caff', si: 1.4, sky: '#7ea6d8', ground: '#5a6a80', hi: 2.9, light: 0.6, fog: '#173c46', exp: 1.25 },
+  { h: 0, az: 3.6, el: 0.85, sun: '#a4bcff', si: 1.5, sky: '#6c9ae6', ground: '#4a5a7c', hi: 3.0, light: 0.6, fog: '#173c46', exp: 1.25 },
   { h: 5.5, az: 1.4, el: 0.1, sun: '#ffb08a', si: 1.6, sky: '#b4bcd8', ground: '#7a6660', hi: 2.6, light: 0.78, fog: '#3a5a62', exp: 1.12 },
   { h: 8, az: 1.75, el: 0.5, sun: '#ffdcb0', si: 2.6, sky: '#b0dce2', ground: '#8a6a48', hi: 1.9, light: 0.95, fog: '#2a6a62', exp: 1.0 },
   { h: 12.5, az: 3.3, el: 1.0, sun: '#fff0d6', si: 2.9, sky: '#acdce2', ground: '#8a6a44', hi: 1.85, light: 1.05, fog: '#246a62', exp: 1.0 },
   { h: 16.5, az: 4.05, el: 0.62, sun: '#ffcf8a', si: 3.0, sky: '#a8d6d8', ground: '#8a6038', hi: 1.85, light: 1.0, fog: '#1c5a52', exp: 1.0 },
   { h: 18.8, az: 4.45, el: 0.2, sun: '#ffa060', si: 2.7, sky: '#e2b4a0', ground: '#8a6248', hi: 2.3, light: 0.88, fog: '#3a4c52', exp: 1.05 },
   { h: 20.3, az: 4.7, el: 0.05, sun: '#ff9a84', si: 1.6, sky: '#a898d0', ground: '#6a5a78', hi: 2.8, light: 0.72, fog: '#26404e', exp: 1.15 },
-  { h: 24, az: 3.6, el: 0.85, sun: '#b4caff', si: 1.4, sky: '#7ea6d8', ground: '#5a6a80', hi: 2.9, light: 0.6, fog: '#173c46', exp: 1.25 },
+  { h: 24, az: 3.6, el: 0.85, sun: '#a4bcff', si: 1.5, sky: '#6c9ae6', ground: '#4a5a7c', hi: 3.0, light: 0.6, fog: '#173c46', exp: 1.25 },
 ];
 
 const tmpA = new THREE.Color();

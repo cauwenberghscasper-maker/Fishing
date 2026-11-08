@@ -147,7 +147,8 @@
     "status": "concept",
     "inflated": {
       "image": "art/concepts/fish/seaglass_puffer_inflated.webp"
-    }
+    },
+    "hero": "assets/fish/seaglass_puffer/hero.webp"
   },
   "rivet_snapper": {
     "path": null,

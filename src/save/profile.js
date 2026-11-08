@@ -4,7 +4,7 @@
 // - autosave on profile:changed (debounced), on visibilitychange/pagehide, and every 15 s
 import { BUILDINGS, deriveGear } from '../economy/rules.js';
 
-export const PROFILE_VERSION = 3;
+export const PROFILE_VERSION = 4;
 export const SAVE_KEY = 'fishing-v1';
 export const TEST_SAVE_KEY = 'fishing-test-v1';
 
@@ -72,7 +72,28 @@ export const MIGRATIONS = [
       };
     },
   },
+  {
+    to: 4,
+    // v4: buildings are placed on the island (9b.6): level number → { level, x, z, rot }. x/z null = Agent A's default spot.
+    up: (p) => {
+      const b = p.island?.buildings ?? {};
+      const buildings = Object.fromEntries(Object.entries(b).map(([id, v]) => [id, typeof v === 'object' && v ? v : { level: Number.isFinite(v) ? v : 0, x: null, z: null, rot: 0 }]));
+      return { ...p, island: { ...(p.island ?? {}), buildings }, version: 4 };
+    },
+  },
 ];
+
+/** A building's saved state: { level, x, z, rot } (x/z null until placed). */
+export function buildingState(v, fallbackLevel = 0) {
+  const level = typeof v === 'object' && v ? v.level : v;
+  const fin = (n) => (Number.isFinite(n) ? n : null);
+  return {
+    level: Number.isFinite(level) ? Math.max(0, Math.floor(level)) : fallbackLevel,
+    x: typeof v === 'object' && v ? fin(v.x) : null,
+    z: typeof v === 'object' && v ? fin(v.z) : null,
+    rot: typeof v === 'object' && v && Number.isFinite(v.rot) ? v.rot : 0,
+  };
+}
 
 const num = (v, fallback = 0, min = 0) => (Number.isFinite(v) && v >= min ? v : fallback);
 const int = (v, fallback = 0, min = 0) => Math.floor(num(v, fallback, min));
@@ -83,7 +104,7 @@ function startIsland(data) {
   return {
     plots: [...(s.plots ?? ['sandbar'])],
     piers: [...(s.piers ?? [])],
-    buildings: Object.fromEntries(BUILDINGS.map((b) => [b, s.buildings?.[b] ?? (b === 'shop' ? 1 : 0)])),
+    buildings: Object.fromEntries(BUILDINGS.map((b) => [b, buildingState(s.buildings?.[b], b === 'shop' ? 1 : 0)])),
     boat: s.boat ?? 'rowboat',
   };
 }
@@ -181,7 +202,7 @@ export function sanitizeProfile(raw, data, test = false) {
   }
 
   const econ = data.economy ?? {};
-  out.island = { ...base.island, buildings: { ...base.island.buildings } };
+  out.island = { ...base.island, buildings: {} };
   const known = (obj) => Object.keys(obj ?? {}).filter((k) => !k.startsWith('_'));
   const plotIds = known(econ.plots);
   const pierIds = known(econ.piers);
@@ -191,9 +212,11 @@ export function sanitizeProfile(raw, data, test = false) {
   for (const b of BUILDINGS) {
     const max = (econ.buildings?.[b]?.levels?.length ?? 1) - 1;
     const have = p.island?.buildings?.[b];
-    out.island.buildings[b] = Math.min(Number.isFinite(have) ? int(have, 0) : base.island.buildings[b], Math.max(0, max));
+    const st = have == null ? { ...base.island.buildings[b] } : buildingState(have, base.island.buildings[b].level);
+    st.level = Math.min(st.level, Math.max(0, max));
+    out.island.buildings[b] = st;
   }
-  out.island.buildings.shop = Math.max(base.island.buildings.shop ?? 1, out.island.buildings.shop);   // there is always a shop
+  out.island.buildings.shop.level = Math.max(base.island.buildings.shop.level ?? 1, out.island.buildings.shop.level);   // there is always a shop
 
   out.workers = (Array.isArray(p.workers) ? p.workers : [])
     .filter((w) => w && typeof w === 'object')

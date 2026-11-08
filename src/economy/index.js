@@ -202,6 +202,65 @@ function tick() {
   }
 }
 
+// ---------------------------------------------------------------- building placement (9b.6)
+let pendingBuild = null;
+let ackTimer = 0;
+
+function buildOffer(kind, id) {
+  if (kind === 'building' || kind === 'upgrade') {
+    const b = buildingLevel(data(), P(), id);
+    if (!b) return fail('missing');
+    if (!b.next) return fail('max');
+    if (!b.siteOwned) return fail('site', { plot: b.def.site });
+    const level = b.index + 1;
+    // a building that is not standing yet gets placed by the player; one that stands is upgraded on the spot
+    const isNew = !(b.built && b.index > 0);
+    return { ok: true, kind: isNew ? 'building' : 'upgrade', level, cost: b.next.cost, name: b.next.name, model: b.next.model ?? `${id}_l${level}` };
+  }
+  if (kind === 'plot') {
+    const def = data().economy?.plots?.[id];
+    if (!def) return fail('missing');
+    if (nextPlot(data(), P()) !== id) return fail('order');
+    return { ok: true, kind, level: 1, cost: def.cost, name: def.name, model: def.model ?? `plot_${id}` };
+  }
+  if (kind === 'pier') {
+    const next = nextPier(data(), P());
+    if (!next || next.id !== id) return fail('order');
+    if (!next.plotOwned) return fail('site', { plot: next.plot });
+    return { ok: true, kind, level: 1, cost: next.cost, name: next.name, model: next.model ?? id };
+  }
+  return fail('kind');
+}
+
+function finishBuild(where) {
+  const b = pendingBuild;
+  if (!b) return;
+  pendingBuild = null;
+  clearTimeout(ackTimer);
+  let r;
+  if (b.kind === 'building' || b.kind === 'upgrade') r = economy.upgradeBuilding(b.id, where);
+  else if (b.kind === 'plot') r = economy.buyPlot(b.id);
+  else if (b.kind === 'pier') r = economy.buyPier(b.id);
+  E.emit('build:done', { kind: b.kind, id: b.id, level: b.level, name: b.name, ok: !!r?.ok, reason: r?.reason });
+}
+
+function wireBuildEvents() {
+  E.on('build:placing', ({ id } = {}) => {
+    if (pendingBuild && (!id || id === pendingBuild.id)) { pendingBuild.acked = true; clearTimeout(ackTimer); }
+  });
+  E.on('build:placed', ({ id, x, z, rot } = {}) => {
+    if (pendingBuild && (!id || id === pendingBuild.id)) finishBuild({ x, z, rot });
+  });
+  E.on('build:cancel', ({ id } = {}) => {
+    if (pendingBuild && (!id || id === pendingBuild.id)) {
+      const b = pendingBuild;
+      pendingBuild = null;
+      clearTimeout(ackTimer);
+      E.emit('build:done', { kind: b.kind, id: b.id, ok: false, reason: 'cancel', name: b.name });
+    }
+  });
+}
+
 // ---------------------------------------------------------------- public API
 export const economy = {
   get ready() { return !!S; },
@@ -309,19 +368,47 @@ export const economy = {
   },
 
   // --- harbour
-  upgradeBuilding(id) {
+  /** Apply a building level now (used by the placement flow; `where` = { x, z, rot } from Agent A). */
+  upgradeBuilding(id, where = null) {
     if (visiting()) return fail('visitor');
     const b = buildingLevel(data(), P(), id);
     if (!b) return fail('missing');
     if (!b.next) return fail('max');
     if (!b.siteOwned) return fail('site', { plot: b.def.site });
     if (!spend(b.next.cost)) return fail('coins', { need: b.next.cost - P().coins });
-    P().island.buildings[id] = b.index + 1;
+    const fin = (n, d) => (Number.isFinite(n) ? n : d);
+    P().island.buildings[id] = {
+      level: b.index + 1,
+      x: fin(where?.x, b.x ?? null),
+      z: fin(where?.z, b.z ?? null),
+      rot: fin(where?.rot, b.rot ?? 0),
+    };
     if (id === 'cooler') refillFromHeld();
     changed('island', 'coins');
     islandChanged({ upgraded: id, level: b.index + 1 });
     return { ok: true, level: b.index + 1, name: b.next.name };
   },
+
+  /**
+   * Start a build (9b.6, INTERFACES "Building placement"): checks, then emits build:start for Agent A.
+   * kind: 'building' (new, placed by the player) | 'upgrade' | 'plot' | 'pier'. Coins are charged on build:placed.
+   */
+  startBuild(kind, id) {
+    if (visiting()) return fail('visitor');
+    if (pendingBuild) return fail('busy');
+    const offer = buildOffer(kind, id);
+    if (!offer.ok) return offer;
+    if (P().coins < offer.cost) return fail('coins', { need: offer.cost - P().coins });
+    pendingBuild = { kind: offer.kind, id, level: offer.level, cost: offer.cost, name: offer.name, acked: false };
+    E.emit('build:start', { kind: offer.kind, id, level: offer.level, model: offer.model, place: offer.kind === 'building' });
+    clearTimeout(ackTimer);
+    ackTimer = setTimeout(() => {
+      // nobody answered (placement mode not there yet): finish at the default spot so the game never stalls
+      if (pendingBuild && !pendingBuild.acked) finishBuild({ x: null, z: null, rot: 0 });
+    }, 1500);
+    return { ok: true, pending: true, name: offer.name };
+  },
+  get pendingBuild() { return pendingBuild; },
   nextPlot: () => nextPlot(data(), P()),
   buyPlot(id) {
     if (visiting()) return fail('visitor');
@@ -462,6 +549,7 @@ export function startEconomy({ state, events }) {
   state.economy = economy;   // handy for debugging via window.__game.state.economy
 
   events.on('fish:caught', onCaught);
+  wireBuildEvents();
 
   // offline earnings since the last session; the tick below handles any gap > 5 s
   lastTick = Math.min(p.lastSeen ?? Date.now(), Date.now());

@@ -93,9 +93,12 @@ export function variantSets(data, dexEntry) {
 export function buildingLevel(data, profile, id) {
   const def = data.economy?.buildings?.[id];
   if (!def) return null;
-  const i = Math.min(Math.max(0, profile.island?.buildings?.[id] ?? 0), def.levels.length - 1);
+  const raw = profile.island?.buildings?.[id];
+  const lvl = typeof raw === 'object' && raw ? raw.level : raw;
+  const i = Math.min(Math.max(0, Number.isFinite(lvl) ? lvl : 0), def.levels.length - 1);
   const built = i > 0 || def.levels[0]?.name !== 'Not built';
-  return { index: i, level: i, ...def.levels[i], built, next: def.levels[i + 1] ?? null, def, siteOwned: (profile.island?.plots ?? []).includes(def.site ?? 'sandbar') };
+  const where = typeof raw === 'object' && raw ? { x: raw.x ?? null, z: raw.z ?? null, rot: raw.rot ?? 0 } : { x: null, z: null, rot: 0 };
+  return { index: i, level: i, ...def.levels[i], built, next: def.levels[i + 1] ?? null, def, siteOwned: (profile.island?.plots ?? []).includes(def.site ?? 'sandbar'), ...where };
 }
 
 export const coolerCapacity = (data, profile) => buildingLevel(data, profile, 'cooler')?.capacity ?? 8;

@@ -15,16 +15,7 @@
       "texelMask": "emissiveTexture.a"
     },
     "licence": "generated: Qwen-Image (Apache-2.0) concept \u2192 Blender bpy build by Agent C (own work)",
-    "status": "temp",
-    "hero": {
-      "image": "assets/fish/storm_marlin/hero.webp"
-    },
-    "rest": {
-      "image": "assets/fish/storm_marlin/rest.webp"
-    },
-    "portrait": {
-      "image": "assets/fish/storm_marlin/portrait.webp"
-    }
+    "status": "temp"
   },
   "temple_manta": {
     "path": null,
@@ -39,16 +30,7 @@
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
     "status": "concept",
-    "topView": "art/concepts/fish/temple_manta_top.webp",
-    "hero": {
-      "image": "assets/fish/temple_manta/hero.webp"
-    },
-    "rest": {
-      "image": "assets/fish/temple_manta/rest.webp"
-    },
-    "portrait": {
-      "image": "assets/fish/temple_manta/portrait.webp"
-    }
+    "topView": "art/concepts/fish/temple_manta_top.webp"
   },
   "cathedral_jelly": {
     "path": null,
@@ -77,15 +59,7 @@
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
     "status": "concept",
-    "hero": {
-      "image": "assets/fish/glasswing_sardine/hero.webp"
-    },
-    "rest": {
-      "image": "assets/fish/glasswing_sardine/rest.webp"
-    },
-    "portrait": {
-      "image": "assets/fish/glasswing_sardine/portrait.webp"
-    }
+    "hero": "assets/fish/glasswing_sardine/hero.webp"
   },
   "driftback": {
     "path": null,
@@ -99,16 +73,7 @@
     "body": "fusiform",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept",
-    "hero": {
-      "image": "assets/fish/driftback/hero.webp"
-    },
-    "rest": {
-      "image": "assets/fish/driftback/rest.webp"
-    },
-    "portrait": {
-      "image": "assets/fish/driftback/portrait.webp"
-    }
+    "status": "concept"
   },
   "shellback_blenny": {
     "path": null,
@@ -122,16 +87,7 @@
     "body": "shelled",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept",
-    "hero": {
-      "image": "assets/fish/shellback_blenny/hero.webp"
-    },
-    "rest": {
-      "image": "assets/fish/shellback_blenny/rest.webp"
-    },
-    "portrait": {
-      "image": "assets/fish/shellback_blenny/portrait.webp"
-    }
+    "status": "concept"
   },
   "kelp_wraith": {
     "path": null,
@@ -145,16 +101,7 @@
     "body": "eel",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept",
-    "hero": {
-      "image": "assets/fish/kelp_wraith/hero.webp"
-    },
-    "rest": {
-      "image": "assets/fish/kelp_wraith/rest.webp"
-    },
-    "portrait": {
-      "image": "assets/fish/kelp_wraith/portrait.webp"
-    }
+    "status": "concept"
   },
   "old_mooring": {
     "path": null,
@@ -168,16 +115,7 @@
     "body": "fusiform",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept",
-    "hero": {
-      "image": "assets/fish/old_mooring/hero.webp"
-    },
-    "rest": {
-      "image": "assets/fish/old_mooring/rest.webp"
-    },
-    "portrait": {
-      "image": "assets/fish/old_mooring/portrait.webp"
-    }
+    "status": "concept"
   },
   "compass_flounder": {
     "path": null,
@@ -191,16 +129,7 @@
     "body": "flat",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept",
-    "hero": {
-      "image": "assets/fish/compass_flounder/hero.webp"
-    },
-    "rest": {
-      "image": "assets/fish/compass_flounder/rest.webp"
-    },
-    "portrait": {
-      "image": "assets/fish/compass_flounder/portrait.webp"
-    }
+    "status": "concept"
   },
   "seaglass_puffer": {
     "path": null,
@@ -217,15 +146,6 @@
     "status": "concept",
     "inflated": {
       "image": "art/concepts/fish/seaglass_puffer_inflated.webp"
-    },
-    "hero": {
-      "image": "assets/fish/seaglass_puffer/hero.webp"
-    },
-    "rest": {
-      "image": "assets/fish/seaglass_puffer/rest.webp"
-    },
-    "portrait": {
-      "image": "assets/fish/seaglass_puffer/portrait.webp"
     }
   },
   "rivet_snapper": {

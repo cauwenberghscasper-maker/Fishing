@@ -3,6 +3,7 @@
 import * as THREE from 'three';
 import { createTerrain } from './terrain.js';
 import { loadModel, pickAsset } from '../core/assets.js';
+import { collidersFor, drawColliderDebug } from './colliders.js';
 
 const WADE_DEPTH = 0.45;   // the player can wade this deep
 const MAX_SLOPE = 0.95;
@@ -49,16 +50,32 @@ export function createIsland({ layout, events, state }) {
     return terrain.heightAt(x, z) - 0.04;
   }
 
-  async function addProp(id, x, z, rot, scale, float) {
+  // Only a model that actually loaded can block the player, with its own footprint.
+  async function addProp(id, x, z, rot, scale, float, group = propsGroup) {
     const model = await loadModel('world', id);
     if (!model) return null;
     const obj = model.scene;
     obj.position.set(x, placementY(model.entry, x, z, float), z);
     obj.rotation.y = rot || 0;
     if (scale && scale !== 1) obj.scale.multiplyScalar(scale);
-    propsGroup.add(obj);
+    obj.userData.assetId = id;
+    obj.userData.colliders = collidersFor(id, model.entry, x, z, rot || 0, (scale || 1) * (Number(model.entry.scale) || 1));
+    group.add(obj);
     return obj;
   }
+
+  function rebuildColliders() {
+    colliders = [];
+    const visit = (o) => { if (o.userData.colliders && o.visible !== false) colliders.push(...o.userData.colliders); };
+    propsGroup.children.forEach(visit);
+    extraGroups.forEach((g) => g.children.forEach(visit));
+    if (debugColliders) {
+      debugColliders = drawColliderDebug(group, colliders, debugColliders);
+      debugColliders.userData.lift((x, z) => groundAt(x, z));
+    }
+  }
+  const extraGroups = [];
+  let debugColliders = new URLSearchParams(location.search).get('debug') === 'colliders' ? true : null;
 
   function seeded(seed) {
     let s = seed * 9301 + 49297;
@@ -74,9 +91,7 @@ export function createIsland({ layout, events, state }) {
     for (const p of layout.props) {
       const id = pickAsset('world', p.asset);
       if (!id) continue;
-      jobs.push(addProp(id, p.x, p.z, p.rot, p.scale, p.float).then((obj) => {
-        if (obj && p.collide > 0) colliders.push({ x: p.x, z: p.z, r: p.collide });
-      }));
+      jobs.push(addProp(id, p.x, p.z, p.rot, p.scale, p.float));
     }
 
     for (const pier of layout.piers || []) {
@@ -113,6 +128,7 @@ export function createIsland({ layout, events, state }) {
 
     await Promise.all(jobs);
     decks = builtPiers;
+    rebuildColliders();
     hasKelpModel = Boolean(pickAsset('world', ['kelp_a']));
   }
 
@@ -142,7 +158,12 @@ export function createIsland({ layout, events, state }) {
     if (h < -WADE_DEPTH) return false;
     if (terrain.slopeAt(x, z) > MAX_SLOPE) return false;
     for (const c of colliders) {
-      if ((x - c.x) ** 2 + (z - c.z) ** 2 < c.r * c.r) return false;
+      if (c.type === 'box') {
+        const dx = x - c.x, dz = z - c.z;
+        const lx = dx * c.cos - dz * c.sin;
+        const lz = dx * c.sin + dz * c.cos;
+        if (Math.abs(lx) < c.hw && Math.abs(lz) < c.hd) return false;
+      } else if ((x - c.x) ** 2 + (z - c.z) ** 2 < c.r * c.r) return false;
     }
     return true;
   }
@@ -203,6 +224,9 @@ export function createIsland({ layout, events, state }) {
     waterDepthAt,
     updateZones,
     get decks() { return decks; },
+    addProp,
+    rebuildColliders,
+    registerGroup(g) { if (!extraGroups.includes(g)) extraGroups.push(g); },
     get hasKelpModel() { return hasKelpModel; },
     updateSway,
     get colliders() { return colliders; },

@@ -9,6 +9,7 @@ const FILES = {
   variants: 'data/variants.json',            // Agent B
   art: 'data/art.json',                      // Agent F's 2D art registry (B wires it into the UI)
   fishAssets: 'assets/fish/manifest.json',   // Agent C
+  vfxAssets: 'assets/vfx/manifest.json',     // Agent E (catch-reveal backdrops: backdrop.<variantId>)
 };
 
 async function getJSON(path) {
@@ -34,6 +35,7 @@ export async function loadData(state) {
   }
   if (!state.data.fishAssets) state.data.fishAssets = {};
   if (!state.data.art) state.data.art = {};
+  if (!state.data.vfxAssets) state.data.vfxAssets = {};
   return state.data;
 }
 
@@ -58,4 +60,17 @@ export function artText(state, key) {
 export function fishPreview(state, fishId) {
   const entry = state.data.fishAssets?.[fishId];
   return entry?.preview ?? null;
+}
+
+/** A painted pose of a fish (hero | rest | portrait, 9b.2), falling back to the preview. Only manifest paths: no guessing, no 404s. */
+export function fishPose(state, fishId, pose) {
+  const entry = state.data.fishAssets?.[fishId];
+  return entry?.[pose] ?? entry?.poses?.[pose] ?? entry?.preview ?? null;
+}
+
+/** Path of an Agent E vfx asset (e.g. backdrop.<variantId>), or null. */
+export function vfxPath(state, key) {
+  const entry = state.data.vfxAssets?.[key];
+  const path = typeof entry === 'string' ? entry : entry?.path ?? entry?.image;
+  return typeof path === 'string' && path ? path.replace(/^\//, '') : null;
 }

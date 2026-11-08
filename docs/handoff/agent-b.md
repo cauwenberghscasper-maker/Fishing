@@ -15,7 +15,13 @@ Round 2 (Casper's new features):
 - [x] Art registry wiring: gear, islands, buildings, variant emblems, title/loading + tips, `npc.shopkeeper`, `fishdex.<islandId>` (slots hide until the file loads)
 - [x] Gear models: `model` keys in `items.json` (lines get `material`), turning 3D preview in the shop through Agent A's loader
 - [x] Co-op: visitor mode hides island purchases (UI + economy refuse), group toasts, `#hud-net` slot
-- [ ] Verification + screenshots
+- [x] Verified (drive2): day-one state, the purchase chain (bunk → site → pier → cooler → plot → hut → hire; skiff blocked until the dock), morph set pays once, a visitor is refused, v2 → v3 migration, no overflow at 390/320/844, no errors, 3D previews render (stand-in models)
+
+Round 3 (9b, Casper's playtest, top priority), in progress:
+- [ ] Catch reveal: full-screen moment (backdrop + rays, hero pose, weight counting up, stamp slam, ribbons, coins into the purse, synthesized sound; keep = basket, sell = scale)
+- [ ] Every screen as a painted place: cooler basket, shop counter, harbour plan board, logbook journal, sea chart, captain's drawer (F's backdrops via `screen.*` keys, procedural fallbacks until they land)
+- [ ] Buildings placed on the island: `build:start` / `build:placing` / `build:placed` / `build:cancel` with A, save v4 `buildings[id] = { level, x, z, rot }`
+- Contract proposed to the lead (keys, poses, events): see "Round 3 contract" below.
 
 ## What works, as the player sees it (round 1)
 - **Top bar:** a brass coin plaque (coins, plus pearls once you have any), a glowing line "+5 a minute from your harbour" once the crew earns, and three brass porthole buttons: Cooler (with a 7/12 count), Logbook and Settings.
@@ -62,3 +68,15 @@ Casper picked **Chartroom**: IM Fell English SC for titles and names, Alegreya S
 
 ## Screenshots (`docs/handoff/shots/`)
 `type-specimen.png`, `agent-b-catch-card.png`, `agent-b-catch-card-image-slot.png`, `agent-b-shop-sell.png`, `agent-b-shop-buy-after.png`, `agent-b-shop-harbour-crew.png`, `agent-b-landscape-shop-sell.png`, `agent-b-small-catch.png`, `agent-b-logbook.png`, `agent-b-travel.png`, `agent-b-offline.png`, `agent-b-settings.png`. Round 2 shots will replace these where screens changed.
+
+## Round 3 contract (proposed 8 Nov, sent to the lead)
+- **Art keys (F):**
+  - `screen.catch.<islandId>` and `screen.catch.<variantId>`
+  - `screen.cooler.l0..l3`
+  - `screen.shop.l1..l3` (fallback `screen.shop`) + `npc.shopkeeper` cut-out
+  - `screen.harbour`, `screen.logbook`, `screen.chart` (+ `pins`), `screen.drawer`
+  - optional `ribbon.new`, `ribbon.record`
+- **Fish poses (C):** manifest fields `hero`, `rest`, `portrait`, falling back to `preview`.
+- **Placement (A):**
+  - B emits `build:start { kind, id, level, model, place }`.
+  - A replies `build:placing { id }` (ack; without it B finishes at the default spot after 1.5 s), then `build:placed { kind, id, level, x, z, rot }` or `build:cancel { id }`.

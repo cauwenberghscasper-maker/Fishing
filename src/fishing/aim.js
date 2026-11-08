@@ -151,6 +151,12 @@ export function createAim({ island, fishSystem, water, state }) {
   let band = DEPTH_BANDS[1];
   let fishInside = 0;
   const seeds = [Math.random() * 10, Math.random() * 10, Math.random() * 10, Math.random() * 10];
+  // Feel: edges the controller turns into haptic ticks and sounds.
+  const feel = { perfectEdge: false, fishEdge: false, powerStep: 0 };
+  let wasPerfect = false;
+  let lastFishInside = 0;
+  let lastPowerStep = 0;
+  let power = 0;
 
   function gear() {
     const g = state.gear || {};
@@ -195,6 +201,10 @@ export function createAim({ island, fishSystem, water, state }) {
       lastPointer = null;
       wobbleNow = 0;
       aimed = false;
+      wasPerfect = false;
+      lastFishInside = 0;
+      lastPowerStep = 0;
+      power = 0;
       group.visible = true;
     },
     pointer(x, y) {
@@ -207,6 +217,13 @@ export function createAim({ island, fishSystem, water, state }) {
       lastPointer = { x, y };
     },
     get dragVector() { return drag; },
+    get power() { return hasAim ? power : 0; },
+    // Read-and-clear the feel edges for this frame.
+    takeFeel() {
+      const out = { ...feel };
+      feel.perfectEdge = false; feel.fishEdge = false; feel.powerStep = 0;
+      return out;
+    },
     get dragLength() { return Math.hypot(drag.x, drag.y); },
     get deadZone() { return DEAD_ZONE; },
     get maxDrag() { return maxDragPx(); },
@@ -227,7 +244,10 @@ export function createAim({ island, fishSystem, water, state }) {
       arc.mesh.visible = true;
       reticle.mesh.visible = true;
       // Pull back to throw: the cast goes opposite to the drag (camera looks north, no yaw).
-      const power = Math.pow(THREE.MathUtils.clamp((len - DEAD_ZONE) / (maxDragPx() - DEAD_ZONE), 0, 1), 1.1);
+      power = Math.pow(THREE.MathUtils.clamp((len - DEAD_ZONE) / (maxDragPx() - DEAD_ZONE), 0, 1), 1.1);
+      const step = Math.min(4, Math.floor(power * 4 + 0.001));
+      if (step > lastPowerStep) feel.powerStep = step;
+      lastPowerStep = step;
       const dist = 2.5 + power * (g.maxCast - 2.5);
       const dx = -drag.x / len, dz = -drag.y / len;
       rawAim.set(playerPos.x + dx * dist, 0, playerPos.z + dz * dist);
@@ -256,9 +276,13 @@ export function createAim({ island, fishSystem, water, state }) {
       const pp = perfectPhase();
       u.uRing.value = pp.ringR;
       u.uPerfect.value = pp.perfect ? 1 : 0;
+      if (pp.perfect && !wasPerfect && valid) feel.perfectEdge = true;
+      wasPerfect = pp.perfect;
       u.uTime.value = realTime;
       fishSystem.highlightWithin(target.x, target.z, RETICLE_R * 1.3);
       fishInside = fishSystem.countWithin(target.x, target.z, RETICLE_R * 1.3);
+      if (fishInside > lastFishInside && valid) feel.fishEdge = true;
+      lastFishInside = fishInside;
 
       // Trajectory: parabola from the rod tip, apex grows with distance.
       const apex = 1.2 + dist * 0.2;

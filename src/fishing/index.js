@@ -424,8 +424,9 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     let pitch = 0.78;
     let bend = 0.04;
     if (mode === 'aim') {
-      const p = Math.min(1, aim.dragLength / aim.maxDrag);
+      const p = aim.power;
       pitch = 0.9 + p * 0.95;            // drawn back over the shoulder
+      bend = 0.05 + p * 0.25;            // the rod loads up as you pull
       if (aim.info.hasAim) yaw = Math.atan2(aim.target.x - player.position.x, aim.target.z - player.position.z);
     } else if (mode === 'wait') {
       pitch = flight.active ? 0.35 : 0.62;
@@ -448,6 +449,12 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     if (mode === 'aim') {
       aim.update(realDt, tip, player.position);
       if (aim.info.hasAim) player.faceTowards(aim.target.x, aim.target.z);
+      // Feel: haptic ticks entering the perfect window and when a fish swims into the reticle,
+      // a rope creak per quarter of pull-back.
+      const fx = aim.takeFeel();
+      if (fx.perfectEdge) { navigator.vibrate?.(8); audio.tick(); }
+      if (fx.fishEdge) navigator.vibrate?.(14);
+      if (fx.powerStep) { audio.creak(fx.powerStep); navigator.vibrate?.(4 + fx.powerStep * 2); }
       cameraRig.setFocus(
         THREE.MathUtils.lerp(player.position.x, aim.info.hasAim ? aim.target.x : player.position.x, 0.5), 0,
         THREE.MathUtils.lerp(player.position.z, aim.info.hasAim ? aim.target.z : player.position.z + 3, 0.5),
@@ -528,7 +535,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     if (mode === 'aim') {
       const info = aim.info;
       frame.aim = {
-        drag: aim.dragVector, dragLength: aim.dragLength, deadZone: aim.deadZone, maxDrag: aim.maxDrag,
+        drag: aim.dragVector, dragLength: aim.dragLength, deadZone: aim.deadZone, maxDrag: aim.maxDrag, power: aim.power,
         hasAim: info.hasAim, valid: info.valid, band: info.band.name, depth: info.depth, fish: info.fishInside,
         reticle: info.hasAim ? screenOf(aim.target) : null, perfect: aim.perfectNow,
       };

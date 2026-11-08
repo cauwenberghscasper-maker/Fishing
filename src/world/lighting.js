@@ -3,15 +3,17 @@ import * as THREE from 'three';
 
 // hour, sun azimuth (rad, 0 = north, clockwise), elevation (rad), sun colour, sun intensity,
 // hemisphere sky/ground, water light level, fog colour.
+// Every hour stays readable on a phone (9b.8): moody at night, never muddy. Night is moonlit
+// teal-blue with a strong sky fill; dusk keeps warm sand. `exp` lifts the tone curve.
 const KEYS = [
-  { h: 0, az: 3.6, el: 0.75, sun: '#6f8fd8', si: 0.55, sky: '#28465e', ground: '#10161c', hi: 0.55, light: 0.32, fog: '#0a2427' },
-  { h: 5.5, az: 1.4, el: 0.08, sun: '#ff9a6a', si: 1.1, sky: '#6d7fa6', ground: '#3a2a2a', hi: 0.75, light: 0.55, fog: '#2a4a52' },
-  { h: 8, az: 1.75, el: 0.5, sun: '#ffd9a8', si: 2.4, sky: '#a8d8e0', ground: '#5a4430', hi: 1.0, light: 0.9, fog: '#2a6a62' },
-  { h: 12.5, az: 3.3, el: 1.0, sun: '#fff0d6', si: 2.9, sky: '#a8dae0', ground: '#6a5034', hi: 1.05, light: 1.05, fog: '#246a62' },
-  { h: 16.5, az: 4.05, el: 0.62, sun: '#ffcf8a', si: 3.0, sky: '#9fd2d6', ground: '#5a3d22', hi: 1.05, light: 1.0, fog: '#1c5a52' },
-  { h: 19, az: 4.5, el: 0.16, sun: '#ff8f4a', si: 2.0, sky: '#c88c78', ground: '#3a2418', hi: 0.8, light: 0.68, fog: '#2a3c44' },
-  { h: 20.5, az: 4.7, el: 0.02, sun: '#d0607a', si: 0.8, sky: '#5a5a86', ground: '#1e1620', hi: 0.6, light: 0.42, fog: '#14282e' },
-  { h: 24, az: 3.6, el: 0.75, sun: '#6f8fd8', si: 0.55, sky: '#28465e', ground: '#10161c', hi: 0.55, light: 0.32, fog: '#0a2427' },
+  { h: 0, az: 3.6, el: 0.85, sun: '#a9c2ff', si: 1.15, sky: '#5a7fb0', ground: '#3a4458', hi: 1.25, light: 0.55, fog: '#13343c', exp: 1.3 },
+  { h: 5.5, az: 1.4, el: 0.1, sun: '#ffab84', si: 1.5, sky: '#9aa6c8', ground: '#5a4a48', hi: 1.15, light: 0.72, fog: '#3a5a62', exp: 1.15 },
+  { h: 8, az: 1.75, el: 0.5, sun: '#ffdcb0', si: 2.5, sky: '#a8d8e0', ground: '#6a5038', hi: 1.05, light: 0.92, fog: '#2a6a62', exp: 1.0 },
+  { h: 12.5, az: 3.3, el: 1.0, sun: '#fff0d6', si: 2.9, sky: '#a8dae0', ground: '#6a5034', hi: 1.05, light: 1.05, fog: '#246a62', exp: 1.0 },
+  { h: 16.5, az: 4.05, el: 0.62, sun: '#ffcf8a', si: 3.0, sky: '#9fd2d6', ground: '#5a3d22', hi: 1.05, light: 1.0, fog: '#1c5a52', exp: 1.0 },
+  { h: 18.8, az: 4.45, el: 0.2, sun: '#ffa060', si: 2.6, sky: '#d8a890', ground: '#6a4a3a', hi: 1.15, light: 0.85, fog: '#3a4c52', exp: 1.08 },
+  { h: 20.3, az: 4.7, el: 0.04, sun: '#ff8a7a', si: 1.5, sky: '#9a8ac0', ground: '#4a3a50', hi: 1.2, light: 0.66, fog: '#24384a', exp: 1.2 },
+  { h: 24, az: 3.6, el: 0.85, sun: '#a9c2ff', si: 1.15, sky: '#5a7fb0', ground: '#3a4458', hi: 1.25, light: 0.55, fog: '#13343c', exp: 1.3 },
 ];
 
 const tmpA = new THREE.Color();
@@ -32,6 +34,7 @@ function lerpKey(hour) {
     el: a.el + (b.el - a.el) * t,
     si: a.si + (b.si - a.si) * t,
     hi: a.hi + (b.hi - a.hi) * t,
+    exp: (a.exp ?? 1) + ((b.exp ?? 1) - (a.exp ?? 1)) * t,
     light: a.light + (b.light - a.light) * t,
     mixC,
     a, b,
@@ -60,6 +63,7 @@ export function createLighting({ scene, palette }) {
   const fogColor = new THREE.Color();
   let light = 1;
   let hour = 16.5;
+  let exposure = 1;
 
   function apply() {
     const k = lerpKey(hour);
@@ -73,6 +77,7 @@ export function createLighting({ scene, palette }) {
     scene.fog.color.copy(fogColor);
     scene.background.copy(fogColor).multiplyScalar(0.55);
     light = k.light;
+    exposure = k.exp;
     sunColor.copy(sun.color).multiplyScalar(Math.max(0.2, k.si / 3));
   }
   apply();
@@ -84,6 +89,7 @@ export function createLighting({ scene, palette }) {
     sunDir,
     sunColor,
     get light() { return light; },
+    get exposure() { return exposure; },
     get hour() { return hour; },
     setHour(h) { hour = ((h % 24) + 24) % 24; apply(); },
     // Night factor 0..1 (fish glow, dusk-only accents).

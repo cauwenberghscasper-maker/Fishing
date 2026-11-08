@@ -719,15 +719,208 @@
  },
  "npc.shopkeeper": {
   "path": "art/npc/shopkeeper.webp",
-  "name": "The shopkeeper",
+  "name": "Nell Ballast, the shopkeeper",
   "size": [
-   576,
-   768
+   768,
+   1024
+  ],
+  "alpha": true,
+  "story": "Ship's carpenter of the Marigold. When the Marigold went down off the cove she rode the upturned hull ashore, never left, and built the shop out of it. She weighs every fish on the Marigold's brass galley scale and checks the scales with a jeweller's loupe.",
+  "usedBy": "ui/shop: cut-out of the keeper standing behind the counter of screen.shop (B); also fits the brass porthole",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+ },
+ "screen.cooler.l1": {
+  "path": "art/screens/cooler_l1.webp",
+  "size": [
+   1024,
+   2218
   ],
   "alpha": false,
-  "usedBy": "ui/shop screen portrait of the keeper of the upturned-hull shop (B)",
+  "usedBy": "ui backdrop (B), Cooler level 1: looking down into a wicker creel lined with seaweed and ice, empty (fish are laid in by code)",
+  "calm": "the basket floor (centre ~70%) is calm wet seaweed and ice for the fish; rim and handle frame the edges",
   "concept": null,
-  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0)"
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.cooler.l2": {
+  "path": "art/screens/cooler_l2.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui backdrop (B), Cooler level 2: looking down into an open zinc-lined ice chest packed with crushed ice, empty",
+  "calm": "the ice bed (centre ~70%) is calm; lid and hinges along the top edge",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.cooler.l3": {
+  "path": "art/screens/cooler_l3.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui backdrop (B), Cooler level 3: looking down onto a smokehouse rack of wide slats over glowing embers, empty",
+  "calm": "the slats (centre ~70%) are calm for the fish; embers glow in the gaps",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.shop": {
+  "path": "art/screens/shop.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui backdrop (B), Shop: standing at the counter of the upturned-hull shop, brass scale on the counter, gear on hooks on the back wall",
+  "calm": "top 12% dark hull ribs (title); empty space behind the counter centre for npc.shopkeeper; counter top (lower ~35%) is calm wood for lists and buttons",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.harbour": {
+  "path": "art/screens/harbour.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui backdrop (B), Harbour / buildings: a carpenter's plan board of planks with pins, chalk plans and tools round the edge",
+  "calm": "board centre (~75%) calm for pinned building cards; tools only along the edges",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.logbook": {
+  "path": "art/screens/logbook.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui backdrop (B), Logbook / Fishdex: an open leather field journal seen from above, spine across the middle",
+  "calm": "both pages (upper and lower halves) calm pressed paper for the entries; leather, ribbon and keepsakes at the edges",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.chart": {
+  "path": "art/screens/chart.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui backdrop (B), Travel: a hand-painted sea chart of the island chain on the chart table",
+  "calm": "chart centre calm sea for pinned island cards; compass rose and instruments at the edges",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.drawer": {
+  "path": "art/screens/drawer.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui backdrop (B), Settings: looking down into the captain's drawer with keepsakes in felt compartments",
+  "calm": "large empty felt compartment in the centre (~60%) for the settings controls",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.catch.driftwood_cove": {
+  "path": "art/screens/catch_driftwood_cove.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui catch reveal backdrop for Driftwood Cove (B): sunlit turquoise water, golden rays, tide swirl",
+  "calm": "bright calm centre (~50% band) for the hero pose; rays converge on it",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.catch.wreck_reef": {
+  "path": "art/screens/catch_wreck_reef.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui catch reveal backdrop for Wreck Reef (B): rust-orange rays through a wreck's broken ribs",
+  "calm": "bright calm centre (~50% band) for the hero pose; rays converge on it",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.catch.mossback_bayou": {
+  "path": "art/screens/catch_mossback_bayou.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui catch reveal backdrop for Mossback Bayou (B): green-gold rays through lily pads, fireflies",
+  "calm": "bright calm centre (~50% band) for the hero pose; rays converge on it",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.catch.frostfang_fjord": {
+  "path": "art/screens/catch_frostfang_fjord.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui catch reveal backdrop for Frostfang Fjord (B): blue rays through clear ice, frost crystals",
+  "calm": "bright calm centre (~50% band) for the hero pose; rays converge on it",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.catch.ember_caldera": {
+  "path": "art/screens/catch_ember_caldera.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui catch reveal backdrop for Ember Caldera (B): crimson-gold rays, embers and heat shimmer",
+  "calm": "bright calm centre (~50% band) for the hero pose; rays converge on it",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.catch.stormspire_isles": {
+  "path": "art/screens/catch_stormspire_isles.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui catch reveal backdrop for Stormspire Isles (B): electric rays through storm cloud, lightning",
+  "calm": "bright calm centre (~50% band) for the hero pose; rays converge on it",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.catch.sunken_temple": {
+  "path": "art/screens/catch_sunken_temple.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui catch reveal backdrop for Sunken Temple (B): turquoise glyph beams through drowned arches",
+  "calm": "bright calm centre (~50% band) for the hero pose; rays converge on it",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
+ },
+ "screen.catch.the_abyss": {
+  "path": "art/screens/catch_the_abyss.webp",
+  "size": [
+   1024,
+   2218
+  ],
+  "alpha": false,
+  "usedBy": "ui catch reveal backdrop for The Abyss (B): rose, violet and cyan bioluminescent rays in black water",
+  "calm": "bright calm centre (~50% band) for the hero pose; rays converge on it",
+  "concept": null,
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
  },
  "fishdex.driftwood_cove": {
   "path": "art/fishdex/driftwood_cove.webp",

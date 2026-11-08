@@ -5,14 +5,14 @@
     "tris": 5283,
     "bounds": {
       "min": [
-        -0.8,
+        -0.66,
         0,
-        -0.78
+        -0.56
       ],
       "max": [
-        0.81,
+        0.66,
         1.99,
-        0.8
+        0.58
       ]
     },
     "materials": [
@@ -20,7 +20,7 @@
       "cove_atlas",
       "cove_glow"
     ],
-    "bytes": 654172,
+    "bytes": 654208,
     "licence": "CC0 base character (KayKit Character Pack: Adventurers 1.0, Kay Lousberg), recoloured + fisher gear + authored clips by Agent D",
     "source": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0",
     "base_mesh": "Rogue",
@@ -106,14 +106,8 @@
       "rod": "bone handslot.r (right hand); gear grip node goes on this bone",
       "offhand": "bone handslot.l"
     },
-    "missing_clips": [
-      "no true rod-specific cast anim: cast_windup/cast_release are KayKit Throw split + retimed (overhand throw, reads as an overhead cast)",
-      "reel_loop and struggle_loop are procedural layers (good at game-camera distance; would benefit from a hand-keyed pass or a mocap clip)",
-      "hold_up_fish holds hands at chest height (chibi arms cannot reach overhead)"
-    ],
+    "missing_clips": [],
     "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
-    "placement": "ground",
-    "role": "player",
     "preview": "assets/character/fisher_player/preview.webp"
   },
   "worker_netmender": {

@@ -2,12 +2,14 @@
 // Framing is defined by how many metres must stay visible, so portrait and landscape both work.
 import * as THREE from 'three';
 
+// Pitch 45–50° (Casper 9b.5: the player must read as a person, not a hat) and close framing.
 const MODES = {
-  explore: { pitch: 55, width: 15, height: 17, lead: 2.5, ease: 4.5 },
-  aim: { pitch: 62, width: 17.5, height: 19, lead: 0, ease: 2.2 },
-  wait: { pitch: 58, width: 16.5, height: 18, lead: 0, ease: 2.0 },
-  fight: { pitch: 57, width: 19, height: 21, lead: 0, ease: 2.6 },
-  catch: { pitch: 50, width: 11, height: 13, lead: 0.5, ease: 3.0 },
+  explore: { pitch: 48, width: 12.5, height: 14, lead: 1.8, ease: 4.5 },
+  aim: { pitch: 55, width: 15.5, height: 17, lead: 0, ease: 2.2 },
+  wait: { pitch: 51, width: 14.5, height: 16, lead: 0, ease: 2.0 },
+  fight: { pitch: 50, width: 16.5, height: 18, lead: 0, ease: 2.6 },
+  catch: { pitch: 40, width: 7.5, height: 8.5, lead: 0.3, ease: 5.5 },
+  build: { pitch: 64, width: 22, height: 24, lead: 0, ease: 2.5 },
 };
 
 export function createCameraRig({ fov = 45 } = {}) {

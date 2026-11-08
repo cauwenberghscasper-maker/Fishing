@@ -146,6 +146,7 @@ export async function startWorld({ canvas, state, events }) {
     update(dt, realDt, time) {
       lastDt = dt;
       if (dayRunning) lighting.setHour(lighting.hour + (dt / DAY_LENGTH) * 24);
+      pipeline.renderer.toneMappingExposure = lighting.exposure;
       player.update(dt, realDt);
       fishSystem.update(dt, time);
       fishing.update(dt, realDt);

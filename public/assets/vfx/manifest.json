@@ -417,5 +417,12 @@
   "kind": "backdrop",
   "aspect": "9:16",
   "prompt": "a sunken shipwreck hold, rusted anchor chains, hull ribs and barnacles framing the edges, orange light glinting on metal, a calm dark sea-green empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
+ },
+ "coin": {
+  "path": "assets/vfx/coin.webp",
+  "usedBy": "catch reveal: window.__vfx.flyCoins (coins with a shine trail flying into the purse)",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "sprite",
+  "prompt": "one old gold doubloon coin seen slightly tilted, worn stamped rim, a small wave and compass mark in the middle, warm gold with a bright glint, centered, hand-painted gouache, on a pure black background, no text, no letters"
  }
 }

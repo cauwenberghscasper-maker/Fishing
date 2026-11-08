@@ -163,8 +163,9 @@ export function createHud({ root }) {
         const col = inDead ? theme.danger : theme.paper;
         const nx = -a.drag.y / (a.dragLength || 1), ny = a.drag.x / (a.dragLength || 1);
         g.strokeStyle = col;
-        g.lineWidth = 3;
-        g.globalAlpha = 0.9;
+        // The band thins and brightens as it stretches: it should feel loaded.
+        g.lineWidth = 3.5 - (a.power || 0) * 1.6;
+        g.globalAlpha = 0.75 + (a.power || 0) * 0.25;
         for (const s of [-1, 1]) {
           g.beginPath();
           g.moveTo(c.x + nx * c.r * 0.55 * s, c.y + ny * c.r * 0.55 * s);

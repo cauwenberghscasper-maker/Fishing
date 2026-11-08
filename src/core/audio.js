@@ -73,6 +73,9 @@ export const audio = {
   hook() { tone(520, 0.08, { type: 'square', gain: 0.06 }); tone(780, 0.14, { type: 'triangle', gain: 0.1, delay: 0.05 }); },
   reelTick(tension) { tone(1800 + tension * 900, 0.018, { type: 'square', gain: 0.025 }); },
   snap() { noise(0.16, { freq: 4000, type: 'highpass', gain: 0.5 }); tone(900, 0.2, { type: 'sawtooth', slideTo: 120, gain: 0.08 }); },
+  // Rope creak as the cast is drawn back (step 1..4).
+  creak(step) { tone(180 + step * 45, 0.07, { type: 'triangle', slideTo: 150 + step * 40, gain: 0.03 + step * 0.008 }); noise(0.06, { freq: 700 + step * 150, q: 4, gain: 0.04 }); },
+  tick() { tone(1400, 0.03, { type: 'sine', gain: 0.04 }); },
   perfect() { tone(1046, 0.25, { gain: 0.08 }); tone(1568, 0.35, { gain: 0.06, delay: 0.06 }); },
   catchChime() {
     // Sea-glass chime: a rising fifth and octave.

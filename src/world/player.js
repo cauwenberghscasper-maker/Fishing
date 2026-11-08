@@ -41,6 +41,33 @@ function makeContactShadowTexture() {
   return tex;
 }
 
+// A soft rim light so the player always reads against sand and water (9b.5).
+const rimUniforms = { uRimColor: { value: new THREE.Color('#ffe2a8') }, uRimStrength: { value: 0.55 } };
+function addRimLight(object) {
+  object.traverse((o) => {
+    if (!o.isMesh) return;
+    const mats = Array.isArray(o.material) ? o.material : [o.material];
+    const patched = mats.map((m) => {
+      const mat = m.clone();
+      mat.onBeforeCompile = (shader) => {
+        shader.uniforms.uRimColor = rimUniforms.uRimColor;
+        shader.uniforms.uRimStrength = rimUniforms.uRimStrength;
+        shader.fragmentShader = shader.fragmentShader
+          .replace('#include <common>', '#include <common>\nuniform vec3 uRimColor;\nuniform float uRimStrength;')
+          .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+            {
+              float rim = 1.0 - clamp(dot(normalize(normal), normalize(vViewPosition)), 0.0, 1.0);
+              totalEmissiveRadiance += uRimColor * pow(rim, 2.6) * uRimStrength;
+            }`);
+      };
+      mat.customProgramCacheKey = () => `player-rim-${m.type}`;
+      return mat;
+    });
+    o.material = Array.isArray(o.material) ? patched : patched[0];
+  });
+}
+export { rimUniforms };
+
 export function createPlayer({ island, input, cameraRig, water, events, state }) {
   const root = new THREE.Group();
   root.name = 'player';
@@ -78,6 +105,7 @@ export function createPlayer({ island, input, cameraRig, water, events, state })
     const m = await loadModel('character', id);
     if (!m) return false;
     model = m.scene;
+    addRimLight(model);
     const entry = assetEntry('character', id);
     if (entry.rotY) model.rotation.y = entry.rotY;
     root.add(model);

@@ -152,3 +152,13 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 23:16 | E | Qwen-Image-Fast | tx_burst radial burst, seed 1556274774 (kept) | ~4 |
 
 **Agent E running total at 23:16: 36 Fast (~4.2 s each ≈ 151 s) + 1 full Qwen-Image (26 s) ≈ 177 s of the 5 min.** The coordinator asked to keep going past 5 min until the quota error (Casper wants today's quota used).
+| 23:17 | F | Qwen-Image | island key art ×7, 3:4, seeds 5101–5107 (wreck_reef, mossback_bayou, frostfang_fjord, ember_caldera, stormspire_isles, sunken_temple, the_abyss); wreck_reef has a fake UI coin counter painted in, sunken_temple drew a seal *animal* on the manta: both get one redo | 114 (7 calls, ~16 s each) |
+
+**Agent F, quota day from 6 Nov 22:45: ~216 s logged (Fast ~102 s + Qwen-Image 114 s).**
+| 6 Nov 23:18 | C | Qwen-Image | 3 parallel: keg_boxfish r2 (kept as weak concept: still reads as fish in a barrel, lips), chainlink_pipefish r2 (kept: links along body, coral fringes; chain still reads laid-on), cannon_gar r1 (fail: printed text, teeth, barrel bolted in front of mouth) | ~81 total (measured wall, 3 calls) |
+
+### Agent E — 8 Nov (budget 150 s, Qwen-Image-Fast ~4 s each)
+| Time (Brussels) | Agent | Tool | What | GPU s (wall-clock upper bound) |
+|---|---|---|---|---|
+| 6 Nov 23:17 | E | Qwen-Image-Fast | tx_wave r2 (kept, top sky strip cropped), impact_storm, impact_frost, impact_ember, impact_bloom, impact_rune (all kept) — logged late, made at the end of the 6 Nov session | ~25 |
+| 8 Nov 14:45 | C | — | registered hero/rest/portrait slots for 9 fish (manifest ) before generating; budget 450 s | 0 |

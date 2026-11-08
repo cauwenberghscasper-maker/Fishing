@@ -45,6 +45,9 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   let retrieve = null;    // reel-in animation
   let modal = false;
   let heldFish = null;    // fish shown at the catch until the catch moment ends
+  let burst = null;       // the fish leaping out of the water into the player's hands
+  let caughtPayload = null;
+  let caughtDelay = 0;
   const tip = new THREE.Vector3();
   const hand = new THREE.Vector3();
   const tmp = new THREE.Vector3();
@@ -262,25 +265,15 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     const fish = fightFish;
     const roll = fish.catchRoll;
     if (status === 'caught') {
-      events.emit('fish:caught', {
+      caughtPayload = {
         fishId: fish.id,
         variant: fish.variant || 'basic',
         weight: roll.weight,
         sizeClass: roll.sizeClass,
         islandId: state.world.islandId,
         perfectCast: Boolean(lastCast?.perfect),
-      });
-      splashes.splash(player.position.x, player.position.z, 0.6);
-      audio.catchChime();
-      navigator.vibrate?.([30, 40, 60]);
-      fishSystem.finish(fish, 'held');
-      heldFish = fish;
-      events.emit('fish:landed-show', { uid: fish.uid, fishId: fish.id, variant: fish.variant || 'basic', object: fish.object });
-      line.hide();
-      lure.inWater = false;
-      player.pose('holdUp');
-      catchTimer = 2.2;
-      setMode('catch');
+      };
+      startCatchBurst(fish);
     } else {
       events.emit('fish:lost', { fishId: fish.id, variant: fish.variant || 'basic', reason: status });
       if (status === 'snap') { audio.snap(); hud.toast('Snap! The line broke'); cameraRig.shake(0.4); }
@@ -297,6 +290,70 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     reeling = false;
     steer = 0;
     hud.setMainPressed(false);
+  }
+
+  // --- the catch moment (9b.3) -----------------------------------------------------------
+  // The fish bursts out of the water in slow motion, the camera punches in, the player holds it
+  // up; then fish:landed-show (in-world moment) and fish:caught (B's full-screen reveal).
+  function startCatchBurst(fish) {
+    fishSystem.finish(fish, 'held');
+    fishSystem.showCard(fish);
+    heldFish = fish;
+    const from = new THREE.Vector3(fish.pos.x, water.surfaceY(fish.pos.x, fish.pos.z), fish.pos.z);
+    burst = { t: 0, dur: 1.05, from, fish, trail: 0 };
+    splashes.splash(from.x, from.z, 2.0);
+    water.addRipple(from.x, from.z, 1.6);
+    water.addRipple(from.x, from.z, 0.9, 0.2);
+    audio.splash(1.6);
+    loop.slowmo(0.35, 0.75);
+    cameraRig.shakeFor(0.45, 0.35);
+    line.hide();
+    lure.inWater = false;
+    player.pose('holdUp');
+    navigator.vibrate?.([30, 40, 60]);
+    catchTimer = 2.6;
+    setMode('catch');
+  }
+
+  function holdPoint(out) {
+    player.handAnchor.getWorldPosition(hand);
+    return out.set(hand.x + Math.sin(player.facing) * 0.45, hand.y + 0.35, hand.z + Math.cos(player.facing) * 0.45);
+  }
+
+  function updateCatch(dt, realDt) {
+    const o = heldFish?.object;
+    if (burst && o) {
+      burst.t += dt;
+      const k = Math.min(1, burst.t / burst.dur);
+      const to = holdPoint(new THREE.Vector3());
+      const e = 1 - Math.pow(1 - k, 2);
+      o.position.lerpVectors(burst.from, to, e);
+      o.position.y += Math.sin(k * Math.PI) * 2.2;
+      o.rotation.set(0, o.rotation.y + dt * 9, Math.sin(k * Math.PI * 2) * 0.6);
+      heldFish.swim.set('landed');
+      burst.trail -= dt;
+      if (burst.trail <= 0 && k < 0.6) {
+        burst.trail = 0.07;
+        splashes.splash(o.position.x, o.position.z, 0.25);
+      }
+      if (k >= 1) {
+        burst = null;
+        audio.catchChime();
+        events.emit('fish:landed-show', { uid: heldFish.uid, fishId: heldFish.id, variant: heldFish.variant || 'basic', object: o });
+        caughtDelay = 0.75;
+      }
+    } else if (o) {
+      holdPoint(o.position);
+      o.rotation.set(0, o.rotation.y + realDt * 1.6, 0.15);
+      heldFish.swim.set('landed');
+    }
+    if (caughtDelay > 0) {
+      caughtDelay -= realDt;
+      if (caughtDelay <= 0 && caughtPayload) {
+        events.emit('fish:caught', caughtPayload);
+        caughtPayload = null;
+      }
+    }
   }
 
   // --- input -------------------------------------------------------------------------------
@@ -499,16 +556,11 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       cameraRig.setFocus(THREE.MathUtils.lerp(player.position.x, fp.x, 0.45), 0, THREE.MathUtils.lerp(player.position.z, fp.z, 0.45));
       if (status !== 'fighting') endFight(status);
     } else if (mode === 'catch') {
-      cameraRig.setFocus(player.position.x, 0, player.position.z);
-      if (heldFish) {
-        // Held up in front of the player, turning slowly (catch-card turntable pose).
-        player.handAnchor.getWorldPosition(hand);
-        const o = heldFish.object;
-        o.position.set(hand.x + Math.sin(player.facing) * 0.35, hand.y + 0.25, hand.z + Math.cos(player.facing) * 0.35);
-        o.rotation.set(0, o.rotation.y + realDt * 1.6, Math.PI / 2 * 0.15);
-        heldFish.swim.set('landed');
-      }
-      if (!modal) catchTimer -= realDt;
+      const focus = heldFish?.object?.position || player.position;
+      cameraRig.setFocus(THREE.MathUtils.lerp(player.position.x, focus.x, 0.5), 0, THREE.MathUtils.lerp(player.position.z, focus.z, 0.5));
+      updateCatch(dt, realDt);
+      // B's reveal opens a modal: the moment lasts until it closes (or a short timeout).
+      if (!modal && !burst && !caughtPayload) catchTimer -= realDt;
       if (catchTimer <= 0) {
         if (heldFish) { fishSystem.finish(heldFish, 'caught'); heldFish = null; }
         player.pose(null);

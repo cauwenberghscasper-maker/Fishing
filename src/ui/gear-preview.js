@@ -5,7 +5,7 @@
 // assets/gear/manifest.json, keys like "rod.greenheart"). A missing model = no preview (the card shows
 // Agent F's painting or nothing). Lines have no model.
 import * as THREE from 'three';
-import { loadManifests, hasAsset, loadModel } from '../core/assets.js';
+import { loadManifests, hasAsset, assetEntry, loadModel } from '../core/assets.js';
 
 let manifestsReady = null;
 let renderer = null;
@@ -25,7 +25,7 @@ export function gearManifestReady() {
 }
 
 /** True when Agent G has shipped a model for this key (call after gearManifestReady()). */
-export const hasGearModel = (modelId) => !!modelId && hasAsset('gear', modelId);
+export const hasGearModel = (modelId) => !!modelId && hasAsset('gear', modelId) && assetEntry('gear', modelId)?.planned !== true;
 
 function setup() {
   if (renderer) return true;

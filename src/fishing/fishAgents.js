@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { createSwimState, applySwimToModel } from './swim.js';
 import { cellIndex } from './silhouettes.js';
 import { fishInfo, rosterFor, TIER_POPULATION, TIER_RANK, timeAllows } from './fishData.js';
-import { loadModel, hasAsset } from '../core/assets.js';
+import { loadModel, hasAsset, rawAssetEntry } from '../core/assets.js';
 import { rollVariant } from './variants.js';
 
 const PERSONALITY = {
@@ -682,5 +682,27 @@ export function createFishSystem({ state, island, water, splashes, events, under
       return f;
     },
     clear() { for (const f of [...fish]) removeFish(f); },
+    // Catch moment for fish without a model yet: their painted cut-out on a camera-facing card.
+    showCard(f) {
+      if (f.model || f.card) return;
+      const entry = rawAssetEntry('fish', f.info.model) || rawAssetEntry('fish', f.id);
+      const url = entry?.preview || entry?.hero;
+      if (!url) return;
+      const mat = new THREE.SpriteMaterial({ transparent: true, depthWrite: false, opacity: 0 });
+      const card = new THREE.Sprite(mat);
+      card.renderOrder = 40;
+      card.name = 'fish-card';
+      f.card = card;
+      f.object.add(card);
+      new THREE.TextureLoader().load(url, (tex) => {
+        tex.colorSpace = THREE.SRGBColorSpace;
+        mat.map = tex;
+        mat.needsUpdate = true;
+        const aspect = tex.image.height / tex.image.width;
+        const w = Math.max(0.7, Math.min(1.6, f.length * 0.9));
+        card.scale.set(w, w * aspect, 1);
+        mat.opacity = 1;
+      });
+    },
   };
 }

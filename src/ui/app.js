@@ -5,7 +5,8 @@ import { h, ico, fmt, fmtKg, money, artImg } from './dom.js';
 import { economy } from '../economy/index.js';
 import { artPath } from '../economy/data.js';
 import { fullName } from '../economy/rules.js';
-import { catchCard } from './screens/catch.js';
+import { catchReveal } from './screens/reveal.js';
+import { sfx, initSfx } from './sfx.js';
 import { shopSheet } from './screens/shop.js';
 import { travelSheet } from './screens/travel.js';
 import { logbookSheet } from './screens/logbook.js';
@@ -39,6 +40,7 @@ export async function startUI({ root, state, events }) {
   injectFonts();
 
   const ctx = { state, events, economy, ui: null };
+  initSfx(() => state.profile?.settings?.sound !== false);
 
   // ------------------------------------------------------------ layers
   const hudLayer = h('div.ui-layer.hud-layer');
@@ -107,6 +109,7 @@ export async function startUI({ root, state, events }) {
     openLogbook: () => open(logbookSheet(ctx)),
     openSettings: () => open(settingsSheet(ctx)),
     buildingIcon: (id) => BUILDING_ICONS[id] ?? 'hammer',
+    flyCoins,
     atShop: () => actionZone?.kind === 'shop' || state.world?.zone === 'shop',
   };
 
@@ -196,13 +199,33 @@ export async function startUI({ root, state, events }) {
     actionDock.replaceChildren();
   });
 
+  // coins fly from where they were earned (the scale) into the purse, clinking as they land
+  function flyCoins(fromRect, amount) {
+    const to = plate.querySelector('svg').getBoundingClientRect();
+    const n = Math.max(3, Math.min(10, Math.round(Math.log2(amount + 1) * 1.6)));
+    for (let i = 0; i < n; i++) {
+      const coin = h('span.flying-coin', ico('coin'));
+      const sx = fromRect.left + fromRect.width / 2 + (Math.random() - 0.5) * fromRect.width * 0.5;
+      const sy = fromRect.top + fromRect.height / 2 + (Math.random() - 0.5) * 20;
+      coin.style.left = `${sx}px`;
+      coin.style.top = `${sy}px`;
+      coin.style.setProperty('--tx', `${to.left + to.width / 2 - sx}px`);
+      coin.style.setProperty('--ty', `${to.top + to.height / 2 - sy}px`);
+      coin.style.setProperty('--arc', `${-60 - Math.random() * 80}px`);
+      coin.style.animationDelay = `${i * 55}ms`;
+      hudLayer.append(coin);
+      setTimeout(() => sfx.coin(), 520 + i * 55);
+      setTimeout(() => coin.remove(), 700 + i * 55);
+    }
+  }
+
   hudLayer.append(hudTop, actionDock, toasts);
   if (state.test) hudLayer.append(h('div.test-ribbon', 'Test mode: ×100 coins'));
 
   // ------------------------------------------------------------ events
   events.on('coins:changed', ({ coins }) => { animateCoins(coins); refreshHud(); current?.refresh?.(); });
   events.on('profile:changed', () => { refreshHud(); current?.refresh?.(); });
-  events.on('catch:landed', (info) => open(catchCard(ctx, info), { queued: true }));
+  events.on('catch:landed', (info) => open(catchReveal(ctx, info), { queued: true }));
   events.on('offline:ready', () => {
     if (current?.id === 'offline') current.refresh?.();
     else if (!queue.some((v) => v.id === 'offline')) open(offlineLetter(ctx), { queued: true });

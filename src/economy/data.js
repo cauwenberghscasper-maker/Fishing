@@ -45,32 +45,38 @@ export async function loadData(state) {
  * title.main, title.loading. The UI hides the slot when this returns null.
  */
 export function artPath(state, key, { large = false } = {}) {
-  const entry = state.data.art?.[key];
+  const entry = live(state.data.art?.[key]);
   const path = typeof entry === 'string' ? entry : (large && entry?.icon) || entry?.path;
   return typeof path === 'string' && path ? path.replace(/^\//, '') : null;
 }
 
 /** Extra text an art entry may carry (e.g. tip.1..4 captions). */
 export function artText(state, key) {
-  const entry = state.data.art?.[key];
+  const entry = state.data.art?.[key];   // captions are text, usable even while the painting is planned
   return typeof entry === 'object' ? entry?.text ?? entry?.caption ?? null : null;
 }
 
 /** Preview image path for a fish, or null when Agent C has not delivered one yet. */
 export function fishPreview(state, fishId) {
-  const entry = state.data.fishAssets?.[fishId];
+  const entry = live(state.data.fishAssets?.[fishId]);
   return entry?.preview ?? null;
+}
+
+/** Registry rule: entries with `planned: true` have no file yet. The UI skips them so the live game never asks for a missing file. */
+function live(entry) {
+  return entry && typeof entry === 'object' && entry.planned === true ? null : entry;
 }
 
 /** A painted pose of a fish (hero | rest | portrait, 9b.2), falling back to the preview. Only manifest paths: no guessing, no 404s. */
 export function fishPose(state, fishId, pose) {
-  const entry = state.data.fishAssets?.[fishId];
-  return entry?.[pose] ?? entry?.poses?.[pose] ?? entry?.preview ?? null;
+  const entry = live(state.data.fishAssets?.[fishId]);
+  const pick = (v) => (typeof v === 'object' && v ? (v.planned ? null : v.path) : v);
+  return pick(entry?.[pose]) ?? pick(entry?.poses?.[pose]) ?? entry?.preview ?? null;
 }
 
 /** Path of an Agent E vfx asset (e.g. backdrop.<variantId>), or null. */
 export function vfxPath(state, key) {
-  const entry = state.data.vfxAssets?.[key];
+  const entry = live(state.data.vfxAssets?.[key]);
   const path = typeof entry === 'string' ? entry : entry?.path ?? entry?.image;
   return typeof path === 'string' && path ? path.replace(/^\//, '') : null;
 }

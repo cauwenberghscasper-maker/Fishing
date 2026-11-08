@@ -203,7 +203,7 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
       if (s.move) endMove();
       hooks.tired?.();
     }
-    if (s.landing && s.distance <= 1.7) s.status = 'caught';
+    if (s.landing && s.distance <= 3.2) s.status = 'caught'; // the catch burst takes it from here
 
     applyFishPose(dt);
     return s.status;

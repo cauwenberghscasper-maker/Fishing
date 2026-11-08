@@ -17,6 +17,7 @@ const loader = new GLTFLoader();
 loader.setMeshoptDecoder(MeshoptDecoder);
 
 const manifests = Object.fromEntries(Object.keys(MANIFESTS).map((k) => [k, {}]));
+const rawManifests = Object.fromEntries(Object.keys(MANIFESTS).map((k) => [k, {}])); // incl. concept-only entries
 const gltfCache = new Map(); // "kind/id" -> Promise<gltf|null>
 
 export async function loadManifests() {
@@ -25,9 +26,11 @@ export async function loadManifests() {
       const res = await fetch(url, { cache: 'no-cache' });
       if (!res.ok) return;
       const json = await res.json();
+      rawManifests[kind] = json || {};
       const usable = {};
       for (const [id, entry] of Object.entries(json || {})) {
-        if (entry && typeof entry.path === 'string' && entry.path) usable[id] = entry;
+        // `planned: true` = the file does not exist yet: treat it like a missing entry.
+        if (entry && !entry.planned && typeof entry.path === 'string' && entry.path) usable[id] = entry;
       }
       manifests[kind] = usable;
     } catch (err) {
@@ -99,6 +102,12 @@ export async function loadModel(kind, id) {
     }
   });
   return { scene, animations: gltf.animations || [], entry };
+}
+
+// Any entry, also concept-only ones (painted previews / hero poses without a model).
+export function rawAssetEntry(kind, id) {
+  const e = rawManifests[kind]?.[id];
+  return e && !e.planned ? e : null;
 }
 
 export function getManifests() {

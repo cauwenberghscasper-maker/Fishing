@@ -134,6 +134,21 @@ Travel by boat from the home pier. Unlock by coins + a catch requirement.
 - **Market:** a daily "hot fish" with a bonus, prices recover slowly if you flood one species.
 - Buy: rods, reels, lines, bait, lures, boat upgrades, building upgrades, land plots, workers.
 
+### 4.7b Gear that wears, breaks and runs out, plus real tackle (Casper, 8 Nov)
+"When your rod breaks you have to buy a new and better one, a better line, extra bait for catching bigger fish. Some other real fishing gear, all with art." Gear becomes a loop of its own: fish bigger → gear strains → upgrade. It must feel fair, never stuck:
+- **Rods** have a weight rating (kg) and durability. Fighting a fish heavier than the rating with tension in the red strains the rod: creaking sounds, the rod model bends further, painted crack marks on the tension dial. Push too long and it **breaks**: the fish is gone, and the rod is broken until you repair it at the shop (~30% of its price) or buy a better one. The starter rod can bend but never breaks, so nobody is ever stuck.
+- **Lines** have a strength (kg test) and wear. Every fight wears them a little, more when tension stays high. A worn line snaps sooner. A snap loses everything on the end of the line (hook, sinker, float, leader, lure or bait). Re-spool at the shop or buy a stronger line.
+- **Bait is consumable** and sold in stacks. One bait is used per bite (stolen bait is lost too). Better bait attracts bigger and rarer fish, and each bait has its favourites. Bread crust is free and unlimited, so you can always fish.
+- **Real tackle, all new item slots, each with a painted card (F) and a 3D model (G), named with a story like the rest:**
+  - **Hooks** (J-hook, circle hook, treble, big-game forged hook): the hook window and how often a fish throws the hook; small hooks can't hold big fish.
+  - **Sinkers** (split shot, egg sinker, pyramid sinker, cannonball lead): how deep the bait sinks, so which depth band (and fish) you reach.
+  - **Floats/bobbers** (cork float, quill float, lantern float for night): how clearly the bite shows (a longer, clearer bite window).
+  - **Leaders** (gut leader, wire leader, chain leader): toothy fish (gar, pike, eels) bite through the main line without one.
+  - **Lures** (spoon, spinner, popper, jig, feathered fly): reusable instead of bait, attract predators, lost on a snap. Each moves differently in the water.
+  - **Tools** (not on the line): landing net (lands fish faster; also powers the co-op "Net it!"), gaff (needed to land trophies and bosses), polarized glasses (see fish shadows deeper and spot rarity shimmer), tackle box (more bait and lure stacks), bait bucket (keeps live bait fresh = better attraction).
+- The shop shows every item as its painted card plus a turning 3D model, with stats as clear before/after comparisons, and a repair/re-spool counter.
+- Everything is in `items.json`; numbers live in data so balancing never needs code.
+
 ### 4.8 Idle
 - Workers fish automatically at owned spots (they catch from the island's common/uncommon pool at a rate).
 - Nets/crab pots fill over time; smokehouse processes; aquarium earns visitors.

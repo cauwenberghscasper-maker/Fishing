@@ -138,6 +138,11 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 23:14 | G | Qwen-Image | reel marigold_ratchet view, 1:1, seed 338259590 → `art/concepts/gear/reel_marigold_ratchet.webp` | 34 |
 | 23:15 | G | Qwen-Image | reel lantern_drum view, 1:1, seed 1354093819 → `art/concepts/gear/reel_lantern_drum.webp` | 26 |
 | 23:15 | G | Qwen-Image | reel sextant_reel view, 1:1, seed 196736892 → `art/concepts/gear/reel_sextant_reel.webp` | 33 |
+| 23:16 | G | Qwen-Image | bait breadcrust view r1, seed 1872379263 (rejected: bread slice with an eye; archived `art/concepts/gear/_rejected/bait_breadcrust_r1.webp`) | 30 |
+| 23:16 | G | Qwen-Image | bait breadcrust view r2, seed 1352641987 → `art/concepts/gear/bait_breadcrust.webp` (kept) | 25 |
+| 23:17 | G | Qwen-Image | bait sandworms view r1, seed 1646565991 (rejected: faces with teeth; archived `_rejected/bait_sandworms_g_r1.webp`). Session cut off by the usage limit here (logged 8 Nov) | 30 |
+
+**Agent G total, quota day from 6 Nov 22:45: 11 Qwen-Image runs ≈ 324 s wall-clock (upper bound).**
 | 23:15 | E | Qwen-Image (full) | dc_rune_circle hero, 1:1, seed 1126855628 (kept: stone ring + glowing sigil band; centre knot is a known Celtic shape, the band glyphs lean futhark, acceptable for a water decal) | 26 (measured) |
 | 23:10 | F | Qwen-Image-Fast | reels click_reel, marigold_ratchet, lantern_drum, sextant_reel, seeds 4401–4404 (click + lantern kept; marigold "barnacles" drew as ghost shapes, sextant arc had numerals) | 23 (4 calls) |
 | 23:11 | F | Qwen-Image-Fast | redo marigold_ratchet (4502) + sextant_reel (4504), both kept with small flaws noted in the handoff | 12 (2 calls) |
@@ -169,3 +174,7 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 8 Nov 14:42 | E | Qwen-Image-Fast | splash_crown side view, seed 2095431640 (kept; water strip cropped) | ~4 (20 s wall) |
 | 8 Nov 14:43 | E | Qwen-Image-Fast | foam_ring, seed 1122456442 (kept; outer doily lace masked off) | ~4 (20 s wall) |
 | 8 Nov 14:43 | E | Qwen-Image-Fast | spray_fan, seed 1140175299 (kept; water strip cropped) | ~4 (20 s wall) |
+| 8 Nov 14:44 | E | Qwen-Image-Fast | backdrop.storm 9:16, seed 401785626 (kept; small painted fish at the bottom inpainted out locally) | ~4 |
+| 8 Nov 14:44 | E | Qwen-Image-Fast | backdrop.frost 9:16, seed 233954903 (kept; small fish inpainted out) | ~4 |
+| 8 Nov 14:44 | E | Qwen-Image-Fast | backdrop.ember r1, seed 1216421437 (rejected: cartoon fuse bombs + a fish) | ~4 |
+| 8 Nov 14:45 | E | Qwen-Image-Fast | backdrop.bloom 9:16, seed 1245496282 (kept; frog inpainted out) | ~4 |

@@ -162,7 +162,8 @@
     "tris": 0,
     "island": "wreck_reef",
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
-    "status": "concept"
+    "status": "concept",
+    "planned": true
   },
   "keg_boxfish": {
     "path": null,
@@ -177,7 +178,8 @@
     "tris": 0,
     "island": "wreck_reef",
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
-    "status": "concept"
+    "status": "concept",
+    "planned": true
   },
   "chainlink_pipefish": {
     "path": null,
@@ -192,7 +194,8 @@
     "tris": 0,
     "island": "wreck_reef",
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
-    "status": "concept"
+    "status": "concept",
+    "planned": true
   },
   "porthole_ray": {
     "path": null,
@@ -207,7 +210,8 @@
     "tris": 0,
     "island": "wreck_reef",
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
-    "status": "concept"
+    "status": "concept",
+    "planned": true
   },
   "cannon_gar": {
     "path": null,
@@ -222,7 +226,8 @@
     "tris": 0,
     "island": "wreck_reef",
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
-    "status": "concept"
+    "status": "concept",
+    "planned": true
   },
   "wreck_grouper": {
     "path": null,
@@ -237,7 +242,8 @@
     "tris": 0,
     "island": "wreck_reef",
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
-    "status": "concept"
+    "status": "concept",
+    "planned": true
   },
   "kintsugi_koi": {
     "path": null,
@@ -252,7 +258,8 @@
     "tris": 0,
     "island": "ember_caldera",
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
-    "status": "concept"
+    "status": "concept",
+    "planned": true
   },
   "glacier_pike": {
     "path": null,
@@ -267,7 +274,8 @@
     "tris": 0,
     "island": "frostfang_fjord",
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
-    "status": "concept"
+    "status": "concept",
+    "planned": true
   },
   "mossback_carp": {
     "path": null,
@@ -282,6 +290,7 @@
     "tris": 0,
     "island": "mossback_bayou",
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
-    "status": "concept"
+    "status": "concept",
+    "planned": true
   }
 }

@@ -392,6 +392,12 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
     return null;
   }
 
+  // ground the player could stand on, ignoring colliders (for walking out of something that spawned around them)
+  function terrainOk(x, z) {
+    if (deckAt(x, z)) return true;
+    return terrain.heightAt(x, z) >= -WADE_DEPTH && terrain.slopeAt(x, z) <= MAX_SLOPE;
+  }
+
   function isWalkable(x, z) {
     if (deckAt(x, z)) return !blockedByCollider(x, z);
     const h = terrain.heightAt(x, z);
@@ -405,6 +411,14 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
   function resolveMove(from, dx, dz) {
     const tx = from.x + dx, tz = from.z + dz;
     if (isWalkable(tx, tz)) return { x: tx, z: tz, blocked: false };
+    // Never trap the player: if a building appeared around them (bought or upgraded while standing
+    // at it, Casper: "players get caught inside the shop"), any step that leads outward is allowed.
+    const inside = blockedByCollider(from.x, from.z);
+    if (inside && terrainOk(tx, tz)) {
+      const before = (from.x - inside.x) ** 2 + (from.z - inside.z) ** 2;
+      const after = (tx - inside.x) ** 2 + (tz - inside.z) ** 2;
+      if (after > before) return { x: tx, z: tz, blocked: false };
+    }
     const len = Math.hypot(dx, dz);
     const a0 = Math.atan2(dx, dz);
     for (const off of [0.35, -0.35, 0.7, -0.7, 1.05, -1.05, 1.3, -1.3]) {

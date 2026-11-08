@@ -6,7 +6,7 @@ import { h, ico, fmt, fmtKg, money, fill, artImg, inkOn, plural, fmtDuration } f
 import { fishPose, artPath } from '../../economy/data.js';
 import { BUILDINGS, sizeClassById, fullName, slotInfo } from '../../economy/rules.js';
 import { attachGearPreview, detachAllGearPreviews, gearManifestReady, hasGearModel } from '../gear-preview.js';
-import { Place, Tabs, Tile, TileGrid, Drawer, Plate, StatRow, changeGate } from '../kit.js';
+import { Place, Tabs, TabsSpacer, Tile, TileGrid, Drawer, Plate, StatRow, changeGate } from '../kit.js';
 import { isVisitor, hostName } from '../net.js';
 
 const SECTIONS = [
@@ -96,18 +96,23 @@ export function shopSheet(ctx, { tab = 'sell', focus = null } = {}) {
   function render() {
     detachAllGearPreviews();
     const p = state.profile;
-    const tabs = Tabs(SECTIONS.map((s) => ({ ...s, badge: s.id === 'sell' && p.cooler.length ? String(p.cooler.length) : null })), section,
+    const tabs = Tabs(SECTIONS.map((s) => ({ ...s, art: tabArt(s.id), badge: s.id === 'sell' && p.cooler.length ? String(p.cooler.length) : null })), section,
       (id) => { section = id; drawer.close(); render(); }, { label: 'Shop sections' });
-    const sub = SUBS[section] ? Tabs(SUBS[section], subOf[section], (id) => { subOf[section] = id; drawer.close(); render(); }, { level: 2, label: 'Categories' }) : null;
+    const sub = SUBS[section] ? Tabs(SUBS[section].map((t) => ({ ...t, art: tabArt(t.id) })), subOf[section], (id) => { subOf[section] = id; drawer.close(); render(); }, { level: 2, label: 'Categories' }) : TabsSpacer();
     let view;
     if (section === 'sell') view = sellView(ctx, drawer, setDrawer);
     else if (section === 'gear' || section === 'tackle') view = gearView(ctx, subOf[section], drawer, setDrawer);
     else if (section === 'bait') view = gearView(ctx, 'bait', drawer, setDrawer);
     else view = buildView(ctx, subOf.build, drawer, setDrawer);
-    fill(place.body, face ? keeper : null, h('div.counter', tabs, sub, view.grid, view.plate ?? null));
+    fill(place.body, face ? keeper : null, h('div.counter', tabs, sub, view.grid, view.plate ?? h('div.plate-spacer', { 'aria-hidden': 'true' })));
     if (drawer.isOpen && drawerFor) drawerFor();
   }
   function setDrawer(fn) { drawerFor = fn; fn(); }
+  // painted category icons (art.json icon.tab.*); sub-tab ids are singular, the art keys plural
+  function tabArt(id) {
+    const key = { rod: 'rods', reel: 'reels', line: 'lines', hook: 'hooks', sinker: 'sinkers', float: 'floats', leader: 'leaders', lure: 'lures', tool: 'tools' }[id] ?? id;
+    return artPath(state, `icon.tab.${key}`);
+  }
 
   // every price the shop can show, so a redraw happens exactly when something becomes affordable
   const prices = [
@@ -139,7 +144,7 @@ function sellView(ctx, drawer, setDrawer) {
   const p = state.profile;
   const hotId = economy.hotFish();
   if (!p.cooler.length) {
-    return { grid: h('p.counter__empty', 'Nothing on the counter yet. Bring fish from the pier.') };
+    return { grid: TileGrid([], { label: 'Your catch', empty: 'Nothing to sell yet. Catch fish from the pier.' }) };
   }
   const tiles = p.cooler.map((c) => {
     const f = state.data.fish?.[c.fishId] ?? { name: c.fishId };
@@ -341,7 +346,7 @@ function buildingLine(state, id, lvl) {
 function buildView(ctx, sub, drawer, setDrawer) {
   const { state, economy, ui } = ctx;
   const p = state.profile;
-  if (isVisitor(state)) return { grid: h('p.counter__empty', `This is ${hostName(state)}'s island. Build on your own.`) };
+  if (isVisitor(state)) return { grid: TileGrid([], { label: 'Build', empty: `This is ${hostName(state)}'s island. Build on your own.` }) };
   const plots = state.data.economy?.plots ?? {};
   const plotName = (id) => plots[id]?.name ?? id;
   const start = (kind, id) => {

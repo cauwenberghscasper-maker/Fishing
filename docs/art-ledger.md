@@ -221,3 +221,4 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 8 Nov 19:46 | C | Qwen-Image-Fast ×3 | portraits: shellback_blenny, kelp_wraith (binder holes painted out), seaglass_puffer (two-state study; scribble painted out) | 31 total (measured wall) |
 | 8 Nov 19:47 | C | Qwen-Image-Fast ×3 | portraits: old_mooring, storm_marlin (teeth inpainted), temple_manta (kept) | 10 total (measured wall) |
 | 8 Nov 19:50 | lead | Qwen-Image-Fast ×10 | casting HUD set (cast, reel, 2 gauges, stamina, ring, tag, strike splash, line band, crack); pressed/aim states and needle derived in code | ~45 |
+| 8 Nov 20:05 | lead | Qwen-Image-Fast ×2 + Qwen-Image ×1 | 18 category icons (two 3×3 sheets, sliced); new shopkeeper portrait (Marin) | ~40 |

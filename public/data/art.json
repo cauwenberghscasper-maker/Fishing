@@ -1070,13 +1070,13 @@
   },
   "npc.shopkeeper": {
     "path": "art/npc/shopkeeper.webp",
-    "name": "Nell Ballast, the shopkeeper",
+    "name": "Marin Ballast, the shopkeeper",
     "size": [
       768,
       1024
     ],
     "alpha": true,
-    "story": "Ship's carpenter of the Marigold. When the Marigold went down off the cove she rode the upturned hull ashore, never left, and built the shop out of it. She weighs every fish on the Marigold's brass galley scale and checks the scales with a jeweller's loupe.",
+    "story": "The Marigold's carpenter's daughter. When the Marigold went down off the cove she rode the upturned hull ashore, built the shop out of it, and has been outbidding every buyer on the coast since. Keeps a pencil behind her ear and the best prices in her head.",
     "usedBy": "ui/shop: cut-out of the keeper standing behind the counter of screen.shop (B); also fits the brass porthole",
     "concept": null,
     "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
@@ -1550,8 +1550,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'sell' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.gear": {
     "path": "art/icons/tab_gear.webp",
@@ -1562,8 +1561,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'gear' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.tackle": {
     "path": "art/icons/tab_tackle.webp",
@@ -1574,8 +1572,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'tackle' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.bait": {
     "path": "art/icons/tab_bait.webp",
@@ -1586,8 +1583,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'bait' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.build": {
     "path": "art/icons/tab_build.webp",
@@ -1598,8 +1594,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'build' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.rods": {
     "path": "art/icons/tab_rods.webp",
@@ -1610,8 +1605,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'rods' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.reels": {
     "path": "art/icons/tab_reels.webp",
@@ -1622,8 +1616,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'reels' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.lines": {
     "path": "art/icons/tab_lines.webp",
@@ -1634,8 +1627,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'lines' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.hooks": {
     "path": "art/icons/tab_hooks.webp",
@@ -1646,8 +1638,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'hooks' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.sinkers": {
     "path": "art/icons/tab_sinkers.webp",
@@ -1658,8 +1649,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'sinkers' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.floats": {
     "path": "art/icons/tab_floats.webp",
@@ -1670,8 +1660,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'floats' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.leaders": {
     "path": "art/icons/tab_leaders.webp",
@@ -1682,8 +1671,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'leaders' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.lures": {
     "path": "art/icons/tab_lures.webp",
@@ -1694,8 +1682,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'lures' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.tools": {
     "path": "art/icons/tab_tools.webp",
@@ -1706,8 +1693,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'tools' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.buildings": {
     "path": "art/icons/tab_buildings.webp",
@@ -1718,8 +1704,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'buildings' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.land": {
     "path": "art/icons/tab_land.webp",
@@ -1730,8 +1715,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'land' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.piers": {
     "path": "art/icons/tab_piers.webp",
@@ -1742,8 +1726,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'piers' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "icon.tab.boats": {
     "path": "art/icons/tab_boats.webp",
@@ -1754,8 +1737,7 @@
     "alpha": true,
     "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'boats' tab, ~64 px on screen",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   },
   "stamp.driftwood_cove": {
     "path": "art/stamps/driftwood_cove.webp",
@@ -1876,5 +1858,10 @@
     "concept": null,
     "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
     "planned": true
+  },
+  "icon.tab.crew": {
+    "path": "art/icons/tab_crew.webp",
+    "usedBy": "ui/shop build sub-tab Crew",
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
   }
 }

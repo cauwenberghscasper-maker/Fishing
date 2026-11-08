@@ -38,8 +38,21 @@ export function Tabs(items, current, onPick, { level = 1, label = 'Sections' } =
       'aria-selected': String(t.id === current),
       'aria-label': t.label,
       on: { click: () => onPick(t.id) },
-    }, t.icon ? ico(t.icon) : null, h('span.ktab__word', t.label), t.badge ? h('span.ktab__badge.t-num', t.badge) : null)));
+    }, tabIcon(t), h('span.ktab__word', t.label), t.badge ? h('span.ktab__badge.t-num', t.badge) : null)));
 }
+
+/** Painted category icon (art.json icon.tab.*) with the drawn icon as fallback until it loads. */
+function tabIcon(t) {
+  const fallback = t.icon ? ico(t.icon) : null;
+  if (!t.art) return fallback;
+  const box = h('span.ktab__icon', fallback);
+  const img = artImg(t.art, '', { alt: '', onShow: () => { fallback?.remove(); box.classList.add('has-art'); } });
+  if (img) box.append(img);
+  return box;
+}
+
+/** Keeps a row's height when a section has no sub-tabs, so the layout never jumps. */
+export function TabsSpacer() { return h('div.ktabs-spacer', { 'aria-hidden': 'true' }); }
 
 /**
  * A tile: a paper tag hanging from a brass hook. art = painting path; icon = fallback drawing.
@@ -66,8 +79,18 @@ export function Tile({ art = null, icon = 'fish', name, value = null, state = nu
     value ? h('span.tile__value', value) : null);
 }
 
-export function TileGrid(tiles, { label = '' } = {}) {
-  return h('div.tilegrid', { role: 'list', 'aria-label': label, style: { '--n': tiles.length } }, tiles.map((t) => { t.setAttribute('role', 'listitem'); return t; }));
+/**
+ * Grid of tiles. Always at least `slots` places (default 9 = 3×3): empty places show as bare hooks,
+ * so every category and every empty state has exactly the same layout (Casper: "always the same layout").
+ * `empty` = a short line shown across the grid when there are no tiles at all.
+ */
+export function TileGrid(tiles, { label = '', slots = 9, empty = null } = {}) {
+  const items = tiles.map((t) => { t.setAttribute('role', 'listitem'); return t; });
+  const pad = Math.max(0, Math.ceil(Math.max(slots, items.length) / 3) * 3 - items.length);
+  for (let i = 0; i < pad; i++) items.push(h('span.tile.tile--empty', { 'aria-hidden': 'true' }, h('span.tile__hook')));
+  const grid = h('div.tilegrid', { role: 'list', 'aria-label': label, style: { '--n': items.length } }, items);
+  if (!tiles.length && empty) grid.append(h('p.tilegrid__empty', empty));
+  return grid;
 }
 
 /** A brass plate for the primary action of a screen. */

@@ -85,6 +85,21 @@ Until B lands the theme, A uses these names anyway; nothing else.
 ```
 Key scheme: `gear.<slot>.<itemId>`, `island.<islandId>`, `building.<buildingId>.<level>`, `variant.<variantId>` (emblem), `title.main`, `title.loading`, `vfx.<name>` (E). The UI looks art up by key and hides the slot when an entry is missing.
 
+### Screen art for the 9b redesign (B builds against these; every key optional, B has a procedural fallback)
+All portrait ~1080×2340 (9:19.5), calm edges (phones crop them):
+- `screen.catch.<islandId>`: catch reveal backdrop. Light source top centre, calm middle 60% for the hero pose, darker bottom 25% for ribbons and Keep/Sell. Elemental variants: E's vfx manifest key `backdrop.<variantId>`, same composition.
+- `screen.cooler.l0|l1|l2|l3`: top-down into the container (l0 wicker basket, l1 salt barrel, l2 ice chest, l3 ice house; follows the cooler building level). Open interior ~80% centre.
+- `screen.shop.l1|l2|l3` (fallback `screen.shop`): the counter. Top 12% calm, wall with empty hooks 14–55%, counter across the bottom 40% with an empty brass scale pan on the right third. `npc.shopkeeper`: transparent, waist up, placed left behind the counter.
+- `screen.harbour` (plan board), `screen.logbook` (one open journal page from above), `screen.chart` (island chain sea chart, with `pins: { "<islandId>": [x, y] }` in 0..1), `screen.drawer` (4–5 empty compartments). Optional `ribbon.new`, `ribbon.record`.
+- `hud.*`: casting HUD set (master prompt 9b.8), A wires it.
+- Fish poses in the fish manifest: `hero`, `rest`, `portrait` (paths `assets/fish/<id>/<pose>.webp`), only when present, otherwise `preview`.
+
+### Building placement (9b.6)
+- B → `build:start { kind: 'building'|'upgrade'|'plot'|'pier', id, level, model, place }` after the player taps Build (the shop closes first). `place: true` only for a new building (ghost, snapping, rotate); upgrades, plots and piers animate on the spot.
+- A → `build:placing { id }` ack right away. Without an ack within 1.5 s, B completes at the default spot (`x`/`z` null), so the live game never breaks.
+- A → `build:placed { kind, id, level, x, z, rot }`: B charges and saves `profile.island.buildings[id] = { level, x, z, rot }` (save v4). A → `build:cancel { id }`: no charge. Then B emits `island:changed` (buildings are objects now).
+- Catch: A emits `fish:landed-show` for the in-world held-up moment, then `fish:caught`, which opens B's reveal.
+
 ## Asset manifests
 Model manifests: `public/assets/fish/manifest.json` (C), `public/assets/world/manifest.json` + `public/assets/character/manifest.json` (D), `public/assets/gear/manifest.json` + `public/assets/boats/manifest.json` (G). Gear ids equal the item ids in `items.json` (G's manifest key `rod.greenheart` etc.); every gear model has empty nodes `grip` (where the hand holds it) and, for rods, `tip` (where the line starts). Building levels in D's manifest are ids like `shop_l1`, `shop_l2`, `shop_l3`; island plots `plot_<plotId>` with their dressing.
 Every manifest entry may carry `concept` (the concept image it was built from) so `tools/check-art.mjs` can see the concept is used.

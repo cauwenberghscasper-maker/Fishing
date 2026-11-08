@@ -767,8 +767,7 @@
   "story": "Ship's carpenter of the Marigold. When the Marigold went down off the cove she rode the upturned hull ashore, never left, and built the shop out of it. She weighs every fish on the Marigold's brass galley scale and checks the scales with a jeweller's loupe.",
   "usedBy": "ui/shop: cut-out of the keeper standing behind the counter of screen.shop (B); also fits the brass porthole",
   "concept": null,
-  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-  "planned": true
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
  },
  "screen.cooler.l0": {
   "path": "art/screens/cooler_l0.webp",
@@ -780,8 +779,7 @@
   "usedBy": "ui backdrop (B): Cooler at building level l0: looking down into the wicker basket lined with seaweed and ice, empty (fish laid in by code)",
   "calm": "open interior ~80% centre",
   "concept": null,
-  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-  "planned": true
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
  },
  "screen.cooler.l1": {
   "path": "art/screens/cooler_l1.webp",
@@ -871,8 +869,7 @@
   "usedBy": "ui backdrop (B): Shop counter fallback: inside the upturned hull, gear already painted on the wall hooks",
   "calm": "top 12% calm; wall 14-55% (hooks already hold painted gear); counter across the bottom ~30% with the brass scale on the right",
   "concept": null,
-  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-  "planned": true
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
  },
  "screen.harbour": {
   "path": "art/screens/harbour.webp",
@@ -911,8 +908,40 @@
   "calm": "open sea between the islands calm; island cards pin onto the painted islands",
   "concept": null,
   "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-  "pins": {},
-  "planned": true
+  "pins": {
+   "driftwood_cove": [
+    0.26,
+    0.68
+   ],
+   "wreck_reef": [
+    0.51,
+    0.62
+   ],
+   "mossback_bayou": [
+    0.39,
+    0.52
+   ],
+   "frostfang_fjord": [
+    0.73,
+    0.47
+   ],
+   "ember_caldera": [
+    0.65,
+    0.385
+   ],
+   "stormspire_isles": [
+    0.3,
+    0.33
+   ],
+   "sunken_temple": [
+    0.72,
+    0.26
+   ],
+   "the_abyss": [
+    0.5,
+    0.21
+   ]
+  }
  },
  "screen.drawer": {
   "path": "art/screens/drawer.webp",
@@ -924,8 +953,7 @@
   "usedBy": "ui backdrop (B): Settings: the captain's drawer, keepsakes round the edge and empty felt compartments",
   "calm": "large empty felt compartment in the centre (~45%) plus small empty ones",
   "concept": null,
-  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-  "planned": true
+  "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
  },
  "screen.catch.driftwood_cove": {
   "path": "art/screens/catch_driftwood_cove.webp",

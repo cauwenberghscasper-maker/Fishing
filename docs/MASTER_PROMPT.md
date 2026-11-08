@@ -344,6 +344,7 @@ Every agent ends with `docs/handoff/<agent>.md`: what was done, what is missing,
 **M3:** first boss fight (Wreck Grouper), more islands with their legendaries, smokehouse, market events, prestige.
 
 ## 9b. Casper's first playtest on his phone (8 Nov) — top priority
+**All menu layouts follow `docs/UI_BIBLE.md`:** grids of small tiles, categories in separate shop sections, tabs that never scroll, bottom drawers for details.
 1. **"The screens are too generic and ugly."** A parchment card with a dashed border and dotted lines (the cooler, the catch card) is exactly the generic look we must not ship. **Every screen becomes a painted place or object from this world**, with its own illustration as the backdrop and the UI living *in* it:
    - **Cooler** → looking down into the actual container: a wicker basket (later an ice chest, then a smokehouse rack) lined with seaweed and ice, with your caught fish lying in it as painted cut-outs. Tap a fish to see it. How full the basket looks shows the capacity. Upgrading changes the painting. **Selling works right inside the cooler too (Casper, 8 Nov):** sell a single fish from its detail view, or sell the whole basket at once, wherever you are on the island.
    - **Shop** → standing at the upturned-hull shop's counter: the shopkeeper (painted portrait, with a story) behind it, gear hanging on hooks on the wall, and a brass scale for selling (fish go on the scale, coins slide across).

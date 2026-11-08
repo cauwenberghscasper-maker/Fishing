@@ -346,6 +346,14 @@ Every agent ends with `docs/handoff/<agent>.md`: what was done, what is missing,
 4. **"Dragging to cast is not smooth."** First fix is in (the aim glides after the thumb, slow sway instead of shake). A polishes it further on a real phone feel: haptic ticks, pull-back tension, nothing that jumps.
 5. **"The player doesn't have a model."** The model is there, but from the camera only the wide straw hat is visible. The camera gets a lower, more side-on pitch (closer to 45–50°) and comes closer; the hat brim shrinks; the player gets a subtle rim light so they always read.
 6. **"Buildings bought in the shop need art and a 3D model that gets placed, so we can expand the island."** Buying a building enters a **placement mode** on the island: the camera lifts, the building's 3D model follows your finger as a ghost, snaps to build spots on land you own (green when valid, red when not), and you can rotate it before confirming. Then it's built with an animation (scaffolding, dust, hammering) and stays where you put it (`profile.island.buildings[id] = { level, x, z, rot }`). Upgrades swap the model on the spot (l1 → l2 → l3), each with its own painting and model. Buying land raises a new plot out of the sea and adds new build spots. The island visibly grows from the tiny sandbar.
+8. **"The cast button and the UI around casting should also get custom art."** The current CSS sunburst disc with a rope and a dark ellipse is generic. Everything in `#hud-fishing` gets painted art made for it (F paints, A wires, keys `hud.*` in art.json):
+   - the cast button as a real object (for example a carved cork rod grip with a brass reel, in idle / pressed / aiming states), and the reel button for the fight
+   - the pull-back band as a painted fishing line
+   - the perfect-timing ring
+   - the tension gauge as a bending rod or brass dial, the fish stamina as the fish's own painted spirit or silhouette draining
+   - the hook prompt ("Strike!") as painted lettering, and the hint labels on painted tags
+   
+   The scene must also stay readable at every hour: dusk and night may be moody but never muddy-dark (Casper's screenshot at dusk is too dark and brown).
 7. **"Sometimes you walk into invisible, badly cut 3D models."** Two bugs to kill for good:
    - **invisible walls:** collision must match what you see. Every collider comes from the model's real footprint (D ships a simple collider shape per model in the manifest; A uses only those). Nothing blocks you that isn't visibly there, and a debug view (`?debug=colliders`) shows them.
    - **badly cut models:** no model may have cut-off parts, missing faces, holes you can see through, or floating pieces. D audits every world model from the game camera and from eye level (contact sheet), fixes or replaces the bad ones, and uses double-sided materials only where that's right (leaves, cloth).

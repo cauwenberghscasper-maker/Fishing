@@ -80,11 +80,11 @@ export function Tile({ art = null, icon = 'fish', name, value = null, state = nu
 }
 
 /**
- * Grid of tiles. Always at least `slots` places (default 9 = 3×3): empty places show as bare hooks,
+ * Grid of tiles. Always at least `slots` places (default 6 = 2 rows of 3): empty places show as bare hooks,
  * so every category and every empty state has exactly the same layout (Casper: "always the same layout").
  * `empty` = a short line shown across the grid when there are no tiles at all.
  */
-export function TileGrid(tiles, { label = '', slots = 9, empty = null } = {}) {
+export function TileGrid(tiles, { label = '', slots = 6, empty = null } = {}) {
   const items = tiles.map((t) => { t.setAttribute('role', 'listitem'); return t; });
   const pad = Math.max(0, Math.ceil(Math.max(slots, items.length) / 3) * 3 - items.length);
   for (let i = 0; i < pad; i++) items.push(h('span.tile.tile--empty', { 'aria-hidden': 'true' }, h('span.tile__hook')));

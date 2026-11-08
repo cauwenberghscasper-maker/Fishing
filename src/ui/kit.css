@@ -337,3 +337,15 @@
 @media (max-height: 700px) { .tilegrid { grid-auto-rows: minmax(96px, auto); } }
 /* empty places read as bare hooks on the wall, not invisible gaps */
 .tile--empty { opacity: 0.55; background: rgba(4, 26, 32, 0.38) !important; box-shadow: inset 0 0 0 1.5px rgba(234, 216, 170, 0.5); }
+/* Casper's iPhone with Safari bars is ~660 px tall: the keeper must stay, labels must not clip, sections stay identical */
+@media (max-height: 700px) {
+  .shopkeeper { display: flex; }
+  .shopkeeper img { max-width: 52%; }
+  .ktab { aspect-ratio: auto; height: 60px; padding: 3px 1px 4px; }
+  .ktab__icon { width: 30px; }
+  .ktab__word { font-size: 0.6875rem; }
+  .ktabs--l2 .ktab { height: 46px; }
+  .ktabs--l2 .ktab__icon { width: 20px; }
+  .ktabs-spacer { height: 46px; }
+  .tilegrid { grid-auto-rows: minmax(122px, auto); }
+}

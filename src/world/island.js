@@ -233,7 +233,10 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
     const s0 = obj.scale.clone();
     obj.scale.set(s0.x * 0.9, s0.y * 0.02, s0.z * 0.9);
     let hammer = 0;
-    if (old) tween(0.5, (k) => { old.scale.y = Math.max(0.01, 1 - k); }, () => old.removeFromParent());
+    if (old) {
+      old.userData.colliders = null; // the old level stops blocking at once
+      tween(0.5, (k) => { old.scale.y = Math.max(0.01, 1 - k); }, () => { old.removeFromParent(); rebuildColliders(); });
+    }
     tween(BUILD_TIME, (k) => {
       const e = Math.min(1.08, easeOutBack(k));
       obj.scale.set(s0.x * (0.9 + 0.1 * k), s0.y * Math.max(0.02, e), s0.z * (0.9 + 0.1 * k));
@@ -244,6 +247,7 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
       }
     }, () => {
       obj.scale.copy(s0);
+      rebuildColliders();
       for (let i = 0; i < 8; i++) dust?.splash(obj.position.x + (Math.random() - 0.5) * 3.5, obj.position.z + (Math.random() - 0.5) * 3.5, 0.7);
     });
   }

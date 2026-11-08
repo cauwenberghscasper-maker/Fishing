@@ -50,13 +50,14 @@ export function createHeightFunction(layout, activePlots = null) {
       const d = r > 1e-5 ? dist - dist / r : -Math.min(sh.rx, sh.rz); // metres outside the edge
       let hs;
       let t = 0;
+      const shore = Math.min(SHORE, sh.top); // underwater shelves stay underwater at their edge
       if (d <= 0) {
         t = Math.min(1, -d / sh.edge);
         t = t * t * (3 - 2 * t);
-        hs = SHORE + (sh.top - SHORE) * t;
+        hs = shore + (sh.top - shore) * t;
       } else {
         // Gentle turquoise shelf near the shore, then a drop-off into deep teal.
-        hs = SHORE - maxDepth * (1 - Math.exp(-Math.pow(d / fall, 1.7))) - d * 0.01;
+        hs = shore - maxDepth * (1 - Math.exp(-Math.pow(d / fall, 1.7))) - d * 0.01;
       }
       h = h === -Infinity ? hs : smax(h, hs, sh.cliff ? 0.9 : 1.6);
       rough = Math.max(rough, sh.rough * t);

@@ -181,15 +181,15 @@ export function catchReveal(ctx, info) {
     setTimeout(() => {
       if (what === 'sell') {
         const r = economy.sellCatch(c.id);
-        ui.close();
+        ui.close(view);
         if (r.ok) ui.flyCoins?.(fromRect, r.price);
       } else if (what === 'release') {
         economy.releaseHeld();
-        ui.close();
+        ui.close(view);
         ui.toast(`The ${name} swims off`);
       } else {
         economy.keepCatch(c.id);
-        ui.close();
+        ui.close(view);
       }
     }, 520);
   }
@@ -220,7 +220,7 @@ export function catchReveal(ctx, info) {
     else { hero.style.setProperty('--dx', '0px'); hero.style.setProperty('--dy', '0px'); }
   });
 
-  return {
+  const view = {
     id: 'catch',
     el: root,
     layerClass: 'is-reveal',
@@ -229,4 +229,5 @@ export function catchReveal(ctx, info) {
     // Escape or a tap outside never decides silently: keep it if there is room
     dismiss: () => { if (!info.coolerFull) choose('keep'); },
   };
+  return view;
 }

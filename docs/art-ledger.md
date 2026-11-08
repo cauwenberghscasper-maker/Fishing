@@ -226,3 +226,5 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 8 Nov 21:05 | lead | Qwen-Image-Fast ×2 | 18 building cards (6 buildings × 3 levels) as 2 sheets, sliced | ~10 |
 | 8 Nov 21:10 | lead | Qwen-Image-Fast ×3 | bent pin redo; 11 variant emblems (sheet); 8 island stamps (sheet), their pictures reused as island chart cards | ~15 |
 | 8 Nov 21:12 | lead | Qwen-Image ×1 | title art (storm marlin over the cove), also darkened for the loading screen | ~20 |
+
+**Agent C, 8 Nov poses (measured wall): 9 heroes + 2 failed flounder heroes on full Qwen-Image (~20 s each) + 18 rest/portrait on Qwen-Image-Fast (~4–8 s each in parallel batches) ≈ 61+60+59+48+23+31+70+31+? ≈ 400 s of the 450 s budget. No quota error was hit.**

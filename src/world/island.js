@@ -430,6 +430,16 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
     return { x: from.x, z: from.z, blocked: true };
   }
 
+  // Debug: why a point is not walkable (walk test, ?debug=colliders).
+  function whyBlocked(x, z) {
+    const c = blockedByCollider(x, z);
+    if (c) return `collider:${c.source}`;
+    if (deckAt(x, z)) return null;
+    if (terrain.heightAt(x, z) < -WADE_DEPTH) return 'water';
+    if (terrain.slopeAt(x, z) > MAX_SLOPE) return 'slope';
+    return null;
+  }
+
   function waterDepthAt(x, z) {
     return Math.max(0, -terrain.heightAt(x, z));
   }
@@ -505,6 +515,7 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
     onDeck: (x, z) => Boolean(deckAt(x, z)),
     isWalkable,
     blockedByCollider,
+    whyBlocked,
     resolveMove,
     waterDepthAt,
     updateZones,

@@ -1,32 +1,13 @@
 // Colliders that match what you see (Casper 9b.7). Source, in order:
 // 1. the manifest's `collider` (Agent D): { type: 'circle', x, z, r } | { type: 'box', x, z, w, d, rot } | [shapes] | null,
 //    in model space (metres, before placement; the prop's scale applies);
-// 2. until D ships those: the model's real `bounds` footprint, only for solid structures and rocks.
-// Everything else (plants, clutter, kelp, decks) never blocks.
+// Nothing else blocks (no guessed footprints).
 import * as THREE from 'three';
-
-const SOLID_CATEGORIES = new Set(['structure', 'building', 'boat']);
-const WALKABLE_IDS = /^(pier_|boat_dock|tide_pool|plot_|sandbar)/;
-
-function footprintShapes(id, entry) {
-  if (WALKABLE_IDS.test(id)) return [];
-  // Trees block at the trunk only (their bounds include the fronds).
-  if (/^palm_/.test(id)) return [{ type: 'circle', x: 0, z: 0, r: id === 'palm_twin' ? 0.55 : 0.35 }];
-  if (entry.placement === 'water' && entry.category !== 'structure') return [];
-  const b = entry.bounds;
-  if (!b?.min || !b?.max) return [];
-  const w = b.max[0] - b.min[0], d = b.max[2] - b.min[2];
-  if (Math.max(w, d) < 0.7) return [];
-  const rock = /^(rock_|cliff_columns|columns_steps)/.test(id);
-  if (!rock && !SOLID_CATEGORIES.has(entry.category)) return [];
-  const shrink = rock ? 0.78 : 0.86;
-  return [{ type: 'box', x: (b.min[0] + b.max[0]) / 2, z: (b.min[2] + b.max[2]) / 2, w: w * shrink, d: d * shrink, rot: 0 }];
-}
 
 export function collidersFor(id, entry, x, z, rot, scale = 1) {
   let shapes;
-  if (entry && 'collider' in entry) shapes = entry.collider === null ? [] : [].concat(entry.collider);
-  else shapes = footprintShapes(id, entry || {});
+  // Only D's manifest shapes (Casper: no invisible walls). No `collider` = never blocks.
+  shapes = entry && entry.collider ? [].concat(entry.collider) : [];
   const c = Math.cos(rot), s = Math.sin(rot);
   return shapes.filter(Boolean).map((sh) => {
     // Rotate the local offset by the prop's yaw (three.js Y rotation).

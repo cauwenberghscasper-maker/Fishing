@@ -1,56 +1,102 @@
-# Agent D — World & Character Assets (handoff, live)
+# Agent D — World & Character Assets (handoff)
 
-_Updated after every step. Status: IN PROGRESS (buildings ×3 levels next). Last check: `npm run build` + `tools/smoke.py` OK, check-art clean for D._
+_Status: DONE for this round (9 Nov). Last check: `npm run build` + `tools/smoke.py` OK (ready, no errors); `tools/check-art.mjs` clean for D's files._
 
-## Key art (done)
-- `art/concepts/world/driftwood_cove_key.webp`: Driftwood Cove from the game camera (take 2 of 2, Qwen-Image, 3:4). This is the reference everything on the island is judged against.
-- `art/concepts/world/driftwood_cove_shop_detail.webp`: take 1, closer. Kept as the reference for the signature shop (upturned boat hull, mast, oar sign, patched awning).
-- **Cove story:** an old net-mender settled here and built everything from what the tide brought in. The shop is a hull and salvaged planks under a patched red sail awning with a blue ship's door. A wrecked red fishing boat lies beached and lived in. Piers are patched with whatever came ashore. Nets dry on oars, and ship lanterns hang on rope-wrapped posts. There are basalt tide pools and deep teal water.
+## Contact sheets (`docs/handoff/shots/`)
+- `agent-d-buildings.png`: every building at l1–l3 (left to right), the scaffold, camp_l0 and the sandbar. Red outlines are the colliders.
+- `agent-d-character.png`: the player and 4 worker fishers (idle / fish_idle / reel_loop).
+- `agent-d-world-sheet.png`: all 85 unique world models with colliders.
+- `agent-d-audit.png`: every world model from the game camera (48°) and eye level (8°), with colliders.
 
-## Loader conventions (for Agent A)
-- GLBs are meshopt and quantized, so call `GLTFLoader.setMeshoptDecoder(MeshoptDecoder)`.
-- One shared external texture: `assets/world/_shared/cove_atlas.jpg` (+ `cove_net.png`), referenced as `../_shared/...`. Dedupe after load by material name: `cove_atlas` (opaque), `cove_atlas_ds` (double-sided), `cove_glow` (emissive lantern glass), `cove_net` (alpha mask). One shared material per name gives one texture and the best batching.
-- Weathering and AO are baked into vertex colours (COLOR_0, multiplied); keep `vertexColors`.
-- Metres, Y-up, front = +Z. Origin = base centre on the ground, except water pieces (pier_*, boat_dock, boat_skiff, tide_pool_a, rock_shore): origin at WATER LEVEL. Pier deck top y=0.75; modules are 3.0 m along Z.
-- Lantern assets list a suggested point light in the manifest (`light`).
+## What's in
+**World manifest:** `public/assets/world/manifest.json`, 94 entries (85 models + 9 level/pier aliases that share a file), 4.3 MB total.
 
-## Manifests
-- `public/assets/world/manifest.json`, `public/assets/character/manifest.json`: published (valid JSON, filled as assets land).
+**Character manifest:** `public/assets/character/manifest.json`, 5 characters.
 
-## Plan / progress
-1. [x] Key art (2 takes, ~40 s GPU)
-2. [x] Shared painted atlas `public/assets/world/_shared/cove_atlas.jpg` (1024², 4×4 hand-painted swatches: driftwood, plank, tar wood, chipped red/blue/white/teal paint, patched sailcloth, rope, basalt, sand, foliage, grass, moss, brass, rust, shell, coral, lantern glow), plus `cove_net.png` (alpha net). Painted procedurally by our own script; palette sampled from the key art.
-3. [x] Nature: palms ×4 (bespoke), basalt boulders ×5, basalt-column cliffs ×3 (signature edge of the cove), sea-grape bushes ×3, beach grass ×2, driftwood ×2, starfish, shells, kelp, seaweed pile, tide pool
-4. [x] Bespoke Blender builds: Hull House shop, Marigold fisher's hut, sail-tent workers' hut, rib-arch boat dock, skiff, pier modules ×4 + steps, fences ×2, lantern post + hanging lantern, signpost
-5. [x] Player character `fisher_player` (KayKit Rogue, CC0) recoloured (faded blue shirt, rust neckerchief, ochre rolled trousers, tar-brown boots), with fisher gear on bones: woven straw hat with a glowing teal fish-scale charm in the band (head), tackle satchel on a tar-leather strap (chest/hips), rolled cuffs (lower legs). 18 clips, see the character manifest. Rod attaches to bone `handslot.r`.
-6. [x] Workers on the same rig: `worker_netmender` (Barbarian: white beard, cream sweater, rust knit cap, net bundle with floats), `worker_deckhand` (Rogue_Hooded: yellow oilskin hood + coat, rope bandolier), `worker_angler` (Mage: olive oilcloth coat, conical straw hat, wicker creel). 9 clips each, incl. fish_idle, cast, reel_loop, sit_idle.
-7. [x] Island growth: `sandbar` (day one: crooked `pier_stub`, rocks, driftwood, a washed-up crate), `camp_l0` (tarp lean-to, bedroll, crate seat + lantern, driftwood fire with a fish on the spit, glowing embers), and plot dressings `plot_palm_spit`, `plot_tidepool_shelf`, `plot_wreck_beach` (the Marigold + ribs of an older wreck), `plot_kelp_shallows`, `plot_basalt_cliff` (lantern cairn where the lighthouse will go), `plot_mooring_deep` (the Old Mooring: three lashed piles, iron ring, frayed ropes into the deep). New pieces: `pier_stub`, `hammock`, `wreck_ribs`, `mooring_dolphin`, `cairn_lantern`, `coconut_pile`. Concepts for every stage generated after the reset (`art/concepts/world/sandbar_day_one.webp`, `plot_*.webp`) and set as `concept`.
-   **Placement per plot:** each manifest entry has `footprint_m` [x, z], `story`, and `items`: a list of `{model, pos [x,y,z], rotY, scale, placement}` in plot-local glTF space (origin = plot centre at ground level, +Z = seaward). Either drop the merged `plot_*` model on the plot (it rises with it), or place the `items` yourself: ground items raycast onto your terrain, shore items at the waterline, water and underwater items at sea level + y. Footprints: sandbar 9×6, palm_spit 18×7, tidepool_shelf 14×10, wreck_beach 16×10, kelp_shallows 14×12, basalt_cliff 14×10, mooring_deep 12×10 m.
-8. [ ] Buildings × 3 levels (`<building>_l1..l3`), concepts = Agent F's building cards when they land
-9. [ ] Contact sheets, CREDITS, final notes
+### Island growth (master prompt 4.6)
+- **Day one:**
+  - `sandbar`: crooked `pier_stub`, rocks, driftwood, a washed-up crate.
+  - `camp_l0`: tarp lean-to, bedroll, crate seat with a lantern, driftwood fire with glowing embers and a fish on the spit.
+- **Plot dressings:** `plot_palm_spit`, `plot_tidepool_shelf`, `plot_wreck_beach` (the beached Marigold + older wreck ribs), `plot_kelp_shallows`, `plot_basalt_cliff` (lantern cairn where the lighthouse will go), `plot_mooring_deep` (three lashed piles, iron ring, frayed ropes).
+  - Each entry has `footprint_m`, `story`, a merged model, and `items`: `{model, pos, rotY, scale, placement}` in plot space (origin = plot centre at ground level, +Z = seaward), so A can either raise the merged model or place items on the sculpted terrain.
+  - Each also has `colliders` (only its blocking items, already transformed into plot space).
+- **Piers:** `pier_1`…`pier_6` are aliases of `pier_straight`, `pier_straight_b`, `pier_patched`, `pier_straight`, `pier_straight_b`, `pier_end`.
+  - Modules are 3.0 m along Z and 2.0 m wide, origin at water level, deck at y=0.75.
+  - `walkable: {deckY}` on every deck piece.
 
-## Character clips (fisher_player)
-| clip | game action | source |
-|---|---|---|
-| idle / walk / run | idle, walk, run | KayKit Idle / Walking_A / Running_A |
-| fish_idle | waiting for a bite, rod out | authored (Idle + rod-holding arm layer) |
-| cast_windup | aim:start | KayKit Throw 0–0.40 s, retimed |
-| cast_aim | aim mode loop | authored from the Throw peak + breathing sway |
-| cast_release | cast release | KayKit Throw 0.40–1.37 s |
-| reel_loop | reeling (fight) | authored: left hand cranks, 2 turns per loop |
-| struggle_loop | strong pull / high tension | authored on KayKit Blocking: braced legs, lean back, shaking |
-| hold_up_fish | fish:landed-show / catch card | authored: catch presented at chest height |
-| celebrate | rare catch / perfect cast | KayKit Cheer |
-| dodge_left / dodge_right / dodge_back | boss dodge | KayKit Dodge_* |
-| hit, pick_up, interact, sit_idle | boss hit, pick up, buildings, rest | KayKit Hit_A, PickUp, Interact, Sit_Floor_Idle |
+### Buildings × levels (9b.6)
+- All 18 levels exist as `<building>_l1..l3`, plus `scaffold` (4×4 m, 3.3 m tall: scale x/z to the footprint).
+- Every building has `footprint: {w, d}`, a box `collider`, a `story`, and `concept` = Agent F's card (`art/buildings/<id>.webp`). My HF concept stays in `concept_alt`.
+- Legacy ids still used by A's code are kept: `shop_hullhouse` = `shop_l2`, `workers_hut` = `workers_hut_l2`, `boat_dock` = `boat_dock_l3`; aliases share the file.
 
-**Gaps (honest):** there is no true rod-cast motion in any CC0 pack on GitHub. The cast is KayKit's overhand Throw split in two; it reads as an overhead cast. reel_loop, struggle_loop and hold_up_fish are procedural layers that read well at game-camera distance but would benefit from a hand-keyed or mocap pass. Chibi proportions mean "hold up" is at chest height, not overhead. A rod-specific clip set could come from Quaternius *Universal Animation Library 2* (CC0, has fishing; itch.io/quaternius.com only, so Casper would need to attach it; see Downloads).
+| building | l1 | l2 | l3 |
+|---|---|---|---|
+| shop | crate stall under your rowboat's sail, brass hanging scale | the Hull House (upturned red hull) | hull lifted onto a 2nd storey, lit portholes, balcony, outside stair, crow's nest with lantern |
+| cooler | seaweed-lined wicker basket under a sail lean-to | ice chest: sea chest packed with ice, ice blocks | basalt cold cellar, turf roof, brass-bound door, timber hoist |
+| smokehouse | driftwood racks over a smouldering pit | tarred smoke shed, stovepipe, open hatch of golden fish | basalt firebox + octagonal tower, copper cowl, fish weathervane |
+| aquarium | rock pool + shelf of glowing sea-glass jars | three barrel vats with lit porthole windows on a deck | glasshouse of ship windows around a glowing tank, dinghy roof |
+| boat_dock | plank raft on cork floats + one mooring post | dock with cannon bollards, fenders, ladder, lantern | the rib-arch dock |
+| workers_hut | hammock under a tarp, sea chest, rod rack | striped sail tent on oar A-frames + net rack | bunkhouse roofed with a sawn-up boat, ship's bell, hire board |
 
-## Gear and boats → Agent G
-`fishing_rod`, `bobber`, `lure`, `boat_skiff` stay in the world manifest as `temp` until G's versions land; then the lead or I remove them.
+**Card vs model:** the cooler line was rebuilt to match the cards and the cooler screen (basket, then chest, then cellar). Other levels follow the cards' progression but not their exact shapes:
+- F's aquarium l1 is a single glass tank (mine is a rock pool).
+- F's dock l2 shows a crane (mine has cannon bollards).
+- F's workers l2/l3 are stilt huts (mine are a sail tent and a bunkhouse).
+- F's shop l1 card is nearly empty, and boat_dock l3's card is almost blank. **F may want to repaint those two.**
 
-## Sources checked (GitHub/npm only)
-- KayKit Adventurers 1.0 — github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0 — CC0 (LICENSE.txt checked)
-- Kenney kits (Nature Kit 2.1, Pirate Kit 1.1, Fantasy Town Kit 1.0, Food Kit 1.2) via the CC0 mirror github.com/ETdoFresh/kenney.nl — each kit's License.txt says CC0
-- KayKit Medieval Hexagon, Restaurant Bits, Dungeon Remastered — CC0 repos on github.com/KayKit-Game-Assets
-- npm `@netforge/asset-library-files` (CC0 Quaternius/Kenney copies), checked but not used yet
+### Characters (9b.5)
+- `fisher_player` (18 clips):
+  - Brim shrunk ~30%, so the body (blue shirt, rust neckerchief, satchel) reads from a 45–50° camera.
+  - The glowing teal fish-scale charm in the band is enlarged.
+- **Worker fishers** (spawn one per hire; same rig, rod on `handslot.r`):
+  - `worker_netmender`: Wim, beard, knit cap, net bundle.
+  - `worker_deckhand`: Juno, yellow oilskin.
+  - `worker_angler`: Sef, conical straw hat, creel.
+  - `worker_boatwright`: Marta, navy pea coat, red sou'wester.
+- **Worker clips:** idle, walk, fish_idle, cast_windup, cast_release, reel_loop, celebrate, interact, sit_idle.
+- **Player clips:** the same as the workers, plus run, cast_aim, struggle_loop, hold_up_fish, dodge_left/right/back, hit, pick_up. See the character manifest `clips` for the game action each maps to.
+- Characters have `collider: circle r=0.35`.
+
+## Colliders (9b.7: no invisible walls)
+- **Blocking (30 entries):** only buildings, big rocks/cliffs and palm trunks.
+  - Shapes are derived from the model's real solid geometry at body height (0.05–1.0 m).
+  - Leaves, cloth and nets never block. Building boxes are trimmed to the dense walls, so guy ropes don't extend them.
+- **Shape:** `{type:'circle', r, x, z}` or `{type:'box', w, d, rot, x, z}`.
+  - `x`, `z` = centre offset from the origin.
+  - `rot` = rotation about +Y in the same sense as three.js `rotation.y`.
+- **Non-blocking (`collider: null`):** all small props (grass, shells, small rocks, driftwood, buckets, barrels, crates, nets, lanterns, fences, signposts, hammock, kelp).
+- **Walkable decks:** piers and docks also have `collider: null` and carry `walkable`.
+- **Regenerate:** `.cache/agent-d/venv/bin/python -I .cache/agent-d/tools/finalize_manifest.py`.
+
+## Audit fixes (9b.7: no cut or holey models)
+- The barrel lying on its side was an open KayKit tube; it's replaced by a closed barrel.
+- Open shells (barrel staves, bucket, stovepipes) are now double-sided, so you can't see through their insides.
+- The pier gaps (missing plank, the patched-door hole) are closed.
+- The standalone hammock now has its own posts.
+- Floating stones in the lantern cairn, the hovering coconut and the hovering shell are fixed. The tarp on the crate stack is removed.
+- The aquarium pool no longer pokes through its rock ring. The bunkhouse roof is rebuilt. The angler's hat normals are fixed.
+- Double-sided materials (`cove_atlas_ds`) are used only for cloth, leaves, nets and open shells.
+
+## Loader conventions (for A)
+- Meshopt + quantized GLBs: call `GLTFLoader.setMeshoptDecoder`.
+- One shared external texture, `assets/world/_shared/cove_atlas.jpg` (+ `cove_net.png`). Dedupe by material name: `cove_atlas`, `cove_atlas_ds`, `cove_glow` (emissive), `cove_net` (alpha mask).
+- AO and weathering live in COLOR_0 (multiplied).
+- Metres, Y-up, front +Z. Lanterns and the camp fire list a suggested point light in `light`.
+
+## Gaps / for Casper
+- **Cast animation:** no CC0 pack on GitHub has a true rod-cast clip. Ours is KayKit Throw split in two. Reel, struggle and hold-up are authored procedural layers. For hand-made fishing clips, attach Quaternius **Universal Animation Library 2** (CC0, "fishing" set): https://quaternius.com/packs/universalanimationlibrary2.html (download not reachable from the sandbox).
+- **Over budget:** `shop_l3` is 10.7k tris, just over the 10k building budget.
+- **Gear and boats:** `fishing_rod`, `bobber`, `lure`, `boat_skiff` are temp; Agent G owns them. Remove them when G's land.
+
+## HF quota used by D
+- 6 Nov: 2 Qwen-Image (~40 s), key art.
+- 6 Nov after reset: 9 Qwen-Image (≤175 s wall), sandbar, plots, workers, player.
+- 8 Nov: 10 Qwen-Image-Fast (~40 s GPU, ≤122 s wall), building levels + scaffold.
+- All logged in `docs/art-ledger.md`. Every image is the `concept` (or `concept_alt`) of a model.
+
+## Tools (in `.cache/agent-d/`, git-ignored; Agent C shares the bpy venv)
+- `tools/py/*.py`: Blender builds (covelib, structlib, build_piers/nature/structures/props/plots/buildings/character).
+- `tools/post_all.sh`: meshopt + manifest writer.
+- `tools/finalize_manifest.py`: colliders, aliases, concepts.
+- `tools/render/`: three.js contact sheets.
+- Rebuild everything: run the build scripts, then `tools/post_all.sh`, then `finalize_manifest.py`.

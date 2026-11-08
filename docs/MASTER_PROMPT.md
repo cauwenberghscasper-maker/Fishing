@@ -328,6 +328,25 @@ Every agent ends with `docs/handoff/<agent>.md`: what was done, what is missing,
 **M2:** boat travel, Wreck Reef, strong-fish moves, home island expansion (first land plot), aquarium, Fishdex.
 **M3:** first boss fight (Wreck Grouper), more islands with their legendaries, smokehouse, market events, prestige.
 
+## 9b. Casper's first playtest on his phone (8 Nov) — top priority
+1. **"The screens are too generic and ugly."** A parchment card with a dashed border and dotted lines (the cooler, the catch card) is exactly the generic look we must not ship. **Every screen becomes a painted place or object from this world**, with its own illustration as the backdrop and the UI living *in* it:
+   - **Cooler** → looking down into the actual container: a wicker basket (later an ice chest, then a smokehouse rack) lined with seaweed and ice, with your caught fish lying in it as painted cut-outs. Tap a fish to see it. How full the basket looks shows the capacity. Upgrading changes the painting.
+   - **Shop** → standing at the upturned-hull shop's counter: the shopkeeper (painted portrait, with a story) behind it, gear hanging on hooks on the wall, and a brass scale for selling (fish go on the scale, coins slide across).
+   - **Harbour / building tab** → a carpenter's plan board: building cards pinned on it, each with its painting and a turning 3D model.
+   - **Logbook / Fishdex** → a leather field journal: island header paintings, sketched fish portraits, ink silhouettes for unknown fish, pressed-paper texture.
+   - **Travel** → a painted sea chart with the island cards pinned on it.
+   - **Settings** → the captain's drawer.
+2. **"The fish pictures are all the same pose and not rewarding enough."** Every fish gets several *different* painted poses: a **hero pose** for the catch reveal (leaping, twisting, thrashing, each fish in its own way: the sardine skipping off the surface with its glass wings spread, the puffer bursting into its spiky sphere, the flounder flipping like a coin, the kelp wraith unfurling), a **resting pose** lying in the cooler, and a **journal portrait**. Never the same side-on pose twice.
+3. **The catch must feel like a reward** (the catch card gets completely redesigned):
+   - in the world, the fish bursts out of the water in slow motion while the camera punches in, with a splash; the player holds it up
+   - then a full-screen reveal: the island's or element's painted backdrop with light rays, the hero pose big in the centre, the weight counting up, a size stamp slammed on, and coins flying into the purse with sound
+   - painted ribbons for **NEW SPECIES** / **RECORD**; for elemental variants, the variant name huge, with E's effects
+   - Keep/Sell as two physical choices (drop it in the basket / put it on the scale), not form buttons
+   - no dotted-line form rows, no plain parchment box
+4. **"Dragging to cast is not smooth."** First fix is in (the aim glides after the thumb, slow sway instead of shake). A polishes it further on a real phone feel: haptic ticks, pull-back tension, nothing that jumps.
+5. **"The player doesn't have a model."** The model is there, but from the camera only the wide straw hat is visible. The camera gets a lower, more side-on pitch (closer to 45–50°) and comes closer; the hat brim shrinks; the player gets a subtle rim light so they always read.
+6. **"Buildings bought in the shop need art and a 3D model that gets placed, so we can expand the island."** Buying a building enters a **placement mode** on the island: the camera lifts, the building's 3D model follows your finger as a ghost, snaps to build spots on land you own (green when valid, red when not), and you can rotate it before confirming. Then it's built with an animation (scaffolding, dust, hammering) and stays where you put it (`profile.island.buildings[id] = { level, x, z, rot }`). Upgrades swap the model on the spot (l1 → l2 → l3), each with its own painting and model. Buying land raises a new plot out of the sea and adds new build spots. The island visibly grows from the tiny sandbar.
+
 ## 10. Definition of done (every change)
 - `npm run build && python3 -I tools/smoke.py <out.png>` passes (the build served under `/Fishing/` like GitHub Pages, at 390×844, no page errors, game ready). The game is public: every push to `main` goes live, so it must never be left broken.
 - Screenshot at 390×844 checked by eye: no primitives visible, text readable, nothing overflows.

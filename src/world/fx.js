@@ -3,7 +3,7 @@ import * as THREE from 'three';
 
 const MAX = 480;
 
-export function createSplashes() {
+export function createSplashes({ color = '#e9fff6', gravity = 9.2, name = 'splash-spray' } = {}) {
   const positions = new Float32Array(MAX * 3);
   const life = new Float32Array(MAX * 2);   // age, lifetime
   const sizes = new Float32Array(MAX);
@@ -20,7 +20,7 @@ export function createSplashes() {
     name: 'SplashSpray',
     uniforms: {
       uScale: { value: 400 },
-      uColor: { value: new THREE.Color('#e9fff6') },
+      uColor: { value: new THREE.Color(color) },
       uLight: { value: 1 },
     },
     vertexShader: /* glsl */`
@@ -58,7 +58,7 @@ export function createSplashes() {
   const points = new THREE.Points(geo, material);
   points.frustumCulled = false;
   points.renderOrder = 20;
-  points.name = 'splash-spray';
+  points.name = name;
 
   function emit(x, y, z, vx, vy, vz, size, lifetime) {
     const i = cursor;
@@ -95,11 +95,11 @@ export function createSplashes() {
         let age = life[i * 2] + dt;
         if (age >= lt) { life[i * 2 + 1] = 0; life[i * 2] = 0; continue; }
         life[i * 2] = age;
-        vel[i * 3 + 1] -= 9.2 * dt;
+        vel[i * 3 + 1] -= gravity * dt;
         positions[i * 3] += vel[i * 3] * dt;
         positions[i * 3 + 1] += vel[i * 3 + 1] * dt;
         positions[i * 3 + 2] += vel[i * 3 + 2] * dt;
-        if (positions[i * 3 + 1] < -0.05) life[i * 2] = lt; // back in the water
+        if (positions[i * 3 + 1] < -0.05) life[i * 2] = lt; // back in the water / ground
       }
       geo.attributes.position.needsUpdate = true;
       geo.attributes.aLife.needsUpdate = true;

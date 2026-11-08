@@ -22,6 +22,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "structure",
     "placement": "water",
     "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
@@ -37,7 +38,7 @@
     "tris": 1270,
     "bounds": {
       "min": [
-        -1.09,
+        -1.12,
         -1.6,
         -1.56
       ],
@@ -50,10 +51,11 @@
     "materials": [
       "cove_atlas"
     ],
-    "bytes": 36228,
+    "bytes": 36244,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "structure",
     "placement": "water",
     "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
@@ -66,10 +68,10 @@
   "pier_patched": {
     "path": "assets/world/pier_patched/model.glb",
     "scale": 1,
-    "tris": 1414,
+    "tris": 1442,
     "bounds": {
       "min": [
-        -1.12,
+        -1.1,
         -1.6,
         -1.56
       ],
@@ -82,10 +84,11 @@
     "materials": [
       "cove_atlas"
     ],
-    "bytes": 42900,
+    "bytes": 43812,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "structure",
     "placement": "water",
     "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
@@ -119,6 +122,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "structure",
     "placement": "water",
     "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
@@ -151,6 +155,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "preview": "assets/world/beach_grass_a/preview.webp",
@@ -179,6 +184,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "preview": "assets/world/beach_grass_b/preview.webp",
@@ -207,6 +213,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "preview": "assets/world/driftwood_branch/preview.webp",
@@ -235,18 +242,12 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "story": "bleached trunk with its root ball, washed up in the big storm",
     "preview": "assets/world/driftwood_log/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 3.24,
-      "d": 1.19,
-      "rot": -0.006,
-      "x": -0.0,
-      "z": -0.0
-    }
+    "collider": null
   },
   "kelp_a": {
     "path": "assets/world/kelp_a/model.glb",
@@ -272,11 +273,11 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/plot_kelp_shallows.webp",
     "category": "nature",
     "placement": "underwater",
     "origin": "base on the seabed; blades rise ~1.6 m, amber float bulbs (glow cell, not emissive)",
     "preview": "assets/world/kelp_a/preview.webp",
-    "concept": "art/concepts/world/plot_kelp_shallows.webp",
     "collider": null
   },
   "palm_bent": {
@@ -303,6 +304,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "preview": "assets/world/palm_bent/preview.webp",
@@ -337,6 +339,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "story": "leans toward the sea after decades of onshore wind; one storm-killed frond still hangs on",
@@ -372,6 +375,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "preview": "assets/world/palm_twin/preview.webp",
@@ -406,6 +410,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "preview": "assets/world/palm_young/preview.webp",
@@ -441,6 +446,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "preview": "assets/world/rock_cluster/preview.webp",
@@ -476,6 +482,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "preview": "assets/world/rock_l/preview.webp",
@@ -509,6 +516,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "preview": "assets/world/rock_m/preview.webp",
@@ -544,9 +552,10 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
-    "note": "scatter freely, rotate/scale \u00b120%",
+    "note": "scatter freely, rotate/scale ±20%",
     "preview": "assets/world/rock_s/preview.webp",
     "collider": null
   },
@@ -573,6 +582,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "shore",
     "origin": "base centre; sits 0.35 m into the water/sand, wet band at the bottom",
@@ -602,6 +612,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground_or_shallows",
     "preview": "assets/world/seaweed_pile_a/preview.webp",
@@ -627,10 +638,11 @@
       "cove_atlas",
       "cove_atlas_ds"
     ],
-    "bytes": 23088,
+    "bytes": 23064,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "preview": "assets/world/shells_a/preview.webp",
@@ -659,6 +671,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground_or_shallows",
     "preview": "assets/world/starfish_a/preview.webp",
@@ -718,12 +731,12 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/plot_basalt_cliff.webp",
     "category": "nature",
     "placement": "ground",
     "story": "the cove is held between hexagonal basalt columns; the tops are mossy stepping stones",
     "origin": "base centre; columns rise toward the back (+Z is front)",
     "preview": "assets/world/cliff_columns_a/preview.webp",
-    "concept": "art/concepts/world/plot_basalt_cliff.webp",
     "collider": {
       "type": "box",
       "w": 4.01,
@@ -756,16 +769,16 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/plot_basalt_cliff.webp",
     "category": "nature",
     "placement": "ground",
     "preview": "assets/world/cliff_columns_b/preview.webp",
-    "concept": "art/concepts/world/plot_basalt_cliff.webp",
     "collider": {
       "type": "box",
       "w": 3.07,
       "d": 3.23,
       "rot": -0.017,
-      "x": -0.0,
+      "x": 0,
       "z": -0.01
     }
   },
@@ -792,18 +805,18 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/plot_basalt_cliff.webp",
     "category": "nature",
     "placement": "ground",
     "note": "low basalt columns, walkable stepping stones / shore edge",
     "preview": "assets/world/columns_steps/preview.webp",
-    "concept": "art/concepts/world/plot_basalt_cliff.webp",
     "collider": {
       "type": "box",
       "w": 2.07,
       "d": 2.56,
       "rot": 1.574,
-      "x": 0.0,
-      "z": -0.0
+      "x": 0,
+      "z": 0
     }
   },
   "bush_seagrape": {
@@ -829,6 +842,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "note": "round-leaf sea-grape bush",
@@ -858,6 +872,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "preview": "assets/world/bush_seagrape_s/preview.webp",
@@ -886,6 +901,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
     "note": "spiky dune shrub",
@@ -929,11 +945,11 @@
     "preview": "assets/world/shop_hullhouse/preview.webp",
     "collider": {
       "type": "box",
-      "w": 5.93,
-      "d": 6.23,
+      "w": 5.11,
+      "d": 4.79,
       "rot": -1.572,
-      "x": -0.53,
-      "z": -0.06
+      "x": 0.11,
+      "z": 0.3
     }
   },
   "fisher_hut": {
@@ -972,11 +988,11 @@
     "preview": "assets/world/fisher_hut/preview.webp",
     "collider": {
       "type": "box",
-      "w": 7.75,
-      "d": 4.34,
+      "w": 6.55,
+      "d": 3.61,
       "rot": -3.106,
-      "x": -0.06,
-      "z": -0.33
+      "x": -0.15,
+      "z": -0.23
     }
   },
   "workers_hut": {
@@ -1016,11 +1032,11 @@
     "preview": "assets/world/workers_hut/preview.webp",
     "collider": {
       "type": "box",
-      "w": 3.94,
-      "d": 4.81,
-      "rot": -0.0,
-      "x": 0.0,
-      "z": -0.12
+      "w": 3.9,
+      "d": 4.73,
+      "rot": 0,
+      "x": 0,
+      "z": -0.14
     }
   },
   "boat_dock": {
@@ -1122,14 +1138,7 @@
     "placement": "ground",
     "note": "3 posts, 3.2 m long along X; chain end-to-end",
     "preview": "assets/world/fence_rope/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 3.41,
-      "d": 0.25,
-      "rot": -3.132,
-      "x": -0.0,
-      "z": -0.01
-    }
+    "collider": null
   },
   "fence_planks": {
     "path": "assets/world/fence_planks/model.glb",
@@ -1160,14 +1169,7 @@
     "note": "2.3 m section along X",
     "base_mesh": "layout after Kenney Fantasy Town fence (rebuilt)",
     "preview": "assets/world/fence_planks/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 2.39,
-      "d": 0.29,
-      "rot": -0.009,
-      "x": 0.0,
-      "z": 0.01
-    }
+    "collider": null
   },
   "lantern_post": {
     "path": "assets/world/lantern_post/model.glb",
@@ -1198,12 +1200,7 @@
     "placement": "ground",
     "light": "point light at (0.4, 1.86, 0) local, warm #ffc35a, intensity ~2, range 6",
     "preview": "assets/world/lantern_post/preview.webp",
-    "collider": {
-      "type": "circle",
-      "r": 0.17,
-      "x": -0.2,
-      "z": -0.01
-    }
+    "collider": null
   },
   "lantern_hanging": {
     "path": "assets/world/lantern_hanging/model.glb",
@@ -1265,14 +1262,7 @@
     "placement": "ground",
     "note": "blank arrow boards: red, blue, white; destinations are shown by UI",
     "preview": "assets/world/signpost/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 0.23,
-      "d": 0.24,
-      "rot": -1.011,
-      "x": -0.03,
-      "z": -0.07
-    }
+    "collider": null
   },
   "pier_steps": {
     "path": "assets/world/pier_steps/model.glb",
@@ -1310,24 +1300,23 @@
   "crate_stack": {
     "path": "assets/world/crate_stack/model.glb",
     "scale": 1,
-    "tris": 460,
+    "tris": 428,
     "bounds": {
       "min": [
-        -0.39,
+        -0.32,
         0,
-        -0.33
+        -0.27
       ],
       "max": [
-        0.39,
+        0.32,
         0.55,
-        0.33
+        0.27
       ]
     },
     "materials": [
-      "cove_atlas",
-      "cove_atlas_ds"
+      "cove_atlas"
     ],
-    "bytes": 23388,
+    "bytes": 21160,
     "licence": "CC0 base mesh (KayKit Medieval Hexagon Pack 1.0), modified by Agent D",
     "source": "https://github.com/KayKit-Game-Assets/KayKit-Medieval-Hexagon-Pack-1.0",
     "base_mesh": "crate_A_big+crate_B_small+crate_A_small",
@@ -1337,14 +1326,7 @@
     "placement": "ground",
     "note": "KayKit crates repainted with cove_atlas, re-stacked, rope lashing + tarp added",
     "preview": "assets/world/crate_stack/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 0.62,
-      "d": 0.72,
-      "rot": 1.571,
-      "x": -0.07,
-      "z": 0.05
-    }
+    "collider": null
   },
   "barrel": {
     "path": "assets/world/barrel/model.glb",
@@ -1374,12 +1356,7 @@
     "category": "prop",
     "placement": "ground",
     "preview": "assets/world/barrel/preview.webp",
-    "collider": {
-      "type": "circle",
-      "r": 0.38,
-      "x": 0.03,
-      "z": 0.0
-    }
+    "collider": null
   },
   "barrel_net": {
     "path": "assets/world/barrel_net/model.glb",
@@ -1411,50 +1388,38 @@
     "placement": "ground",
     "note": "barrel with a net and floats thrown over it",
     "preview": "assets/world/barrel_net/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 0.76,
-      "d": 0.74,
-      "rot": 1.389,
-      "x": 0.01,
-      "z": 0.04
-    }
+    "collider": null
   },
   "barrel_lying": {
     "path": "assets/world/barrel_lying/model.glb",
     "scale": 1,
-    "tris": 240,
+    "tris": 744,
     "bounds": {
       "min": [
-        -0.35,
+        -0.48,
         0,
-        -0.38
+        -0.31
       ],
       "max": [
-        0.35,
-        0.69,
-        0.38
+        0.48,
+        0.77,
+        0.31
       ]
     },
     "materials": [
+      "cove_atlas_ds",
       "cove_atlas"
     ],
-    "bytes": 14644,
-    "licence": "CC0 base mesh (KayKit Medieval Hexagon Pack 1.0), modified by Agent D",
-    "source": "https://github.com/KayKit-Game-Assets/KayKit-Medieval-Hexagon-Pack-1.0",
-    "base_mesh": "barrel",
+    "bytes": 29824,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "prop",
     "placement": "ground",
-    "note": "KayKit barrel repainted (tar + rust hoops), lying on its side, mossy",
+    "note": "closed barrel lying on its side, mossy",
     "preview": "assets/world/barrel_lying/preview.webp",
-    "collider": {
-      "type": "circle",
-      "r": 0.53,
-      "x": 0.0,
-      "z": 0.04
-    }
+    "collider": null
   },
   "fish_crate": {
     "path": "assets/world/fish_crate/model.glb",
@@ -1515,14 +1480,7 @@
     "category": "prop",
     "placement": "ground",
     "preview": "assets/world/fish_crate_stack/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 1.48,
-      "d": 0.64,
-      "rot": 3.059,
-      "x": -0.01,
-      "z": -0.02
-    }
+    "collider": null
   },
   "bucket": {
     "path": "assets/world/bucket/model.glb",
@@ -1553,12 +1511,7 @@
     "placement": "ground",
     "note": "stave bucket with sea water, rope handle, bait fish",
     "preview": "assets/world/bucket/preview.webp",
-    "collider": {
-      "type": "circle",
-      "r": 0.24,
-      "x": 0.02,
-      "z": 0.01
-    }
+    "collider": null
   },
   "rope_coil": {
     "path": "assets/world/rope_coil/model.glb",
@@ -1648,14 +1601,7 @@
     "placement": "ground",
     "note": "idle net spot: drying rack with net and floats",
     "preview": "assets/world/net_rack/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 2.82,
-      "d": 0.21,
-      "rot": 3.139,
-      "x": -0.02,
-      "z": 0.03
-    }
+    "collider": null
   },
   "crab_pot": {
     "path": "assets/world/crab_pot/model.glb",
@@ -1686,14 +1632,7 @@
     "placement": "ground",
     "note": "idle crab-pot spot",
     "preview": "assets/world/crab_pot/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 1.55,
-      "d": 0.75,
-      "rot": -0.0,
-      "x": 0.0,
-      "z": 0.0
-    }
+    "collider": null
   },
   "cooler": {
     "path": "assets/world/cooler/model.glb",
@@ -1719,18 +1658,13 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_cooler_l1_l2.webp",
     "category": "prop",
     "placement": "ground",
     "story": "an old ship's sea chest lined for ice",
     "note": "catch cooler (building level 1 / prop)",
     "preview": "assets/world/cooler/preview.webp",
-    "collider": {
-      "type": "circle",
-      "r": 0.65,
-      "x": 0.0,
-      "z": 0.0
-    }
+    "collider": null
   },
   "anchor": {
     "path": "assets/world/anchor/model.glb",
@@ -1759,14 +1693,7 @@
     "category": "prop",
     "placement": "ground",
     "preview": "assets/world/anchor/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 1.33,
-      "d": 0.22,
-      "rot": 0.003,
-      "x": 0.0,
-      "z": -0.0
-    }
+    "collider": null
   },
   "fishing_rod": {
     "path": "assets/world/fishing_rod/model.glb",
@@ -1928,26 +1855,26 @@
     "preview": "assets/world/camp_l0/preview.webp",
     "collider": {
       "type": "box",
-      "w": 3.26,
-      "d": 3.83,
-      "rot": -0.0,
-      "x": 0.0,
-      "z": 0.01
+      "w": 3.14,
+      "d": 3.4,
+      "rot": 0,
+      "x": -0.01,
+      "z": 0.13
     }
   },
   "hammock": {
     "path": "assets/world/hammock/model.glb",
     "scale": 1,
-    "tris": 296,
+    "tris": 352,
     "bounds": {
       "min": [
-        -1.71,
+        -1.77,
         0,
         -0.25
       ],
       "max": [
-        1.71,
-        1.05,
+        1.77,
+        1.6,
         0.25
       ]
     },
@@ -1955,23 +1882,16 @@
       "cove_atlas_ds",
       "cove_atlas"
     ],
-    "bytes": 12316,
+    "bytes": 14136,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
     "concept": "art/concepts/world/plot_palm_spit.webp",
     "category": "prop",
     "placement": "ground",
-    "note": "hang between two palms ~3.4 m apart; ends at x=\u00b11.7, y=1.45",
+    "note": "hang between two palms ~3.4 m apart; ends at x=±1.7, y=1.45",
     "preview": "assets/world/hammock/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 3.42,
-      "d": 0.1,
-      "rot": -0.0,
-      "x": 0.0,
-      "z": 0.0
-    }
+    "collider": null
   },
   "wreck_ribs": {
     "path": "assets/world/wreck_ribs/model.glb",
@@ -2001,14 +1921,7 @@
     "placement": "ground",
     "story": "ribs of a much older wreck, half-buried in the sand",
     "preview": "assets/world/wreck_ribs/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 4.29,
-      "d": 2.28,
-      "rot": -0.0,
-      "x": 0.0,
-      "z": 0.0
-    }
+    "collider": null
   },
   "mooring_dolphin": {
     "path": "assets/world/mooring_dolphin/model.glb",
@@ -2039,14 +1952,7 @@
     "story": "the Old Mooring: three lashed piles, an iron ring, frayed ropes into the deep where The Old Mooring (the big catfish) lives",
     "origin": "water level",
     "preview": "assets/world/mooring_dolphin/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 1.43,
-      "d": 0.83,
-      "rot": 2.921,
-      "x": 0.29,
-      "z": 0.07
-    }
+    "collider": null
   },
   "cairn_lantern": {
     "path": "assets/world/cairn_lantern/model.glb",
@@ -2060,7 +1966,7 @@
       ],
       "max": [
         0.31,
-        1.22,
+        0.99,
         0.31
       ]
     },
@@ -2068,7 +1974,7 @@
       "cove_atlas",
       "cove_glow"
     ],
-    "bytes": 18512,
+    "bytes": 18572,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
@@ -2078,14 +1984,7 @@
     "story": "a stone cairn with a lantern: where the lighthouse will stand one day",
     "light": "lantern at top, warm point light",
     "preview": "assets/world/cairn_lantern/preview.webp",
-    "collider": {
-      "type": "box",
-      "w": 0.72,
-      "d": 0.64,
-      "rot": 2.897,
-      "x": 0.02,
-      "z": -0.02
-    }
+    "collider": null
   },
   "coconut_pile": {
     "path": "assets/world/coconut_pile/model.glb",
@@ -2099,14 +1998,14 @@
       ],
       "max": [
         0.25,
-        0.33,
+        0.21,
         0.3
       ]
     },
     "materials": [
       "cove_atlas"
     ],
-    "bytes": 7284,
+    "bytes": 7280,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
@@ -2119,7 +2018,7 @@
   "sandbar": {
     "path": "assets/world/sandbar/model.glb",
     "scale": 1,
-    "tris": 3703,
+    "tris": 3671,
     "bounds": {
       "min": [
         -4,
@@ -2136,7 +2035,7 @@
       "cove_atlas",
       "cove_atlas_ds"
     ],
-    "bytes": 106304,
+    "bytes": 105884,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
@@ -2274,22 +2173,13 @@
         "x": -3.34,
         "z": -0.76,
         "from": "rock_m"
-      },
-      {
-        "type": "box",
-        "w": 0.56,
-        "d": 0.65,
-        "rot": 2.171,
-        "x": 2.77,
-        "z": -0.43,
-        "from": "crate_stack"
       }
     ]
   },
   "plot_palm_spit": {
     "path": "assets/world/plot_palm_spit/model.glb",
     "scale": 1,
-    "tris": 6930,
+    "tris": 6986,
     "bounds": {
       "min": [
         -8.15,
@@ -2306,7 +2196,7 @@
       "cove_atlas",
       "cove_atlas_ds"
     ],
-    "bytes": 204496,
+    "bytes": 206296,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
@@ -2528,15 +2418,6 @@
         "from": "palm_tall"
       },
       {
-        "type": "box",
-        "w": 3.42,
-        "d": 0.1,
-        "rot": 0.12,
-        "x": -3.8,
-        "z": -0.7,
-        "from": "hammock"
-      },
-      {
         "type": "circle",
         "r": 0.38,
         "x": 1.3,
@@ -2567,15 +2448,6 @@
         "x": 8.02,
         "z": 1.06,
         "from": "palm_young"
-      },
-      {
-        "type": "box",
-        "w": 2.92,
-        "d": 1.07,
-        "rot": 0.194,
-        "x": 2.0,
-        "z": -2.4,
-        "from": "driftwood_log"
       }
     ]
   },
@@ -2600,7 +2472,7 @@
       "cove_atlas_ds",
       "cove_net.001"
     ],
-    "bytes": 200080,
+    "bytes": 200056,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
@@ -2800,29 +2672,13 @@
         "x": 0.85,
         "z": -2.57,
         "from": "rock_m"
-      },
-      {
-        "type": "circle",
-        "r": 0.24,
-        "x": -0.58,
-        "z": -1.2,
-        "from": "bucket"
-      },
-      {
-        "type": "box",
-        "w": 1.55,
-        "d": 0.75,
-        "rot": 2.6,
-        "x": 1.8,
-        "z": -1.4,
-        "from": "crab_pot"
       }
     ]
   },
   "plot_wreck_beach": {
     "path": "assets/world/plot_wreck_beach/model.glb",
     "scale": 1,
-    "tris": 8403,
+    "tris": 8875,
     "bounds": {
       "min": [
         -7.26,
@@ -2840,7 +2696,7 @@
       "cove_atlas_ds",
       "cove_net.001"
     ],
-    "bytes": 232848,
+    "bytes": 243844,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
@@ -2994,55 +2850,12 @@
     "colliders": [
       {
         "type": "box",
-        "w": 7.75,
-        "d": 4.34,
+        "w": 6.55,
+        "d": 3.61,
         "rot": -2.756,
-        "x": 0.33,
-        "z": -0.79,
+        "x": 0.28,
+        "z": -0.66,
         "from": "fisher_hut"
-      },
-      {
-        "type": "box",
-        "w": 4.29,
-        "d": 2.28,
-        "rot": 0.9,
-        "x": -5.2,
-        "z": 1.5,
-        "from": "wreck_ribs"
-      },
-      {
-        "type": "box",
-        "w": 1.33,
-        "d": 0.22,
-        "rot": 2.003,
-        "x": 4.8,
-        "z": 2.4,
-        "from": "anchor"
-      },
-      {
-        "type": "circle",
-        "r": 0.53,
-        "x": -2.36,
-        "z": 3.21,
-        "from": "barrel_lying"
-      },
-      {
-        "type": "box",
-        "w": 0.62,
-        "d": 0.72,
-        "rot": 1.871,
-        "x": 5.35,
-        "z": -2.53,
-        "from": "crate_stack"
-      },
-      {
-        "type": "box",
-        "w": 3.24,
-        "d": 1.19,
-        "rot": 2.794,
-        "x": -4.0,
-        "z": -3.0,
-        "from": "driftwood_log"
       }
     ]
   },
@@ -3232,39 +3045,12 @@
     "colliders": [
       {
         "type": "box",
-        "w": 1.55,
-        "d": 0.75,
-        "rot": 0.5,
-        "x": -2.2,
-        "z": 2.0,
-        "from": "crab_pot"
-      },
-      {
-        "type": "box",
-        "w": 1.55,
-        "d": 0.75,
-        "rot": 2.0,
-        "x": 2.6,
-        "z": 1.6,
-        "from": "crab_pot"
-      },
-      {
-        "type": "box",
         "w": 1.66,
         "d": 2.05,
         "rot": 1.974,
         "x": 5.4,
-        "z": 2.0,
+        "z": 2,
         "from": "columns_steps"
-      },
-      {
-        "type": "box",
-        "w": 2.82,
-        "d": 0.21,
-        "rot": 3.189,
-        "x": -0.02,
-        "z": -2.97,
-        "from": "net_rack"
       }
     ]
   },
@@ -3288,7 +3074,7 @@
       "cove_atlas",
       "cove_glow"
     ],
-    "bytes": 173020,
+    "bytes": 173044,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
@@ -3455,15 +3241,6 @@
         "from": "columns_steps"
       },
       {
-        "type": "box",
-        "w": 0.72,
-        "d": 0.64,
-        "rot": 2.897,
-        "x": 0.42,
-        "z": -3.62,
-        "from": "cairn_lantern"
-      },
-      {
         "type": "circle",
         "r": 1.63,
         "x": -5.88,
@@ -3613,46 +3390,12 @@
     "colliders": [
       {
         "type": "box",
-        "w": 1.43,
-        "d": 0.83,
-        "rot": 3.321,
-        "x": 0.79,
-        "z": 3.55,
-        "from": "mooring_dolphin"
-      },
-      {
-        "type": "box",
         "w": 3.22,
         "d": 1.51,
         "rot": -2.338,
         "x": -4.4,
         "z": -1.86,
         "from": "rock_cluster"
-      },
-      {
-        "type": "circle",
-        "r": 0.17,
-        "x": 1.78,
-        "z": 0.52,
-        "from": "lantern_post"
-      },
-      {
-        "type": "box",
-        "w": 3.41,
-        "d": 0.25,
-        "rot": -3.032,
-        "x": -0.6,
-        "z": -0.41,
-        "from": "fence_rope"
-      },
-      {
-        "type": "box",
-        "w": 1.33,
-        "d": 0.22,
-        "rot": 2.603,
-        "x": 3.8,
-        "z": -1.8,
-        "from": "anchor"
       }
     ]
   },
@@ -3676,11 +3419,11 @@
       "cove_atlas",
       "cove_glow"
     ],
-    "bytes": 35648,
+    "bytes": 35668,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_aquarium_l1_l2.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 1, the rock pool: a ring of basalt around a pool, and a driftwood shelf of sea-glass jars that glow at dusk",
@@ -3688,16 +3431,17 @@
     "level": 1,
     "collider": {
       "type": "box",
-      "w": 3.58,
-      "d": 3.33,
+      "w": 3.32,
+      "d": 3.12,
       "rot": -1.303,
-      "x": -0.23,
-      "z": -0.1
+      "x": -0.19,
+      "z": -0.07
     },
     "footprint": {
       "w": 3.54,
       "d": 3.32
-    }
+    },
+    "preview": "assets/world/aquarium_l1/preview.webp"
   },
   "aquarium_l2": {
     "path": "assets/world/aquarium_l2/model.glb",
@@ -3723,7 +3467,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_aquarium_l1_l2.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 2, the barrel tanks: three cooperage vats with brass porthole windows lit from inside, on a plank viewing deck with lanterns",
@@ -3731,16 +3475,17 @@
     "level": 2,
     "collider": {
       "type": "box",
-      "w": 4.36,
-      "d": 3.1,
-      "rot": -0.0,
-      "x": -0.01,
-      "z": 0.0
+      "w": 4.27,
+      "d": 2.8,
+      "rot": 0,
+      "x": 0,
+      "z": -0.01
     },
     "footprint": {
       "w": 4.28,
       "d": 3.02
-    }
+    },
+    "preview": "assets/world/aquarium_l2/preview.webp"
   },
   "aquarium_l3": {
     "path": "assets/world/aquarium_l3/model.glb",
@@ -3766,7 +3511,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_aquarium_l3.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 3, the glasshouse: salvaged ship windows and portholes in tarred timber around a great glowing round tank, roofed with an upturned dinghy",
@@ -3774,16 +3519,17 @@
     "level": 3,
     "collider": {
       "type": "box",
-      "w": 5.28,
-      "d": 4.62,
+      "w": 4.88,
+      "d": 4.52,
       "rot": -2.166,
-      "x": -0.22,
-      "z": -0.19
+      "x": -0.14,
+      "z": -0.3
     },
     "footprint": {
       "w": 4.6,
       "d": 5.38
-    }
+    },
+    "preview": "assets/world/aquarium_l3/preview.webp"
   },
   "boat_dock_l1": {
     "path": "assets/world/boat_dock_l1/model.glb",
@@ -3808,7 +3554,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_boat_dock_l1_l2.webp",
     "category": "building",
     "placement": "water",
     "story": "Level 1: a raft of lashed planks on cork floats tied to one old mooring post",
@@ -3822,7 +3568,8 @@
     "footprint": {
       "w": 2.52,
       "d": 2.54
-    }
+    },
+    "preview": "assets/world/boat_dock_l1/preview.webp"
   },
   "boat_dock_l2": {
     "path": "assets/world/boat_dock_l2/model.glb",
@@ -3848,7 +3595,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_boat_dock_l1_l2.webp",
     "category": "building",
     "placement": "water",
     "story": "Level 2, a proper dock: deck on piles, cannon bollards, cork fenders, a ladder and a lantern post",
@@ -3862,7 +3609,8 @@
     "footprint": {
       "w": 4.56,
       "d": 3.31
-    }
+    },
+    "preview": "assets/world/boat_dock_l2/preview.webp"
   },
   "cooler_l1": {
     "path": "assets/world/cooler_l1/model.glb",
@@ -3888,7 +3636,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_cooler_l1_l2.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 1: the sea-chest cooler dug into wet sand under a sail shade, a bucket of seawater to keep it damp",
@@ -3896,16 +3644,17 @@
     "level": 1,
     "collider": {
       "type": "box",
-      "w": 1.56,
-      "d": 2.11,
+      "w": 1.48,
+      "d": 2.07,
       "rot": -1.569,
-      "x": -0.03,
+      "x": -0.04,
       "z": -0.03
     },
     "footprint": {
       "w": 2.08,
       "d": 1.64
-    }
+    },
+    "preview": "assets/world/cooler_l1/preview.webp"
   },
   "cooler_l2": {
     "path": "assets/world/cooler_l2/model.glb",
@@ -3931,7 +3680,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_cooler_l1_l2.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 2, the ice house: a plank shed half dug into the dune, roof packed with seaweed thatch for insulation, blue door, ice blocks stacked outside",
@@ -3939,16 +3688,17 @@
     "level": 2,
     "collider": {
       "type": "box",
-      "w": 4.55,
-      "d": 4.07,
+      "w": 3.77,
+      "d": 3.83,
       "rot": 3.091,
-      "x": -0.02,
-      "z": -0.01
+      "x": -0.13,
+      "z": 0.08
     },
     "footprint": {
       "w": 4.46,
       "d": 4.06
-    }
+    },
+    "preview": "assets/world/cooler_l2/preview.webp"
   },
   "cooler_l3": {
     "path": "assets/world/cooler_l3/model.glb",
@@ -3974,7 +3724,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_cooler_l3.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 3, the cold cellar: basalt walls under a turf roof, a heavy tarred door bound with brass, a timber hoist lowering a crate of fish",
@@ -3982,16 +3732,17 @@
     "level": 3,
     "collider": {
       "type": "box",
-      "w": 5.43,
-      "d": 3.66,
+      "w": 4.99,
+      "d": 3.45,
       "rot": 2.661,
-      "x": 0.51,
-      "z": -0.21
+      "x": 0.43,
+      "z": -0.22
     },
     "footprint": {
       "w": 4.4,
       "d": 4.74
-    }
+    },
+    "preview": "assets/world/cooler_l3/preview.webp"
   },
   "scaffold": {
     "path": "assets/world/scaffold/model.glb",
@@ -4017,7 +3768,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_scaffold.webp",
     "category": "building",
     "placement": "ground",
     "story": "construction scaffold shown while a building goes up (A/E add dust + hammering); 4.0 x 4.0 m, 3.3 m tall: scale x/z to the building footprint",
@@ -4025,12 +3776,13 @@
     "level": 0,
     "collider": {
       "type": "box",
-      "w": 5.8,
-      "d": 5.13,
+      "w": 5.72,
+      "d": 4.91,
       "rot": 0.001,
-      "x": 0.0,
-      "z": 0.03
-    }
+      "x": -0.03,
+      "z": -0.02
+    },
+    "preview": "assets/world/scaffold/preview.webp"
   },
   "shop_l1": {
     "path": "assets/world/shop_l1/model.glb",
@@ -4056,7 +3808,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_shop_levels.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 1, the first stall: fish crates for a counter, the patched sail off your own rowboat as a canopy on two oars, a red oar blade as the sign, a brass hanging scale",
@@ -4064,16 +3816,17 @@
     "level": 1,
     "collider": {
       "type": "box",
-      "w": 3.57,
-      "d": 2.77,
-      "rot": -0.0,
-      "x": -0.01,
-      "z": -0.04
+      "w": 3.42,
+      "d": 2.32,
+      "rot": 0,
+      "x": -0.06,
+      "z": -0.13
     },
     "footprint": {
       "w": 3.5,
       "d": 2.78
-    }
+    },
+    "preview": "assets/world/shop_l1/preview.webp"
   },
   "shop_l3": {
     "path": "assets/world/shop_l3/model.glb",
@@ -4100,7 +3853,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_shop_detail.webp",
+    "concept": "art/concepts/world/building_shop_levels.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 3, the Hull House raised: a second storey of salvaged boards lifts the hull roof, lit porthole windows, a balcony with a rope rail, an outside stair, and the old mast now carries a crow's nest with a lantern and a red pennant",
@@ -4108,16 +3861,17 @@
     "level": 3,
     "collider": {
       "type": "box",
-      "w": 7.8,
-      "d": 5.83,
+      "w": 5.97,
+      "d": 5.15,
       "rot": -0.21,
-      "x": -0.48,
-      "z": 0.33
+      "x": 0.01,
+      "z": 0.24
     },
     "footprint": {
       "w": 7.3,
       "d": 6.58
-    }
+    },
+    "preview": "assets/world/shop_l3/preview.webp"
   },
   "smokehouse_l1": {
     "path": "assets/world/smokehouse_l1/model.glb",
@@ -4143,7 +3897,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_smokehouse_l1_l2.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 1, smoking racks: driftwood A-frames with three poles of fish over a smouldering pit, a scrap of sail as a hood, a woodpile",
@@ -4151,16 +3905,17 @@
     "level": 1,
     "collider": {
       "type": "box",
-      "w": 3.83,
-      "d": 1.51,
+      "w": 3.78,
+      "d": 1.08,
       "rot": 3.005,
-      "x": 0.04,
-      "z": -0.13
+      "x": 0,
+      "z": -0.03
     },
     "footprint": {
       "w": 3.7,
       "d": 1.64
-    }
+    },
+    "preview": "assets/world/smokehouse_l1/preview.webp"
   },
   "smokehouse_l2": {
     "path": "assets/world/smokehouse_l2/model.glb",
@@ -4186,7 +3941,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_smokehouse_l1_l2.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 2, the smoke shed: tarred boards, smoke-stained eaves, a tall stovepipe, the hatch swung open on rows of golden fish, a woodpile and axe",
@@ -4194,16 +3949,17 @@
     "level": 2,
     "collider": {
       "type": "box",
-      "w": 3.94,
-      "d": 2.38,
-      "rot": -0.0,
-      "x": -0.0,
-      "z": 0.0
+      "w": 3.86,
+      "d": 2.36,
+      "rot": 0,
+      "x": -0.04,
+      "z": 0
     },
     "footprint": {
       "w": 3.86,
       "d": 3.34
-    }
+    },
+    "preview": "assets/world/smokehouse_l2/preview.webp"
   },
   "smokehouse_l3": {
     "path": "assets/world/smokehouse_l3/model.glb",
@@ -4229,7 +3985,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_smokehouse_l3.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 3, the smoke tower: basalt firebox with a glowing fire door, tall tarred octagonal tower with louvred vents, verdigris copper cowl with a fish weathervane, fish hung on every side",
@@ -4237,21 +3993,22 @@
     "level": 3,
     "collider": {
       "type": "box",
-      "w": 3.1,
-      "d": 3.0,
+      "w": 2.95,
+      "d": 2.83,
       "rot": -1.095,
-      "x": -0.19,
-      "z": 0.07
+      "x": -0.12,
+      "z": 0.08
     },
     "footprint": {
       "w": 3.38,
       "d": 2.96
-    }
+    },
+    "preview": "assets/world/smokehouse_l3/preview.webp"
   },
   "workers_hut_l1": {
     "path": "assets/world/workers_hut_l1/model.glb",
     "scale": 1,
-    "tris": 1093,
+    "tris": 1149,
     "bounds": {
       "min": [
         -1.9,
@@ -4268,11 +4025,11 @@
       "cove_atlas",
       "cove_atlas_ds"
     ],
-    "bytes": 32172,
+    "bytes": 33744,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_workers_hut_l1_l3.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 1, one hired hand: a hammock under a tarp between two posts, a sea chest, a rack of rods",
@@ -4280,59 +4037,49 @@
     "level": 1,
     "collider": {
       "type": "box",
-      "w": 3.67,
-      "d": 1.84,
+      "w": 3.57,
+      "d": 1.79,
       "rot": 0.001,
-      "x": -0.01,
+      "x": 0,
       "z": 0.41
     },
     "footprint": {
       "w": 3.8,
       "d": 2.56
-    }
+    },
+    "preview": "assets/world/workers_hut_l1/preview.webp"
   },
   "workers_hut_l3": {
     "path": "assets/world/workers_hut_l3/model.glb",
     "scale": 1,
-    "tris": 4466,
+    "tris": 4132,
     "bounds": {
       "min": [
         -3.35,
         0,
-        -2.26
+        -2.39
       ],
       "max": [
         3.35,
         4.2,
-        2.26
+        2.39
       ]
     },
     "materials": [
       "cove_atlas",
       "cove_glow"
     ],
-    "bytes": 130540,
+    "bytes": 120764,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/building_workers_hut_l1_l3.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 3, the bunkhouse: a long hall roofed with the two halves of a sawn-up fishing boat, lit bunk portholes, a ship's bell on a gallows to call the shift, a hire board with pinned notes",
     "building": "workers_hut",
     "level": 3,
-    "collider": {
-      "type": "box",
-      "w": 6.4,
-      "d": 4.6,
-      "rot": -0.0,
-      "x": 0.12,
-      "z": 0.0
-    },
-    "footprint": {
-      "w": 6.7,
-      "d": 4.52
-    }
+    "preview": "assets/world/workers_hut_l3/preview.webp"
   },
   "shop_l2": {
     "path": "assets/world/shop_hullhouse/model.glb",
@@ -4371,11 +4118,11 @@
     "preview": "assets/world/shop_hullhouse/preview.webp",
     "collider": {
       "type": "box",
-      "w": 5.93,
-      "d": 6.23,
+      "w": 5.11,
+      "d": 4.79,
       "rot": -1.572,
-      "x": -0.53,
-      "z": -0.06
+      "x": 0.11,
+      "z": 0.3
     },
     "alias_of": "shop_hullhouse",
     "building": "shop",
@@ -4418,11 +4165,11 @@
     "preview": "assets/world/workers_hut/preview.webp",
     "collider": {
       "type": "box",
-      "w": 3.94,
-      "d": 4.81,
-      "rot": -0.0,
-      "x": 0.0,
-      "z": -0.12
+      "w": 3.9,
+      "d": 4.73,
+      "rot": 0,
+      "x": 0,
+      "z": -0.14
     },
     "alias_of": "workers_hut",
     "building": "workers_hut",
@@ -4469,5 +4216,216 @@
     "alias_of": "boat_dock",
     "building": "boat_dock",
     "level": 3
+  },
+  "pier_1": {
+    "path": "assets/world/pier_straight/model.glb",
+    "scale": 1,
+    "tris": 1298,
+    "bounds": {
+      "min": [
+        -1.13,
+        -1.6,
+        -1.56
+      ],
+      "max": [
+        1.18,
+        0.8,
+        1.56
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 37152,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "structure",
+    "placement": "water",
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
+    "preview": "assets/world/pier_straight/preview.webp",
+    "collider": null,
+    "walkable": {
+      "deckY": 0.75
+    },
+    "alias_of": "pier_straight",
+    "pier_slot": 1
+  },
+  "pier_2": {
+    "path": "assets/world/pier_straight_b/model.glb",
+    "scale": 1,
+    "tris": 1270,
+    "bounds": {
+      "min": [
+        -1.12,
+        -1.6,
+        -1.56
+      ],
+      "max": [
+        1.18,
+        1.1,
+        1.56
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 36244,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "structure",
+    "placement": "water",
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
+    "preview": "assets/world/pier_straight_b/preview.webp",
+    "collider": null,
+    "walkable": {
+      "deckY": 0.75
+    },
+    "alias_of": "pier_straight_b",
+    "pier_slot": 2
+  },
+  "pier_3": {
+    "path": "assets/world/pier_patched/model.glb",
+    "scale": 1,
+    "tris": 1442,
+    "bounds": {
+      "min": [
+        -1.1,
+        -1.6,
+        -1.56
+      ],
+      "max": [
+        1.19,
+        0.84,
+        1.56
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 43812,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "structure",
+    "placement": "water",
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
+    "preview": "assets/world/pier_patched/preview.webp",
+    "collider": null,
+    "walkable": {
+      "deckY": 0.75
+    },
+    "alias_of": "pier_patched",
+    "pier_slot": 3
+  },
+  "pier_4": {
+    "path": "assets/world/pier_straight/model.glb",
+    "scale": 1,
+    "tris": 1298,
+    "bounds": {
+      "min": [
+        -1.13,
+        -1.6,
+        -1.56
+      ],
+      "max": [
+        1.18,
+        0.8,
+        1.56
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 37152,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "structure",
+    "placement": "water",
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
+    "preview": "assets/world/pier_straight/preview.webp",
+    "collider": null,
+    "walkable": {
+      "deckY": 0.75
+    },
+    "alias_of": "pier_straight",
+    "pier_slot": 4
+  },
+  "pier_5": {
+    "path": "assets/world/pier_straight_b/model.glb",
+    "scale": 1,
+    "tris": 1270,
+    "bounds": {
+      "min": [
+        -1.12,
+        -1.6,
+        -1.56
+      ],
+      "max": [
+        1.18,
+        1.1,
+        1.56
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 36244,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "structure",
+    "placement": "water",
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
+    "preview": "assets/world/pier_straight_b/preview.webp",
+    "collider": null,
+    "walkable": {
+      "deckY": 0.75
+    },
+    "alias_of": "pier_straight_b",
+    "pier_slot": 5
+  },
+  "pier_6": {
+    "path": "assets/world/pier_end/model.glb",
+    "scale": 1,
+    "tris": 2591,
+    "bounds": {
+      "min": [
+        -1.17,
+        -1.6,
+        -1.6
+      ],
+      "max": [
+        1.18,
+        2.65,
+        1.56
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_glow"
+    ],
+    "bytes": 68508,
+    "licence": "original (Agent D, Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "category": "structure",
+    "placement": "water",
+    "origin": "footprint centre at water level (y=0); deck top y=0.75; module 3.0 m along Z, 2.0 m wide; posts reach y=-1.6 (seabed)",
+    "preview": "assets/world/pier_end/preview.webp",
+    "collider": null,
+    "walkable": {
+      "deckY": 0.75
+    },
+    "alias_of": "pier_end",
+    "pier_slot": 6
   }
 }

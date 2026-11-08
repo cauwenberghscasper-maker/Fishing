@@ -10,97 +10,80 @@ export const driftwoodCove = {
 
   // Land shapes, merged with a smooth max. top = height of the shape's interior,
   // edge = metres over which it falls to the shore, rough = noise amplitude on top.
+  // `plot`: the shape only exists once that plot is owned (master prompt 4.6). No plot = backdrop.
   shapes: [
-    { id: 'cliffs', x: 0, z: -19, rx: 34, rz: 9.5, rot: 0.04, top: 7.4, edge: 2.4, rough: 1.1, cliff: true },
-    { id: 'cliffs_west', x: -21, z: -10, rx: 9, rz: 9, rot: 0.5, top: 6.2, edge: 2.2, rough: 1.0, cliff: true },
-    { id: 'beach', x: 0, z: -6.5, rx: 16.5, rz: 8, rot: 0.05, top: 0.95, edge: 7.5, rough: 0.12 },
-    { id: 'west_headland', x: -15.5, z: -0.5, rx: 5.5, rz: 8, rot: -0.35, top: 2.2, edge: 3.2, rough: 0.55, rocky: true },
-    { id: 'east_point', x: 13.5, z: -3.5, rx: 7.5, rz: 5.5, rot: 0.3, top: 1.25, edge: 4.5, rough: 0.15 },
+    { id: 'cliffs', x: 0, z: -21, rx: 34, rz: 9.5, rot: 0.04, top: 7.4, edge: 2.4, rough: 1.1, cliff: true },
+    { id: 'cliffs_west', x: -23, z: -12, rx: 9, rz: 9, rot: 0.5, top: 6.2, edge: 2.2, rough: 1.0, cliff: true },
     { id: 'islet', x: -9.5, z: 12.5, rx: 2.1, rz: 1.6, rot: 0.4, top: 0.7, edge: 1.4, rough: 0.35, rocky: true },
+    { id: 'sandbar', plot: 'sandbar', x: 1.5, z: -2.0, rx: 5.0, rz: 4.3, rot: 0.1, top: 0.75, edge: 3.2, rough: 0.06 },
+    { id: 'palm_spit', plot: 'palm_spit', x: 11.5, z: -3.0, rx: 8.5, rz: 4.0, rot: 0.25, top: 1.0, edge: 3.5, rough: 0.1 },
+    { id: 'wreck_beach', plot: 'wreck_beach', x: -8.5, z: -6.0, rx: 7.8, rz: 5.0, rot: -0.15, top: 0.95, edge: 4.0, rough: 0.12 },
+    { id: 'tidepool_shelf', plot: 'tidepool_shelf', x: -15.0, z: 0.5, rx: 6.5, rz: 5.2, rot: -0.35, top: 1.2, edge: 2.8, rough: 0.45, rocky: true },
+    { id: 'basalt_cliff', plot: 'basalt_cliff', x: 6.0, z: -10.5, rx: 7.2, rz: 4.4, rot: 0.05, top: 1.7, edge: 2.2, rough: 0.35, rocky: true },
+    { id: 'kelp_shallows', plot: 'kelp_shallows', x: -6.5, z: 10.0, rx: 6.8, rz: 5.0, rot: 0.1, top: 0.4, edge: 4.0, rough: 0.08 },
+    { id: 'mooring_deep', plot: 'mooring_deep', x: 12.0, z: 11.0, rx: 4.6, rz: 4.8, rot: 0.5, top: 0.9, edge: 2.4, rough: 0.3, rocky: true },
   ],
 
-  spawn: { x: 2.2, z: -3.2, facing: Math.PI },
+  // Plots: where the dressing model (D's plot_<id>, origin at the plot centre on the ground, +Z
+  // seaward) goes, and the build spots each plot adds. Day one owns only the sandbar.
+  plots: {
+    sandbar: { model: 'sandbar', x: 1.5, z: -2.0, rot: 0, spots: [{ x: 4.1, z: -3.6, rot: -0.35 }, { x: -1.2, z: 0.2, rot: 0.3 }] },
+    palm_spit: { model: 'plot_palm_spit', x: 11.5, z: -3.0, rot: 0.25, spots: [{ x: 9.5, z: -3.5, rot: -0.2 }, { x: 15.0, z: -2.0, rot: -0.5 }] },
+    wreck_beach: { model: 'plot_wreck_beach', x: -8.5, z: -6.0, rot: -0.15, spots: [{ x: -6.0, z: -6.5, rot: 0.2 }, { x: -11.5, z: -5.5, rot: 0.4 }] },
+    tidepool_shelf: { model: 'plot_tidepool_shelf', x: -15.0, z: 0.5, rot: -0.6, spots: [{ x: -14.0, z: -2.5, rot: 0.6 }] },
+    basalt_cliff: { model: 'plot_basalt_cliff', x: 6.0, z: -10.5, rot: 0, spots: [{ x: 3.5, z: -10.5, rot: 0 }, { x: 8.5, z: -10.8, rot: -0.1 }] },
+    kelp_shallows: { model: 'plot_kelp_shallows', x: -6.5, z: 10.0, rot: 0.1, spots: [{ x: -6.0, z: 8.5, rot: 0.2 }] },
+    mooring_deep: { model: 'plot_mooring_deep', x: 12.0, z: 11.0, rot: 0.5, spots: [{ x: 12.0, z: 10.0, rot: -0.4 }] },
+  },
 
-  // Piers are chains of Agent D's 3 m modules (deck top 0.75 m, origin at water level).
-  // The deck is walkable only when its modules loaded.
-  piers: [
-    {
-      id: 'pier_main',
-      from: [3.0, -1.6],
-      to: [4.6, 13.6],
-      width: 2.0,
-      modules: ['pier_straight', 'pier_patched', 'pier_straight_b', 'pier_straight', 'pier_end'],
-    },
+  // Day one: the tarp lean-to and a driftwood fire, always there.
+  camp: { model: 'camp_l0', x: -0.4, z: -3.8, rot: 0.25 },
+
+  // Default places for buildings that B completes without placement (no build:placing ack).
+  defaultBuildingSpots: {
+    shop: { x: 4.1, z: -3.6, rot: -0.35 },
+    cooler: { x: -1.2, z: 0.2, rot: 0.3 },
+    workers_hut: { x: -6.0, z: -6.5, rot: 0.2 },
+    smokehouse: { x: 9.5, z: -3.5, rot: -0.2 },
+    aquarium: { x: 3.5, z: -10.5, rot: 0 },
+    boat_dock: { x: -2.6, z: 3.4, rot: 0.2, water: true },
+  },
+
+  spawn: { x: 1.4, z: -1.2, facing: Math.PI },
+
+  // The pier grows south from the sandbar: a crooked stub on day one, one 3 m module per pier
+  // bought (pier_1..pier_6). D's modules: deck top 0.75 m, origin at water level.
+  pierLine: {
+    from: [3.3, 0.6], dir: [0.12, 1], width: 2.0,
+    stub: 'pier_patched',
+    modules: ['pier_straight', 'pier_straight_b', 'pier_patched', 'pier_straight', 'pier_straight_b', 'pier_straight'],
+    end: 'pier_end',
+  },
+  // Boat moored beside the pier stub; worker fishing spots (pier side first, then shores).
+  boatSpot: { x: 5.4, z: 2.6, rot: 0.15 },
+  workerSpots: [
+    { x: -1.6, z: 1.5, face: [-3, 5] },
+    { x: 5.8, z: -0.4, face: [9, 5] },
+    { pier: 1, side: -1 }, { pier: 2, side: 1 }, { pier: 3, side: -1 }, { pier: 4, side: 1 },
+    { x: 13.5, z: 0.4, face: [16, 6], plot: 'palm_spit' },
+    { x: -10.5, z: -1.6, face: [-12, 6], plot: 'wreck_beach' },
   ],
 
-  // Interaction zones (zone:enter / zone:exit). kind: shop | pier | boat | building | plot
-  zones: [
-    { id: 'shop', kind: 'shop', x: -1.2, z: -8.2, r: 2.6 },
-    { id: 'pier_1', kind: 'pier', x: 4.45, z: 11.8, r: 2.6, needsDeck: 'pier_main' },
-    { id: 'shore_1', kind: 'pier', x: -4.5, z: 0.6, r: 3.2 },
-    { id: 'boat_dock', kind: 'boat', x: 4.1, z: 7.2, r: 1.6, needsDeck: 'pier_main' },
-    { id: 'workers_hut', kind: 'building', x: 10.2, z: -6.2, r: 2.4 },
-    { id: 'plot_east', kind: 'plot', x: 17.5, z: 2.5, r: 3.0 },
-  ],
+  // Interaction zones that are not buildings (buildings get zones from their placement).
+  zones: [],
 
-  // Props from Agent D's world manifest (ids are stable). Missing asset = not placed.
-  // Y comes from the manifest placement: water/shore assets sit at sea level, others on the ground.
-  // Colliders come from the model (manifest `collider`, else its real footprint): never hand-set here.
+  // Backdrop props (always there). Plot dressings come from D's plot_* models.
   props: [
-    // Signature buildings (D, coming)
-    { asset: ['shop'], x: -1.2, z: -11.6, rot: 0 },
-    { asset: ['fisher_hut'], x: -10.5, z: -6.0, rot: 0.55 },
-    { asset: ['workers_hut'], x: 10.8, z: -9.0, rot: -0.35 },
-    { asset: ['boat_dock'], x: 6.2, z: 7.4, rot: 0.1 },
-    { asset: ['skiff'], x: 6.6, z: 10.4, rot: -0.15, float: true },
-
-    // Basalt columns at the foot of the cliffs
-    { asset: ['cliff_columns_a'], x: -6.6, z: -12.4, rot: 0.05 },
-    { asset: ['cliff_columns_b'], x: 6.4, z: -12.6, rot: -0.1 },
-    { asset: ['cliff_columns_a'], x: 13.8, z: -10.6, rot: -0.45, scale: 0.9 },
-    { asset: ['columns_steps'], x: -4.0, z: -10.8, rot: 0.2 },
-    { asset: ['cliff_columns_b'], x: -15.2, z: -6.4, rot: 0.6 },
-
-    // Shore rocks, tide pool, islet
-    { asset: ['tide_pool_a'], x: -10.7, z: 4.4, rot: 0.4 },
-    { asset: ['rock_shore'], x: -8.4, z: 2.0, rot: 2.6 },
-    { asset: ['rock_shore'], x: 12.4, z: 1.2, rot: -0.6 },
-    { asset: ['rock_shore'], x: 7.8, z: 1.6, rot: 0.9, scale: 0.8 },
+    { asset: ['cliff_columns_a'], x: -6.6, z: -14.0, rot: 0.05 },
+    { asset: ['cliff_columns_b'], x: 6.4, z: -14.4, rot: -0.1 },
+    { asset: ['cliff_columns_a'], x: 14.5, z: -12.0, rot: -0.45, scale: 0.9 },
+    { asset: ['cliff_columns_b'], x: -16.5, z: -8.0, rot: 0.6 },
     { asset: ['rock_l'], x: -9.6, z: 12.4, rot: 1.9, scale: 1.25 },
-    { asset: ['rock_cluster'], x: 15.6, z: 0.4, rot: 0.8 },
-    { asset: ['rock_l'], x: -14.2, z: 1.4, rot: 0.3 },
-    { asset: ['rock_m'], x: -12.4, z: -3.0, rot: 1.2 },
-    { asset: ['rock_m'], x: 9.4, z: -2.2, rot: 2.2 },
-    { asset: ['rock_s'], x: -2.6, z: 3.4, rot: 2.4 },
-    { asset: ['rock_s'], x: 1.0, z: -6.2, rot: 0.4 },
-
-    // Trees and greenery (sparingly: the key art is cliffs, sand and grass)
-    { asset: ['palm_bent'], x: 15.0, z: -2.2, rot: 2.6 },
-    { asset: ['palm_young'], x: -5.6, z: -9.8, rot: 0.8 },
-    { asset: ['palm_twin'], x: 12.8, z: -6.6, rot: 4.0 },
-    { asset: ['palm_tall'], x: -16.0, z: -2.6, rot: 1.0 },
-    { asset: ['bush_seagrape'], x: -8.0, z: -9.4, rot: 0.3 },
-    { asset: ['bush_seagrape'], x: 8.6, z: -10.6, rot: 2.1 },
-    { asset: ['bush_seagrape_s'], x: 3.8, z: -11.2, rot: 1.0 },
-    { asset: ['bush_spiky'], x: -13.4, z: -1.0, rot: 0.6 },
-    { asset: ['bush_spiky'], x: 16.4, z: -5.4, rot: 2.0 },
-    { asset: ['beach_grass_a'], x: -3.2, z: -7.6, rot: 0.2 },
-    { asset: ['beach_grass_b'], x: 1.6, z: -9.0, rot: 1.4 },
-    { asset: ['beach_grass_a'], x: 6.8, z: -7.4, rot: 2.8 },
-    { asset: ['beach_grass_b'], x: -9.2, z: -2.6, rot: 0.9 },
-    { asset: ['beach_grass_a'], x: 11.8, z: -3.6, rot: 1.9 },
-    { asset: ['beach_grass_b'], x: -12.0, z: 0.2, rot: 2.4 },
-
-    // Beach clutter washed up by the tide
-    { asset: ['driftwood_log'], x: 10.8, z: -4.4, rot: 1.1 },
-    { asset: ['driftwood_branch'], x: -6.6, z: -1.6, rot: -0.4 },
-    { asset: ['driftwood_branch'], x: -5.6, z: 2.6, rot: 0.7 },
-    { asset: ['seaweed_pile_a'], x: -2.4, z: 0.4, rot: 0.3 },
-    { asset: ['seaweed_pile_a'], x: 9.0, z: -0.2, rot: 1.7 },
-    { asset: ['shells_a'], x: -4.2, z: -2.8, rot: 0.5 },
-    { asset: ['starfish_a'], x: -6.0, z: -3.6, rot: 0.3 },
-    { asset: ['starfish_a'], x: 8.2, z: -4.8, rot: 1.4 },
-    { asset: ['starfish_a'], x: 0.6, z: 0.6, rot: 2.6 },
+    { asset: ['rock_shore'], x: -2.4, z: 1.6, rot: 2.6, plot: 'sandbar' },
+    { asset: ['rock_shore'], x: 6.2, z: -4.6, rot: 0.9, scale: 0.8, plot: 'sandbar' },
+    { asset: ['rock_m'], x: 8.5, z: 3.5, rot: 2.2 },
+    { asset: ['rock_m'], x: -5.5, z: -2.0, rot: 1.2 },
+    { asset: ['starfish_a'], x: 0.6, z: 0.9, rot: 2.6, plot: 'sandbar' },
   ],
 
   // Scattered beds (seeded so the cove looks the same every time).

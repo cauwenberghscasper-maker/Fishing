@@ -121,7 +121,7 @@ const fragmentShader = /* glsl */`
     col += uSunColor * (smoothstep(0.25, 0.85, spec) * 2.2 + spec * 0.4) * uLight;
 
     // Shoreline: solid contact foam, then white wash lines rolling in over the shallows.
-    float contact = 1.0 - smoothstep(0.015, 0.16 + foamNoise * 0.16, vDepth);
+    float contact = 1.0 - smoothstep(0.01, 0.07 + foamNoise * 0.09, vDepth);
     float waveT = fract(vDepth * 1.45 - uTime * 0.2 + foamNoise * 0.45);
     float line = smoothstep(0.84, 0.93, waveT) * (1.0 - smoothstep(0.94, 1.0, waveT));
     line *= (1.0 - smoothstep(0.2, 1.05, vDepth)) * smoothstep(0.32, 0.62, foamNoise + 0.18);

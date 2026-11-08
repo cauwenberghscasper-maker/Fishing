@@ -208,3 +208,13 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 19:39 | D | Qwen-Image-Fast | construction scaffold, seed 632798957 → `building_scaffold.webp` | ~4 (4 s wall) |
 
 **Agent D 8 Nov: 10 Fast calls ≈ 40 s GPU (≤ 122 s wall) of 150 s.** Stopped: every building level, plot and character now has a concept; more images would have no model to feed. When F's cards land, `finalize_manifest.py` switches each building's `concept` to the card (mine stay in `concept_alt`).
+| 8 Nov 19:41 | C | Qwen-Image + Qwen-Image-Fast ×2 | compass_flounder hero r2 (fail: whale body + gold coin on nose; r1 used), glasswing_sardine rest (kept, Fast), driftback rest (kept, weak: scales + cartoon face, silhouette ok) | 48 total (measured wall, 1 full + 2 Fast parallel) |
+| 8 Nov 19:43 | C | Qwen-Image-Fast ×3 | rests: compass_flounder (kept, lips inpainted), shellback_blenny (kept weak: fish beside a loose shell, lips inpainted), kelp_wraith (kept weak: bulbs read as a bead string) | 23 total (measured wall, 3 parallel) |
+| 8 Nov 19:44 | C | Qwen-Image-Fast ×4 | rests: seaglass_puffer (lips inpainted), old_mooring (teeth inpainted, loose hooks erased), storm_marlin (mouth inpainted, line erased), temple_manta (clean) | 28 total (measured wall, 4 parallel) |
+
+### Agent F — quota day 8 Nov (budget 600 s floor; use it all until ~22:45)
+| Time (Brussels) | Agent | Tool | What | GPU s (wall-clock upper bound) |
+|---|---|---|---|---|
+| 14:42 | F | Qwen-Image | 9 screen backdrops 9:16 (seeds 6101–6109) + shopkeeper 3:4 (6110). Kept: cooler_l0 (creel), shop fallback, chart, drawer, shopkeeper. Rejected: ice chest, smokehouse, harbour, catch (the word "phone-screen" made it paint a phone bezel), logbook (generic binder) | 177 (10 calls) |
+| 19:39 | F | Qwen-Image | 9 backdrops: catch_driftwood_cove, shop_l1–l3, cooler_l1–l3, harbour, logbook (seeds 6209–6226), all kept | 150 (9 calls) |
+| 8 Nov 19:45 | C | Qwen-Image-Fast ×3 | portraits: glasswing_sardine, driftback, compass_flounder (kept; fake handwriting/letters painted out) | 70 total (measured wall) |

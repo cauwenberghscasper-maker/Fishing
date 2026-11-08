@@ -15,7 +15,8 @@
       "texelMask": "emissiveTexture.a"
     },
     "licence": "generated: Qwen-Image (Apache-2.0) concept \u2192 Blender bpy build by Agent C (own work)",
-    "status": "temp"
+    "status": "temp",
+    "hero": "assets/fish/storm_marlin/hero.webp"
   },
   "temple_manta": {
     "path": null,
@@ -30,7 +31,8 @@
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
     "status": "concept",
-    "topView": "art/concepts/fish/temple_manta_top.webp"
+    "topView": "art/concepts/fish/temple_manta_top.webp",
+    "hero": "assets/fish/temple_manta/hero.webp"
   },
   "cathedral_jelly": {
     "path": null,
@@ -59,7 +61,8 @@
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
     "status": "concept",
-    "hero": "assets/fish/glasswing_sardine/hero.webp"
+    "hero": "assets/fish/glasswing_sardine/hero.webp",
+    "rest": "assets/fish/glasswing_sardine/rest.webp"
   },
   "driftback": {
     "path": null,
@@ -74,7 +77,8 @@
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
     "status": "concept",
-    "hero": "assets/fish/driftback/hero.webp"
+    "hero": "assets/fish/driftback/hero.webp",
+    "rest": "assets/fish/driftback/rest.webp"
   },
   "shellback_blenny": {
     "path": null,
@@ -118,7 +122,8 @@
     "body": "fusiform",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept"
+    "status": "concept",
+    "hero": "assets/fish/old_mooring/hero.webp"
   },
   "compass_flounder": {
     "path": null,
@@ -132,7 +137,8 @@
     "body": "flat",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept"
+    "status": "concept",
+    "rest": "assets/fish/compass_flounder/rest.webp"
   },
   "seaglass_puffer": {
     "path": null,

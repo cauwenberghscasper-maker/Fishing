@@ -362,5 +362,85 @@
       "x": 0,
       "z": 0
     }
+  },
+  "worker_boatwright": {
+    "path": "assets/character/worker_boatwright/model.glb",
+    "scale": 1,
+    "tris": 4736,
+    "bounds": {
+      "min": [
+        -0.66,
+        0,
+        -0.51
+      ],
+      "max": [
+        0.66,
+        2.1,
+        0.55
+      ]
+    },
+    "materials": [
+      "worker_boatwright_tex",
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 406024,
+    "licence": "CC0 base character (KayKit Character Pack: Adventurers 1.0, Kay Lousberg), recoloured + fisher gear + authored clips by Agent D",
+    "source": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0",
+    "base_mesh": "Knight",
+    "status": "temp",
+    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "story": "Marta, the boat-wright: navy pea coat, rust-red scarf, red oilskin sou'wester, a rope over the shoulder",
+    "height_m": 1.8,
+    "clips": {
+      "fish_idle": {
+        "action": "wait for bite",
+        "source": "waiting for a bite, rod held out (authored, loop)"
+      },
+      "cast_windup": {
+        "action": "aim:start",
+        "source": "aim start: rod drawn back (KayKit Throw 0-0.40 s, retimed)"
+      },
+      "cast_release": {
+        "action": "cast release",
+        "source": "cast release + follow-through (KayKit Throw 0.40-1.37 s)"
+      },
+      "reel_loop": {
+        "action": "reel (fight, holding)",
+        "source": "reeling, left hand cranks the reel (authored, loop)"
+      },
+      "idle": {
+        "action": "idle",
+        "source": "standing idle (KayKit Idle)"
+      },
+      "walk": {
+        "action": "walk",
+        "source": "walk (KayKit Walking_A)"
+      },
+      "celebrate": {
+        "action": "perfect cast / rare catch",
+        "source": "celebrate (KayKit Cheer)"
+      },
+      "interact": {
+        "action": "shop / building interaction",
+        "source": "use a building / talk (KayKit Interact)"
+      },
+      "sit_idle": {
+        "action": "idle rest (workers)",
+        "source": "sit on the pier edge / rest (KayKit Sit_Floor_Idle)"
+      }
+    },
+    "attach": {
+      "rod": "bone handslot.r (right hand); gear grip node goes on this bone",
+      "offhand": "bone handslot.l"
+    },
+    "missing_clips": [],
+    "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
+    "collider": {
+      "type": "circle",
+      "r": 0.35,
+      "x": 0,
+      "z": 0
+    }
   }
 }

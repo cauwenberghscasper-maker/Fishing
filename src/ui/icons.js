@@ -47,6 +47,22 @@ export const icons = {
   fish: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2.5 16c4-6 13-8.2 20-3.2l6.5-5v16.4l-6.5-5c-7 5-16 2.8-20-3.2z" fill="currentColor"/></svg>`,
   // flame of the hot fish of the day
   flame: () => S(`<path d="M16 28c-5 0-8-3.4-8-7.6 0-5 4.4-7.4 4.6-12.4 3.2 2 4.6 5 4.4 7.6 1.2-1 2-2.6 2.2-4.2 2.6 2.4 4.8 5.4 4.8 9 0 4.2-3 7.6-8 7.6z"/><path d="M16 28c-2 0-3.4-1.4-3.4-3.3 0-2.2 2-3.4 2.3-5.6 2.5 1.6 4.5 3.4 4.5 5.6 0 1.9-1.4 3.3-3.4 3.3z" stroke-width="1.4"/>`),
+  // ---- slot / section icons (round 3 kit)
+  rod: () => S(`<path d="M5 28 27 4"/><path d="M27 4c1.5 6 1 11-1 16" stroke-width="1.2"/><circle cx="9.5" cy="23.5" r="2.6" stroke-width="1.6"/><path d="M5 28l2.5-2.5" stroke-width="3.2"/>`),
+  reel: () => S(`<circle cx="15" cy="17" r="9"/><circle cx="15" cy="17" r="3.2" stroke-width="1.5"/><path d="M15 8v-3h6" stroke-width="1.6"/><path d="M22.5 22.5l4 4" stroke-width="2.4"/><circle cx="27.5" cy="27.5" r="1.8" fill="currentColor" stroke="none"/>`),
+  line: () => S(`<ellipse cx="16" cy="16" rx="11" ry="6"/><ellipse cx="16" cy="16" rx="7" ry="3.6" stroke-width="1.4"/><path d="M27 16c3 3 2 9-2 12" stroke-width="1.3"/>`),
+  hook: () => S(`<circle cx="18" cy="4.8" r="2"/><path d="M18 7v13a6 6 0 1 1-11-3"/><path d="M7 17l-1.5 3.5L9 19" stroke-width="1.6"/>`),
+  sinker: () => S(`<path d="M16 3v6"/><circle cx="16" cy="3.5" r="1.5" stroke-width="1.4"/><path d="M11 12c0-2 10-2 10 0l3 12c0 4-16 4-16 0z"/><path d="M12 18h8" stroke-width="1.2"/>`),
+  float: () => S(`<path d="M16 2v6"/><path d="M16 8c4 0 6 4 6 8s-2 8-6 8-6-4-6-8 2-8 6-8z"/><path d="M10.3 15h11.4" stroke-width="1.6"/><path d="M16 24v6"/><path d="M4 18c3-1.5 5 1.5 8 0M20 18c3-1.5 5 1.5 8 0" stroke-width="1.2"/>`),
+  leader: () => S(`<path d="M16 2v8M16 22v8"/><path d="M13 10h6l-3 3zM13 22h6l-3-3z" stroke-width="1.5"/><path d="M16 13v6" stroke-width="3" stroke-dasharray="1.5 1.5"/>`),
+  lure: () => S(`<path d="M6 16c4-7 14-8 20-3-5 6-15 8-20 3z"/><circle cx="21" cy="14" r="1.4" fill="currentColor" stroke="none"/><path d="M6 16l-3 4M3 12l3 4" stroke-width="1.5"/><path d="M14 19v5a3 3 0 0 1-5 2" stroke-width="1.5"/>`),
+  net: () => S(`<path d="M4 28l9-9"/><ellipse cx="20" cy="11" rx="9" ry="7.5" transform="rotate(-35 20 11)"/><path d="M14 9l10 8M17 5l9 8M13 13l7 6M18 4l-5 10M22 6l-6 11M26 9l-6 9" stroke-width="1"/>`),
+  worm: () => S(`<path d="M5 22c3-6 7 2 10-4s7 2 10-4"/><circle cx="25.5" cy="13.5" r="1" fill="currentColor" stroke="none"/><path d="M3 26h26" stroke-width="1.2" stroke-dasharray="2 3"/>`),
+  house: () => S(`<path d="M4 15 16 5l12 10"/><path d="M7 13v14h18V13"/><path d="M13 27v-7h6v7"/><path d="M20 9V5h3v6.5" stroke-width="1.5"/>`),
+  pier: () => S(`<path d="M3 13h26"/><path d="M3 17h26" stroke-width="1.4"/><path d="M7 17v11M14 17v11M21 17v11M27 17v11"/><path d="M3 25c3-1.5 5 1.5 8 0s5 1.5 8 0 5 1.5 8 0" stroke-width="1.2"/>`),
+  crew: () => S(`<circle cx="11" cy="10" r="3.5"/><circle cx="22" cy="10" r="3.5"/><path d="M4 26c0-6 4-9 7-9s7 3 7 9M15 26c0-6 4-9 7-9s7 3 7 9"/>`),
+  wrench: () => S(`<path d="M20 4a6 6 0 0 0-5.5 8.2L4 22.7 9.3 28l10.5-10.5A6 6 0 0 0 28 12l-4 4-4-1-1-4 4-4a6 6 0 0 0-3-1.5z"/>`),
+  crack: () => S(`<path d="M16 2l-4 9 6 3-5 8 3 8" stroke-width="2.6"/>`),
   boat: () => S(`<path d="M4 20.5h24l-3.5 6h-17z"/><path d="M15.5 20.5V4.5"/><path d="M15.5 6c5 3 8.4 8 9 12.5h-9z" stroke-width="1.6"/><path d="M14.5 8c-3.6 2.8-6 6.4-6.6 10.5h6.6" stroke-width="1.6"/>`),
 };
 

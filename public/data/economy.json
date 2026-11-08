@@ -212,6 +212,14 @@
     "sail_sloop": { "name": "Sail Sloop", "about": "A real sail. The fjord and the caldera are in reach.", "cost": 15000, "tier": 3, "reach": 5 },
     "storm_cutter": { "name": "Storm Cutter", "about": "Built to sail straight through lightning.", "cost": 60000, "tier": 4, "reach": 8 }
   },
+  "wear": {
+    "_notes": "4.7b. Rod strain per fight = max(0, fish kg - rating x strainFrom) x strainPerKg; it breaks at the rod's durability (the starter never breaks). Line wear per fight = line.wear x (fish kg / line strength, 0.2..2), doubled on a snap; a worn line keeps half its strength at full wear. Repair = repairShare x the rod's price. On a snap the hook, sinker, float and leader are lost (the tackle box keeps each with tackleBoxSave), and one lure.",
+    "strainFrom": 0.6,
+    "strainPerKg": 6,
+    "repairShare": 0.3,
+    "tackleBoxSave": 0.6,
+    "baitBucketSave": 0.25
+  },
   "offline": {
     "_notes": "Crew, nets and aquarium keep earning while the game is closed, up to capHours. The night watch raises the cap.",
     "capHours": 8,

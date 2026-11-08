@@ -30,8 +30,11 @@ function fbm(x, z) {
 
 // Analytic height + rockiness for a layout. Used to build the mesh and for gameplay queries
 // outside the mesh.
-export function createHeightFunction(layout) {
-  const shapes = layout.shapes.map((s) => ({ ...s, c: Math.cos(s.rot || 0), s: Math.sin(s.rot || 0) }));
+// activePlots: Set of owned plot ids; shapes without `plot` are always there (backdrop rocks).
+export function createHeightFunction(layout, activePlots = null) {
+  const shapes = layout.shapes
+    .filter((s) => !s.plot || !activePlots || activePlots.has(s.plot))
+    .map((s) => ({ ...s, c: Math.cos(s.rot || 0), s: Math.sin(s.rot || 0) }));
   const { depth: maxDepth, fall } = layout.seabed;
 
   return function sample(x, z) {
@@ -67,8 +70,8 @@ export function createHeightFunction(layout) {
   };
 }
 
-export function createTerrain(layout, palette) {
-  const sample = createHeightFunction(layout);
+export function createTerrain(layout, palette, activePlots = null) {
+  let sample = createHeightFunction(layout, activePlots);
   const size = layout.size;
   const seg = layout.resolution;
   const geo = new THREE.PlaneGeometry(size, size, seg, seg);
@@ -84,10 +87,14 @@ export function createTerrain(layout, palette) {
     grid[i] = h;
   }
   geo.setAttribute('aRock', new THREE.BufferAttribute(rockAttr, 1));
+  // Land rising out of the sea: vertices start `aDelta` lower and climb as uGrow goes 0 → 1.
+  const delta = new Float32Array(pos.count);
+  geo.setAttribute('aDelta', new THREE.BufferAttribute(delta, 1));
   geo.computeVertexNormals();
 
   const uniforms = {
     uTime: { value: 0 },
+    uGrow: { value: 1 },
     uSandDry: { value: new THREE.Color(palette.sand.dry) },
     uSandWet: { value: new THREE.Color(palette.sand.wet) },
     uSandUnder: { value: new THREE.Color(palette.sand.under) },
@@ -105,10 +112,14 @@ export function createTerrain(layout, palette) {
     shader.vertexShader = shader.vertexShader
       .replace('#include <common>', `#include <common>
         attribute float aRock;
+        attribute float aDelta;
+        uniform float uGrow;
         varying vec3 vTerrainPos;
         varying vec3 vTerrainNormal;
         varying float vRock;`)
       .replace('#include <begin_vertex>', `#include <begin_vertex>
+        float g = uGrow * uGrow * (3.0 - 2.0 * uGrow);
+        transformed.y -= aDelta * (1.0 - g);
         vTerrainPos = (modelMatrix * vec4(transformed, 1.0)).xyz;
         vTerrainNormal = normalize(mat3(modelMatrix) * objectNormal);
         vRock = aRock;`);
@@ -209,5 +220,28 @@ export function createTerrain(layout, palette) {
     return Math.hypot(dx, dz) / (2 * e);
   }
 
-  return { mesh, uniforms, heightAt, slopeAt, sample };
+  // Recompute for a new set of owned plots. With animate, the changed land starts where it was
+  // and rises as uniforms.uGrow goes 0 → 1; gameplay heights switch when commit() is called.
+  function setPlots(plots, animate = false) {
+    sample = createHeightFunction(layout, plots);
+    const next = new Float32Array(grid.length);
+    for (let i = 0; i < pos.count; i++) {
+      const { h, rock } = sample(pos.getX(i), pos.getZ(i));
+      next[i] = h;
+      delta[i] = animate ? Math.max(0, h - grid[i]) : 0;
+      pos.setY(i, h);
+      rockAttr[i] = rock;
+    }
+    pos.needsUpdate = true;
+    geo.attributes.aRock.needsUpdate = true;
+    geo.attributes.aDelta.needsUpdate = true;
+    geo.computeVertexNormals();
+    geo.computeBoundingSphere();
+    uniforms.uGrow.value = animate ? 0 : 1;
+    return {
+      commit() { grid.set(next); delta.fill(0); geo.attributes.aDelta.needsUpdate = true; uniforms.uGrow.value = 1; },
+    };
+  }
+
+  return { mesh, uniforms, heightAt, slopeAt, get sample() { return sample; }, setPlots };
 }

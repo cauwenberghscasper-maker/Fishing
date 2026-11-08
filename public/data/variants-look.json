@@ -1,0 +1,793 @@
+{
+ "_notes": "Agent E. Visual settings per variant (master prompt 4.4b). Tunable without code: colours are hex; textures are keys in public/assets/vfx/manifest.json; aura frames are sprite-atlas frame names; sound cue names are emitted as 'vfx:cue' events { cue, variant, x, z } for the audio pass. body = recolour of the fish's own paint; overlay = the scrolling painted layer (albedo = paints the body, emissive = glows); rim = fresnel edge; signature = the fish's own glow (its emissive map is the signature mask).",
+ "basic": {
+  "kind": "basic"
+ },
+ "bleached": {
+  "kind": "morph",
+  "body": {
+   "tint": "#efe7d4",
+   "amount": 0.8,
+   "gain": 1.3,
+   "bias": 0.32
+  },
+  "overlay": {
+   "texture": "ov_tide",
+   "scale": 2.4,
+   "scroll": [
+    0.0,
+    0.0
+   ],
+   "albedo": 0.45,
+   "albedoTint": "#fffaf0",
+   "emissive": 0,
+   "top": 0.7
+  },
+  "material": {
+   "metal": 0,
+   "rough": 0.9,
+   "amount": 0.75
+  },
+  "signature": {
+   "boost": 0.5,
+   "tint": "#fff2d0",
+   "tintAmount": 0.6
+  },
+  "rim": {
+   "color": "#fff1d6",
+   "amount": 0.25,
+   "power": 3
+  },
+  "shine": {
+   "color": "#fff6dc"
+  },
+  "glint": "#fff3d6",
+  "sound": {
+   "reveal": "morph_reveal_bleached"
+  }
+ },
+ "inkdark": {
+  "kind": "morph",
+  "body": {
+   "tint": "#07070d",
+   "amount": 0.92,
+   "gain": 0.5,
+   "bias": 0.02
+  },
+  "overlay": {
+   "texture": "ov_abyss",
+   "scale": 1.6,
+   "scroll": [
+    0.02,
+    0.0
+   ],
+   "albedo": 0,
+   "emissive": 0.35,
+   "emissiveTint": "#6a5cff",
+   "top": 0
+  },
+  "material": {
+   "metal": 0.2,
+   "rough": 0.25,
+   "amount": 0.8
+  },
+  "signature": {
+   "boost": 3.2,
+   "tint": "#8cf7ff",
+   "tintAmount": 0.0
+  },
+  "rim": {
+   "color": "#5d4dff",
+   "amount": 0.9,
+   "power": 2.5
+  },
+  "iridescence": 0.6,
+  "shine": {
+   "color": "#b9a8ff"
+  },
+  "glint": "#a99bff",
+  "sound": {
+   "reveal": "morph_reveal_inkdark"
+  }
+ },
+ "gilded": {
+  "kind": "morph",
+  "body": {
+   "tint": "#000000",
+   "amount": 0
+  },
+  "overlay": {
+   "texture": "ov_gilt",
+   "scale": 2.0,
+   "scroll": [
+    0.0,
+    0.0
+   ],
+   "albedo": 0.85,
+   "albedoTint": "#ffd36a",
+   "emissive": 0.25,
+   "emissiveTint": "#ffb23a",
+   "top": 0,
+   "edge": 1.0
+  },
+  "material": {
+   "metal": 1.0,
+   "rough": 0.22,
+   "amount": 0.7
+  },
+  "signature": {
+   "boost": 1.3,
+   "tint": "#ffd27a",
+   "tintAmount": 0.4
+  },
+  "rim": {
+   "color": "#ffcf5c",
+   "amount": 1.1,
+   "power": 2.2
+  },
+  "shine": {
+   "color": "#fff0b0"
+  },
+  "glint": "#ffd36a",
+  "sound": {
+   "reveal": "morph_reveal_gilded"
+  }
+ },
+ "storm": {
+  "kind": "element",
+  "color": "#ffe45c",
+  "accent": "#5fb8ff",
+  "body": {
+   "tint": "#20325c",
+   "amount": 0.35,
+   "gain": 1.0,
+   "bias": 0.05
+  },
+  "overlay": {
+   "texture": "ov_storm",
+   "scale": 1.6,
+   "scroll": [
+    0.35,
+    0.0
+   ],
+   "albedo": 0,
+   "emissive": 2.6,
+   "emissiveTint": "#fff4a8",
+   "top": 0,
+   "crackle": 1.0
+  },
+  "rim": {
+   "color": "#7fd0ff",
+   "amount": 1.2,
+   "power": 2.5
+  },
+  "signature": {
+   "boost": 3,
+   "tint": "#fff27a",
+   "tintAmount": 0.6
+  },
+  "aura": {
+   "kind": "crackle",
+   "frames": [
+    "spark"
+   ],
+   "rate": 26,
+   "size": [
+    0.12,
+    0.26
+   ],
+   "life": [
+    0.08,
+    0.22
+   ],
+   "add": 1,
+   "arcs": 2
+  },
+  "light": {
+   "color": "#9fd4ff",
+   "intensity": 9,
+   "distance": 5,
+   "flicker": 0.8
+  },
+  "underglow": {
+   "texture": "ov_storm",
+   "color": "#9fd8ff",
+   "strength": 1.4,
+   "spin": 0.15,
+   "flicker": 0.7,
+   "size": 3.2
+  },
+  "power": {
+   "dark": 0.62,
+   "tint": "#1a2a55",
+   "bolt": "rb_lightning",
+   "boltColor": "#fff6c8",
+   "ring": "#ffe45c",
+   "impact": "impact_storm"
+  },
+  "sound": {
+   "loop": "storm_aura_crackle",
+   "telegraph": "storm_telegraph_hum",
+   "start": "storm_strike_crack",
+   "end": "storm_clear",
+   "reveal": "storm_reveal_thunder"
+  }
+ },
+ "frost": {
+  "kind": "element",
+  "color": "#bff3ff",
+  "accent": "#5fc8ff",
+  "body": {
+   "tint": "#cfeeff",
+   "amount": 0.45,
+   "gain": 1.2,
+   "bias": 0.2
+  },
+  "overlay": {
+   "texture": "ov_frost",
+   "scale": 1.8,
+   "scroll": [
+    0.0,
+    0.0
+   ],
+   "albedo": 0.8,
+   "albedoTint": "#eaf8ff",
+   "emissive": 0.6,
+   "emissiveTint": "#9fe8ff",
+   "top": 0.8
+  },
+  "rim": {
+   "color": "#bdf4ff",
+   "amount": 1.0,
+   "power": 2.0
+  },
+  "signature": {
+   "boost": 2,
+   "tint": "#aef0ff",
+   "tintAmount": 0.7
+  },
+  "material": {
+   "metal": 0.1,
+   "rough": 0.15,
+   "amount": 0.6
+  },
+  "aura": {
+   "kind": "swirl",
+   "frames": [
+    "snow"
+   ],
+   "rate": 10,
+   "size": [
+    0.08,
+    0.16
+   ],
+   "life": [
+    1.4,
+    2.2
+   ],
+   "add": 1,
+   "breath": "smoke"
+  },
+  "light": {
+   "color": "#a8e8ff",
+   "intensity": 6,
+   "distance": 4.5,
+   "flicker": 0.05
+  },
+  "underglow": {
+   "texture": "ov_frost",
+   "color": "#bdf2ff",
+   "strength": 1.1,
+   "spin": 0.05,
+   "flicker": 0,
+   "size": 3.0
+  },
+  "power": {
+   "dark": 0.25,
+   "tint": "#bfe9ff",
+   "sheet": "dc_ice",
+   "ring": "#bff3ff",
+   "impact": "impact_frost"
+  },
+  "sound": {
+   "loop": "frost_aura_chime",
+   "telegraph": "frost_telegraph_creak",
+   "start": "frost_freeze_crack",
+   "end": "frost_shatter",
+   "reveal": "frost_reveal_chime"
+  }
+ },
+ "ember": {
+  "kind": "element",
+  "color": "#ff8a2a",
+  "accent": "#ffd36a",
+  "body": {
+   "tint": "#2a0f08",
+   "amount": 0.55,
+   "gain": 0.7,
+   "bias": 0.02
+  },
+  "overlay": {
+   "texture": "ov_ember",
+   "scale": 1.4,
+   "scroll": [
+    0.06,
+    0.04
+   ],
+   "albedo": 0,
+   "emissive": 2.4,
+   "emissiveTint": "#ffb048",
+   "top": 0,
+   "pulse": 1.0
+  },
+  "rim": {
+   "color": "#ff5a1a",
+   "amount": 0.9,
+   "power": 2.5
+  },
+  "signature": {
+   "boost": 2.5,
+   "tint": "#ffb040",
+   "tintAmount": 0.7
+  },
+  "aura": {
+   "kind": "rise",
+   "frames": [
+    "ember"
+   ],
+   "rate": 18,
+   "size": [
+    0.08,
+    0.2
+   ],
+   "life": [
+    0.6,
+    1.2
+   ],
+   "add": 1,
+   "smoke": true
+  },
+  "light": {
+   "color": "#ff8a3a",
+   "intensity": 8,
+   "distance": 4.5,
+   "flicker": 0.35
+  },
+  "underglow": {
+   "texture": "ov_ember",
+   "color": "#ff9a3a",
+   "strength": 1.3,
+   "spin": 0.04,
+   "flicker": 0.2,
+   "size": 3.0
+  },
+  "power": {
+   "dark": 0.3,
+   "tint": "#4a1406",
+   "ring": "#ff7a2a",
+   "impact": "impact_ember",
+   "boil": "ov_ember"
+  },
+  "sound": {
+   "loop": "ember_aura_hiss",
+   "telegraph": "ember_telegraph_boil",
+   "start": "ember_bomb_whistle",
+   "end": "ember_steam_out",
+   "reveal": "ember_reveal_roar"
+  }
+ },
+ "bloom": {
+  "kind": "element",
+  "color": "#9be05a",
+  "accent": "#ff9ec4",
+  "body": {
+   "tint": "#2e4a1c",
+   "amount": 0.3,
+   "gain": 1.0,
+   "bias": 0.04
+  },
+  "overlay": {
+   "texture": "ov_bloom",
+   "scale": 2.0,
+   "scroll": [
+    0.0,
+    0.0
+   ],
+   "albedo": 0.95,
+   "albedoTint": "#ffffff",
+   "emissive": 0.35,
+   "emissiveTint": "#ffd0e4",
+   "top": 0.9
+  },
+  "rim": {
+   "color": "#c8ff8a",
+   "amount": 0.6,
+   "power": 3
+  },
+  "signature": {
+   "boost": 2,
+   "tint": "#ffd76a",
+   "tintAmount": 0.6
+  },
+  "aura": {
+   "kind": "drift",
+   "frames": [
+    "petal",
+    "leaf"
+   ],
+   "rate": 6,
+   "size": [
+    0.1,
+    0.18
+   ],
+   "life": [
+    1.6,
+    2.6
+   ],
+   "add": 0,
+   "pollen": true
+  },
+  "light": {
+   "color": "#c6ff8a",
+   "intensity": 5,
+   "distance": 4,
+   "flicker": 0.05
+  },
+  "underglow": {
+   "texture": "ov_bloom",
+   "color": "#b6ff7a",
+   "strength": 0.9,
+   "spin": 0.03,
+   "flicker": 0,
+   "size": 2.8
+  },
+  "power": {
+   "dark": 0.2,
+   "tint": "#123a10",
+   "vine": "rb_vine",
+   "ring": "#9be05a",
+   "impact": "impact_bloom"
+  },
+  "sound": {
+   "loop": "bloom_aura_rustle",
+   "telegraph": "bloom_telegraph_creak",
+   "start": "bloom_vines_burst",
+   "end": "bloom_wilt",
+   "reveal": "bloom_reveal_burst"
+  }
+ },
+ "rune": {
+  "kind": "element",
+  "color": "#4ff5e0",
+  "accent": "#c9fff6",
+  "body": {
+   "tint": "#10181c",
+   "amount": 0.45,
+   "gain": 0.8,
+   "bias": 0.03
+  },
+  "overlay": {
+   "texture": "ov_rune",
+   "scale": 1.5,
+   "scroll": [
+    0.12,
+    0.0
+   ],
+   "albedo": 0,
+   "emissive": 2.2,
+   "emissiveTint": "#5ff8e4",
+   "top": 0,
+   "pulse": 1.0
+  },
+  "rim": {
+   "color": "#4ff5e0",
+   "amount": 1.0,
+   "power": 2.5
+  },
+  "signature": {
+   "boost": 3,
+   "tint": "#5ff8e4",
+   "tintAmount": 0.9
+  },
+  "aura": {
+   "kind": "orbit",
+   "frames": [
+    "glyph_a",
+    "glyph_b",
+    "glyph_c",
+    "glyph_d"
+   ],
+   "count": 8,
+   "size": [
+    0.16,
+    0.22
+   ],
+   "add": 1
+  },
+  "light": {
+   "color": "#4ff5e0",
+   "intensity": 7,
+   "distance": 4.5,
+   "flicker": 0.05
+  },
+  "underglow": {
+   "texture": "dc_rune_circle",
+   "color": "#5ff8e4",
+   "strength": 1.3,
+   "spin": 0.25,
+   "flicker": 0,
+   "size": 3.0,
+   "polar": false
+  },
+  "power": {
+   "dark": 0.35,
+   "tint": "#06262b",
+   "circle": "dc_rune_circle",
+   "beam": "tx_beam",
+   "ring": "#4ff5e0",
+   "impact": "impact_rune"
+  },
+  "sound": {
+   "loop": "rune_aura_hum",
+   "telegraph": "rune_telegraph_chant",
+   "start": "rune_teleport_whoom",
+   "end": "rune_fade",
+   "reveal": "rune_reveal_choir"
+  }
+ },
+ "abyss": {
+  "kind": "element",
+  "color": "#8c6bff",
+  "accent": "#ffb84a",
+  "body": {
+   "tint": "#05040a",
+   "amount": 0.9,
+   "gain": 0.4,
+   "bias": 0.01
+  },
+  "overlay": {
+   "texture": "ov_abyss",
+   "scale": 1.3,
+   "scroll": [
+    0.03,
+    0.02
+   ],
+   "albedo": 0,
+   "emissive": 1.6,
+   "emissiveTint": "#9c7bff",
+   "top": 0
+  },
+  "rim": {
+   "color": "#6a4dff",
+   "amount": 1.2,
+   "power": 2.2
+  },
+  "signature": {
+   "boost": 3.5,
+   "tint": "#8cf7ff",
+   "tintAmount": 0.3
+  },
+  "iridescence": 0.5,
+  "aura": {
+   "kind": "eyes",
+   "frames": [
+    "eye"
+   ],
+   "count": 9,
+   "size": [
+    0.12,
+    0.2
+   ],
+   "add": 1
+  },
+  "light": {
+   "color": "#7a5cff",
+   "intensity": 6,
+   "distance": 4,
+   "flicker": 0.1
+  },
+  "underglow": {
+   "texture": "ov_abyss",
+   "color": "#8c6bff",
+   "strength": 1.2,
+   "spin": 0.06,
+   "flicker": 0,
+   "size": 3.2
+  },
+  "power": {
+   "dark": 0.97,
+   "tint": "#020106",
+   "eyes": 36,
+   "ring": "#8c6bff",
+   "impact": "impact_abyss"
+  },
+  "sound": {
+   "loop": "abyss_aura_whisper",
+   "telegraph": "abyss_telegraph_heartbeat",
+   "start": "abyss_lights_out",
+   "end": "abyss_lights_back",
+   "reveal": "abyss_reveal_choir"
+  }
+ },
+ "tide": {
+  "kind": "element",
+  "color": "#38c6f0",
+  "accent": "#ffffff",
+  "body": {
+   "tint": "#0f4a5a",
+   "amount": 0.25,
+   "gain": 1.1,
+   "bias": 0.05
+  },
+  "overlay": {
+   "texture": "ov_tide",
+   "scale": 1.8,
+   "scroll": [
+    -0.25,
+    0.08
+   ],
+   "albedo": 0.4,
+   "albedoTint": "#e8fbff",
+   "emissive": 0.9,
+   "emissiveTint": "#9ff0ff",
+   "top": 0
+  },
+  "rim": {
+   "color": "#7fe8ff",
+   "amount": 1.0,
+   "power": 2.2
+  },
+  "signature": {
+   "boost": 2,
+   "tint": "#bff6ff",
+   "tintAmount": 0.5
+  },
+  "aura": {
+   "kind": "helix",
+   "frames": [
+    "foam"
+   ],
+   "rate": 22,
+   "size": [
+    0.08,
+    0.16
+   ],
+   "life": [
+    0.7,
+    1.1
+   ],
+   "add": 0,
+   "crown": true
+  },
+  "light": {
+   "color": "#6fe0ff",
+   "intensity": 5,
+   "distance": 4,
+   "flicker": 0.05
+  },
+  "underglow": {
+   "texture": "ov_tide",
+   "color": "#8ff0ff",
+   "strength": 1.1,
+   "spin": -0.3,
+   "flicker": 0,
+   "size": 3.2
+  },
+  "power": {
+   "dark": 0.2,
+   "tint": "#0a3a4a",
+   "wave": "tx_wave",
+   "ring": "#38c6f0",
+   "impact": "impact_tide"
+  },
+  "sound": {
+   "loop": "tide_aura_swirl",
+   "telegraph": "tide_telegraph_rumble",
+   "start": "tide_wave_crash",
+   "end": "tide_drain",
+   "reveal": "tide_reveal_crash"
+  }
+ },
+ "rust": {
+  "kind": "element",
+  "color": "#e0682a",
+  "accent": "#5fd0a0",
+  "body": {
+   "tint": "#3a2216",
+   "amount": 0.4,
+   "gain": 0.9,
+   "bias": 0.05
+  },
+  "overlay": {
+   "texture": "ov_rust",
+   "scale": 2.2,
+   "scroll": [
+    0.0,
+    0.0
+   ],
+   "albedo": 0.9,
+   "albedoTint": "#ffffff",
+   "emissive": 0.15,
+   "emissiveTint": "#ff8a3a",
+   "top": 0
+  },
+  "rim": {
+   "color": "#ff8a3a",
+   "amount": 0.5,
+   "power": 3
+  },
+  "signature": {
+   "boost": 2,
+   "tint": "#ff9a4a",
+   "tintAmount": 0.6
+  },
+  "material": {
+   "metal": 0.8,
+   "rough": 0.6,
+   "amount": 0.6
+  },
+  "aura": {
+   "kind": "sparks",
+   "frames": [
+    "metal_spark"
+   ],
+   "rate": 14,
+   "size": [
+    0.04,
+    0.07
+   ],
+   "life": [
+    0.25,
+    0.5
+   ],
+   "add": 1,
+   "burst": 0.9
+  },
+  "light": {
+   "color": "#ff9a4a",
+   "intensity": 6,
+   "distance": 4,
+   "flicker": 0.5
+  },
+  "underglow": {
+   "texture": "ov_rust",
+   "color": "#ff8a3a",
+   "strength": 0.8,
+   "spin": 0.02,
+   "flicker": 0.3,
+   "size": 2.8
+  },
+  "power": {
+   "dark": 0.35,
+   "tint": "#2a1408",
+   "chain": "rb_chain",
+   "ring": "#e0682a",
+   "impact": "impact_rust"
+  },
+  "sound": {
+   "loop": "rust_aura_grind",
+   "telegraph": "rust_telegraph_groan",
+   "start": "rust_chain_drag",
+   "end": "rust_chain_snap",
+   "reveal": "rust_reveal_clang"
+  }
+ },
+ "catch": {
+  "_notes": "every catch (not only variants): leap splash, light pillar, burst. Colours per tier.",
+  "pillarColor": "#ffe9b0",
+  "burstColor": "#fff2c8",
+  "splash": 1.0,
+  "tierScale": {
+   "common": 0.8,
+   "uncommon": 1.0,
+   "rare": 1.25,
+   "epic": 1.5,
+   "legendary": 1.8,
+   "boss": 2.0
+  },
+  "sound": {
+   "leap": "catch_leap_splash",
+   "hold": "catch_holdup_shine"
+  }
+ }
+}

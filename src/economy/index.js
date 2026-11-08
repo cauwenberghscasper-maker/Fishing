@@ -4,7 +4,7 @@
 import {
   SLOTS, BUILDINGS, groupOf, itemOf, deriveGear, priceOf, batchPrices, sizeClassFor, sizeClassById,
   coolerCapacity, crewSlots, crewBunks, crewSpots, hireCost, buildingLevel, hotFishOf, incomeRates, offlineEarnings,
-  offlineCapHours, islandRequirements, dayKey, testMult, variantOf, variantSets, nextPlot, nextPier, nextBoat, boatOf, pierDepth,
+  offlineCapHours, islandRequirements, dayKey, testMult, variantOf, slotInfo, variantSets, nextPlot, nextPier, nextBoat, boatOf, pierDepth,
 } from './rules.js';
 
 let S = null;   // state
@@ -202,6 +202,74 @@ function tick() {
   }
 }
 
+// ---------------------------------------------------------------- 4.7b: gear that wears, breaks and runs out
+const isStack = (item) => !!item && (item.unlimited || Number.isFinite(item.stack));
+let fightWeight = 0;
+
+function useBait() {
+  const p = P();
+  const bait = itemOf(data(), 'bait', p.gear.bait);
+  if (!bait || bait.unlimited) return;
+  const keep = p.owned.tools?.includes('bait_bucket') && Math.random() < (data().economy?.wear?.baitBucketSave ?? 0.25);
+  if (!keep) p.stacks[p.gear.bait] = Math.max(0, (p.stacks[p.gear.bait] ?? 0) - 1);
+  if (!(p.stacks[p.gear.bait] > 0)) {
+    E.emit('gear:out', { slot: 'bait', id: p.gear.bait });
+    p.gear.bait = 'breadcrust';
+  }
+  refreshGear();
+  changed('stacks', 'gear');
+}
+
+function wearAfterFight(weight, snapped) {
+  const p = P();
+  const w = data().economy?.wear ?? {};
+  const line = itemOf(data(), 'line', p.gear.line);
+  const rod = itemOf(data(), 'rod', p.gear.rod);
+  if (line?.wear) {
+    const ratio = Math.min(2, Math.max(0.2, weight / (line.stats?.strength ?? 2.5)));
+    p.condition.lineWear = Math.min(1, (p.condition.lineWear ?? 0) + line.wear * ratio * (snapped ? 2 : 1));
+  }
+  if (rod?.durability && !rod.unbreakable) {
+    const over = Math.max(0, weight - (rod.stats?.rating ?? 3) * (w.strainFrom ?? 0.6));
+    if (over > 0) {
+      p.condition.rodStrain[p.gear.rod] = (p.condition.rodStrain[p.gear.rod] ?? 0) + over * (w.strainPerKg ?? 6);
+      if (p.condition.rodStrain[p.gear.rod] >= rod.durability) {
+        p.condition.rodBroken[p.gear.rod] = true;
+        E.emit('gear:broken', { slot: 'rod', id: p.gear.rod });
+      }
+    }
+  }
+  if (snapped) {
+    // the terminal tackle goes with the fish; the tackle box keeps the spares
+    const lost = [];
+    const box = p.owned.tools?.includes('tackle_box');
+    for (const slot of ['hook', 'sinker', 'float', 'leader']) {
+      const id = p.gear[slot];
+      const item = id ? itemOf(data(), slot, id) : null;
+      if (!item || item.cost === 0) continue;
+      if (box && Math.random() < (w.tackleBoxSave ?? 0.6)) continue;
+      p.owned[groupOf(slot)] = p.owned[groupOf(slot)].filter((x) => x !== id);
+      p.gear[slot] = slot === 'leader' ? null : Object.entries(data().items?.[groupOf(slot)] ?? {}).find(([, it]) => it.cost === 0)?.[0] ?? null;
+      lost.push({ slot, id });
+    }
+    if (p.gear.lure) {
+      p.stacks[p.gear.lure] = Math.max(0, (p.stacks[p.gear.lure] ?? 0) - 1);
+      lost.push({ slot: 'lure', id: p.gear.lure });
+      if (!(p.stacks[p.gear.lure] > 0)) p.gear.lure = null;
+    }
+    if (lost.length) E.emit('gear:lost', { items: lost });
+  }
+  refreshGear();
+  changed('condition', 'gear', 'stacks', 'owned');
+}
+
+function wireWearEvents() {
+  E.on('cast:land', useBait);
+  E.on('fight:start', ({ weight } = {}) => { fightWeight = Number.isFinite(weight) ? weight : 0; });
+  E.on('fish:caught', ({ weight } = {}) => { wearAfterFight(Number.isFinite(weight) ? weight : fightWeight, false); fightWeight = 0; });
+  E.on('fish:lost', ({ reason } = {}) => { if (fightWeight) wearAfterFight(fightWeight, reason === 'snap'); fightWeight = 0; });
+}
+
 // ---------------------------------------------------------------- building placement (9b.6)
 let pendingBuild = null;
 let ackTimer = 0;
@@ -344,27 +412,74 @@ export const economy = {
   },
 
   // --- gear
-  owns: (slot, id) => P().owned[groupOf(slot)]?.includes(id) ?? false,
-  buyItem(slot, id) {
+  owns: (slot, id) => {
+    const item = itemOf(data(), slot, id);
+    if (isStack(item)) return item.unlimited || (P().stacks?.[id] ?? 0) > 0;
+    return P().owned[groupOf(slot)]?.includes(id) ?? false;
+  },
+  stackOf: (id) => P().stacks?.[id] ?? 0,
+  /** Buy an item. Stack items (bait, lures) can be bought again: `packs` x item.stack each time. */
+  buyItem(slot, id, packs = 1) {
     const item = itemOf(data(), slot, id);
     if (!item) return fail('missing');
     const p = P();
     const group = groupOf(slot);
-    if (p.owned[group].includes(id)) return fail('owned');
-    if (!spend(item.cost)) return fail('coins', { need: item.cost - p.coins });
-    p.owned[group].push(id);
-    p.gear[slot] = id;
+    const stack = isStack(item);
+    if (!stack && p.owned[group].includes(id)) return fail('owned');
+    if (item.unlimited) return fail('owned');
+    const n = stack ? Math.max(1, packs | 0) : 1;
+    const cost = item.cost * n;
+    if (!spend(cost)) return fail('coins', { need: cost - p.coins });
+    if (!p.owned[group].includes(id)) p.owned[group].push(id);
+    if (stack) p.stacks[id] = (p.stacks[id] ?? 0) + (item.stack ?? 1) * n;
+    if (slot !== 'tool') p.gear[slot] = id;
+    if (slot === 'rod') delete p.condition.rodBroken[id];
+    if (slot === 'line') p.condition.lineWear = 0;
     refreshGear();
-    changed('owned', 'gear', 'coins');
-    return { ok: true, item };
+    changed('owned', 'gear', 'coins', 'stacks');
+    return { ok: true, item, added: stack ? (item.stack ?? 1) * n : 1 };
   },
   equipItem(slot, id) {
     const p = P();
-    if (!p.owned[groupOf(slot)]?.includes(id)) return fail('not-owned');
+    if (id === null && slotInfo(slot)?.optional) { p.gear[slot] = null; refreshGear(); changed('gear'); return { ok: true }; }
+    if (!economy.owns(slot, id)) return fail('not-owned');
     p.gear[slot] = id;
     refreshGear();
     changed('gear');
     return { ok: true };
+  },
+  /** 4.7b repairs at the shop. */
+  repairCost(rodId = P().gear.rod) {
+    const item = itemOf(data(), 'rod', rodId);
+    return Math.max(10, Math.round((item?.cost ?? 0) * (data().economy?.wear?.repairShare ?? 0.3)));
+  },
+  repairRod(rodId = P().gear.rod) {
+    const p = P();
+    if (!p.condition.rodBroken[rodId] && !(p.condition.rodStrain[rodId] > 0)) return fail('fine');
+    const cost = economy.repairCost(rodId);
+    if (!spend(cost)) return fail('coins', { need: cost - p.coins });
+    delete p.condition.rodBroken[rodId];
+    delete p.condition.rodStrain[rodId];
+    refreshGear();
+    changed('condition', 'coins');
+    return { ok: true, cost };
+  },
+  respoolCost: () => itemOf(data(), 'line', P().gear.line)?.respool ?? 5,
+  respool() {
+    const p = P();
+    if (!(p.condition.lineWear > 0.001)) return fail('fine');
+    const cost = economy.respoolCost();
+    if (!spend(cost)) return fail('coins', { need: cost - p.coins });
+    p.condition.lineWear = 0;
+    refreshGear();
+    changed('condition', 'coins');
+    return { ok: true, cost };
+  },
+  rodStrain() {
+    const p = P();
+    const rod = itemOf(data(), 'rod', p.gear.rod);
+    if (!rod?.durability) return 0;
+    return Math.min(1, (p.condition.rodStrain[p.gear.rod] ?? 0) / rod.durability);
   },
 
   // --- harbour
@@ -550,6 +665,7 @@ export function startEconomy({ state, events }) {
 
   events.on('fish:caught', onCaught);
   wireBuildEvents();
+  wireWearEvents();
 
   // offline earnings since the last session; the tick below handles any gap > 5 s
   lastTick = Math.min(p.lastSeen ?? Date.now(), Date.now());

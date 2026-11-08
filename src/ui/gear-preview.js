@@ -25,7 +25,7 @@ export function gearManifestReady() {
 }
 
 /** True when Agent G has shipped a model for this key (call after gearManifestReady()). */
-export const hasGearModel = (modelId) => !!modelId && hasAsset('gear', modelId) && assetEntry('gear', modelId)?.planned !== true;
+export const hasGearModel = (modelId, kind = 'gear') => !!modelId && hasAsset(kind, modelId) && assetEntry(kind, modelId)?.planned !== true;
 
 function setup() {
   if (renderer) return true;
@@ -68,14 +68,14 @@ function frame(object) {
  * Show `modelId` turning inside `canvas`. Returns a function that stops it.
  * The canvas keeps its CSS size; its pixel size follows devicePixelRatio (max 2).
  */
-export function attachGearPreview(canvas, modelId, { onReady, onMissing } = {}) {
+export function attachGearPreview(canvas, modelId, { onReady, onMissing, kind = 'gear' } = {}) {
   const slot = { canvas, modelId, object: null, visible: true, angle: Math.random() * Math.PI * 2, alive: true };
   slots.add(slot);
   observer?.observe(canvas);
   gearManifestReady().then(async () => {
     if (!slot.alive) return;
-    if (!hasGearModel(modelId) || !setup()) { onMissing?.(); return; }
-    const model = await loadModel('gear', modelId);
+    if (!hasGearModel(modelId, kind) || !setup()) { onMissing?.(); return; }
+    const model = await loadModel(kind, modelId);
     if (!slot.alive) return;
     if (!model) { onMissing?.(); return; }
     slot.object = frame(model.scene);

@@ -5,11 +5,14 @@
 // Everything else (plants, clutter, kelp, decks) never blocks.
 import * as THREE from 'three';
 
-const SOLID_CATEGORIES = new Set(['structure', 'building']);
+const SOLID_CATEGORIES = new Set(['structure', 'building', 'boat']);
 const WALKABLE_IDS = /^(pier_|boat_dock|tide_pool|plot_|sandbar)/;
 
 function footprintShapes(id, entry) {
   if (WALKABLE_IDS.test(id)) return [];
+  // Trees block at the trunk only (their bounds include the fronds).
+  if (/^palm_/.test(id)) return [{ type: 'circle', x: 0, z: 0, r: id === 'palm_twin' ? 0.55 : 0.35 }];
+  if (entry.placement === 'water' && entry.category !== 'structure') return [];
   const b = entry.bounds;
   if (!b?.min || !b?.max) return [];
   const w = b.max[0] - b.min[0], d = b.max[2] - b.min[2];

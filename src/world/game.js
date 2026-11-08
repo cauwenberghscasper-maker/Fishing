@@ -47,10 +47,13 @@ export async function startWorld({ canvas, state, events }) {
   surface.add(water.mesh);
   const splashes = createSplashes();
   surface.add(splashes.points);
+  // Warm sand dust for construction and land rising (low gravity, slow puffs).
+  const dust = createSplashes({ color: '#e8c58a', gravity: 2.5, name: 'build-dust' });
+  surface.add(dust.points);
 
-  const island = createIsland({ layout, events, state });
+  const island = createIsland({ layout, events, state, splashes, dust, audio, water });
   under.add(island.group);
-  await island.placeProps();
+  await island.build();
 
   const loop = createLoop();
   const input = createInput({ canvas, events });
@@ -83,6 +86,7 @@ export async function startWorld({ canvas, state, events }) {
   pipeline.onResize(({ width, height, pixelHeight }) => {
     cameraRig.setAspect(width / height);
     splashes.setViewportHeight(pixelHeight, camera.fov);
+    dust.setViewportHeight(pixelHeight, camera.fov);
   });
   pipeline.resize();
   cameraRig.setFocus(player.position.x, 0, player.position.z);
@@ -150,7 +154,8 @@ export async function startWorld({ canvas, state, events }) {
       player.update(dt, realDt);
       fishSystem.update(dt, time);
       fishing.update(dt, realDt);
-      island.updateSway(time);
+      island.update(dt, time);
+      dust.update(dt);
       island.terrain.uniforms.uTime.value = time;
       splashes.update(dt);
       splashes.setLight(lighting.light);

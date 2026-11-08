@@ -257,7 +257,7 @@
     "category": "nature",
     "placement": "underwater",
     "origin": "base on the seabed; blades rise ~1.6 m, amber float bulbs (glow cell, not emissive)",
-    "concept": "art/concepts/world/driftwood_cove_key.webp"
+    "concept": "art/concepts/world/plot_kelp_shallows.webp"
   },
   "palm_bent": {
     "path": "assets/world/palm_bent/model.glb",
@@ -627,7 +627,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/plot_tidepool_shelf.webp",
     "category": "nature",
     "placement": "shore",
     "origin": "basin centre at sea level (y=0); basin floor ~-0.45 so the sea plane fills it",
@@ -661,7 +661,7 @@
     "placement": "ground",
     "story": "the cove is held between hexagonal basalt columns; the tops are mossy stepping stones",
     "origin": "base centre; columns rise toward the back (+Z is front)",
-    "concept": "art/concepts/world/driftwood_cove_key.webp"
+    "concept": "art/concepts/world/plot_basalt_cliff.webp"
   },
   "cliff_columns_b": {
     "path": "assets/world/cliff_columns_b/model.glb",
@@ -689,7 +689,7 @@
     "status": "temp",
     "category": "nature",
     "placement": "ground",
-    "concept": "art/concepts/world/driftwood_cove_key.webp"
+    "concept": "art/concepts/world/plot_basalt_cliff.webp"
   },
   "columns_steps": {
     "path": "assets/world/columns_steps/model.glb",
@@ -718,7 +718,7 @@
     "category": "nature",
     "placement": "ground",
     "note": "low basalt columns, walkable stepping stones / shore edge",
-    "concept": "art/concepts/world/driftwood_cove_key.webp"
+    "concept": "art/concepts/world/plot_basalt_cliff.webp"
   },
   "bush_seagrape": {
     "path": "assets/world/bush_seagrape/model.glb",
@@ -875,7 +875,7 @@
       6.4,
       2.6
     ],
-    "concept": "art/concepts/world/driftwood_cove_key.webp"
+    "concept": "art/concepts/world/plot_wreck_beach.webp"
   },
   "workers_hut": {
     "path": "assets/world/workers_hut/model.glb",
@@ -1451,7 +1451,7 @@
     "category": "prop",
     "placement": "ground",
     "note": "idle net spot: drying rack with net and floats",
-    "concept": "art/concepts/world/driftwood_cove_key.webp"
+    "concept": "art/concepts/world/plot_kelp_shallows.webp"
   },
   "crab_pot": {
     "path": "assets/world/crab_pot/model.glb",
@@ -1481,7 +1481,7 @@
     "category": "prop",
     "placement": "ground",
     "note": "idle crab-pot spot",
-    "concept": "art/concepts/world/driftwood_cove_key.webp"
+    "concept": "art/concepts/world/plot_kelp_shallows.webp"
   },
   "cooler": {
     "path": "assets/world/cooler/model.glb",
@@ -1658,7 +1658,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/sandbar_day_one.webp",
     "category": "structure",
     "placement": "water",
     "story": "day one: the crooked pier stub you start fishing from; one board missing, one post leaning",
@@ -1689,7 +1689,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/sandbar_day_one.webp",
     "category": "building",
     "placement": "ground",
     "story": "day one: a sailcloth tarp lean-to on two driftwood poles, bedroll, crate seat with a lantern, driftwood fire with a fish on the spit",
@@ -1721,7 +1721,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/plot_palm_spit.webp",
     "category": "prop",
     "placement": "ground",
     "note": "hang between two palms ~3.4 m apart; ends at x=\u00b11.7, y=1.45",
@@ -1750,7 +1750,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/plot_wreck_beach.webp",
     "category": "prop",
     "placement": "ground",
     "story": "ribs of a much older wreck, half-buried in the sand",
@@ -1779,7 +1779,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/plot_mooring_deep.webp",
     "category": "structure",
     "placement": "water",
     "story": "the Old Mooring: three lashed piles, an iron ring, frayed ropes into the deep where The Old Mooring (the big catfish) lives",
@@ -1810,7 +1810,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/plot_basalt_cliff.webp",
     "category": "prop",
     "placement": "ground",
     "story": "a stone cairn with a lantern: where the lighthouse will stand one day",
@@ -1840,7 +1840,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/plot_palm_spit.webp",
     "category": "prop",
     "placement": "ground",
     "preview": "assets/world/coconut_pile/preview.webp"
@@ -1869,7 +1869,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/sandbar_day_one.webp",
     "category": "plot",
     "placement": "island",
     "plot": "sandbar",
@@ -2018,7 +2018,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/plot_palm_spit.webp",
     "category": "plot",
     "placement": "island",
     "plot": "palm_spit",
@@ -2245,7 +2245,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/plot_tidepool_shelf.webp",
     "category": "plot",
     "placement": "island",
     "plot": "tidepool_shelf",
@@ -2439,7 +2439,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/plot_wreck_beach.webp",
     "category": "plot",
     "placement": "island",
     "plot": "wreck_beach",
@@ -2611,7 +2611,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/plot_kelp_shallows.webp",
     "category": "plot",
     "placement": "island",
     "plot": "kelp_shallows",
@@ -2793,7 +2793,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/plot_basalt_cliff.webp",
     "category": "plot",
     "placement": "island",
     "plot": "basalt_cliff",
@@ -2942,7 +2942,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/plot_mooring_deep.webp",
     "category": "plot",
     "placement": "island",
     "plot": "mooring_deep",

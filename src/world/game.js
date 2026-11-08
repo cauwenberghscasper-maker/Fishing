@@ -24,6 +24,10 @@ const DAY_LENGTH = 30 * 60; // real seconds per in-game day
 
 export async function startWorld({ canvas, state, events }) {
   await loadManifests();
+  if (!state.data.powers) {
+    // Agent A's superpower tuning (B's loader does not read it).
+    try { const r = await fetch('data/powers.json', { cache: 'no-cache' }); if (r.ok) state.data.powers = await r.json(); } catch { /* fallback table in powers.js */ }
+  }
   state.world.islandId = state.world.islandId || 'driftwood_cove';
   state.world.weather = state.world.weather || 'clear';
   const layout = ISLANDS[state.world.islandId] || driftwoodCove;

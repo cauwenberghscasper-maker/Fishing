@@ -7,7 +7,7 @@ import { createBossController } from './boss.js';
 const rand = (a, b) => a + Math.random() * (b - a);
 const MAX_LINE = 38;
 
-export function createFight({ fish, info, weight, sizeClass, strength, state, island, water, splashes, playerPos, castAngle, hooks }) {
+export function createFight({ fish, info, weight, sizeClass, strength, state, island, water, splashes, playerPos, castAngle, hooks, power = null }) {
   const b = fish.behaviour;
   const g = state.gear || {};
   const gear = {
@@ -127,12 +127,18 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
       if (s.sideTimer <= 0) { s.side *= -1; s.sideTimer = rand(1.6, 3.4); }
     }
 
+    // Elemental superpower (variant fish): its rules modify the fight while it runs.
+    const pm = power ? power.update(dt, api, input) : null;
+    if (pm?.snap) { s.status = 'snap'; return s.status; }
+    if (pm?.flipEvery && (s.t % pm.flipEvery) < dt) s.side *= -1;
+    if (pm && pm.airY !== null) fish.airY = Math.max(0, pm.airY);
+
     const tired = s.stamina < 0.2 ? 0.55 : 1;
-    const pull = s.landing ? 0.05 : pullBase * (m?.pull ?? 1) * tired;
+    const pull = s.landing ? 0.05 : pullBase * (m?.pull ?? 1) * tired * (pm?.pull ?? 1);
 
     // Tension
     if (reeling && !(m && m.reelGain === 0)) {
-      let rise = (0.24 + pull * 0.95) * (m?.reelTension ?? 1) / gear.lineStrength;
+      let rise = (0.24 + pull * 0.95) * (m?.reelTension ?? 1) * (pm?.tensionRise ?? 1) / gear.lineStrength;
       rise *= 1 - good * 0.38 + bad * 0.55;
       s.tension += rise * dt;
     } else {
@@ -162,7 +168,7 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
       s.distance -= (2.4 + s.distance * 0.9) * dt;
       s.tension += (0.42 - s.tension) * (1 - Math.exp(-4 * dt));
     } else {
-      const reelIn = reeling ? gear.reelSpeed * 1.6 * (m?.reelGain ?? 1) * (1 - Math.min(0.85, pull * 0.5)) : 0;
+      const reelIn = reeling ? gear.reelSpeed * 1.6 * (m?.reelGain ?? 1) * (pm?.reelGain ?? 1) * (1 - Math.min(0.85, pull * 0.5)) : 0;
       const lineOut = pull * (m?.line ?? 0.55) * (reeling ? 0.45 : 1);
       s.distance += (lineOut - reelIn) * dt;
       // A fish close to the rod still has fight left: it makes a run.
@@ -247,13 +253,15 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
     fish.swim.set(s.landing ? 'tired' : (m?.swim || (s.tension > 0.6 ? 'thrash' : 'run')));
   }
 
-  return {
+  const api = {
     state: s,
     update,
     fishPoint,
+    get power() { return power; },
     get lateral() { return lateralScreenX(); },
     get boss() { return boss; },
   };
+  return api;
 }
 
 // Weight roll and size class. A perfect cast nudges the roll up.

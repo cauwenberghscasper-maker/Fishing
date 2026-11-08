@@ -7,6 +7,8 @@ import { createRod } from './rod.js';
 import { createFight, rollCatch } from './fight.js';
 import { createHud } from './hud.js';
 import { MOVES } from './moves.js';
+import { createPowerRunner, powerFor } from './powers.js';
+import { isElemental } from './variants.js';
 import { audio } from '../core/audio.js';
 import { loadModel, pickAsset } from '../core/assets.js';
 
@@ -33,6 +35,10 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   let steer = 0;
   let keySteer = 0;
   let bowTap = false;
+  let pressEdge = false;
+  const powerTaps = [];
+  const powerSwipes = [];
+  let swipe = null;
   let pointer = null;     // { id, x0, y0 } pointer that owns the main button
   let fightThrottle = 0;
   let reelTickTimer = 0;
@@ -206,7 +212,32 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     const roll = rollCatch(fish.info, lastCast?.perfect);
     fish.catchRoll = roll;
     const castAngle = Math.atan2(lure.pos.x - player.position.x, lure.pos.z - player.position.z);
+    const powerDef = isElemental(state, fish.variant) ? powerFor(state, fish.variant) : null;
+    const power = powerDef ? createPowerRunner(powerDef, {
+      fish,
+      variant: fish.variant,
+      events,
+      hooks: {
+        project: (v) => screenOf(tmp.set(v.x, v.y ?? 0, v.z)),
+        playerPos: player.position,
+        linePoint: (t) => {
+          const pts = line.points;
+          const i = Math.max(0, Math.min(pts.length - 1, Math.round(t * (pts.length - 1))));
+          return pts[i].clone();
+        },
+        shake: (a, sec) => cameraRig.shakeFor(a, sec),
+        slowmo: (k, sec) => loop.slowmo(k, sec),
+        toast: (text, sec) => hud.toast(text, sec),
+        splash: (x, z, st) => { splashes.splash(x, z, st); water.addRipple(x, z, st); },
+        // Ember: you may walk out of the impact zones while you keep the line.
+        setWalk: (on) => {
+          if (on) { input.unlock('fishing'); player.lockMovement(false); }
+          else if (mode === 'fight') { input.lock('fishing'); player.lockMovement(true); }
+        },
+      },
+    }) : null;
     fight = createFight({
+      power,
       fish, info: fish.info, ...roll, state, island, water, splashes,
       playerPos: player.position, castAngle,
       hooks: {
@@ -260,6 +291,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       player.pose(null);
       setMode('explore');
     }
+    fight?.power?.stop(fight);
     fight = null;
     fightFish = null;
     reeling = false;
@@ -294,6 +326,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     else if (mode === 'wait') tryHook();
     else if (mode === 'fight') {
       reeling = true;
+      pressEdge = true;
       if (fight?.state.bowWindow) bowTap = true;
       hud.setMainPressed(true);
     }
@@ -308,11 +341,34 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   }
 
   // Tapping anywhere on the game during the bite window also sets the hook (bigger target).
-  document.getElementById('game')?.addEventListener('pointerdown', () => {
+  // During a fight, taps and swipes on the game feed the superpower counters.
+  const gameEl = document.getElementById('game');
+  const rel = (e) => { const r = hudRoot.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+  gameEl?.addEventListener('pointerdown', (e) => {
     if (modal) return;
     if (mode === 'wait' && fishSystem.biteProgress()) tryHook();
-    else if (mode === 'fight' && fight?.state.bowWindow) bowTap = true;
+    else if (mode === 'fight') {
+      if (fight?.state.bowWindow) bowTap = true;
+      const p = rel(e);
+      swipe = { id: e.pointerId, x: p.x, y: p.y, x0: p.x, y0: p.y };
+    }
   });
+  gameEl?.addEventListener('pointermove', (e) => {
+    if (!swipe || e.pointerId !== swipe.id || mode !== 'fight') return;
+    const p = rel(e);
+    if (Math.hypot(p.x - swipe.x, p.y - swipe.y) > 8) {
+      powerSwipes.push({ x0: swipe.x, y0: swipe.y, x1: p.x, y1: p.y });
+      swipe.x = p.x; swipe.y = p.y;
+    }
+  });
+  const endSwipe = (e) => {
+    if (!swipe || e.pointerId !== swipe.id) return;
+    const p = rel(e);
+    if (mode === 'fight' && Math.hypot(p.x - swipe.x0, p.y - swipe.y0) < 14) powerTaps.push(p);
+    swipe = null;
+  };
+  gameEl?.addEventListener('pointerup', endSwipe);
+  gameEl?.addEventListener('pointercancel', endSwipe);
 
   // Desktop: Space acts as the main button (aim with the mouse from the button), A/D steer.
   input.onKey((code, down) => {
@@ -412,8 +468,10 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       cameraRig.setFocus(THREE.MathUtils.lerp(player.position.x, lure.pos.x, 0.45), 0, THREE.MathUtils.lerp(player.position.z, lure.pos.z, 0.45));
       refreshButton();
     } else if (mode === 'fight' && fight) {
-      const input = { reeling: reeling || keyReel, steer: keySteer || steer, bowTap };
+      const input = { reeling: reeling || keyReel, steer: keySteer || steer, bowTap, pressEdge, taps: powerTaps.splice(0), swipes: powerSwipes.splice(0) };
       bowTap = false;
+      pressEdge = false;
+      player.pose(fight.state.tension > 0.72 ? 'struggle' : 'reel');
       const status = modal ? 'fighting' : fight.update(dt, input);
       const fp = fight.fishPoint();
       lure.pos.set(fp.x, water.surfaceY(fp.x, fp.z) - (fightFish.airY > 0 ? -fightFish.airY : 0.12), fp.z);
@@ -489,6 +547,25 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         steer: keySteer || steer,
         good: fight.state.good,
       };
+      const pw = fight.power;
+      if (pw && pw.phase !== 'cooldown') {
+        const d = pw.detail || {};
+        const px = (v) => screenOf(tmp.set(v.x, 0.05, v.z));
+        const radiusPx = (v, r) => { const a = px(v); const b = screenOf(tmp.set(v.x + r, 0.05, v.z)); return Math.abs(b.x - a.x); };
+        frame.power = {
+          counter: pw.def.counter,
+          phase: pw.phase,
+          t: pw.t,
+          telegraph: pw.def.telegraph,
+          duration: pw.def.duration,
+          heat: pw.heat,
+          shards: d.shards?.map((sh) => ({ ...px(sh), broken: sh.broken })),
+          bombs: d.bombs?.map((b) => ({ ...px(b), r: radiusPx(b, b.radius), landed: b.landed, hit: b.hit })),
+          vines: d.vines?.map((v) => ({ ...screenOf(line.points[Math.round(v.t * (line.points.length - 1))].clone()), cut: v.cut })),
+          glyphs: d.glyphs?.map((g) => ({ ...px(g), done: g.done })),
+          beat: d.beat ? { phase: d.phase ?? 0, window: d.window / d.beat, pumps: d.pumps || 0, needed: d.needed } : null,
+        };
+      }
     }
     hud.draw(frame, realDt);
     line.setLight(1);

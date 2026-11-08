@@ -1,6 +1,6 @@
 # Agent D — World & Character Assets (handoff, live)
 
-_Updated after every step. Status: IN PROGRESS._
+_Updated after every step. Status: IN PROGRESS (buildings ×3 levels next). Last check: `npm run build` + `tools/smoke.py` OK, check-art clean for D._
 
 ## Key art (done)
 - `art/concepts/world/driftwood_cove_key.webp`: Driftwood Cove from the game camera (take 2 of 2, Qwen-Image, 3:4). This is the reference everything on the island is judged against.
@@ -24,7 +24,8 @@ _Updated after every step. Status: IN PROGRESS._
 4. [x] Bespoke Blender builds: Hull House shop, Marigold fisher's hut, sail-tent workers' hut, rib-arch boat dock, skiff, pier modules ×4 + steps, fences ×2, lantern post + hanging lantern, signpost
 5. [x] Player character `fisher_player` (KayKit Rogue, CC0) recoloured (faded blue shirt, rust neckerchief, ochre rolled trousers, tar-brown boots), with fisher gear on bones: woven straw hat with a glowing teal fish-scale charm in the band (head), tackle satchel on a tar-leather strap (chest/hips), rolled cuffs (lower legs). 18 clips, see the character manifest. Rod attaches to bone `handslot.r`.
 6. [x] Workers on the same rig: `worker_netmender` (Barbarian: white beard, cream sweater, rust knit cap, net bundle with floats), `worker_deckhand` (Rogue_Hooded: yellow oilskin hood + coat, rope bandolier), `worker_angler` (Mage: olive oilcloth coat, conical straw hat, wicker creel). 9 clips each, incl. fish_idle, cast, reel_loop, sit_idle.
-7. [ ] Island growth: `sandbar`, `camp_l0`, plot dressings `plot_<plotId>` ×6
+7. [x] Island growth: `sandbar` (day one: crooked `pier_stub`, rocks, driftwood, a washed-up crate), `camp_l0` (tarp lean-to, bedroll, crate seat + lantern, driftwood fire with a fish on the spit, glowing embers), and plot dressings `plot_palm_spit`, `plot_tidepool_shelf`, `plot_wreck_beach` (the Marigold + ribs of an older wreck), `plot_kelp_shallows`, `plot_basalt_cliff` (lantern cairn where the lighthouse will go), `plot_mooring_deep` (the Old Mooring: three lashed piles, iron ring, frayed ropes into the deep). New pieces: `pier_stub`, `hammock`, `wreck_ribs`, `mooring_dolphin`, `cairn_lantern`, `coconut_pile`. Concepts for every stage generated after the reset (`art/concepts/world/sandbar_day_one.webp`, `plot_*.webp`) and set as `concept`.
+   **Placement per plot:** each manifest entry has `footprint_m` [x, z], `story`, and `items`: a list of `{model, pos [x,y,z], rotY, scale, placement}` in plot-local glTF space (origin = plot centre at ground level, +Z = seaward). Either drop the merged `plot_*` model on the plot (it rises with it), or place the `items` yourself: ground items raycast onto your terrain, shore items at the waterline, water and underwater items at sea level + y. Footprints: sandbar 9×6, palm_spit 18×7, tidepool_shelf 14×10, wreck_beach 16×10, kelp_shallows 14×12, basalt_cliff 14×10, mooring_deep 12×10 m.
 8. [ ] Buildings × 3 levels (`<building>_l1..l3`), concepts = Agent F's building cards when they land
 9. [ ] Contact sheets, CREDITS, final notes
 

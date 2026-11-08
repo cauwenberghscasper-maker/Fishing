@@ -10,10 +10,11 @@ Round 1 (done):
 
 Round 2 (Casper's new features):
 - [x] Lock Chartroom: the other pairings' CSS, fonts, `?type` switch and Settings row are removed; the specimen page shows Chartroom only, and `type-specimen.png` keeps the comparison
-- [ ] Variants: `public/data/variants.json`, pricing, catch card moment, logbook variants + set bonuses
-- [ ] Island growth: sandbar + fixed plots, `pier_1`…`pier_6`, buildings l1–l3, boats; first-15-minutes tuning
-- [ ] Art registry wiring (`public/data/art.json`): gear, islands, buildings, variant emblems, title/loading
-- [ ] Gear models: `model` keys in `items.json`, turning 3D preview in the shop
+- [x] Variants: `public/data/variants.json`, pricing, catch card moment, logbook variants + set bonuses (code in; visual check pending)
+- [x] Island growth: sandbar + fixed plots, `pier_1`…`pier_6`, buildings l1–l3, boats; first-15-minutes tuning (save v3 with migration)
+- [x] Art registry wiring: gear, islands, buildings, variant emblems, title/loading + tips, `npc.shopkeeper`, `fishdex.<islandId>` (slots hide until the file loads)
+- [x] Gear models: `model` keys in `items.json` (lines get `material`), turning 3D preview in the shop through Agent A's loader
+- [x] Co-op: visitor mode hides island purchases (UI + economy refuse), group toasts, `#hud-net` slot
 - [ ] Verification + screenshots
 
 ## What works, as the player sees it (round 1)

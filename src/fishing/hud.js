@@ -220,6 +220,55 @@ export function createHud({ root }) {
           ring(f.fish.x, f.fish.y, 34, theme.gold, 4, 0.95);
           label('Bow!', f.fish.x, f.fish.y - 52, { size: 20, color: theme.gold });
         }
+        // Superpower counters (Agent E draws the spectacle; these keep it playable and fair).
+        const pw = frame.power;
+        if (pw) {
+          const c0 = buttonCentre();
+          if (pw.phase === 'telegraph') {
+            const k = Math.min(1, pw.t / pw.telegraph);
+            g.strokeStyle = theme.danger;
+            g.lineWidth = 5;
+            g.beginPath();
+            g.arc(c0.x, c0.y, c0.r + 16, -Math.PI / 2, -Math.PI / 2 + (1 - k) * Math.PI * 2);
+            g.stroke();
+          }
+          for (const sh of pw.shards || []) {
+            ring(sh.x, sh.y, 22, sh.broken ? theme.paper : theme.glow, sh.broken ? 1 : 4, sh.broken ? 0.35 : 0.95);
+            if (!sh.broken) ticks(sh.x, sh.y, 10, 6, 6, theme.glow, 2);
+          }
+          for (const b of pw.bombs || []) {
+            if (b.landed) continue;
+            g.fillStyle = theme.danger;
+            g.globalAlpha = 0.18;
+            g.beginPath(); g.arc(b.x, b.y, b.r, 0, Math.PI * 2); g.fill();
+            g.globalAlpha = 1;
+            ring(b.x, b.y, b.r, theme.danger, 3, 0.9);
+          }
+          for (const v of pw.vines || []) {
+            if (v.cut) continue;
+            g.strokeStyle = theme.glow;
+            g.lineWidth = 4;
+            g.beginPath(); g.moveTo(v.x - 14, v.y - 14); g.lineTo(v.x + 14, v.y + 14); g.moveTo(v.x + 14, v.y - 14); g.lineTo(v.x - 14, v.y + 14); g.stroke();
+          }
+          for (const gl of pw.glyphs || []) {
+            ring(gl.x, gl.y, 26, theme.gold, gl.done ? 2 : 4, gl.done ? 0.4 : 0.95);
+            ticks(gl.x, gl.y, 26, 8, 6, theme.gold, 2);
+          }
+          if (pw.beat && pw.phase === 'active') {
+            const ph = pw.beat.phase;
+            const near = Math.min(ph, 1 - ph) <= pw.beat.window;
+            ring(c0.x, c0.y, c0.r + 10 + (1 - ph) * 30, near ? theme.gold : theme.paper, near ? 5 : 2, 0.9);
+            label(`${pw.beat.pumps}/${pw.beat.needed}`, c0.x, c0.y - c0.r - 50, { size: 16, color: theme.gold, font: theme.fontNum });
+          }
+          if (pw.counter === 'step' && pw.heat > 0.02) {
+            g.strokeStyle = theme.danger;
+            g.lineWidth = 6;
+            g.beginPath();
+            g.arc(c0.x, c0.y, c0.r + 24, Math.PI * 0.75, Math.PI * 0.75 + Math.min(1, pw.heat) * Math.PI * 1.5);
+            g.stroke();
+          }
+        }
+
         // Steering gauge above the reel button.
         const c = buttonCentre();
         const w = 70;

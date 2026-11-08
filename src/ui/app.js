@@ -1,7 +1,7 @@
 // Agent B. All UI except Agent A's in-world fishing controls (#hud-fishing) and Agent H's co-op controls (#hud-net).
 import './theme.css';
 import './ui.css';
-import { h, ico, fmt, money, artImg } from './dom.js';
+import { h, ico, fmt, fmtKg, money, artImg } from './dom.js';
 import { economy } from '../economy/index.js';
 import { artPath } from '../economy/data.js';
 import { fullName } from '../economy/rules.js';
@@ -209,13 +209,17 @@ export async function startUI({ root, state, events }) {
   });
 
   // ------------------------------------------------------------ co-op (Agent H's events; B shows group toasts)
-  events.on('net:catch', ({ playerId, fishId, variant = 'basic' } = {}) => {
+  // B never listens to island:changed, so the host's island (source: 'net') is never written into a visitor's profile.
+  events.on('net:catch', ({ playerId, fishId, variant = 'basic', weight } = {}) => {
     const f = state.data.fish?.[fishId];
     if (!f) return;
     const v = economy.variant(variant);
     const name = fullName(f.name, v);
     const who = playerName(state, playerId);
-    toast(`${who} landed ${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}!`, v.kind === 'element' ? 'glow' : '',
+    const colour = state.net?.players?.[playerId]?.color;
+    const text = `${who} landed ${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}${Number.isFinite(weight) ? `, ${fmtKg(weight)}` : ''}`;
+    toast([colour ? h('span.toast__who', { style: { background: colour }, 'aria-hidden': 'true' }) : null, h('span', text)].filter(Boolean),
+      v.kind === 'element' ? 'glow' : '',
       { art: v.kind === 'basic' ? null : artPath(state, `variant.${v.id}`), ms: v.kind === 'element' ? 4200 : 2800 });
   });
   events.on('net:player-joined', ({ name } = {}) => toast(`${name ?? 'A friend'} came aboard`));

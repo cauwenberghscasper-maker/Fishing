@@ -25,7 +25,7 @@
     "source": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0",
     "base_mesh": "Rogue",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/fisher_player.webp",
     "story": "The fisher: sun-faded blue shirt, rust neckerchief, rolled ochre trousers, wide woven straw hat with a glowing teal scale from the first fish they ever caught tucked in the band, canvas tackle satchel on a tar-leather strap",
     "height_m": 1.8,
     "clips": {
@@ -141,7 +141,7 @@
     "source": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0",
     "base_mesh": "Barbarian",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/workers_lineup.webp",
     "story": "Old Wim, the net-mender: white beard, cream fisherman's sweater, rust knit cap, a bundle of net with floats over his shoulder",
     "height_m": 1.8,
     "clips": {
@@ -217,7 +217,7 @@
     "source": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0",
     "base_mesh": "Rogue_Hooded",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/workers_lineup.webp",
     "story": "Juno, the deckhand: yellow oilskin hood and coat, dark trousers, black rubber boots, a coil of rope worn across the body",
     "height_m": 1.8,
     "clips": {
@@ -294,7 +294,7 @@
     "source": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0",
     "base_mesh": "Mage",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/workers_lineup.webp",
     "story": "Sef, the quiet angler: long olive oilcloth coat, wide conical straw hat, wicker creel on his back",
     "height_m": 1.8,
     "clips": {

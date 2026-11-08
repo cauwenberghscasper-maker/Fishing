@@ -103,3 +103,52 @@ Wall-clock measured with timestamps around each call; Qwen-Image-Fast (8 steps) 
 | 23:13 | E | Qwen-Image-Fast | sprite glyph sheet 2x2, seed 2002347507 (kept, sliced into glyph_a..d) | ~4 |
 | 23:13 | E | Qwen-Image-Fast | sprite abyss eye, seed 1199825940 (kept; corner squiggle cropped) | ~4 |
 | 23:13 | E | Qwen-Image-Fast | sprite foam splash, seed 1252743348 (kept; sea strip cropped) | ~4 |
+| 6 Nov 23:15 | C | Qwen-Image | rivet_snapper concept (kept, seed 411904017; lips a bit thick, rivets on flank more than spine) | 16 (measured wall) |
+| 23:14 | E | Qwen-Image-Fast | sprite metal sparks, seed 554256181 (kept; frame + rod cropped) | ~4 |
+| 23:14 | E | Qwen-Image-Fast | sprite lava bomb, seed 2092538232 (kept) | ~4 |
+| 23:14 | E | Qwen-Image-Fast | sprite ice shard, seed 876104653 (kept) | ~4 |
+| 23:14 | E | Qwen-Image-Fast | sprite flare, seed 1153275784 (kept; frame cropped) | ~4 |
+| 23:14 | E | Qwen-Image-Fast | rb_lightning bolt strip 9:16, seed 638409354 (kept; straightened per row) | ~4 |
+| 23:14 | E | Qwen-Image-Fast | rb_vine strip 9:16, seed 1392030837 (kept) | ~4 |
+
+### Agent D (world) — 6 Nov after the 22:45 reset (budget 2 min, then "use what remains" per the coordinator)
+| Time (Brussels) | Agent | Tool | What | GPU s (wall-clock upper bound, measured) |
+|---|---|---|---|---|
+| 23:11 | D | Qwen-Image | sandbar + camp_l0 day one, 3:4, seed 1845003901 → `art/concepts/world/sandbar_day_one.webp` (concept of sandbar, camp_l0, pier_stub) | 23 |
+| 23:11 | D | Qwen-Image | Palm Spit, seed 465431656 → `plot_palm_spit.webp` (plot_palm_spit, hammock, coconut_pile) | 16 |
+| 23:12 | D | Qwen-Image | Wreck Beach (the Marigold), seed 619830783 → `plot_wreck_beach.webp` (plot_wreck_beach, fisher_hut, wreck_ribs) | 16 |
+| 23:12 | D | Qwen-Image | Tide-pool Shelf, seed 1447000093 → `plot_tidepool_shelf.webp` (plot_tidepool_shelf, tide_pool_a) | 16 |
+| 23:13 | D | Qwen-Image | Kelp Shallows, seed 628603662 → `plot_kelp_shallows.webp` (plot_kelp_shallows, kelp_a, crab_pot, net_rack) | 16 |
+| 23:13 | D | Qwen-Image | Basalt Cliff + lantern cairn, seed 422225526 → `plot_basalt_cliff.webp` (plot_basalt_cliff, cairn_lantern, cliff_columns_a/b, columns_steps) | 16 |
+| 23:14 | D | Qwen-Image | Old Mooring's Deep, seed 2093174824 → `plot_mooring_deep.webp` (plot_mooring_deep, mooring_dolphin) | 27 |
+| 23:14 | D | Qwen-Image | worker line-up (Wim, Juno, Sef), 16:9, seed 1492899539 → `workers_lineup.webp` (worker_netmender, worker_deckhand, worker_angler) | 29 |
+| 23:15 | D | Qwen-Image | player fisher, 3 poses, 16:9, seed 1842486621 → `fisher_player.webp` (fisher_player) | 16 |
+
+**Agent D after the reset: 9 Qwen-Image calls ≈ 175 s wall-clock (upper bound; true GPU time is lower).** No quota error yet. Stopped because every further image would have had no model to feed (Casper's "everything gets used" rule). Building concepts come from Agent F's cards.
+
+### Agent G (gear & boats) — quota day from the 22:45 reset (budget 5 min, then on Casper's word: keep going until the quota error)
+Wall-clock per call measured from timestamps around each call (upper bound for GPU time).
+| Time (Brussels) | Agent | Tool | What | GPU s (wall-clock upper bound) |
+|---|---|---|---|---|
+| 23:11 | G | Qwen-Image | rowboat side elevation, 16:9, seed 1028245812 → `art/concepts/boats/rowboat_side.webp` (sideView) | 31 |
+| 23:12 | G | Qwen-Image | patched_skiff side elevation, 16:9, seed 1305129494 → `patched_skiff_side.webp` | 24 |
+| 23:12 | G | Qwen-Image | sail_sloop side elevation, 16:9, seed 1643131062 → `sail_sloop_side.webp` (mast top cropped) | 31 |
+| 23:13 | G | Qwen-Image | storm_cutter side elevation, 16:9, seed 1026374623 → `storm_cutter_side.webp` (stray cannon not modelled) | 30 |
+| 23:14 | G | Qwen-Image | reel click_reel view, 1:1, seed 1575089667 → `art/concepts/gear/reel_click_reel.webp` | 30 |
+| 23:14 | G | Qwen-Image | reel marigold_ratchet view, 1:1, seed 338259590 → `art/concepts/gear/reel_marigold_ratchet.webp` | 34 |
+| 23:15 | G | Qwen-Image | reel lantern_drum view, 1:1, seed 1354093819 → `art/concepts/gear/reel_lantern_drum.webp` | 26 |
+| 23:15 | G | Qwen-Image | reel sextant_reel view, 1:1, seed 196736892 → `art/concepts/gear/reel_sextant_reel.webp` | 33 |
+| 23:15 | E | Qwen-Image (full) | dc_rune_circle hero, 1:1, seed 1126855628 (kept: stone ring + glowing sigil band; centre knot is a known Celtic shape, the band glyphs lean futhark, acceptable for a water decal) | 26 (measured) |
+| 23:10 | F | Qwen-Image-Fast | reels click_reel, marigold_ratchet, lantern_drum, sextant_reel, seeds 4401–4404 (click + lantern kept; marigold "barnacles" drew as ghost shapes, sextant arc had numerals) | 23 (4 calls) |
+| 23:11 | F | Qwen-Image-Fast | redo marigold_ratchet (4502) + sextant_reel (4504), both kept with small flaws noted in the handoff | 12 (2 calls) |
+| 23:12 | F | Qwen-Image-Fast | baits breadcrust, sandworms, glass_shrimp, tar_leech, dusk_krill (4601–4605) + lines cotton, tarred_hemp, gutstring, silkweed_braid, keepers_wire (4701–4705); kept: krill, sandworms, all 5 lines | 42 (10 calls) |
+| 23:13 | F | Qwen-Image-Fast | redo breadcrust (4611, kept), sandworms (4612, rejected: still faces), glass_shrimp (4613, kept), tar_leech (4614, kept with flaw) | 25 (4 calls) |
+| 6 Nov 23:16 | C | Qwen-Image | 3 parallel: keg_boxfish r1 (fail: fish wearing a barrel, lips, 'Signature' text), chainlink_pipefish r1 (fail: horse head with ears, smoking pipe, chain laid on body), porthole_ray (kept, seed 737461294) | 80 total (measured wall, 3 calls) |
+| 23:16 | E | Qwen-Image-Fast | rb_chain 9:16, seed 1251878007 (kept; chain cropped above the anchor) | ~4 |
+| 23:16 | E | Qwen-Image-Fast | dc_ring warning ring, seed 1854124777 (kept; grey frame cropped) | ~4 |
+| 23:16 | E | Qwen-Image-Fast | dc_ice sea-ice sheet, seed 1729793985 (kept) | ~4 |
+| 23:16 | E | Qwen-Image-Fast | tx_wave r1, seed 750135846 (rejected: grid lines + horizon) | ~4 |
+| 23:16 | E | Qwen-Image-Fast | tx_beam light pillar 9:16, seed 465143084 (kept) | ~4 |
+| 23:16 | E | Qwen-Image-Fast | tx_burst radial burst, seed 1556274774 (kept) | ~4 |
+
+**Agent E running total at 23:16: 36 Fast (~4.2 s each ≈ 151 s) + 1 full Qwen-Image (26 s) ≈ 177 s of the 5 min.** The coordinator asked to keep going past 5 min until the quota error (Casper wants today's quota used).

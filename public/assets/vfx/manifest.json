@@ -235,7 +235,7 @@
   "path": "assets/vfx/tx_wave.webp",
   "usedBy": "tide power rogue wave face and pier flood",
   "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
-  "prompt": "seamless tileable texture of a breaking wave face, deep teal water streaked with white foam lines and spray, filling the frame, hand-painted stylized game VFX, painterly brush strokes, gouache and glowing ink, isolated on a pure black background, no text, no letters, no border, no frame",
+  "prompt": "abstract seamless texture of rushing turquoise sea water with long white foam streaks and swirls, hand-painted, filling the frame, no horizon, no sky, no grid, no text",
   "kind": "surface",
   "aspect": "1:1",
   "tileable": true
@@ -257,5 +257,165 @@
   "kind": "decal",
   "aspect": "1:1",
   "tileable": false
+ },
+ "impacts": {
+  "path": "assets/vfx/impacts.webp",
+  "usedBy": "per-element impact bursts in powers and reveals, splash/foam variants, splash flipbook: second particle atlas (one draw call)",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "atlas",
+  "grid": [
+   4,
+   4
+  ],
+  "size": 1024,
+  "frames": {
+   "impact_storm": 0,
+   "impact_frost": 1,
+   "impact_ember": 2,
+   "impact_bloom": 3,
+   "impact_rune": 4,
+   "impact_abyss": 5,
+   "impact_tide": 6,
+   "impact_rust": 7,
+   "splash_crown": 8,
+   "foam_ring": 9,
+   "spray_fan": 10,
+   "steam_plume": 11,
+   "splash_seq_0": 12,
+   "splash_seq_1": 13,
+   "splash_seq_2": 14,
+   "splash_seq_3": 15
+  },
+  "sources": {
+   "impact_storm": {
+    "prompt": "a lightning strike impact on water seen from above, a star of forked electric arcs bursting outward from a white-hot centre, electric yellow and blue, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "storm power: lightning strike impact on the water; storm reveal",
+    "raw": ".cache/agent-e/raw/im_impact_storm.webp"
+   },
+   "impact_frost": {
+    "prompt": "an ice shatter burst seen from above, jagged pale blue ice splinters and frost dust exploding outward from the centre, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "frost power: ice shard shatter; frost reveal",
+    "raw": ".cache/agent-e/raw/im_impact_frost.webp"
+   },
+   "impact_ember": {
+    "prompt": "a lava splash explosion seen from above, molten orange droplets and black cinders bursting outward in a crown, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "ember power: lava bomb impact splash; ember reveal",
+    "raw": ".cache/agent-e/raw/im_impact_ember.webp"
+   },
+   "impact_bloom": {
+    "prompt": "a burst of pink petals, green leaves and golden pollen exploding outward from the centre, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "bloom power: vine cut / petal burst; bloom reveal",
+    "raw": ".cache/agent-e/raw/im_impact_bloom.webp"
+   },
+   "impact_rune": {
+    "prompt": "a turquoise glyph flash, a ring of glowing invented sigil fragments and light shards bursting outward from a bright centre, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "rune power: teleport flash ring; rune reveal",
+    "raw": ".cache/agent-e/raw/im_impact_rune.webp"
+   },
+   "impact_abyss": {
+    "prompt": "an ink splash burst, black-violet ink tendrils splattering outward with glowing cyan plankton specks, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "abyss power: ink burst when the lights go out / come back; abyss reveal",
+    "raw": ".cache/agent-e/raw/im_impact_abyss.webp"
+   },
+   "impact_tide": {
+    "prompt": "a water splash crown seen from above, white foam and turquoise water flung outward in a ring of droplets, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "tide power: wave crash on the pier; tide reveal",
+    "raw": ".cache/agent-e/raw/im_impact_tide.webp"
+   },
+   "impact_rust": {
+    "prompt": "a burst of rust flakes and orange grinding sparks with dark iron splinters exploding outward from the centre, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "rust power: chain grind / snap burst; rust reveal",
+    "raw": ".cache/agent-e/raw/im_impact_rust.webp"
+   },
+   "splash_crown": {
+    "prompt": "a tall white water splash crown with droplets, seen from the side, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "lava-bomb water hits, fish leap splashes in powers",
+    "raw": ".cache/agent-e/raw/im_splash_crown.webp"
+   },
+   "foam_ring": {
+    "prompt": "a ring of white sea foam seen from directly above, bubbly lace edge, empty dark centre, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "tide flood edge, wave landing rings",
+    "raw": ".cache/agent-e/raw/im_foam_ring.webp"
+   },
+   "spray_fan": {
+    "prompt": "a fan of fine white sea spray droplets flung upward and outward, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "rogue wave spray, storm rain spray",
+    "raw": ".cache/agent-e/raw/im_spray_fan.webp"
+   },
+   "steam_plume": {
+    "prompt": "a rising plume of soft white steam curling upward, centered, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "ember boiling water steam, frost melt steam",
+    "raw": ".cache/agent-e/raw/im_steam_plume.webp"
+   },
+   "splash_seq": {
+    "prompt": "four stages of one water splash in a 2 by 2 grid: a small drop impact, a rising crown, a tall burst of droplets, falling spray, white and pale aqua, hand-painted stylized game VFX, painterly brush strokes, glowing ink, isolated on a pure black background, no text, no frame",
+    "usedBy": "flipbook splash (splash_seq_0..3) for every water impact in the powers",
+    "raw": ".cache/agent-e/raw/im_splash_seq.webp"
+   }
+  }
+ },
+ "backdrop_storm": {
+  "path": "assets/vfx/backdrop_storm.webp",
+  "usedBy": "catch card backdrop for storm variants (Agent B shows it behind the catch card; key backdrop_storm)",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "aspect": "9:16",
+  "prompt": "a torn storm sky over a dark sea, black-blue clouds split open by branching yellow lightning that frames the edges, slanting rain, a calm dark teal empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
+ },
+ "backdrop_frost": {
+  "path": "assets/vfx/backdrop_frost.webp",
+  "usedBy": "catch card backdrop for frost variants (Agent B shows it behind the catch card; key backdrop_frost)",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "aspect": "9:16",
+  "prompt": "a frozen fjord at night, glacier walls and hanging icicles framing the edges, drifting snow, pale aurora light, a calm dark navy empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
+ },
+ "backdrop_ember": {
+  "path": "assets/vfx/backdrop_ember.webp",
+  "usedBy": "catch card backdrop for ember variants (Agent B shows it behind the catch card; key backdrop_ember)",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "aspect": "9:16",
+  "prompt": "a volcanic caldera at dusk, lava falls and glowing cracks framing the edges, rising embers and smoke, a calm dark red-black empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
+ },
+ "backdrop_bloom": {
+  "path": "assets/vfx/backdrop_bloom.webp",
+  "usedBy": "catch card backdrop for bloom variants (Agent B shows it behind the catch card; key backdrop_bloom)",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "aspect": "9:16",
+  "prompt": "a swamp grotto overgrown with moss, roots, hanging vines and pink blossoms framing the edges, fireflies and pollen, a calm dark green empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
+ },
+ "backdrop_rune": {
+  "path": "assets/vfx/backdrop_rune.webp",
+  "usedBy": "catch card backdrop for rune variants (Agent B shows it behind the catch card; key backdrop_rune)",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "aspect": "9:16",
+  "prompt": "a half-drowned temple interior, carved stone pillars with glowing turquoise glyphs framing the edges, light shafts through water, a calm dark teal empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
+ },
+ "backdrop_abyss": {
+  "path": "assets/vfx/backdrop_abyss.webp",
+  "usedBy": "catch card backdrop for abyss variants (Agent B shows it behind the catch card; key backdrop_abyss)",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "aspect": "9:16",
+  "prompt": "the deep night sea, darkness with dozens of faint glowing eyes and bioluminescent plankton framing the edges, a calm pitch-black empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
+ },
+ "backdrop_tide": {
+  "path": "assets/vfx/backdrop_tide.webp",
+  "usedBy": "catch card backdrop for tide variants (Agent B shows it behind the catch card; key backdrop_tide)",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "aspect": "9:16",
+  "prompt": "inside a curling turquoise wave, white foam and spray framing the edges, sunlight through the water, a calm deep teal empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
+ },
+ "backdrop_rust": {
+  "path": "assets/vfx/backdrop_rust.webp",
+  "usedBy": "catch card backdrop for rust variants (Agent B shows it behind the catch card; key backdrop_rust)",
+  "licence": "generated: Qwen-Image-Fast / Qwen-Image (Apache-2.0) on Casper565's HF, processed by Agent E",
+  "kind": "backdrop",
+  "aspect": "9:16",
+  "prompt": "a sunken shipwreck hold, rusted anchor chains, hull ribs and barnacles framing the edges, orange light glinting on metal, a calm dark sea-green empty centre, hand-painted adventure illustration, warm painterly light, rich colour, no creatures in the centre, no fish, no text, no frame"
  }
 }

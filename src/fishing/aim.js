@@ -133,7 +133,10 @@ export function createAim({ island, fishSystem, water, state }) {
   group.visible = false;
 
   const target = new THREE.Vector3();
-  const aimPoint = new THREE.Vector3();  // reticle centre without wobble
+  const aimPoint = new THREE.Vector3();  // reticle centre without wobble (follows the thumb, smoothed)
+  const rawAim = new THREE.Vector3();    // where the thumb points this frame
+  let wobbleNow = 0;                     // smoothed wobble amplitude, so it never jumps
+  let aimed = false;                     // first aiming frame snaps, later frames glide
   const start = new THREE.Vector3();
   let active = false;
   let anchor = { x: 0, y: 0 };
@@ -161,10 +164,12 @@ export function createAim({ island, fishSystem, water, state }) {
     return Math.max(140, Math.min(320, Math.min(window.innerHeight, window.innerWidth * 1.6) * 0.36));
   }
 
+  // A slow sway that settles while the thumb is still: patience gives accuracy,
+  // but dragging itself must feel smooth (Casper: "dragging to cast is not smooth").
   function wobbleAmount(dist) {
     const g = gear();
-    const base = (0.35 + dist * 0.07) * (1.3 - g.steadiness * 0.75);
-    const settle = 0.12 + 0.88 * Math.exp(-holdStill / 1.1);
+    const base = (0.18 + dist * 0.035) * (1.3 - g.steadiness * 0.75);
+    const settle = 0.1 + 0.9 * Math.exp(-holdStill / 0.9);
     return base * settle;
   }
 
@@ -187,13 +192,17 @@ export function createAim({ island, fishSystem, water, state }) {
       holdStill = 0;
       startTime = realTime;
       hasAim = false;
+      lastPointer = null;
+      wobbleNow = 0;
+      aimed = false;
       group.visible = true;
     },
     pointer(x, y) {
       drag = { x: x - anchor.x, y: y - anchor.y };
       if (lastPointer) {
+        // moving the thumb unsettles the aim a little, never all the way back
         const moved = Math.hypot(x - lastPointer.x, y - lastPointer.y);
-        holdStill = Math.max(0, holdStill - moved * 0.012);
+        holdStill = Math.max(0, holdStill - Math.min(moved, 40) * 0.006);
       }
       lastPointer = { x, y };
     },
@@ -221,11 +230,17 @@ export function createAim({ island, fishSystem, water, state }) {
       const power = Math.pow(THREE.MathUtils.clamp((len - DEAD_ZONE) / (maxDragPx() - DEAD_ZONE), 0, 1), 1.1);
       const dist = 2.5 + power * (g.maxCast - 2.5);
       const dx = -drag.x / len, dz = -drag.y / len;
-      aimPoint.set(playerPos.x + dx * dist, 0, playerPos.z + dz * dist);
-      const w = wobbleAmount(dist);
+      rawAim.set(playerPos.x + dx * dist, 0, playerPos.z + dz * dist);
+      // Glide after the thumb instead of jumping between touch samples (~60 ms lag, frame-rate independent).
+      if (!aimed) { aimPoint.copy(rawAim); aimed = true; }
+      else aimPoint.lerp(rawAim, 1 - Math.exp(-realDt / 0.06));
+      const wTarget = wobbleAmount(dist);
+      wobbleNow += (wTarget - wobbleNow) * (1 - Math.exp(-realDt / 0.35));
+      const w = wobbleNow;
       const t = realTime;
-      const nx = Math.sin(t * 2.3 + seeds[0]) * 0.6 + Math.sin(t * 3.7 + seeds[1]) * 0.4;
-      const nz = Math.sin(t * 2.9 + seeds[2]) * 0.6 + Math.sin(t * 1.9 + seeds[3]) * 0.4;
+      // slow, smooth sway (0.6–1.4 Hz) instead of a fast shake
+      const nx = Math.sin(t * 1.3 + seeds[0]) * 0.6 + Math.sin(t * 0.8 + seeds[1]) * 0.4;
+      const nz = Math.sin(t * 1.1 + seeds[2]) * 0.6 + Math.sin(t * 0.6 + seeds[3]) * 0.4;
       target.set(aimPoint.x + nx * w, 0, aimPoint.z + nz * w);
 
       depth = island.waterDepthAt(target.x, target.z);

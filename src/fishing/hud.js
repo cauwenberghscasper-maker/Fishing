@@ -104,16 +104,51 @@ export function createHud({ root }) {
     g.globalAlpha = 1;
   }
 
+  // Painted cast/reel button (Casper 9b.8: the cast button gets custom art). Falls back to the
+  // theme button if the art can't load. Label sits on a small painted tag under the object.
+  const ART = {
+    cast: 'art/hud/cast_idle.webp', castPressed: 'art/hud/cast_pressed.webp', aim: 'art/hud/cast_aim.webp',
+    reel: 'art/hud/reel_idle.webp', reelPressed: 'art/hud/reel_pressed.webp', tag: 'art/hud/tag.webp',
+  };
+  let artOk = false;
+  let artKind = 'cast';
+  let pressed = false;
+  const probe = new Image();
+  probe.onload = () => { artOk = true; labelEl.textContent = main.textContent.trim(); for (const src of Object.values(ART)) { const i = new Image(); i.src = src; } paintMain(); };
+  probe.src = ART.cast;
+  const labelEl = document.createElement('span');
+  labelEl.style.cssText = `position:absolute;left:50%;bottom:-14px;transform:translateX(-50%);min-width:64px;padding:3px 12px 4px 18px;
+    background:url(${ART.tag}) center/100% 100% no-repeat;color:#13262a;font:600 13px/1 var(--font-display, serif);
+    letter-spacing:0.02em;white-space:nowrap;pointer-events:none;`;
+  function paintMain() {
+    if (!artOk) return;
+    const src = artKind === 'reel' ? (pressed ? ART.reelPressed : ART.reel)
+      : artKind === 'aim' ? ART.aim : (pressed ? ART.castPressed : ART.cast);
+    main.classList.remove('btn', 'btn--primary', 'btn--round');
+    main.style.background = `url(${src}) center/contain no-repeat`;
+    main.style.border = 'none';
+    main.style.boxShadow = 'none';
+    main.style.color = 'transparent';
+    main.style.width = main.style.height = '104px';
+    main.style.filter = 'drop-shadow(0 6px 8px rgba(0,0,0,0.45))';
+    if (labelEl.parentNode !== main) main.append(labelEl);
+  }
+
   return {
     main,
     root,
     buttonCentre,
     setMainLabel(text, { hidden = false, ariaLabel } = {}) {
-      if (main.textContent !== text) main.textContent = text;
+      artKind = text === 'Aim' ? 'aim' : (text === 'Reel' || text === 'Hook!') ? 'reel' : 'cast';
+      if (artOk) {
+        if (labelEl.textContent !== text) labelEl.textContent = text;
+        labelEl.style.display = text ? '' : 'none';
+        paintMain();
+      } else if (main.textContent !== text) main.textContent = text;
       main.style.display = hidden ? 'none' : '';
       main.setAttribute('aria-label', ariaLabel || text);
     },
-    setMainPressed(on) { main.setAttribute('aria-pressed', on ? 'true' : 'false'); },
+    setMainPressed(on) { pressed = !!on; main.setAttribute('aria-pressed', on ? 'true' : 'false'); paintMain(); },
     showMeters(on) { meters.style.display = on ? 'flex' : 'none'; },
     setMeters(tension, stamina, { danger = false } = {}) {
       tensionFill.style.width = `${Math.round(tension * 100)}%`;

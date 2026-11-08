@@ -192,3 +192,19 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 
 **Agent E 8 Nov total: 24 Fast calls ≈ 96 s GPU of the 150 s (wall-clock ~20 s each because of queueing).**
 | 8 Nov 14:52 | C | Qwen-Image | 3 heroes parallel: old_mooring breach (kept, seed 1034261118), storm_marlin tail-walk (kept, seed 995583775; open mouth + teeth inpainted closed), temple_manta breach (kept, seed 1307202387; stray fishing line erased) | 59 total (measured wall) |
+
+### Agent D (world) — 8 Nov, building-level concepts (budget 150 s; F's building cards not painted yet)
+| Time (Brussels) | Agent | Tool | What | GPU s (wall-clock upper bound) |
+|---|---|---|---|---|
+| 14:44 | D | Qwen-Image-Fast | shop levels sheet, seed 675857759 → `art/concepts/world/building_shop_levels.webp` (concept of shop_l1, shop_l3; has stray labels, reference only) | ~4 (16 s wall) |
+| 14:45 | D | Qwen-Image-Fast | cooler l1+l2, seed 1258745383 → `building_cooler_l1_l2.webp` | ~4 (18 s wall) |
+| 14:45 | D | Qwen-Image-Fast | cooler l3 cold cellar, seed 1810442656 → `building_cooler_l3.webp` | ~4 (6 s wall) |
+| 14:45 | D | Qwen-Image-Fast | smokehouse l1+l2, seed 438274672 → `building_smokehouse_l1_l2.webp` | ~4 (10 s wall) |
+| 14:45 | D | Qwen-Image-Fast | smokehouse l3 smoke tower, seed 761872776 → `building_smokehouse_l3.webp` | ~4 (11 s wall) |
+| 14:46 | D | Qwen-Image-Fast | aquarium l1+l2, seed 2048983254 → `building_aquarium_l1_l2.webp` | ~4 (4 s wall) |
+| 14:46 | D | Qwen-Image-Fast | aquarium l3 glasshouse, seed 1991187715 → `building_aquarium_l3.webp` | ~4 (15 s wall) |
+| 14:46 | D | Qwen-Image-Fast | boat dock l1+l2, seed 935287664 → `building_boat_dock_l1_l2.webp` | ~4 (20 s wall) |
+| 19:38 | D | Qwen-Image-Fast | workers' hut l1+l3, seed 1084452617 → `building_workers_hut_l1_l3.webp` | ~4 (18 s wall) |
+| 19:39 | D | Qwen-Image-Fast | construction scaffold, seed 632798957 → `building_scaffold.webp` | ~4 (4 s wall) |
+
+**Agent D 8 Nov: 10 Fast calls ≈ 40 s GPU (≤ 122 s wall) of 150 s.** Stopped: every building level, plot and character now has a concept; more images would have no model to feed. When F's cards land, `finalize_manifest.py` switches each building's `concept` to the card (mine stay in `concept_alt`).

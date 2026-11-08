@@ -5,9 +5,17 @@ export const SLOTS = [
   { slot: 'rod', group: 'rods', label: 'Rod' },
   { slot: 'reel', group: 'reels', label: 'Reel' },
   { slot: 'line', group: 'lines', label: 'Line' },
-  { slot: 'bait', group: 'baits', label: 'Bait' },
+  { slot: 'bait', group: 'baits', label: 'Bait', stack: true },
+  { slot: 'hook', group: 'hooks', label: 'Hook' },
+  { slot: 'sinker', group: 'sinkers', label: 'Sinker' },
+  { slot: 'float', group: 'floats', label: 'Float' },
+  { slot: 'leader', group: 'leaders', label: 'Leader', optional: true },
+  { slot: 'lure', group: 'lures', label: 'Lure', optional: true, stack: true },
+  { slot: 'tool', group: 'tools', label: 'Tool', tool: true },   // tools are owned, never equipped, always active
 ];
 export const groupOf = (slot) => SLOTS.find((s) => s.slot === slot)?.group;
+export const slotInfo = (slot) => SLOTS.find((s) => s.slot === slot);
+export const EQUIP_SLOTS = SLOTS.filter((s) => !s.tool).map((s) => s.slot);
 
 export const BUILDINGS = ['shop', 'cooler', 'workers_hut', 'smokehouse', 'aquarium', 'boat_dock'];
 
@@ -242,7 +250,31 @@ export function deriveGear(data, profile) {
   const reel = itemOf(data, 'reel', g.reel);
   const line = itemOf(data, 'line', g.line);
   const bait = itemOf(data, 'bait', g.bait);
+  const hook = itemOf(data, 'hook', g.hook);
+  const sinker = itemOf(data, 'sinker', g.sinker);
+  const float = itemOf(data, 'float', g.float);
+  const leader = itemOf(data, 'leader', g.leader);
+  const lure = itemOf(data, 'lure', g.lure);
+  const tools = new Set(profile.owned?.tools ?? []);
+  const cond = profile.condition ?? {};
+  const lineWear = cond.lineWear ?? 0;
   return {
+    // 4.7b tackle (Agent A reads these)
+    hookId: g.hook ?? null, sinkerId: g.sinker ?? null, floatId: g.float ?? null, leaderId: g.leader ?? null, lureId: g.lure ?? null,
+    rating: rod?.stats?.rating ?? 3,
+    rodBroken: !!cond.rodBroken?.[g.rod],
+    strength: Math.round((line?.stats?.strength ?? 2.5) * (1 - 0.5 * lineWear) * 100) / 100,
+    lineWear,
+    hookHold: hook?.stats?.hookHold ?? 1,
+    depthReach: sinker?.stats?.depthReach ?? 3,
+    biteWindow: (hook?.stats?.biteWindow ?? 1) * (float?.stats?.biteWindow ?? 1),
+    leader: leader?.stats?.leader ?? 0,
+    lure: lure?.stats?.lure ?? 0,
+    lureTargets: lure?.targets ?? [],
+    baitLeft: bait?.unlimited ? Infinity : profile.stacks?.[g.bait] ?? 0,
+    lureLeft: g.lure ? profile.stacks?.[g.lure] ?? 0 : 0,
+    net: tools.has('landing_net'), gaff: tools.has('gaff'), glasses: tools.has('polarized_glasses'),
+    tackleBox: tools.has('tackle_box'), baitBucket: tools.has('bait_bucket'),
     rodId: g.rod, reelId: g.reel, lineId: g.line, baitId: g.bait,
     rodModel: rod?.model ?? null, reelModel: reel?.model ?? null, baitModel: bait?.model ?? null,
     lineMaterial: line?.material ?? null,

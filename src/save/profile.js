@@ -4,7 +4,7 @@
 // - autosave on profile:changed (debounced), on visibilitychange/pagehide, and every 15 s
 import { BUILDINGS, deriveGear } from '../economy/rules.js';
 
-export const PROFILE_VERSION = 4;
+export const PROFILE_VERSION = 5;
 export const SAVE_KEY = 'fishing-v1';
 export const TEST_SAVE_KEY = 'fishing-test-v1';
 
@@ -81,6 +81,15 @@ export const MIGRATIONS = [
       return { ...p, island: { ...(p.island ?? {}), buildings }, version: 4 };
     },
   },
+  {
+    to: 5,
+    // v5 (4.7b): baits become stacks. A bait bought for good before gets 20 of it; breadcrust stays unlimited.
+    up: (p) => {
+      const stacks = { ...(p.stacks ?? {}) };
+      for (const id of Array.isArray(p.owned?.baits) ? p.owned.baits : []) if (id !== 'breadcrust' && !(id in stacks)) stacks[id] = 20;
+      return { ...p, stacks, version: 5 };
+    },
+  },
 ];
 
 /** A building's saved state: { level, x, z, rot } (x/z null until placed). */
@@ -112,7 +121,7 @@ function startIsland(data) {
 export function newProfile(data, test = false) {
   const start = data.economy?.start ?? {};
   const now = Date.now();
-  const gear = { rod: 'splitcane', reel: 'click_reel', line: 'cotton_line', bait: 'breadcrust', ...start.gear };
+  const gear = { rod: 'splitcane', reel: 'click_reel', line: 'cotton_line', bait: 'breadcrust', hook: 'bent_pin', sinker: 'pebble_sinker', float: 'cork_float', leader: null, lure: null, ...start.gear };
   return {
     version: PROFILE_VERSION,
     createdAt: now,
@@ -120,7 +129,9 @@ export function newProfile(data, test = false) {
     coins: test && data.economy?.test?.startCoins ? data.economy.test.startCoins : start.coins ?? 15,
     pearls: start.pearls ?? 0,
     gear,
-    owned: { rods: [gear.rod], reels: [gear.reel], lines: [gear.line], baits: [gear.bait] },
+    owned: { rods: [gear.rod], reels: [gear.reel], lines: [gear.line], baits: [gear.bait], hooks: [gear.hook], sinkers: [gear.sinker], floats: [gear.float], leaders: [], lures: [], tools: [] },
+    stacks: {},
+    condition: { rodBroken: {}, rodStrain: {}, lineWear: 0 },
     cooler: [],
     held: null,
     catchSeq: 0,
@@ -168,17 +179,27 @@ export function sanitizeProfile(raw, data, test = false) {
 
   // owned gear: keep starters, drop ids no longer in items.json
   out.owned = {};
-  for (const group of ['rods', 'reels', 'lines', 'baits']) {
+  for (const group of ['rods', 'reels', 'lines', 'baits', 'hooks', 'sinkers', 'floats', 'leaders', 'lures', 'tools']) {
     const known = Object.keys(items[group] ?? {});
     const owned = strArr(p.owned?.[group]).filter((id) => !known.length || known.includes(id));
     const starters = known.filter((id) => (items[group][id]?.cost ?? 1) === 0);
-    out.owned[group] = [...new Set([...starters, ...base.owned[group].filter((id) => !known.length || known.includes(id)), ...owned])];
+    out.owned[group] = [...new Set([...starters, ...(base.owned[group] ?? []).filter((id) => !known.length || known.includes(id)), ...owned])];
   }
   out.gear = { ...base.gear };
-  for (const [slot, group] of [['rod', 'rods'], ['reel', 'reels'], ['line', 'lines'], ['bait', 'baits']]) {
+  for (const [slot, group, optional] of [['rod', 'rods'], ['reel', 'reels'], ['line', 'lines'], ['bait', 'baits'], ['hook', 'hooks'], ['sinker', 'sinkers'], ['float', 'floats'], ['leader', 'leaders', true], ['lure', 'lures', true]]) {
     const id = p.gear?.[slot];
-    out.gear[slot] = typeof id === 'string' && out.owned[group].includes(id) ? id : out.owned[group][0] ?? base.gear[slot];
+    out.gear[slot] = typeof id === 'string' && out.owned[group].includes(id) ? id : optional ? null : out.owned[group][0] ?? base.gear[slot];
   }
+  out.stacks = Object.fromEntries(Object.entries(p.stacks && typeof p.stacks === 'object' ? p.stacks : {}).filter(([, n]) => Number.isFinite(n) && n > 0).map(([k, n]) => [k, Math.floor(n)]));
+  // a stack bait/lure with nothing left falls back to bread crust / no lure
+  if (out.gear.bait !== 'breadcrust' && !items.baits?.[out.gear.bait]?.unlimited && !(out.stacks[out.gear.bait] > 0)) out.gear.bait = 'breadcrust';
+  if (out.gear.lure && !(out.stacks[out.gear.lure] > 0)) out.gear.lure = null;
+  const cond = p.condition && typeof p.condition === 'object' ? p.condition : {};
+  out.condition = {
+    rodBroken: Object.fromEntries(Object.entries(cond.rodBroken ?? {}).filter(([id, v]) => v === true && !items.rods?.[id]?.unbreakable)),
+    rodStrain: Object.fromEntries(Object.entries(cond.rodStrain ?? {}).filter(([, v]) => Number.isFinite(v) && v > 0)),
+    lineWear: Math.min(1, num(cond.lineWear, 0)),
+  };
 
   out.cooler = (Array.isArray(p.cooler) ? p.cooler : []).map(cleanCatch).filter(Boolean);
   out.held = cleanCatch(p.held);

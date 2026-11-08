@@ -549,8 +549,7 @@
     "alpha": false,
     "usedBy": "ui/travel sea-chart island card (B)",
     "concept": "art/concepts/world/driftwood_cove_key.webp",
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent D's key art",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "island.wreck_reef": {
     "path": "art/islands/wreck_reef.webp",
@@ -562,8 +561,7 @@
     "alpha": false,
     "usedBy": "ui/travel sea-chart island card (B)",
     "concept": "art/concepts/world/wreck_reef_key.webp",
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "island.mossback_bayou": {
     "path": "art/islands/mossback_bayou.webp",
@@ -575,8 +573,7 @@
     "alpha": false,
     "usedBy": "ui/travel sea-chart island card (B)",
     "concept": "art/concepts/world/mossback_bayou_key.webp",
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "island.frostfang_fjord": {
     "path": "art/islands/frostfang_fjord.webp",
@@ -588,8 +585,7 @@
     "alpha": false,
     "usedBy": "ui/travel sea-chart island card (B)",
     "concept": "art/concepts/world/frostfang_fjord_key.webp",
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "island.ember_caldera": {
     "path": "art/islands/ember_caldera.webp",
@@ -601,8 +597,7 @@
     "alpha": false,
     "usedBy": "ui/travel sea-chart island card (B)",
     "concept": "art/concepts/world/ember_caldera_key.webp",
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "island.stormspire_isles": {
     "path": "art/islands/stormspire_isles.webp",
@@ -614,8 +609,7 @@
     "alpha": false,
     "usedBy": "ui/travel sea-chart island card (B)",
     "concept": "art/concepts/world/stormspire_isles_key.webp",
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "island.sunken_temple": {
     "path": "art/islands/sunken_temple.webp",
@@ -627,8 +621,7 @@
     "alpha": false,
     "usedBy": "ui/travel sea-chart island card (B)",
     "concept": "art/concepts/world/sunken_temple_key.webp",
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "island.the_abyss": {
     "path": "art/islands/the_abyss.webp",
@@ -640,8 +633,7 @@
     "alpha": false,
     "usedBy": "ui/travel sea-chart island card (B)",
     "concept": "art/concepts/world/the_abyss_key.webp",
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0), crop of Agent F's key art",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "building.shop.l1": {
     "path": "art/buildings/shop_l1.webp",
@@ -869,8 +861,7 @@
     "alpha": true,
     "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "variant.inkdark": {
     "path": "art/variants/inkdark.webp",
@@ -882,8 +873,7 @@
     "alpha": true,
     "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "variant.gilded": {
     "path": "art/variants/gilded.webp",
@@ -895,8 +885,7 @@
     "alpha": true,
     "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "variant.storm": {
     "path": "art/variants/storm.webp",
@@ -908,8 +897,7 @@
     "alpha": true,
     "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "variant.frost": {
     "path": "art/variants/frost.webp",
@@ -921,8 +909,7 @@
     "alpha": true,
     "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "variant.ember": {
     "path": "art/variants/ember.webp",
@@ -934,8 +921,7 @@
     "alpha": true,
     "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "variant.bloom": {
     "path": "art/variants/bloom.webp",
@@ -947,8 +933,7 @@
     "alpha": true,
     "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "variant.rune": {
     "path": "art/variants/rune.webp",
@@ -960,8 +945,7 @@
     "alpha": true,
     "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "variant.abyss": {
     "path": "art/variants/abyss.webp",
@@ -973,8 +957,7 @@
     "alpha": true,
     "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "variant.tide": {
     "path": "art/variants/tide.webp",
@@ -986,8 +969,7 @@
     "alpha": true,
     "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "variant.rust": {
     "path": "art/variants/rust.webp",
@@ -999,8 +981,7 @@
     "alpha": true,
     "usedBy": "ui catch card + logbook variant emblem (B), 40 px; `icon` is the 128 px file",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "title.main": {
     "path": "art/title/main.webp",
@@ -1706,8 +1687,7 @@
     "alpha": true,
     "usedBy": "ui logbook island picker (B): small painted stamp for Driftwood Cove (grey = locked, done in CSS)",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "stamp.wreck_reef": {
     "path": "art/stamps/wreck_reef.webp",
@@ -1718,8 +1698,7 @@
     "alpha": true,
     "usedBy": "ui logbook island picker (B): small painted stamp for Wreck Reef (grey = locked, done in CSS)",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "stamp.mossback_bayou": {
     "path": "art/stamps/mossback_bayou.webp",
@@ -1730,8 +1709,7 @@
     "alpha": true,
     "usedBy": "ui logbook island picker (B): small painted stamp for Mossback Bayou (grey = locked, done in CSS)",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "stamp.frostfang_fjord": {
     "path": "art/stamps/frostfang_fjord.webp",
@@ -1742,8 +1720,7 @@
     "alpha": true,
     "usedBy": "ui logbook island picker (B): small painted stamp for Frostfang Fjord (grey = locked, done in CSS)",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "stamp.ember_caldera": {
     "path": "art/stamps/ember_caldera.webp",
@@ -1754,8 +1731,7 @@
     "alpha": true,
     "usedBy": "ui logbook island picker (B): small painted stamp for Ember Caldera (grey = locked, done in CSS)",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "stamp.stormspire_isles": {
     "path": "art/stamps/stormspire_isles.webp",
@@ -1766,8 +1742,7 @@
     "alpha": true,
     "usedBy": "ui logbook island picker (B): small painted stamp for Stormspire Isles (grey = locked, done in CSS)",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "stamp.sunken_temple": {
     "path": "art/stamps/sunken_temple.webp",
@@ -1778,8 +1753,7 @@
     "alpha": true,
     "usedBy": "ui logbook island picker (B): small painted stamp for Sunken Temple (grey = locked, done in CSS)",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "stamp.the_abyss": {
     "path": "art/stamps/the_abyss.webp",
@@ -1790,8 +1764,7 @@
     "alpha": true,
     "usedBy": "ui logbook island picker (B): small painted stamp for The Abyss (grey = locked, done in CSS)",
     "concept": null,
-    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0)"
   },
   "plate.primary": {
     "path": "art/ui/plate_primary.webp",

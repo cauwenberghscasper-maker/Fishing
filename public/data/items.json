@@ -1,5 +1,5 @@
 {
-  "_notes": "Gear by slot, in upgrade order. Stats are absolute values; the UI shows the difference to what is equipped. cost 0 = starter, owned from the start. Baits are permanent supplies (buy once, equip any time). model = Agent G's gear manifest key <slot>.<itemId>. Lines have no model: material is how Agent A draws the line rope (colour, thickness in mm, glow 0..1).",
+  "_notes": "Gear by slot, in upgrade order. Stats are absolute values; the UI shows before -> after. cost 0 = starter, owned from the start. model = Agent G's gear manifest key <slot>.<itemId>. Lines have no model: material is how Agent A draws the line. 4.7b: rods have rating (kg the rod handles) and durability (strain points before it breaks; starter never breaks); lines have strength (kg) and wear (wear per hard fight, 0..1, re-spool at the shop); baits and lures are stacks (stack = how many come per purchase; breadcrust is free and unlimited); hooks, sinkers, floats and leaders are terminal tackle (lost on a snap unless the tackle box saves it); tools are owned, never equipped, always active.",
   "rods": {
     "splitcane": {
       "name": "Grandpa's Splitcane",
@@ -9,8 +9,11 @@
       "stats": {
         "castDistance": 14,
         "steadiness": 0.3,
-        "rodPower": 1.0
-      }
+        "rodPower": 1.0,
+        "rating": 3
+      },
+      "durability": null,
+      "unbreakable": true
     },
     "driftwood_whip": {
       "name": "Driftwood Whip",
@@ -20,8 +23,10 @@
       "stats": {
         "castDistance": 18,
         "steadiness": 0.4,
-        "rodPower": 1.15
-      }
+        "rodPower": 1.15,
+        "rating": 5
+      },
+      "durability": 40
     },
     "greenheart": {
       "name": "Harbourmaster's Greenheart",
@@ -31,8 +36,10 @@
       "stats": {
         "castDistance": 22,
         "steadiness": 0.5,
-        "rodPower": 1.35
-      }
+        "rodPower": 1.35,
+        "rating": 9
+      },
+      "durability": 60
     },
     "whalebone_arc": {
       "name": "Whalebone Arc",
@@ -42,8 +49,10 @@
       "stats": {
         "castDistance": 27,
         "steadiness": 0.62,
-        "rodPower": 1.6
-      }
+        "rodPower": 1.6,
+        "rating": 16
+      },
+      "durability": 90
     },
     "tidecaster": {
       "name": "Brass-Ferrule Tidecaster",
@@ -53,8 +62,10 @@
       "stats": {
         "castDistance": 32,
         "steadiness": 0.74,
-        "rodPower": 1.9
-      }
+        "rodPower": 1.9,
+        "rating": 30
+      },
+      "durability": 140
     },
     "lighthouse_spar": {
       "name": "Lighthouse Spar",
@@ -64,8 +75,10 @@
       "stats": {
         "castDistance": 38,
         "steadiness": 0.86,
-        "rodPower": 2.3
-      }
+        "rodPower": 2.3,
+        "rating": 60
+      },
+      "durability": 220
     }
   },
   "reels": {
@@ -126,8 +139,11 @@
         "glow": 0
       },
       "stats": {
-        "lineStrength": 1.0
-      }
+        "lineStrength": 1.0,
+        "strength": 2.5
+      },
+      "wear": 0.12,
+      "respool": 5
     },
     "tarred_hemp": {
       "name": "Tarred Hemp",
@@ -139,8 +155,11 @@
         "glow": 0
       },
       "stats": {
-        "lineStrength": 1.2
-      }
+        "lineStrength": 1.2,
+        "strength": 4
+      },
+      "wear": 0.1,
+      "respool": 21
     },
     "gutstring": {
       "name": "Gutstring Twist",
@@ -152,8 +171,11 @@
         "glow": 0
       },
       "stats": {
-        "lineStrength": 1.45
-      }
+        "lineStrength": 1.45,
+        "strength": 7
+      },
+      "wear": 0.08,
+      "respool": 180
     },
     "silkweed_braid": {
       "name": "Silkweed Braid",
@@ -165,8 +187,11 @@
         "glow": 0.25
       },
       "stats": {
-        "lineStrength": 1.75
-      }
+        "lineStrength": 1.75,
+        "strength": 12
+      },
+      "wear": 0.06,
+      "respool": 900
     },
     "keepers_wire": {
       "name": "Lighthouse Keeper's Wire",
@@ -178,8 +203,11 @@
         "glow": 0.6
       },
       "stats": {
-        "lineStrength": 2.1
-      }
+        "lineStrength": 2.1,
+        "strength": 25
+      },
+      "wear": 0.04,
+      "respool": 3600
     }
   },
   "baits": {
@@ -190,7 +218,8 @@
       "model": "bait.breadcrust",
       "stats": {
         "attraction": 1.0
-      }
+      },
+      "unlimited": true
     },
     "sandworms": {
       "name": "Low-Tide Sandworms",
@@ -199,7 +228,8 @@
       "model": "bait.sandworms",
       "stats": {
         "attraction": 1.1
-      }
+      },
+      "stack": 10
     },
     "glass_shrimp": {
       "name": "Glass Shrimp",
@@ -208,7 +238,8 @@
       "model": "bait.glass_shrimp",
       "stats": {
         "attraction": 1.25
-      }
+      },
+      "stack": 10
     },
     "tar_leech": {
       "name": "Tar Leech",
@@ -217,7 +248,8 @@
       "model": "bait.tar_leech",
       "stats": {
         "attraction": 1.4
-      }
+      },
+      "stack": 5
     },
     "dusk_krill": {
       "name": "Dusk Krill",
@@ -226,6 +258,258 @@
       "model": "bait.dusk_krill",
       "stats": {
         "attraction": 1.55
+      },
+      "stack": 5
+    }
+  },
+  "hooks": {
+    "bent_pin": {
+      "name": "Bent Pin",
+      "flavour": "Straightened twice, bent once more. It holds, mostly.",
+      "cost": 0,
+      "model": "hook.bent_pin",
+      "stats": {
+        "hookHold": 1.0,
+        "biteWindow": 1.0
+      }
+    },
+    "tinned_j": {
+      "name": "Tinned J-Hook",
+      "flavour": "Bright tin over cheap iron. The fish don't know.",
+      "cost": 60,
+      "model": "hook.tinned_j",
+      "stats": {
+        "hookHold": 1.2,
+        "biteWindow": 1.05
+      }
+    },
+    "circle_hook": {
+      "name": "Fisherman's Circle",
+      "flavour": "Curls back on itself, so the fish hooks itself.",
+      "cost": 450,
+      "model": "hook.circle_hook",
+      "stats": {
+        "hookHold": 1.45,
+        "biteWindow": 1.15
+      }
+    },
+    "barbed_bronze": {
+      "name": "Barbed Bronze",
+      "flavour": "Cast from a ship's bell. Once in, it stays in.",
+      "cost": 2800,
+      "model": "hook.barbed_bronze",
+      "stats": {
+        "hookHold": 1.8,
+        "biteWindow": 1.2
+      }
+    }
+  },
+  "sinkers": {
+    "pebble_sinker": {
+      "name": "Beach Pebble",
+      "flavour": "Tied on with a clove hitch. Sinks, eventually.",
+      "cost": 0,
+      "model": "sinker.pebble_sinker",
+      "stats": {
+        "depthReach": 3
+      }
+    },
+    "split_shot": {
+      "name": "Split Shot",
+      "flavour": "Lead pellets pinched onto the line with your teeth.",
+      "cost": 80,
+      "model": "sinker.split_shot",
+      "stats": {
+        "depthReach": 6
+      }
+    },
+    "bell_lead": {
+      "name": "Bell Lead",
+      "flavour": "Rings faintly on the rocks on the way down.",
+      "cost": 650,
+      "model": "sinker.bell_lead",
+      "stats": {
+        "depthReach": 12
+      }
+    },
+    "cannon_shot": {
+      "name": "Cannon Shot",
+      "flavour": "Fired from the Marigold once. Now it fishes.",
+      "cost": 3600,
+      "model": "sinker.cannon_shot",
+      "stats": {
+        "depthReach": 20
+      }
+    }
+  },
+  "floats": {
+    "cork_float": {
+      "name": "Wine Cork",
+      "flavour": "From a bottle someone was very glad to finish.",
+      "cost": 0,
+      "model": "float.cork_float",
+      "stats": {
+        "biteWindow": 1.0
+      }
+    },
+    "gull_quill": {
+      "name": "Gull Quill",
+      "flavour": "Twitches at the softest nibble.",
+      "cost": 120,
+      "model": "float.gull_quill",
+      "stats": {
+        "biteWindow": 1.15
+      }
+    },
+    "glass_ball": {
+      "name": "Glass Ball Float",
+      "flavour": "An old net float. It glows a little when something bites.",
+      "cost": 1500,
+      "model": "float.glass_ball",
+      "stats": {
+        "biteWindow": 1.3
+      }
+    }
+  },
+  "leaders": {
+    "gut_leader": {
+      "name": "Gut Leader",
+      "flavour": "A short tough length between the line and the hook.",
+      "cost": 150,
+      "model": "leader.gut_leader",
+      "stats": {
+        "leader": 6
+      }
+    },
+    "copper_wire": {
+      "name": "Copper Wire Leader",
+      "flavour": "Teeth slide right off it.",
+      "cost": 1100,
+      "model": "leader.copper_wire",
+      "stats": {
+        "leader": 15
+      }
+    },
+    "silkweed_leader": {
+      "name": "Silkweed Leader",
+      "flavour": "Invisible in the water, unbreakable in the hand.",
+      "cost": 5200,
+      "model": "leader.silkweed_leader",
+      "stats": {
+        "leader": 35
+      }
+    }
+  },
+  "lures": {
+    "tin_spoon": {
+      "name": "Tin Spoon",
+      "flavour": "A spoon with the handle sawn off. Flashes like a sardine.",
+      "cost": 40,
+      "model": "lure.tin_spoon",
+      "stack": 3,
+      "targets": [
+        "glasswing_sardine",
+        "driftback"
+      ],
+      "stats": {
+        "lure": 1.15
+      }
+    },
+    "feather_jig": {
+      "name": "Gull Feather Jig",
+      "flavour": "Hops along the bottom like something wounded.",
+      "cost": 150,
+      "model": "lure.feather_jig",
+      "stack": 3,
+      "targets": [
+        "compass_flounder",
+        "shellback_blenny"
+      ],
+      "stats": {
+        "lure": 1.25
+      }
+    },
+    "glass_minnow": {
+      "name": "Glass Minnow",
+      "flavour": "Blown glass, with a bubble for an eye.",
+      "cost": 700,
+      "model": "lure.glass_minnow",
+      "stack": 3,
+      "targets": [
+        "seaglass_puffer",
+        "kelp_wraith"
+      ],
+      "stats": {
+        "lure": 1.4
+      }
+    },
+    "ember_plug": {
+      "name": "Ember Plug",
+      "flavour": "Warm to the touch. Hot-water fish go mad for it.",
+      "cost": 3000,
+      "model": "lure.ember_plug",
+      "stack": 2,
+      "targets": [],
+      "stats": {
+        "lure": 1.55
+      }
+    },
+    "rune_spinner": {
+      "name": "Rune Spinner",
+      "flavour": "Its blade is carved with a glyph that hums underwater.",
+      "cost": 9000,
+      "model": "lure.rune_spinner",
+      "stack": 2,
+      "targets": [],
+      "stats": {
+        "lure": 1.7
+      }
+    }
+  },
+  "tools": {
+    "landing_net": {
+      "name": "Landing Net",
+      "flavour": "For the last metre, where most fish are lost.",
+      "cost": 250,
+      "model": "tool.landing_net",
+      "stats": {
+        "net": 1
+      }
+    },
+    "gaff": {
+      "name": "Gaff",
+      "flavour": "A hook on a pole, for the ones too big for the net.",
+      "cost": 1800,
+      "model": "tool.gaff",
+      "stats": {
+        "gaff": 1
+      }
+    },
+    "polarized_glasses": {
+      "name": "Polarized Glasses",
+      "flavour": "Cuts the glare. You see shadows under the surface.",
+      "cost": 900,
+      "model": "tool.polarized_glasses",
+      "stats": {
+        "glasses": 1
+      }
+    },
+    "tackle_box": {
+      "name": "Tackle Box",
+      "flavour": "Spare hooks and sinkers, so a snap costs you less.",
+      "cost": 600,
+      "model": "tool.tackle_box",
+      "stats": {
+        "tackleBox": 1
+      }
+    },
+    "bait_bucket": {
+      "name": "Bait Bucket",
+      "flavour": "Keeps bait lively. Every stack lasts longer.",
+      "cost": 400,
+      "model": "tool.bait_bucket",
+      "stats": {
+        "baitBucket": 1
       }
     }
   }

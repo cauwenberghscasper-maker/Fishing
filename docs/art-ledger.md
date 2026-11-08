@@ -184,3 +184,11 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 8 Nov 14:46 | E | Qwen-Image-Fast | backdrop.abyss r1, seed 1966593717 (fallback: paper frame cropped; jellyfish in the bottom) | ~4 |
 | 8 Nov 14:47 | E | Qwen-Image-Fast | backdrop.tide, seed 1437976810 (kept; surfer inpainted out) | ~4 |
 | 8 Nov 14:47 | E | Qwen-Image-Fast | backdrop.rust r1, seed 660596748 (rejected: giant anchor fills the hero-pose area) | ~4 |
+| 8 Nov 14:48 | E | Qwen-Image-Fast | backdrop.rust r2, seed 1266246416 (kept; chains on the edges, anchor sits low-centre: a redo candidate) | ~4 |
+| 8 Nov 14:48 | E | Qwen-Image-Fast | backdrop.abyss r2, seed 1986773417 (kept; eye wall at the top, jellyfish low) | ~4 |
+| 8 Nov 14:48 | E | Qwen-Image-Fast | coin sprite, seed 1614907958 (kept; signature squiggle cropped) | ~4 |
+| 8 Nov 14:49 | E | Qwen-Image-Fast | steam_plume, seed 1694878809 (kept) | ~4 |
+| 8 Nov 14:49 | E | Qwen-Image-Fast | splash_seq 2x2 flipbook, seed 469987291 (kept; sliced) | ~4 |
+
+**Agent E 8 Nov total: 24 Fast calls ≈ 96 s GPU of the 150 s (wall-clock ~20 s each because of queueing).**
+| 8 Nov 14:52 | C | Qwen-Image | 3 heroes parallel: old_mooring breach (kept, seed 1034261118), storm_marlin tail-walk (kept, seed 995583775; open mouth + teeth inpainted closed), temple_manta breach (kept, seed 1307202387; stray fishing line erased) | 59 total (measured wall) |

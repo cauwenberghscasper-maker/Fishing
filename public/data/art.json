@@ -1226,5 +1226,341 @@
   "concept": null,
   "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
   "planned": true
+ },
+ "icon.tab.sell": {
+  "path": "art/icons/tab_sell.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'sell' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.gear": {
+  "path": "art/icons/tab_gear.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'gear' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.tackle": {
+  "path": "art/icons/tab_tackle.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'tackle' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.bait": {
+  "path": "art/icons/tab_bait.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'bait' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.build": {
+  "path": "art/icons/tab_build.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'build' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.rods": {
+  "path": "art/icons/tab_rods.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'rods' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.reels": {
+  "path": "art/icons/tab_reels.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'reels' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.lines": {
+  "path": "art/icons/tab_lines.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'lines' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.hooks": {
+  "path": "art/icons/tab_hooks.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'hooks' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.sinkers": {
+  "path": "art/icons/tab_sinkers.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'sinkers' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.floats": {
+  "path": "art/icons/tab_floats.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'floats' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.leaders": {
+  "path": "art/icons/tab_leaders.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'leaders' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.lures": {
+  "path": "art/icons/tab_lures.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'lures' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.tools": {
+  "path": "art/icons/tab_tools.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'tools' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.buildings": {
+  "path": "art/icons/tab_buildings.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'buildings' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.land": {
+  "path": "art/icons/tab_land.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'land' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.piers": {
+  "path": "art/icons/tab_piers.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'piers' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "icon.tab.boats": {
+  "path": "art/icons/tab_boats.webp",
+  "size": [
+   192,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Tabs (B, UI_BIBLE): painted icon for the 'boats' tab, ~64 px on screen",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "stamp.driftwood_cove": {
+  "path": "art/stamps/driftwood_cove.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui logbook island picker (B): small painted stamp for Driftwood Cove (grey = locked, done in CSS)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "stamp.wreck_reef": {
+  "path": "art/stamps/wreck_reef.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui logbook island picker (B): small painted stamp for Wreck Reef (grey = locked, done in CSS)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "stamp.mossback_bayou": {
+  "path": "art/stamps/mossback_bayou.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui logbook island picker (B): small painted stamp for Mossback Bayou (grey = locked, done in CSS)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "stamp.frostfang_fjord": {
+  "path": "art/stamps/frostfang_fjord.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui logbook island picker (B): small painted stamp for Frostfang Fjord (grey = locked, done in CSS)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "stamp.ember_caldera": {
+  "path": "art/stamps/ember_caldera.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui logbook island picker (B): small painted stamp for Ember Caldera (grey = locked, done in CSS)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "stamp.stormspire_isles": {
+  "path": "art/stamps/stormspire_isles.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui logbook island picker (B): small painted stamp for Stormspire Isles (grey = locked, done in CSS)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "stamp.sunken_temple": {
+  "path": "art/stamps/sunken_temple.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui logbook island picker (B): small painted stamp for Sunken Temple (grey = locked, done in CSS)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "stamp.the_abyss": {
+  "path": "art/stamps/the_abyss.webp",
+  "size": [
+   256,
+   256
+  ],
+  "alpha": true,
+  "usedBy": "ui logbook island picker (B): small painted stamp for The Abyss (grey = locked, done in CSS)",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "plate.primary": {
+  "path": "art/ui/plate_primary.webp",
+  "size": [
+   768,
+   192
+  ],
+  "alpha": true,
+  "usedBy": "ui Plate (B): brass-on-wood plate behind primary actions, text set by B",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
+ },
+ "sign.small": {
+  "path": "art/ui/sign_small.webp",
+  "size": [
+   768,
+   160
+  ],
+  "alpha": true,
+  "usedBy": "ui Sign (B): small carved driftwood title sign, text set by B",
+  "concept": null,
+  "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)",
+  "planned": true
  }
 }

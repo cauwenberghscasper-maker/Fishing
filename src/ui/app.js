@@ -2,6 +2,7 @@
 import './theme.css';
 import './ui.css';
 import './places.css';
+import './kit.css';
 import { h, ico, fmt, fmtKg, money, artImg } from './dom.js';
 import { economy } from '../economy/index.js';
 import { artPath } from '../economy/data.js';

@@ -17,6 +17,8 @@ import { createFishShadows } from '../fishing/fishShadows.js';
 import { createFishSystem } from '../fishing/fishAgents.js';
 import { createFishing } from '../fishing/index.js';
 import { createAnglerRig } from '../fishing/anglerRig.js';
+import { createWorkers } from './workers.js';
+import { createPlacement } from './placement.js';
 import { audio } from '../core/audio.js';
 
 const ISLANDS = { driftwood_cove: driftwoodCove };
@@ -76,6 +78,12 @@ export async function startWorld({ canvas, state, events }) {
   events.on('gear:changed', () => { fishing.loadGear(state.profile?.gear?.rod); });
 
   const quality = createQuality({ pipeline });
+  const placement = createPlacement({ state, events, island, player, cameraRig, input, hud: fishing.hud, surface, under, fishing });
+  events.on('build:start', (job) => {
+    // Only from explore: never yank the player out of a cast or a fight.
+    if (state.world.mode === 'explore' || state.world.mode === 'menu') placement.start(job);
+    else events.emit('build:placing', { id: job?.id });
+  });
 
   // Time of day: golden afternoon by default; ?hour=21 to start elsewhere.
   const startHour = Number(new URLSearchParams(location.search).get('hour'));
@@ -124,9 +132,13 @@ export async function startWorld({ canvas, state, events }) {
     get player() { return player.root; },
     get lure() { return fishing.lure.pos; },
     get rodTip() { return fishing.rod.tipWorld(new THREE.Vector3()); },
+    camera,
     // Rod + line + bobber for remote anglers (Agent H) or NPCs.
     createAnglerRig: (opts = {}) => createAnglerRig({ under, surface, surfaceY: (x, z) => water.surfaceY(x, z), ...opts }),
   };
+
+  const workers = createWorkers({ island, state, events, under, render: state.render });
+  workers.sync();
 
   // Co-op hooks (Agent H). Solo play never calls these; defaults keep the host behaviour.
   state.world.fish = {
@@ -154,6 +166,8 @@ export async function startWorld({ canvas, state, events }) {
       player.update(dt, realDt);
       fishSystem.update(dt, time);
       fishing.update(dt, realDt);
+      workers.update(dt);
+      placement.update(realDt);
       island.update(dt, time);
       dust.update(dt);
       island.terrain.uniforms.uTime.value = time;
@@ -229,6 +243,8 @@ export async function startWorld({ canvas, state, events }) {
     releaseAim: () => fishing.debugReleaseAim(),
     timeScale: (s) => loop.setTimeScale(s, 50),
     get mode() { return state.world.mode; },
+    placement,
+    workers,
   };
   events.on('game:ready', () => {
     queueMicrotask(() => {

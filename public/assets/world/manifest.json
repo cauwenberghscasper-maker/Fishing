@@ -555,7 +555,7 @@
     "concept": "art/concepts/world/driftwood_cove_key.webp",
     "category": "nature",
     "placement": "ground",
-    "note": "scatter freely, rotate/scale ±20%",
+    "note": "scatter freely, rotate/scale \u00b120%",
     "preview": "assets/world/rock_s/preview.webp",
     "collider": null
   },
@@ -778,7 +778,7 @@
       "w": 3.07,
       "d": 3.23,
       "rot": -0.017,
-      "x": 0,
+      "x": -0.0,
       "z": -0.01
     }
   },
@@ -815,8 +815,8 @@
       "w": 2.07,
       "d": 2.56,
       "rot": 1.574,
-      "x": 0,
-      "z": 0
+      "x": 0.0,
+      "z": -0.0
     }
   },
   "bush_seagrape": {
@@ -1034,8 +1034,8 @@
       "type": "box",
       "w": 3.9,
       "d": 4.73,
-      "rot": 0,
-      "x": 0,
+      "rot": -0.0,
+      "x": 0.0,
       "z": -0.14
     }
   },
@@ -1857,7 +1857,7 @@
       "type": "box",
       "w": 3.14,
       "d": 3.4,
-      "rot": 0,
+      "rot": -0.0,
       "x": -0.01,
       "z": 0.13
     }
@@ -1889,7 +1889,7 @@
     "concept": "art/concepts/world/plot_palm_spit.webp",
     "category": "prop",
     "placement": "ground",
-    "note": "hang between two palms ~3.4 m apart; ends at x=±1.7, y=1.45",
+    "note": "hang between two palms ~3.4 m apart; ends at x=\u00b11.7, y=1.45",
     "preview": "assets/world/hammock/preview.webp",
     "collider": null
   },
@@ -3049,7 +3049,7 @@
         "d": 2.05,
         "rot": 1.974,
         "x": 5.4,
-        "z": 2,
+        "z": 2.0,
         "from": "columns_steps"
       }
     ]
@@ -3477,8 +3477,8 @@
       "type": "box",
       "w": 4.27,
       "d": 2.8,
-      "rot": 0,
-      "x": 0,
+      "rot": -0.0,
+      "x": 0.0,
       "z": -0.01
     },
     "footprint": {
@@ -3818,7 +3818,7 @@
       "type": "box",
       "w": 3.42,
       "d": 2.32,
-      "rot": 0,
+      "rot": -0.0,
       "x": -0.06,
       "z": -0.13
     },
@@ -3908,7 +3908,7 @@
       "w": 3.78,
       "d": 1.08,
       "rot": 3.005,
-      "x": 0,
+      "x": 0.0,
       "z": -0.03
     },
     "footprint": {
@@ -3951,9 +3951,9 @@
       "type": "box",
       "w": 3.86,
       "d": 2.36,
-      "rot": 0,
+      "rot": -0.0,
       "x": -0.04,
-      "z": 0
+      "z": 0.0
     },
     "footprint": {
       "w": 3.86,
@@ -4040,7 +4040,7 @@
       "w": 3.57,
       "d": 1.79,
       "rot": 0.001,
-      "x": 0,
+      "x": -0.0,
       "z": 0.41
     },
     "footprint": {
@@ -4079,7 +4079,19 @@
     "story": "Level 3, the bunkhouse: a long hall roofed with the two halves of a sawn-up fishing boat, lit bunk portholes, a ship's bell on a gallows to call the shift, a hire board with pinned notes",
     "building": "workers_hut",
     "level": 3,
-    "preview": "assets/world/workers_hut_l3/preview.webp"
+    "preview": "assets/world/workers_hut_l3/preview.webp",
+    "collider": {
+      "type": "box",
+      "w": 6.36,
+      "d": 4.32,
+      "rot": -0.0,
+      "x": 0.11,
+      "z": -0.01
+    },
+    "footprint": {
+      "w": 6.7,
+      "d": 4.78
+    }
   },
   "shop_l2": {
     "path": "assets/world/shop_hullhouse/model.glb",
@@ -4167,8 +4179,8 @@
       "type": "box",
       "w": 3.9,
       "d": 4.73,
-      "rot": 0,
-      "x": 0,
+      "rot": -0.0,
+      "x": 0.0,
       "z": -0.14
     },
     "alias_of": "workers_hut",

@@ -219,3 +219,4 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 19:39 | F | Qwen-Image | 9 backdrops: catch_driftwood_cove, shop_l1–l3, cooler_l1–l3, harbour, logbook (seeds 6209–6226), all kept | 150 (9 calls) |
 | 8 Nov 19:45 | C | Qwen-Image-Fast ×3 | portraits: glasswing_sardine, driftback, compass_flounder (kept; fake handwriting/letters painted out) | 70 total (measured wall) |
 | 8 Nov 19:46 | C | Qwen-Image-Fast ×3 | portraits: shellback_blenny, kelp_wraith (binder holes painted out), seaglass_puffer (two-state study; scribble painted out) | 31 total (measured wall) |
+| 8 Nov 19:47 | C | Qwen-Image-Fast ×3 | portraits: old_mooring, storm_marlin (teeth inpainted), temple_manta (kept) | 10 total (measured wall) |

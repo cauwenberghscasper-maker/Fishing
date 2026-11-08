@@ -16,7 +16,7 @@ export function Place({ id, art = null, sign, onClose, label }) {
   const drawerHost = h('div.place__drawer-host');
   const root = h(`section.place.place--${id}`, { role: 'dialog', 'aria-modal': 'true', 'aria-label': label ?? sign },
     bg,
-    h('header.place__top', Sign(sign), h('button.place__close', { 'aria-label': 'Close', on: { click: onClose } }, ico('close'))),
+    h('header.place__top', Sign(sign), h('button.btn.btn--round.place__close', { 'aria-label': 'Close', on: { click: onClose } }, ico('close'))),
     body,
     drawerHost);
   return { root, body, drawerHost, setSign: (text) => { root.querySelector('.sign span').textContent = text; } };
@@ -89,6 +89,7 @@ export function Drawer(host) {
     setTimeout(() => d.remove(), 220);
   }
   function open(...content) {
+    if (el && !el.classList.contains('is-leaving')) { fill(el.querySelector('.drawer__content'), ...content); return el; }
     if (el) el.remove();
     const tray = h('div.drawer__tray', { role: 'dialog', 'aria-modal': 'false' }, h('span.drawer__handle', { 'aria-hidden': 'true' }), h('div.drawer__content', content));
     el = h('div.drawer', { on: { click: (e) => { if (e.target === el) close(); } } }, tray);
@@ -100,6 +101,21 @@ export function Drawer(host) {
     return el;
   }
   return { open, close, get isOpen() { return !!el; }, refill: (...content) => { if (el) fill(el.querySelector('.drawer__content'), ...content); } };
+}
+
+/**
+ * Re-render gate for places: coins tick every second with a crew, but a screen only needs to redraw when what it
+ * shows changed. `sig` = a string of the parts it shows; prices = every price on it (affordability flips redraw).
+ */
+export function changeGate() {
+  let last = null;
+  return (sig, coins, prices = []) => {
+    const afford = prices.filter((c) => c <= coins).length;
+    const key = `${sig}|${afford}`;
+    if (key === last) return false;
+    last = key;
+    return true;
+  };
 }
 
 /** Before → after stat line for the drawer. */

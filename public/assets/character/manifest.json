@@ -108,7 +108,13 @@
     },
     "missing_clips": [],
     "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
-    "preview": "assets/character/fisher_player/preview.webp"
+    "preview": "assets/character/fisher_player/preview.webp",
+    "collider": {
+      "type": "circle",
+      "r": 0.35,
+      "x": 0,
+      "z": 0
+    }
   },
   "worker_netmender": {
     "path": "assets/character/worker_netmender/model.glb",
@@ -182,7 +188,14 @@
     },
     "missing_clips": [],
     "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
-    "preview": "assets/character/worker_netmender/preview.webp"
+    "preview": "assets/character/worker_netmender/preview.webp",
+    "collider": {
+      "type": "circle",
+      "r": 0.35,
+      "x": 0,
+      "z": 0
+    },
+    "role": "hired worker fisher (spawn one per hire); same rig as the player, rod on bone handslot.r; clips idle, walk, fish_idle, cast_windup, cast_release, reel_loop, celebrate, interact, sit_idle"
   },
   "worker_deckhand": {
     "path": "assets/character/worker_deckhand/model.glb",
@@ -256,7 +269,14 @@
     },
     "missing_clips": [],
     "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
-    "preview": "assets/character/worker_deckhand/preview.webp"
+    "preview": "assets/character/worker_deckhand/preview.webp",
+    "collider": {
+      "type": "circle",
+      "r": 0.35,
+      "x": 0,
+      "z": 0
+    },
+    "role": "hired worker fisher (spawn one per hire); same rig as the player, rod on bone handslot.r; clips idle, walk, fish_idle, cast_windup, cast_release, reel_loop, celebrate, interact, sit_idle"
   },
   "worker_angler": {
     "path": "assets/character/worker_angler/model.glb",
@@ -331,7 +351,14 @@
     },
     "missing_clips": [],
     "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
-    "preview": "assets/character/worker_angler/preview.webp"
+    "preview": "assets/character/worker_angler/preview.webp",
+    "collider": {
+      "type": "circle",
+      "r": 0.35,
+      "x": 0,
+      "z": 0
+    },
+    "role": "hired worker fisher (spawn one per hire); same rig as the player, rod on bone handslot.r; clips idle, walk, fish_idle, cast_windup, cast_release, reel_loop, celebrate, interact, sit_idle"
   },
   "worker_boatwright": {
     "path": "assets/character/worker_boatwright/model.glb",
@@ -359,7 +386,7 @@
     "source": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0",
     "base_mesh": "Knight",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/concepts/world/workers_lineup.webp",
     "story": "Marta, the boat-wright: navy pea coat, rust-red scarf, red oilskin sou'wester, a rope over the shoulder",
     "height_m": 1.8,
     "clips": {
@@ -405,6 +432,15 @@
       "offhand": "bone handslot.l"
     },
     "missing_clips": [],
-    "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)"
+    "rig": "KayKit Adventurers rig (41 bones, shared by all characters here: clips can be shared between them)",
+    "preview": "assets/character/worker_boatwright/preview.webp",
+    "collider": {
+      "type": "circle",
+      "r": 0.35,
+      "x": 0,
+      "z": 0
+    },
+    "role": "hired worker fisher (spawn one per hire); same rig as the player, rod on bone handslot.r; clips idle, walk, fish_idle, cast_windup, cast_release, reel_loop, celebrate, interact, sit_idle",
+    "concept_note": "built after the line-up concept; same palette rules"
   }
 }

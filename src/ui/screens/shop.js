@@ -6,7 +6,7 @@ import { h, ico, fmt, fmtKg, money, fill, artImg, inkOn, plural, fmtDuration } f
 import { fishPose, artPath } from '../../economy/data.js';
 import { BUILDINGS, sizeClassById, fullName, slotInfo } from '../../economy/rules.js';
 import { attachGearPreview, detachAllGearPreviews, gearManifestReady, hasGearModel } from '../gear-preview.js';
-import { Place, Tabs, Tile, TileGrid, Drawer, Plate, StatRow } from '../kit.js';
+import { Place, Tabs, Tile, TileGrid, Drawer, Plate, StatRow, changeGate } from '../kit.js';
 import { isVisitor, hostName } from '../net.js';
 
 const SECTIONS = [
@@ -109,12 +109,25 @@ export function shopSheet(ctx, { tab = 'sell', focus = null } = {}) {
   }
   function setDrawer(fn) { drawerFor = fn; fn(); }
 
+  // every price the shop can show, so a redraw happens exactly when something becomes affordable
+  const prices = [
+    ...Object.values(state.data.items ?? {}).flatMap((g) => (typeof g === 'object' ? Object.values(g).map((i) => i?.cost).filter(Number.isFinite) : [])),
+    ...Object.values(state.data.economy?.buildings ?? {}).flatMap((b) => (b?.levels ?? []).map((l) => l.cost)),
+    ...['plots', 'piers', 'boats'].flatMap((k) => Object.values(state.data.economy?.[k] ?? {}).map((x) => x?.cost).filter(Number.isFinite)),
+    ...(state.data.economy?.offline?.watch ?? []).map((w) => w.cost),
+  ];
+  const gate = changeGate();
+  const sig = () => {
+    const p = state.profile;
+    return JSON.stringify([section, subOf, p.cooler.map((c) => c.id), p.gear, p.owned, p.stacks, p.condition, p.island, p.workers.length, p.watch, economy.hotFish(), economy.hireCost(), Object.entries(p.market?.saturation ?? {}).map(([k, v]) => k + Math.round(v))]);
+  };
+  gate(sig(), state.profile.coins, prices);
   render();
   return {
     id: 'shop',
     el: place.root,
     layerClass: 'is-place',
-    refresh: render,
+    refresh: () => { if (gate(sig(), state.profile.coins, prices)) render(); },
     onClose: () => detachAllGearPreviews(),
     dismiss: () => { if (drawer.isOpen) drawer.close(); else ui.close(); },
   };

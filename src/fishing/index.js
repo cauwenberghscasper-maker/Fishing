@@ -645,6 +645,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     get mode() { return mode; },
     get fight() { return fight; },
     get lure() { return lure; },
+    refresh() { refreshButton(); },
     get fightFishUid() { return fightFish ? fightFish.uid : null; },
     // Co-op: a friend helps land the fish (net:help) — drains stamina on the fighter's side.
     helpFromFriend() {

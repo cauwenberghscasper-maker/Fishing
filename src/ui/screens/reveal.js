@@ -71,6 +71,7 @@ export function catchReveal(ctx, info) {
     hero.append(img);
   } else {
     hero.classList.add('is-name-only');
+    hero.append(ico('fish'));   // an ink silhouette in the variant's glow until Agent C's painting exists
   }
 
   // ---- ribbons (Agent F's ribbon.new / ribbon.record paintings when they exist, cloth ribbons otherwise)

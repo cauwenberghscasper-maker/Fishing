@@ -178,3 +178,9 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 8 Nov 14:44 | E | Qwen-Image-Fast | backdrop.frost 9:16, seed 233954903 (kept; small fish inpainted out) | ~4 |
 | 8 Nov 14:44 | E | Qwen-Image-Fast | backdrop.ember r1, seed 1216421437 (rejected: cartoon fuse bombs + a fish) | ~4 |
 | 8 Nov 14:45 | E | Qwen-Image-Fast | backdrop.bloom 9:16, seed 1245496282 (kept; frog inpainted out) | ~4 |
+| 8 Nov 14:50 | C | Qwen-Image | 3 heroes parallel: seaglass_puffer (kept, seed 1333408437, lips inpainted closed), shellback_blenny (kept, seed 1015651812, lips inpainted; crest drawn as branching coral), kelp_wraith (kept for now, seed 1856952743; whole belly glows instead of a bulb row → redo if quota remains) | 60 total (measured wall) |
+| 8 Nov 14:46 | E | Qwen-Image-Fast | backdrop.ember r2, seed 55200023 (kept; four tiny figures inpainted out) | ~4 |
+| 8 Nov 14:46 | E | Qwen-Image-Fast | backdrop.rune, seed 1296584244 (kept) | ~4 |
+| 8 Nov 14:46 | E | Qwen-Image-Fast | backdrop.abyss r1, seed 1966593717 (fallback: paper frame cropped; jellyfish in the bottom) | ~4 |
+| 8 Nov 14:47 | E | Qwen-Image-Fast | backdrop.tide, seed 1437976810 (kept; surfer inpainted out) | ~4 |
+| 8 Nov 14:47 | E | Qwen-Image-Fast | backdrop.rust r1, seed 660596748 (rejected: giant anchor fills the hero-pose area) | ~4 |

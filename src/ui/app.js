@@ -1,6 +1,7 @@
 // Agent B. All UI except Agent A's in-world fishing controls (#hud-fishing) and Agent H's co-op controls (#hud-net).
 import './theme.css';
 import './ui.css';
+import './places.css';
 import { h, ico, fmt, fmtKg, money, artImg } from './dom.js';
 import { economy } from '../economy/index.js';
 import { artPath } from '../economy/data.js';

@@ -88,7 +88,8 @@
     "body": "shelled",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept"
+    "status": "concept",
+    "hero": "assets/fish/shellback_blenny/hero.webp"
   },
   "kelp_wraith": {
     "path": null,
@@ -102,7 +103,8 @@
     "body": "eel",
     "tris": 0,
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Blender bpy build)",
-    "status": "concept"
+    "status": "concept",
+    "hero": "assets/fish/kelp_wraith/hero.webp"
   },
   "old_mooring": {
     "path": null,

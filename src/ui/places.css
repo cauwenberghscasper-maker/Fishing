@@ -138,6 +138,10 @@
 .ribbon--record { --cloth: #a3301f; }
 .ribbon--variant { --cloth: #9a6d22; }
 .ribbon--set { --cloth: #b8862e; }
+.ribbon--multi { --cloth: #1f6f78; }
+.ribbon--multi-3 { --cloth: #6a2a8a; }
+.ribbon--grade { --cloth: #7a5a1a; }
+.ribbon--perfect { --cloth: #c7962c; }
 .ribbon.has-art { background: var(--ribbon-art) center / 100% 100% no-repeat; clip-path: none; padding: 16px 48px; }
 @keyframes ribbon-in { from { transform: translateX(-120vw) rotate(-12deg); } }
 

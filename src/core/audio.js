@@ -82,5 +82,7 @@ export const audio = {
     // Sea-glass chime: a rising fifth and octave.
     [523.25, 783.99, 1046.5].forEach((f, i) => tone(f, 0.5, { type: 'triangle', gain: 0.09, delay: i * 0.09 }));
   },
+  lurk() { tone(82, 0.9, { type: 'sawtooth', slideTo: 62, gain: 0.07 }); tone(123, 0.7, { type: 'triangle', slideTo: 92, gain: 0.05, delay: 0.25 }); },
+  chomp() { noise(0.12, { freq: 600, q: 1.5, gain: 0.45 }); tone(140, 0.18, { type: 'square', slideTo: 60, gain: 0.1 }); noise(0.5, { freq: 1800, sweepTo: 400, gain: 0.3, delay: 0.05 }); },
   lost() { tone(330, 0.3, { type: 'triangle', slideTo: 196, gain: 0.08 }); },
 };

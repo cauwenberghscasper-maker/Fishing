@@ -16,6 +16,7 @@ export function createHud({ root }) {
     <div data-role="meters" style="position:absolute;left:calc(16px + env(safe-area-inset-left));right:calc(128px + env(safe-area-inset-right));bottom:calc(30px + env(safe-area-inset-bottom));display:none;flex-direction:column;gap:10px;pointer-events:none;">
       <div class="meter meter--tension" role="meter" aria-label="Line tension" aria-valuemin="0" aria-valuemax="100"><div class="meter__fill" style="width:0%"></div></div>
       <div class="meter meter--stamina" role="meter" aria-label="Fish stamina" aria-valuemin="0" aria-valuemax="100"><div class="meter__fill" style="width:100%"></div></div>
+      <div class="meter meter--mastery" role="meter" aria-label="Mastery: keep the line in the sweet band" aria-valuemin="0" aria-valuemax="100"><div class="meter__fill" style="width:0%"></div><span class="meter__grade" aria-live="polite"></span></div>
     </div>
     <button type="button" class="btn btn--primary btn--round" data-role="main"
       style="position:absolute;right:calc(18px + env(safe-area-inset-right));bottom:calc(22px + env(safe-area-inset-bottom));width:92px;height:92px;min-width:44px;min-height:44px;pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;">Cast</button>
@@ -30,6 +31,9 @@ export function createHud({ root }) {
   const staminaFill = meters.querySelector('.meter--stamina .meter__fill');
   const tensionMeter = meters.querySelector('.meter--tension');
   const staminaMeter = meters.querySelector('.meter--stamina');
+  const masteryMeter = meters.querySelector('.meter--mastery');
+  const masteryFill = masteryMeter.querySelector('.meter__fill');
+  const masteryGrade = masteryMeter.querySelector('.meter__grade');
   const toastEl = root.querySelector('[data-role="toast"]');
   let toastTimer = 0;
   let dpr = 1;
@@ -150,7 +154,13 @@ export function createHud({ root }) {
     },
     setMainPressed(on) { pressed = !!on; main.setAttribute('aria-pressed', on ? 'true' : 'false'); paintMain(); },
     showMeters(on) { meters.style.display = on ? 'flex' : 'none'; },
-    setMeters(tension, stamina, { danger = false } = {}) {
+    setMasteryGrade(id, name = '') {
+      if (id) masteryMeter.dataset.grade = id; else delete masteryMeter.dataset.grade;
+      masteryGrade.textContent = id ? name : '';
+    },
+    setMeters(tension, stamina, { danger = false, mastery = 0 } = {}) {
+      masteryFill.style.width = `${Math.round(mastery * 100)}%`;
+      masteryMeter.setAttribute('aria-valuenow', String(Math.round(mastery * 100)));
       tensionFill.style.width = `${Math.round(tension * 100)}%`;
       staminaFill.style.width = `${Math.round(stamina * 100)}%`;
       tensionMeter.setAttribute('aria-valuenow', String(Math.round(tension * 100)));

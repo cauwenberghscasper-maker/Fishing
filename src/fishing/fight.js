@@ -44,8 +44,8 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
     status: 'fighting',
   };
   const anchorAngle = castAngle;
-  const pullBase = (b.pull ?? 0.4) * strength;
-  const staminaPool = (b.stamina ?? 8) * (0.85 + (strength - 0.85) * 1.2);
+  let pullBase = (b.pull ?? 0.4) * strength;
+  let staminaPool = (b.stamina ?? 8) * (0.85 + (strength - 0.85) * 1.2);
 
   function startMove(id) {
     const m = MOVES[id];
@@ -153,7 +153,7 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
     const zone = THREE.MathUtils.smoothstep(s.tension, 0.16, 0.38) * (1 - THREE.MathUtils.smoothstep(s.tension, 0.86, 0.98));
     if (reeling) {
       const steerBonus = 1 + good * (m?.steerBonus ?? 1) * 0.9;
-      const dmg = (1 / staminaPool) * (0.7 + 0.45 * gear.rodPower) * zone * (m?.damage ?? 1) * steerBonus;
+      const dmg = (1 / staminaPool) * (0.7 + 0.45 * gear.rodPower) * zone * (m?.damage ?? 1) * steerBonus * (s.damageMult ?? 1);
       s.stamina -= dmg * dt;
       if (boss) { const r = boss.damage(dmg * dt); if (r.phaseChanged) hooks.phase?.(r); }
     } else {
@@ -260,6 +260,16 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
     get power() { return power; },
     get lateral() { return lateralScreenX(); },
     get boss() { return boss; },
+    // A predator got hooked on top of the fish (double/triple catch): more pull, more fight left.
+    addLoad(addStrength, behaviour, share = {}) {
+      const pull = (behaviour?.pull ?? 0.4) * addStrength * (share.pullShare ?? 0.8);
+      const pool = (behaviour?.stamina ?? 8) * (0.85 + (addStrength - 0.85) * 1.2) * (share.staminaShare ?? 1);
+      const left = s.stamina * staminaPool;
+      staminaPool += pool;
+      pullBase += pull;
+      s.stamina = Math.min(1, (left + pool) / staminaPool);
+      if (share.learnMoves !== false) for (const id of behaviour?.moves || []) if (MOVES[id] && !moveIds.includes(id)) moveIds.push(id);
+    },
   };
   return api;
 }

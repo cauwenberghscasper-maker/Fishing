@@ -30,6 +30,14 @@ export async function startWorld({ canvas, state, events }) {
     // Agent A's superpower tuning (B's loader does not read it).
     try { const r = await fetch('data/powers.json', { cache: 'no-cache' }); if (r.ok) state.data.powers = await r.json(); } catch { /* fallback table in powers.js */ }
   }
+  if (!state.data.mastery) {
+    // Agent A's perfect-fight gauge tuning.
+    try { const r = await fetch('data/mastery.json', { cache: 'no-cache' }); if (r.ok) state.data.mastery = await r.json(); } catch { /* defaults in mastery.js */ }
+  }
+  if (!state.data.predation) {
+    // Agent A's predator tuning (double/triple catches).
+    try { const r = await fetch('data/predation.json', { cache: 'no-cache' }); if (r.ok) state.data.predation = await r.json(); } catch { /* defaults in predation.js */ }
+  }
   state.world.islandId = state.world.islandId || 'driftwood_cove';
   state.world.weather = state.world.weather || 'clear';
   const layout = ISLANDS[state.world.islandId] || driftwoodCove;
@@ -237,6 +245,9 @@ export async function startWorld({ canvas, state, events }) {
     cast: (x, z, perfect = false) => fishing.debugCast(x, z, perfect),
     forceBite: (id, variant) => Boolean(fishSystem.forceBite(id, variant)),
     hook: () => fishing.debugHook(),
+    predator: () => fishing.debugPredator(),
+    mastery: (v) => fishing.debugMastery(v),
+    get onLine() { return fishing.onLine; },
     reel: (on = true, steer = 0) => fishing.debugReel(on, steer),
     finishFight: (status) => fishing.debugFinishFight(status),
     aimTo: (x, y) => fishing.debugAimFrame(x, y),

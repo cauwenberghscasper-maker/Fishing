@@ -28,6 +28,29 @@ function fbm(x, z) {
   return sum;
 }
 
+// Owned plots form a tree rooted at the sandbar: each plot (in order of distance) is linked to the
+// nearest plot already linked. A plot that already touches its neighbour gets a link hidden inside the land.
+function causewaysFor(layout, activePlots) {
+  if (!activePlots) return [];
+  const plots = layout.shapes.filter((sh) => sh.plot && activePlots.has(sh.plot));
+  const root = plots.find((sh) => sh.plot === 'sandbar') || plots[0];
+  if (!root) return [];
+  const linked = [root];
+  const rest = plots.filter((sh) => sh !== root);
+  const out = [];
+  while (rest.length) {
+    let best = null;
+    for (const sh of rest) for (const to of linked) {
+      const d = Math.hypot(sh.x - to.x, sh.z - to.z);
+      if (!best || d < best.d) best = { sh, to, d };
+    }
+    rest.splice(rest.indexOf(best.sh), 1);
+    linked.push(best.sh);
+    out.push({ ax: best.to.x, az: best.to.z, bx: best.sh.x, bz: best.sh.z, len2: Math.max(1e-4, best.d * best.d), half: 1.4, top: 0.5 });
+  }
+  return out;
+}
+
 // Analytic height + rockiness for a layout. Used to build the mesh and for gameplay queries
 // outside the mesh.
 // activePlots: Set of owned plot ids; shapes without `plot` are always there (backdrop rocks).
@@ -36,6 +59,7 @@ export function createHeightFunction(layout, activePlots = null) {
     .filter((s) => !s.plot || !activePlots || activePlots.has(s.plot))
     .map((s) => ({ ...s, c: Math.cos(s.rot || 0), s: Math.sin(s.rot || 0) }));
   const { depth: maxDepth, fall } = layout.seabed;
+  const causeways = causewaysFor(layout, activePlots);
 
   return function sample(x, z) {
     let h = -Infinity;
@@ -61,6 +85,16 @@ export function createHeightFunction(layout, activePlots = null) {
       h = h === -Infinity ? hs : smax(h, hs, sh.cliff ? 0.9 : 1.6);
       rough = Math.max(rough, sh.rough * t);
       if (sh.cliff || sh.rocky) rock = Math.max(rock, t * (sh.cliff ? 1 : 0.7));
+    }
+    // Sandy causeways: every owned plot is joined to the land you already own, so you can always walk there.
+    for (const cw of causeways) {
+      const vx = cw.bx - cw.ax, vz = cw.bz - cw.az;
+      const t = Math.max(0, Math.min(1, ((x - cw.ax) * vx + (z - cw.az) * vz) / cw.len2));
+      const d = Math.hypot(x - (cw.ax + vx * t), z - (cw.az + vz * t)) - cw.half;
+      let hs;
+      if (d <= 0) { let k = Math.min(1, -d / 0.9); k = k * k * (3 - 2 * k); hs = SHORE + (cw.top - SHORE) * k; }
+      else hs = SHORE - maxDepth * (1 - Math.exp(-Math.pow(d / fall, 1.7))) - d * 0.01;
+      h = smax(h, hs, 1.2);
     }
     const n = fbm(x * 0.13, z * 0.13);
     h += n * rough;
@@ -222,7 +256,9 @@ export function createTerrain(layout, palette, activePlots = null) {
 
   // Recompute for a new set of owned plots. With animate, the changed land starts where it was
   // and rises as uniforms.uGrow goes 0 → 1; gameplay heights switch when commit() is called.
+  let generation = 0;
   function setPlots(plots, animate = false) {
+    const gen = ++generation;
     sample = createHeightFunction(layout, plots);
     const next = new Float32Array(grid.length);
     for (let i = 0; i < pos.count; i++) {
@@ -239,7 +275,9 @@ export function createTerrain(layout, palette, activePlots = null) {
     geo.computeBoundingSphere();
     uniforms.uGrow.value = animate ? 0 : 1;
     return {
-      commit() { grid.set(next); delta.fill(0); geo.attributes.aDelta.needsUpdate = true; uniforms.uGrow.value = 1; },
+      // Only the newest plot set may land: two rises finishing in the same frame must not let the
+      // older one overwrite the newer ground (that left a bought plot cut off by water).
+      commit() { if (gen !== generation) return; grid.set(next); delta.fill(0); geo.attributes.aDelta.needsUpdate = true; uniforms.uGrow.value = 1; },
     };
   }
 

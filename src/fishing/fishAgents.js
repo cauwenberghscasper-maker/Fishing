@@ -7,6 +7,7 @@ import { cellIndex } from './silhouettes.js';
 import { fishInfo, rosterFor, TIER_POPULATION, TIER_RANK, timeAllows } from './fishData.js';
 import { loadModel, hasAsset, rawAssetEntry } from '../core/assets.js';
 import { rollVariant } from './variants.js';
+import { masteryConfig } from './mastery.js';
 
 const PERSONALITY = {
   shy: { notice: 4.5, approach: 0.75, circles: [2.2, 3.8], spook: 1.8, loseInterest: 0.15 },
@@ -410,6 +411,9 @@ export function createFishSystem({ state, island, water, splashes, events, under
       // Rarer fish are less likely; a perfect cast tilts the odds towards them.
       let w = (1 / (1 + rank * 1.2)) * baitBonus * (1.3 - d / (f.personality.notice * 1.6));
       if (lure.perfect) w *= 1 + rank * 0.8;
+      // Lucky streak from Great/Perfect fights: rarer species bite more often.
+      const luck = state.world.luck || 0;
+      if (luck) { const st = masteryConfig(state).streak; w *= 1 + rank * luck * (st.rareWeight + (lure.perfect ? st.perfectCastWeight : 0)); }
       candidates.push({ f, w: Math.max(0.01, w) });
     }
     if (!candidates.length) return null;

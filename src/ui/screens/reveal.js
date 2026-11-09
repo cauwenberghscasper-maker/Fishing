@@ -81,7 +81,11 @@ export function catchReveal(ctx, info) {
     if (art) { r.style.setProperty('--ribbon-art', `url("${art}")`); r.classList.add('has-art'); }
     return r;
   };
+  const multiName = { 2: 'Double catch', 3: 'Triple catch' }[info.multi?.count] ?? (info.multi ? `${info.multi.count}× catch` : '');
+  const gradeName = { good: 'Good fight', great: 'Great fight', perfect: 'Perfect fight' }[info.mastery?.grade];
   const ribbons = h('div.reveal__ribbons',
+    info.multi ? ribbon(`ribbon--multi.ribbon--multi-${info.multi.count}`, `${multiName} ${info.multi.index}/${info.multi.count}`, null) : null,
+    gradeName && info.mastery.grade !== 'good' ? ribbon(`ribbon--grade.ribbon--${info.mastery.grade}`, `${gradeName} ×${Number(info.mastery.valueMult).toLocaleString(undefined, { maximumFractionDigits: 1 })}`, null) : null,
     info.isNew ? ribbon('ribbon--new', 'New species', 'ribbon.new') : null,
     info.isRecord ? ribbon('ribbon--record', 'Record', 'ribbon.record') : null,
     !info.isNew && info.isNewVariant && kind !== 'basic' ? ribbon('ribbon--variant', 'New variant', null) : null,

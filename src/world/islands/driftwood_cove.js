@@ -25,14 +25,15 @@ export const driftwoodCove = {
   ],
 
   // Plots: where the dressing model (D's plot_<id>, origin at the plot centre on the ground, +Z
-  // seaward) goes, and the build spots each plot adds. Day one owns only the sandbar.
+  // seaward) goes. NB: a terrain shape's `rot` turns the opposite way to a model's rotation.y, so a
+  // plot's dressing rot is about minus its shape's rot (checked per plot: nothing stands in the water), and the build spots each plot adds. Day one owns only the sandbar.
   plots: {
     sandbar: { model: 'sandbar', x: 1.5, z: -2.0, rot: 0, spots: [{ x: 4.1, z: -3.6, rot: -0.35 }, { x: -1.2, z: 0.2, rot: 0.3 }] },
-    palm_spit: { model: 'plot_palm_spit', x: 11.5, z: -3.0, rot: 0.25, spots: [{ x: 9.5, z: -3.5, rot: -0.2 }, { x: 15.0, z: -2.0, rot: -0.5 }] },
-    wreck_beach: { model: 'plot_wreck_beach', x: -8.5, z: -6.0, rot: -0.15, spots: [{ x: -6.0, z: -6.5, rot: 0.2 }, { x: -11.5, z: -5.5, rot: 0.4 }] },
-    tidepool_shelf: { model: 'plot_tidepool_shelf', x: -15.0, z: 0.5, rot: -0.6, spots: [{ x: -14.0, z: -2.5, rot: 0.6 }] },
+    palm_spit: { model: 'plot_palm_spit', x: 11.5, z: -3.0, rot: -0.25, spots: [{ x: 9.5, z: -3.5, rot: -0.2 }, { x: 15.0, z: -2.0, rot: -0.5 }, { x: 12.3, z: -0.9, rot: 0.1 }] },
+    wreck_beach: { model: 'plot_wreck_beach', x: -8.5, z: -6.0, rot: -0.15, spots: [{ x: -6.0, z: -6.5, rot: 0.2 }, { x: -11.5, z: -5.5, rot: 0.4 }, { x: -8.8, z: -3.6, rot: 0.1 }] },
+    tidepool_shelf: { model: 'plot_tidepool_shelf', x: -15.0, z: 0.5, rot: 0.5, spots: [{ x: -14.0, z: -2.5, rot: 0.6 }, { x: -16.5, z: 1.8, rot: 0.9 }] },
     basalt_cliff: { model: 'plot_basalt_cliff', x: 6.0, z: -10.5, rot: 0, spots: [{ x: 3.5, z: -10.5, rot: 0 }, { x: 8.5, z: -10.8, rot: -0.1 }] },
-    kelp_shallows: { model: 'plot_kelp_shallows', x: -6.5, z: 10.0, rot: 0.1, spots: [{ x: -6.0, z: 8.5, rot: 0.2 }] },
+    kelp_shallows: { model: 'plot_kelp_shallows', x: -6.5, z: 10.0, rot: -0.2, spots: [{ x: -6.0, z: 8.5, rot: 0.2 }] },
     mooring_deep: { model: 'plot_mooring_deep', x: 12.0, z: 11.0, rot: 0.5, spots: [{ x: 12.0, z: 10.0, rot: -0.4 }] },
   },
 
@@ -47,6 +48,9 @@ export const driftwoodCove = {
     smokehouse: { x: 9.5, z: -3.5, rot: -0.2 },
     aquarium: { x: 3.5, z: -10.5, rot: 0 },
     boat_dock: { x: -2.6, z: 3.4, rot: 0.2, water: true },
+    reel_mill: { x: 12.3, z: -0.9, rot: 0.1 },
+    net_rig: { x: -16.5, z: 1.8, rot: 0.9 },
+    cannery: { x: -8.8, z: -3.6, rot: 0.1 },
   },
 
   spawn: { x: 1.4, z: -1.2, facing: Math.PI },

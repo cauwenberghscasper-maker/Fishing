@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { GLSL_SWIM } from './swim.js';
 import { getSilhouetteAtlas, ATLAS_GRID } from './silhouettes.js';
 
-const MAX_INSTANCES = 64;
+const MAX_INSTANCES = 160;   // one instanced draw call; the open sea holds a lot of fish
 const FILL = 232 / 256; // drawn fish length / cell size in the atlas
 
 const vertexShader = /* glsl */`

@@ -1,5 +1,6 @@
 // Agent B. Loads public/data/*.json into state.data (relative paths: the site runs under /Fishing/).
 // Also reads Agent C's fish manifest so the UI only asks for preview images that exist.
+import { fishPlaceholder } from '../fishing/silhouettes.js';
 const FILES = {
   fish: 'data/fish.json',
   islands: 'data/islands.json',
@@ -71,7 +72,14 @@ function live(entry) {
 export function fishPose(state, fishId, pose) {
   const entry = live(state.data.fishAssets?.[fishId]);
   const pick = (v) => (typeof v === 'object' && v ? (v.planned ? null : v.path) : v);
-  return pick(entry?.[pose]) ?? pick(entry?.poses?.[pose]) ?? entry?.preview ?? null;
+  return pick(entry?.[pose]) ?? pick(entry?.poses?.[pose]) ?? entry?.preview
+    // No painting yet: its inked body silhouette, so no screen shows an empty frame.
+    ?? (typeof document !== 'undefined' ? fishPlaceholder(state.data.fishBehaviour?.[fishId]?.silhouette || bodySilhouette(state.data.fishBehaviour?.[fishId]?.body)) : null);
+}
+
+// Silhouette cell for a body plan when a fish has no silhouette of its own.
+function bodySilhouette(body) {
+  return { eel: 'kelpwraith', flat: 'compass', bulky: 'puffer', shelled: 'shellback' }[body] || 'generic';
 }
 
 /** Path of an Agent E vfx asset (e.g. backdrop.<variantId>), or null. */

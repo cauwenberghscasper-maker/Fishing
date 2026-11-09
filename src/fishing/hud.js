@@ -72,6 +72,7 @@ export function createHud({ root }) {
   }
 
   // --- drawing helpers -------------------------------------------------------------------
+  const THREE_clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
   function ring(x, y, r, color, width = 2, alpha = 1) {
     g.globalAlpha = alpha;
     g.strokeStyle = color;
@@ -218,6 +219,90 @@ export function createHud({ root }) {
       if (canvas.width !== Math.round(root.clientWidth * dpr)) resize();
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
       g.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Fight minigames (minigames.js), drawn at the fish.
+      const mg = frame.minigame;
+      if (mg && mg.fish) {
+        const { x, y } = mg.fish;
+        if (mg.snag) {
+          // A row of arrows to swipe, the current one big and gold with its time running out.
+          const n = mg.snag.arrows.length, gap = 46;
+          const ang = { up: -Math.PI / 2, down: Math.PI / 2, left: Math.PI, right: 0 };
+          for (let i = 0; i < n; i++) {
+            const ax = x + (i - (n - 1) / 2) * gap, ay = y - 70;
+            const done = i < mg.snag.i, cur = i === mg.snag.i;
+            g.save();
+            g.translate(ax, ay);
+            g.globalAlpha = done ? 0.35 : 1;
+            g.fillStyle = 'rgba(6, 22, 24, 0.72)';
+            g.beginPath(); g.arc(0, 0, cur ? 20 : 15, 0, Math.PI * 2); g.fill();
+            if (cur) { g.strokeStyle = theme.gold; g.lineWidth = 3; g.beginPath(); g.arc(0, 0, 20, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.max(0, mg.snag.k)); g.stroke(); }
+            g.rotate(ang[mg.snag.arrows[i]]);
+            g.fillStyle = done ? theme.glow : cur ? theme.gold : theme.paper;
+            const s = cur ? 1.25 : 0.9;
+            g.beginPath(); g.moveTo(11 * s, 0); g.lineTo(-5 * s, -9 * s); g.lineTo(-1 * s, 0); g.lineTo(-5 * s, 9 * s); g.closePath(); g.fill();
+            g.restore();
+          }
+          g.globalAlpha = 1;
+          label('Swipe!', x, y - 104, { size: 16, color: theme.gold });
+        }
+        if (mg.landing) {
+          // A brass half-dial: gold zone in the middle, the needle sweeping across.
+          const R = 46, cx = x, cy = y - 30;
+          g.lineWidth = 9;
+          g.globalAlpha = 0.85;
+          g.strokeStyle = 'rgba(6, 22, 24, 0.75)';
+          g.beginPath(); g.arc(cx, cy, R, Math.PI, Math.PI * 2); g.stroke();
+          g.strokeStyle = theme.gold;
+          const gz = mg.landing.gold * Math.PI;
+          g.beginPath(); g.arc(cx, cy, R, Math.PI * 1.5 - gz / 2, Math.PI * 1.5 + gz / 2); g.stroke();
+          g.globalAlpha = 1;
+          const a = Math.PI + mg.landing.needle * Math.PI;
+          g.strokeStyle = theme.paper; g.lineWidth = 3;
+          g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + Math.cos(a) * (R + 6), cy + Math.sin(a) * (R + 6)); g.stroke();
+          label('Land it!', cx, cy - R - 18, { size: 16, color: theme.gold });
+        }
+        if (mg.flash) label(mg.flash.text, x, y - 120 - mg.flash.t * 24, { size: 20, color: mg.flash.ok ? theme.gold : theme.danger, alpha: 1 - mg.flash.t / 0.8 });
+      }
+
+      // Hot spots (sea.js): on screen a pulsing ring and its name; off screen a brass arrow at the
+      // edge pointing the way, so you can go and find the fish.
+      if (frame.hotspots) {
+        const W = root.clientWidth, H = root.clientHeight, pad = 34;
+        const t = performance.now() / 1000;
+        for (const s of frame.hotspots) {
+          const a = s.fade;
+          if (a <= 0.01) continue;
+          const on = s.visible && s.x > pad && s.x < W - pad && s.y > pad + 70 && s.y < H - pad - 110;
+          if (on) {
+            const r = 26 + 8 * Math.sin(t * 3);
+            ring(s.x, s.y, r, s.color, 2.5, 0.75 * a);
+            ring(s.x, s.y, r * 0.55, s.color, 1.5, 0.45 * a);
+            label(s.label, s.x, s.y - r - 12, { size: 14, color: s.color, alpha: a });
+          } else {
+            // Clamp the direction from the screen centre to the edge (behind the camera: flip).
+            let dx = s.x - W / 2, dy = s.y - H / 2;
+            if (!s.visible) { dx = -dx; dy = -dy; }
+            const k = Math.min((W / 2 - pad) / Math.max(1e-3, Math.abs(dx)), (H / 2 - pad - 90) / Math.max(1e-3, Math.abs(dy)));
+            const ex = W / 2 + dx * k, ey = H / 2 + dy * k;
+            const ang = Math.atan2(dy, dx);
+            g.save();
+            g.translate(ex, ey);
+            g.rotate(ang);
+            g.globalAlpha = 0.92 * a;
+            g.fillStyle = 'rgba(6, 22, 24, 0.7)';
+            g.beginPath(); g.arc(-6, 0, 17, 0, Math.PI * 2); g.fill();
+            g.fillStyle = s.color;
+            g.beginPath(); g.moveTo(14, 0); g.lineTo(-2, -9); g.lineTo(2, 0); g.lineTo(-2, 9); g.closePath(); g.fill();
+            g.strokeStyle = theme.gold; g.lineWidth = 1.5;
+            g.beginPath(); g.arc(-6, 0, 17, 0, Math.PI * 2); g.stroke();
+            g.restore();
+            g.globalAlpha = 1;
+            const lx = THREE_clamp(ex - Math.cos(ang) * 40, 50, W - 50), ly = THREE_clamp(ey - Math.sin(ang) * 34, 90, H - 120);
+            label(s.label, lx, ly, { size: 12, color: s.color, alpha: 0.9 * a });
+          }
+        }
+      }
 
       // Floating joystick: a brass compass bezel with a paper knob.
       const j = frame.joystick;

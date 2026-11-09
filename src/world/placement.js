@@ -6,7 +6,7 @@
 import * as THREE from 'three';
 import { loadModel, pickAsset, assetEntry } from '../core/assets.js';
 
-const SNAP_RADIUS = 4.5;
+const SNAP_RADIUS = 1.6;   // a gentle pull to the suggested spots; anywhere else on your land works too
 
 function spotRingMaterial() {
   return new THREE.ShaderMaterial({
@@ -89,7 +89,14 @@ export function createPlacement({ state, events, island, player, cameraRig, inpu
       if (island.terrain.heightAt(x + ox, z + oz) < 0.15) return false;
       if (island.terrain.slopeAt(x + ox, z + oz) > 0.8) return false;
     }
-    for (const b of Object.values(island.buildings)) if (b.obj && Math.hypot(b.x - x, b.z - z) < 3) return false;
+    // Build freely (Casper 9 Nov: sandbox): anywhere on your own dry land, as long as it doesn't
+    // sit on another building (spacing from the two footprints).
+    const mine = (assetEntry('world', job?.model)?.footprint?.w ?? 3) / 2;
+    for (const b of Object.values(island.buildings)) {
+      if (!b.obj || b === island.buildings[job?.id]) continue;
+      const other = (assetEntry('world', b.modelId)?.footprint?.w ?? 3) / 2;
+      if (Math.hypot(b.x - x, b.z - z) < Math.max(2.4, (mine + other) * 0.85)) return false;
+    }
     return true;
   }
 
@@ -176,7 +183,7 @@ export function createPlacement({ state, events, island, player, cameraRig, inpu
       }
     }
     if (job) moveTo(first.x, first.z);
-    if (job && !job.spots.length) hud.toast('No free spot: drag it onto open sand', 2.2);
+    if (job) hud.toast('Drag it anywhere on your land', 1.8);
   }
 
   function exit() {

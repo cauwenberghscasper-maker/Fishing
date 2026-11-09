@@ -310,6 +310,36 @@ function drawCell(name, blur) {
 
 let atlasTexture = null;
 
+// A stand-in picture for a fish whose painting isn't made yet (Casper 9 Nov: "some filling template"):
+// its body silhouette in sea ink with a soft glow, as a transparent image the UI shows like a cut-out.
+const placeholders = new Map();
+export function fishPlaceholder(name = 'generic') {
+  const key = DRAW[name] ? name : 'generic';
+  if (placeholders.has(key)) return placeholders.get(key);
+  const W = 512, H = 288;
+  const c = document.createElement('canvas');
+  c.width = W; c.height = H;
+  const g = c.getContext('2d');
+  const shape = document.createElement('canvas');
+  shape.width = shape.height = 256;
+  const sg = shape.getContext('2d');
+  sg.translate(128, 128);
+  sg.fillStyle = sg.strokeStyle = '#0b2e33';
+  DRAW[key](sg, sg);
+  g.shadowColor = 'rgba(120, 230, 220, 0.55)';
+  g.shadowBlur = 22;
+  g.drawImage(shape, (W - H) / 2 - 20, -20, H + 40, H + 40);
+  g.shadowBlur = 0;
+  g.globalAlpha = 0.35;
+  g.globalCompositeOperation = 'source-atop';
+  const grad = g.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, '#3f8f8a'); grad.addColorStop(1, '#06181b');
+  g.fillStyle = grad; g.fillRect(0, 0, W, H);
+  const url = c.toDataURL('image/png');
+  placeholders.set(key, url);
+  return url;
+}
+
 export function getSilhouetteAtlas() {
   if (atlasTexture) return atlasTexture;
   const size = CELL * GRID;

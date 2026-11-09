@@ -21,6 +21,7 @@ import { createWorkers } from './workers.js';
 import { createPlacement } from './placement.js';
 import { audio } from '../core/audio.js';
 import { createWadingDanger } from '../fishing/wading.js';
+import { createSea } from '../fishing/sea.js';
 
 const ISLANDS = { driftwood_cove: driftwoodCove };
 const DAY_LENGTH = 30 * 60; // real seconds per in-game day
@@ -30,6 +31,14 @@ export async function startWorld({ canvas, state, events }) {
   if (!state.data.powers) {
     // Agent A's superpower tuning (B's loader does not read it).
     try { const r = await fetch('data/powers.json', { cache: 'no-cache' }); if (r.ok) state.data.powers = await r.json(); } catch { /* fallback table in powers.js */ }
+  }
+  if (!state.data.variantsLook) {
+    // Element colours, so elemental fish can glow through the water (sea.js / fishAgents).
+    try { const r = await fetch('data/variants-look.json', { cache: 'no-cache' }); if (r.ok) state.data.variantsLook = await r.json(); } catch { /* no glow */ }
+  }
+  if (!state.data.sea) {
+    // Agent A's open-sea hot spot tuning (sea.js).
+    try { const r = await fetch('data/sea.json', { cache: 'no-cache' }); if (r.ok) state.data.sea = await r.json(); } catch { /* defaults */ }
   }
   if (!state.data.mastery) {
     // Agent A's perfect-fight gauge tuning.
@@ -98,6 +107,19 @@ export async function startWorld({ canvas, state, events }) {
       shake: (a) => cameraRig.shakeFor(a, 0.4),
     },
   });
+  // The open sea's hot spots (frenzies, glimmers, giants) all round the island.
+  const sea = createSea({
+    state, events, fishSystem, island, water, splashes, lighting,
+    hooks: {
+      announce: (s) => {
+        const dx = s.x - player.position.x, dz = s.z - player.position.z;
+        const dir = Math.abs(dx) > Math.abs(dz) ? (dx > 0 ? 'east' : 'west') : (dz > 0 ? 'south' : 'north');
+        fishing.hud.toast(`${s.label} to the ${dir}!`, 2.2);
+        if (s.kind !== 'frenzy') audio.tick();
+      },
+    },
+  });
+  fishing.setSea(sea);
   const placement = createPlacement({ state, events, island, player, cameraRig, input, hud: fishing.hud, surface, under, fishing });
   events.on('build:start', (job) => {
     // Only from explore: never yank the player out of a cast or a fight.
@@ -185,7 +207,9 @@ export async function startWorld({ canvas, state, events }) {
       if (dayRunning) lighting.setHour(lighting.hour + (dt / DAY_LENGTH) * 24);
       pipeline.renderer.toneMappingExposure = lighting.exposure;
       player.update(dt, realDt);
+      fishSystem.setViewer(cameraRig.target.x, cameraRig.target.z);
       fishSystem.update(dt, time);
+      sea.update(dt);
       fishing.update(dt, realDt);
       wading.update(dt, state.world.mode === 'explore' && fishing.mode === 'explore' && fishSystem.authority !== false);
       workers.update(dt);
@@ -261,7 +285,11 @@ export async function startWorld({ canvas, state, events }) {
     hook: () => fishing.debugHook(),
     predator: () => fishing.debugPredator(),
     wadeHunter: () => wading.force(),
+    hotspot: (kind) => { const s = sea.force(kind); return s ? { kind: s.kind, x: s.x, z: s.z, fish: s.fish.length } : null; },
+    get hotspots() { return sea.spots.map((s) => ({ kind: s.kind, x: s.x, z: s.z, fish: s.fish.length })); },
     surge: () => fishing.debugSurge(),
+    snag: () => fishing.debugSnag(),
+    get minigameView() { return fishing.minigameView; },
     get surgeView() { return fishing.surgeView; },
     get tauntView() { return fishing.tauntView; },
     get fightVariant() { return fishing.fightVariant; },

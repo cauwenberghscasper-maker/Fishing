@@ -12,6 +12,7 @@ import { createPredation } from './predation.js';
 import { createMastery, updateStreak } from './mastery.js';
 import { createSurge } from './surge.js';
 import { createTaunt } from './taunt.js';
+import { createMinigames } from './minigames.js';
 import { variantInfo } from './variants.js';
 import { isElemental } from './variants.js';
 import { audio } from '../core/audio.js';
@@ -57,6 +58,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   let mastery = null;     // the perfect-fight gauge (mastery.js)
   let surge = null;       // mid-fight upgrade minigame (surge.js)
   let surgeTap = false;
+  let minigames = null;   // snag + landing (minigames.js)
+  const gestures = [];
   let lureState = null;   // the lure object the fish system reads (taunt level lives on it)
   let waitHold = null;    // press-and-hold in wait mode reels in; a tap twitches (taunt)
   const taunt = createTaunt({
@@ -340,6 +343,16 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         },
       },
     });
+    minigames = createMinigames({
+      state, fight,
+      hooks: {
+        snag: () => { hud.toast('Snagged! Swipe the arrows', 1.6); audio.creak?.(3); navigator.vibrate?.([30, 30, 30]); },
+        arrow: (ok) => { if (ok) { audio.tick(); navigator.vibrate?.(12); } },
+        snagEnd: (ok) => { if (ok) { mastery?.strike(); audio.perfect(); } else { audio.snap(); cameraRig.shakeFor(0.3, 0.3); } },
+        landing: () => { hud.toast('Land it! Tap in the gold', 1.4); navigator.vibrate?.(20); },
+        landed: (hit) => { if (hit) { audio.perfect(); navigator.vibrate?.([20, 30, 50]); } },
+      },
+    });
     hud.setMasteryGrade(null);
     fishSystem.setLure(null);
     audio.hook();
@@ -359,6 +372,9 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       const grade = mastery?.grade || null;
       caughtQueue = onLine.map(({ fish: f, roll }, i) => {
         const r = mastery ? mastery.rewardFor(f.variant || 'basic') : { grade: null, valueMult: 1, variant: f.variant || 'basic' };
+        // A clean landing (minigames.js) adds its bonus on top of the fight grade.
+        const landBonus = minigames?.valueBonus ?? 1;
+        if (landBonus > 1) { r.valueMult = (r.valueMult || 1) * landBonus; r.grade = r.grade || 'good'; }
         if (r.upgraded) hud.toast('A perfect fight: it turned gilded!', 2.2);
         return {
         fishId: f.id,
@@ -394,6 +410,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     predation = null;
     mastery = null;
     surge = null;
+    minigames = null;
     fightFish = null;
     reeling = false;
     steer = 0;
@@ -555,6 +572,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     if (!swipe || e.pointerId !== swipe.id) return;
     const p = rel(e);
     if (mode === 'fight' && Math.hypot(p.x - swipe.x0, p.y - swipe.y0) < 14) powerTaps.push(p);
+    if (mode === 'fight' && Math.hypot(p.x - swipe.x0, p.y - swipe.y0) >= 40) gestures.push({ dx: p.x - swipe.x0, dy: p.y - swipe.y0 });
     swipe = null;
   };
   gameEl?.addEventListener('pointerup', endSwipe);
@@ -611,6 +629,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   });
 
   // --- frame -------------------------------------------------------------------------------
+  let sea = null;
+  const tmp2 = new THREE.Vector3();
   function screenOf(v) {
     tmp.copy(v).project(cameraRig.camera);
     const r = hudRoot.getBoundingClientRect();
@@ -655,10 +675,9 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       if (fx.perfectEdge) { navigator.vibrate?.(8); audio.tick(); }
       if (fx.fishEdge) navigator.vibrate?.(14);
       if (fx.powerStep) { audio.creak(fx.powerStep); navigator.vibrate?.(4 + fx.powerStep * 2); }
-      cameraRig.setFocus(
-        THREE.MathUtils.lerp(player.position.x, aim.info.hasAim ? aim.target.x : player.position.x, 0.5), 0,
-        THREE.MathUtils.lerp(player.position.z, aim.info.hasAim ? aim.target.z : player.position.z + 3, 0.5),
-      );
+      // Frame the player and the aim point together, however far the cast reaches.
+      if (aim.info.hasAim) cameraRig.frame(player.position.x, player.position.z, aim.target.x, aim.target.z, { bias: 0.5, margin: 4 });
+      else cameraRig.setFocus(player.position.x, 0, player.position.z + 1.5);
     } else if (mode === 'wait') {
       if (flight.active) updateFlight(dt);
       else if (retrieve) updateRetrieve(dt);
@@ -675,18 +694,23 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         if (lure.bobTimer <= 0) { water.addRipple(lure.pos.x, lure.pos.z, 0.14); lure.bobTimer = 1.8; }
         line.setLength(tip.distanceTo(lure.pos) * (bp ? 1.0 : 1.06));
       }
-      cameraRig.setFocus(THREE.MathUtils.lerp(player.position.x, lure.pos.x, 0.45), 0, THREE.MathUtils.lerp(player.position.z, lure.pos.z, 0.45));
+      // Follow the lure wherever it lands (Casper: long endgame casts must stay in view).
+      cameraRig.frame(player.position.x, player.position.z, lure.pos.x, lure.pos.z, { bias: 0.6, margin: 5 });
       refreshButton();
     } else if (mode === 'fight' && fight) {
       const input = { reeling: reeling || keyReel, steer: keySteer || steer, bowTap, pressEdge, taps: powerTaps.splice(0), swipes: powerSwipes.splice(0) };
       bowTap = false;
       pressEdge = false;
       if (!modal) mastery?.update(dt, input);
-      if (!modal) surge?.update(dt, surgeTap);
+      if (!modal) {
+        const surgeOwns = surge?.update(dt, surgeTap);
+        minigames?.update(dt, { gestures: gestures.splice(0), tap: surgeTap && !surgeOwns });
+      } else gestures.length = 0;
       surgeTap = false;
       player.pose(fight.state.tension > 0.72 ? 'struggle' : 'reel');
       let status = modal ? 'fighting' : fight.update(dt, input);
       if (status === 'fighting' && !modal && predation?.update(dt)?.stolen) status = 'predator';
+      if (status === 'caught' && minigames?.holdLanding) status = 'fighting';   // wait for the landing tap
       const fp = fight.fishPoint();
       lure.pos.set(fp.x, water.surfaceY(fp.x, fp.z) - (fightFish.airY > 0 ? -fightFish.airY : 0.12), fp.z);
       line.setTension(fight.state.tension);
@@ -703,7 +727,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         reelTickTimer -= realDt;
         if (reelTickTimer <= 0) { audio.reelTick(fight.state.tension); reelTickTimer = 0.07; }
       }
-      cameraRig.setFocus(THREE.MathUtils.lerp(player.position.x, fp.x, 0.45), 0, THREE.MathUtils.lerp(player.position.z, fp.z, 0.45));
+      // The fish and its minigame rings always stay on screen; the player may slip out on long fights.
+      cameraRig.frame(player.position.x, player.position.z, fp.x, fp.z, { bias: 0.62, margin: 6 });
       if (status !== 'fighting') endFight(status);
     } else if (mode === 'catch') {
       const focus = held[0]?.object?.position || player.position;
@@ -733,6 +758,14 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
 
     // Overlay
     const frame = {};
+    // Hot spots (sea.js): a label over each on screen, an arrow at the screen edge for the rest.
+    if (sea && sea.spots.length && mode !== 'catch' && !modal) {
+      frame.hotspots = sea.spots.map((s) => {
+        tmp2.set(s.x, 0.2, s.z);
+        const p = screenOf(tmp2);
+        return { x: p.x, y: p.y, visible: p.visible, label: s.label, color: s.color, kind: s.kind, fade: Math.min(1, s.t / 1.5, Math.max(0, s.dur - s.t) / 3) };
+      });
+    }
     const j = input.joystick;
     if (j.active) frame.joystick = { active: true, ox: j.ox, oy: j.oy, vx: j.vx, vy: j.vy, radius: input.JOY_RADIUS };
     if (mode === 'aim') {
@@ -761,6 +794,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       };
       const sv = surge?.view;
       if (sv) frame.surge = { ...sv, fish: frame.fight.fish };
+      const mv = minigames?.view;
+      if (mv) frame.minigame = { ...mv, fish: frame.fight.fish };
       const pw = fight.power;
       if (pw && pw.phase !== 'cooldown') {
         const d = pw.detail || {};
@@ -822,9 +857,12 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       return true;
     },
     debugHook() { tryHook(); },
+    setSea(s) { sea = s; },
     // Debug: send a hunter at the fish on the line right now (double catch); call again once it's on for a triple.
     debugPredator() { return predation ? predation.force() : false; },
     debugSurge() { return surge ? surge.force() : false; },
+    debugSnag() { return minigames ? minigames.forceSnag() : false; },
+    get minigameView() { return minigames?.view ?? null; },
     get surgeView() { return surge?.view ?? null; },
     get tauntView() { return taunt.view; },
     get fightVariant() { return fightFish?.variant ?? null; },

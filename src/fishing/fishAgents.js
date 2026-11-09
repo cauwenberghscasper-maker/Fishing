@@ -46,8 +46,24 @@ export function createFishSystem({ state, island, water, splashes, events, under
       const x = area.x + Math.cos(a) * r, z = area.z + Math.sin(a) * r;
       if (island.waterDepthAt(x, z) >= (minDepth ?? hab.minDepth)) return { x, z, area };
     }
+    // Every try landed on land (a plot rose over this habitat): any water point in any habitat.
+    for (const h of Object.values(habitats)) for (const area of h.areas) {
+      if (island.waterDepthAt(area.x, area.z) >= 1) return { x: area.x, z: area.z, area };
+    }
     const area = hab.areas[0];
     return { x: area.x, z: area.z, area };
+  }
+
+  // The deepest direction from here (fish that hit the shore swim out to sea, not toward a home
+  // that new land may now cover).
+  function deeperHeading(x, z) {
+    let best = null;
+    for (let i = 0; i < 12; i++) {
+      const a = (i / 12) * Math.PI * 2;
+      const d = island.waterDepthAt(x + Math.sin(a) * 2.5, z + Math.cos(a) * 2.5);
+      if (!best || d > best.d) best = { a, d };
+    }
+    return best.a;
   }
 
   function depthFor(f, x, z) {
@@ -206,7 +222,16 @@ export function createFishSystem({ state, island, water, splashes, events, under
     // Never swim onto the beach: turn back towards home when the water gets too thin.
     const minD = (habitats[f.behaviour.habitat]?.minDepth ?? 1) * 0.6;
     if (!f.controlled && island.waterDepthAt(nx, nz) < Math.max(0.45, minD) && f.state !== 'bite') {
-      steerTo(f, f.home.x, f.home.z, dt, 6);
+      const homeWet = island.waterDepthAt(f.home.x, f.home.z) >= minD;
+      if (homeWet) steerTo(f, f.home.x, f.home.z, dt, 6);
+      else {
+        // Its home is land now: find new water and make it home.
+        const a = deeperHeading(f.pos.x, f.pos.z);
+        f.heading = wrapAngle(f.heading + THREE.MathUtils.clamp(wrapAngle(a - f.heading), -6 * dt, 6 * dt));
+        f.pos.x += Math.sin(f.heading) * Math.max(1, f.speed) * dt;
+        f.pos.z += Math.cos(f.heading) * Math.max(1, f.speed) * dt;
+        if (island.waterDepthAt(f.pos.x, f.pos.z) >= minD + 0.5) f.home = { x: f.pos.x, z: f.pos.z, r: 4 };
+      }
       f.wander = null;
       return;
     }
@@ -498,7 +523,12 @@ export function createFishSystem({ state, island, water, splashes, events, under
       } else if (f.remote) {
         // Fought by another player: their snapshots drive it (host side).
         followSnapshot(f, dt);
+      } else if (!f.controlled && !f.air && f !== engaged && island.waterDepthAt(f.pos.x, f.pos.z) < 0.25) {
+        // Land rose right on top of it: it's gone, the population brings a new one in open water.
+        f.stranded = (f.stranded || 0) + dt;
+        if (f.stranded > 0.4) { removeFish(f); continue; }
       } else if (!f.controlled) {
+        f.stranded = 0;
         if (f.air) updateAir(f, dt);
         else if (f === engaged) updateEngaged(f, dt);
         else if (f.state === 'flee' || f.state === 'leave') {

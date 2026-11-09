@@ -1,5 +1,5 @@
 {
-  "_about": "Agent A. Predators in the fight: a bigger fish strikes the fish on your line. If it gets hooked too you fight both (double catch); very rarely a third, bigger fish swallows the lot (triple catch). Haul the small fish in before the hunter arrives to save it. All tuning lives here.",
+  "_about": "Agent A. Predators in the fight: a bigger fish strikes the fish on your line. If it gets hooked too you fight both (double catch); very rarely a third, bigger fish swallows the lot (triple catch). Haul the small fish in before the hunter arrives to save it. All tuning lives here. 'wading': wade past the shallows to cast further, but bigger fish stalk you there; get back to the shallows before one arrives or it knocks you back and snatches a fish from your basket.",
   "chance": 0.12,
   "perfectCastMult": 1.35,
   "after": [2.5, 7.0],
@@ -64,5 +64,21 @@
       "eats": ["glasswing_sardine", "driftback", "compass_flounder", "shellback_blenny", "kelp_wraith", "seaglass_puffer", "sailcloth_ray", "knotted_needlefish", "lampfin_gurnard", "oyster_hoarder"],
       "weight": 0.25
     }
+  },
+  "wading": {
+    "safeDepth": 0.45,
+    "graceSeconds": 2.5,
+    "chancePerSecond": 0.22,
+    "maxDepth": 1.0,
+    "cooldown": [10, 18],
+    "stalk": {
+      "startDistance": [6, 8],
+      "speed": 3.2,
+      "sprint": 7.5,
+      "time": 2.8
+    },
+    "knockback": 2.4,
+    "stealFish": true,
+    "hunters": ["kelp_wraith", "lampfin_gurnard", "oyster_hoarder", "seaglass_puffer", "moonwake_ribbonfish", "old_mooring"]
   }
 }

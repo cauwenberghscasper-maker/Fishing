@@ -94,7 +94,7 @@ export function createPredation({ state, events, fishSystem, fight, hooked, roll
     fishSystem.take(f);
     f.fade = Math.max(f.fade, 0.6);
     hunter = { fish: f, t: 0 };
-    hooks.toast(`Something is hunting your ${top().info.name}!`, 2.2);
+    hooks.toast('Something is hunting your fish!', 2.2);
     hooks.warn();
     events.emit('predator:stalk', { uid: f.uid, fishId: f.id, variant: f.variant || 'basic', preyUid: top().uid });
   }
@@ -133,7 +133,7 @@ export function createPredation({ state, events, fishSystem, fight, hooked, roll
     if (Math.random() < cfg.strike.stealChance) {
       // It bit clean through: everything on the line is gone, the thief swims off with it.
       result = { stolen: true, by: f };
-      hooks.toast(`The ${f.info.name} bit it off the hook!`, 2.2);
+      hooks.toast('It bit your fish off the hook!', 2.2);
       events.emit('predator:strike', { uid: f.uid, fishId: f.id, hooked: false, count: line.length });
       return;
     }
@@ -142,7 +142,7 @@ export function createPredation({ state, events, fishSystem, fight, hooked, roll
     line.push({ fish: f, roll: r });
     fight.addLoad(r.strength, f.behaviour, cfg.load);
     const n = line.length;
-    hooks.toast(n >= 3 ? `TRIPLE! A ${f.info.name} swallowed the lot!` : `A ${f.info.name} took it: double on the line!`, 2.4);
+    hooks.toast(n >= 3 ? 'TRIPLE! It swallowed the lot!' : 'It took the bait: double!', 2.4);
     events.emit('predator:strike', { uid: f.uid, fishId: f.id, hooked: true, count: n });
     if (n === 2 && Math.random() < cfg.triple.chance * (state.test && state.debugPredators ? 100 : 1)) {
       nextAt = t + rand(cfg.triple.after[0], cfg.triple.after[1]);

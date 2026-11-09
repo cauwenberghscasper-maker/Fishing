@@ -7,7 +7,7 @@ import { createTerrain } from './terrain.js';
 import { loadModel, pickAsset, assetEntry } from '../core/assets.js';
 import { collidersFor, drawColliderDebug } from './colliders.js';
 
-const WADE_DEPTH = 0.45;   // the player can wade this deep
+const WADE_DEPTH = 1.0;    // the player can wade this deep (past 0.45 is deep water, where big fish hunt: wading.js)
 const MAX_SLOPE = 1.05;
 const RISE_TIME = 2.8;     // seconds for a plot to rise
 const BUILD_TIME = 1.9;    // construction animation

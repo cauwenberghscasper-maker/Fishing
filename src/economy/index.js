@@ -371,6 +371,15 @@ export const economy = {
     E.emit('catch:kept', { catchId });
     return { ok: true };
   },
+  /** A fish snatched from the basket (wading too deep, Agent A's wading.js). Picks one at random. */
+  loseCatch() {
+    const p = P();
+    if (!p.cooler.length) return null;
+    const c = p.cooler.splice(Math.floor(Math.random() * p.cooler.length), 1)[0];
+    E.emit('catch:stolen', { catchId: c.id, fishId: c.fishId });
+    changed('cooler');
+    return c;
+  },
   releaseHeld() {
     const p = P();
     if (!p.held) return fail('missing');

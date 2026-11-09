@@ -1,5 +1,5 @@
 {
-  "_about": "Agent A. The mastery gauge in every fight: reel with the tension in the sweet band, steer against the fish, bow at its leaps and counter its powers to fill it. A fuller gauge tires the fish faster (shorter fights) and upgrades the catch. Grades lock in once reached. Great and Perfect fights build a lucky streak that makes rarer fish bite on the next casts. 'surge': once per fight, reaching Good/Great may start a surge: three closing rings, tap as each meets the fish. 3 hits = the island's elemental variant (it gets its superpower), 2 hits = gilded. 'taunt': while the lure waits, tap on the pulse to twitch it; on-beat twitches build the taunt (rarer fish notice from further, curious fish strike sooner, bigger size roll), off-beat or frantic taps spook; a full taunt may call a rare fish. Hold to reel in. 'minigames': snag = the line catches, swipe the arrows shown to free it; landing = a needle sweeps a gauge at the end, tap in the gold for +25% value.",
+  "_about": "Agent A. The mastery gauge in every fight: reel with the tension in the sweet band, steer against the fish, bow at its leaps and counter its powers to fill it. A fuller gauge tires the fish faster (shorter fights) and upgrades the catch. Grades lock in once reached. Great and Perfect fights build a lucky streak that makes rarer fish bite on the next casts. 'surge': once per fight, reaching Good/Great may start a surge: three closing rings, tap as each meets the fish. 3 hits = the island's elemental variant (it gets its superpower), 2 hits = two ranks up the variant ladder (variants.json step). A Perfect fight has upgrade.chance to step the catch 1-2 ranks up the ladder. 'taunt': while the lure waits, tap on the pulse to twitch it; on-beat twitches build the taunt (rarer fish notice from further, curious fish strike sooner, bigger size roll), off-beat or frantic taps spook; a full taunt may call a rare fish. Hold to reel in. 'minigames': snag = the line catches, swipe the arrows shown to free it; landing = a needle sweeps a gauge at the end, tap in the gold for +25% value.",
   "band": [0.4, 0.86],
   "gain": {
     "zone": 0.11,
@@ -27,9 +27,9 @@
       "valueMult": 2.5,
       "streak": 2,
       "upgrade": {
-        "chance": 0.3,
-        "from": ["basic"],
-        "to": "gilded"
+        "chance": 0.45,
+        "to": "next",
+        "steps": [1, 2]
       }
     }
   ],

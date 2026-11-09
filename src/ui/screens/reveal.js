@@ -13,7 +13,16 @@ const MORPH_FILTER = {
   bleached: 'saturate(0.25) brightness(1.3) contrast(0.9)',
   inkdark: 'brightness(0.55) contrast(1.35) saturate(1.3)',
   gilded: 'sepia(0.55) saturate(1.8) brightness(1.08)',
+  speckled: 'sepia(0.25) contrast(1.15) saturate(0.9)',
+  silverscale: 'grayscale(0.85) brightness(1.22) contrast(1.15)',
+  coralborn: 'sepia(0.35) hue-rotate(-25deg) saturate(2.2) brightness(1.05)',
+  pearlescent: 'saturate(0.55) brightness(1.3) hue-rotate(20deg) drop-shadow(0 0 10px #f3e9ff)',
+  moonlit: 'hue-rotate(195deg) saturate(1.3) brightness(0.9) drop-shadow(0 0 12px #9fb8ff)',
+  prismatic: 'saturate(2.4) hue-rotate(40deg) contrast(1.1) drop-shadow(0 0 14px #ff9ef2)',
+  ancient: 'sepia(0.7) contrast(1.25) brightness(0.85) saturate(0.8)',
 };
+/** Rank class labels and colours (variants.json rank): the ladder from Common to Mythic. */
+const RANK = { common: ['Common', '#9aa5a0'], uncommon: ['Uncommon', '#6fcf6a'], rare: ['Rare', '#4aa8ff'], epic: ['Epic', '#b36bff'], legendary: ['Legendary', '#ffb43a'], mythic: ['Mythic', '#ff5a7a'] };
 
 /** My own drawings of the two choices (no icon set): a woven basket and a brass hanging scale. */
 const BASKET_SVG = `<svg viewBox="0 0 120 92" aria-hidden="true">
@@ -117,6 +126,7 @@ export function catchReveal(ctx, info) {
     kind === 'element' ? h('div.reveal__element', variant.name) : null,
     h('h2.reveal__name', name),
     kind === 'morph' ? h('span.pebble.vtoken', { style: { '--pebble': accent, color: inkOn(accent) } }, `${variant.name} ×${fmt(variant.valueMult)}`) : null,
+    variant.rank && variant.rank !== 'common' ? h('span.pebble.vtoken.vrank', { style: { '--pebble': RANK[variant.rank]?.[1] ?? accent, color: inkOn(RANK[variant.rank]?.[1] ?? accent) } }, RANK[variant.rank]?.[0] ?? variant.rank) : null,
     kind === 'element' ? h('span.reveal__mult', `×${fmt(variant.valueMult)} value`) : null,
     lore ? h('p.reveal__lore', lore) : null,
     ribbons);

@@ -3,6 +3,46 @@
  "basic": {
   "kind": "basic"
  },
+ "speckled": {
+  "kind": "morph",
+  "body": {
+   "tint": "#d9c6a0",
+   "amount": 0.3,
+   "gain": 1.05,
+   "bias": 0.05
+  },
+  "overlay": {
+   "texture": "ov_rust",
+   "scale": 3.2,
+   "scroll": [
+    0,
+    0
+   ],
+   "albedo": 0.35,
+   "albedoTint": "#4a3418",
+   "emissive": 0,
+   "top": 0.5
+  },
+  "material": {
+   "metal": 0,
+   "rough": 0.8,
+   "amount": 0.4
+  },
+  "signature": {
+   "boost": 0.8,
+   "tint": "#f0dcae",
+   "tintAmount": 0.3
+  },
+  "rim": {
+   "color": "#f2e2bc",
+   "amount": 0.2,
+   "power": 3
+  },
+  "shine": {
+   "color": "#f6e7c4"
+  },
+  "glint": "#f6e7c4"
+ },
  "bleached": {
   "kind": "morph",
   "body": {
@@ -90,6 +130,89 @@
    "reveal": "morph_reveal_inkdark"
   }
  },
+ "silverscale": {
+  "kind": "morph",
+  "body": {
+   "tint": "#dfe7ee",
+   "amount": 0.75,
+   "gain": 1.25,
+   "bias": 0.18
+  },
+  "overlay": {
+   "texture": "ov_gilt",
+   "scale": 2.2,
+   "scroll": [
+    0,
+    0
+   ],
+   "albedo": 0.7,
+   "albedoTint": "#eef4fa",
+   "emissive": 0.1,
+   "emissiveTint": "#cfe6ff",
+   "top": 0,
+   "edge": 1.0
+  },
+  "material": {
+   "metal": 1.0,
+   "rough": 0.2,
+   "amount": 0.8
+  },
+  "signature": {
+   "boost": 1.1,
+   "tint": "#e8f2ff",
+   "tintAmount": 0.5
+  },
+  "rim": {
+   "color": "#e6f2ff",
+   "amount": 0.9,
+   "power": 2.4
+  },
+  "shine": {
+   "color": "#f4f9ff"
+  },
+  "glint": "#f4f9ff"
+ },
+ "coralborn": {
+  "kind": "morph",
+  "body": {
+   "tint": "#ff7a66",
+   "amount": 0.6,
+   "gain": 1.15,
+   "bias": 0.08
+  },
+  "overlay": {
+   "texture": "ov_bloom",
+   "scale": 2.6,
+   "scroll": [
+    0.01,
+    0
+   ],
+   "albedo": 0.5,
+   "albedoTint": "#ffb0d0",
+   "emissive": 0.15,
+   "emissiveTint": "#ff7aa8",
+   "top": 0.3
+  },
+  "material": {
+   "metal": 0.1,
+   "rough": 0.6,
+   "amount": 0.5
+  },
+  "signature": {
+   "boost": 1.2,
+   "tint": "#ffb3a0",
+   "tintAmount": 0.5
+  },
+  "rim": {
+   "color": "#ffc0b0",
+   "amount": 0.6,
+   "power": 2.6
+  },
+  "shine": {
+   "color": "#ffd0c4"
+  },
+  "glint": "#ffd0c4"
+ },
  "gilded": {
   "kind": "morph",
   "body": {
@@ -132,6 +255,171 @@
   "sound": {
    "reveal": "morph_reveal_gilded"
   }
+ },
+ "pearlescent": {
+  "kind": "morph",
+  "body": {
+   "tint": "#f4eefc",
+   "amount": 0.7,
+   "gain": 1.35,
+   "bias": 0.25
+  },
+  "overlay": {
+   "texture": "ov_tide",
+   "scale": 1.8,
+   "scroll": [
+    0.015,
+    0.01
+   ],
+   "albedo": 0.55,
+   "albedoTint": "#f8e8ff",
+   "emissive": 0.35,
+   "emissiveTint": "#c8b8ff",
+   "top": 0
+  },
+  "material": {
+   "metal": 0.6,
+   "rough": 0.15,
+   "amount": 0.75
+  },
+  "signature": {
+   "boost": 1.5,
+   "tint": "#fff0ff",
+   "tintAmount": 0.5
+  },
+  "rim": {
+   "color": "#ffd8ff",
+   "amount": 1.0,
+   "power": 2.0
+  },
+  "shine": {
+   "color": "#fff4ff"
+  },
+  "glint": "#fff4ff"
+ },
+ "moonlit": {
+  "kind": "morph",
+  "body": {
+   "tint": "#7f93d6",
+   "amount": 0.65,
+   "gain": 0.9,
+   "bias": 0.05
+  },
+  "overlay": {
+   "texture": "ov_frost",
+   "scale": 2.0,
+   "scroll": [
+    0.01,
+    0.0
+   ],
+   "albedo": 0.2,
+   "albedoTint": "#c8d8ff",
+   "emissive": 0.6,
+   "emissiveTint": "#9fc0ff",
+   "top": 0
+  },
+  "material": {
+   "metal": 0.3,
+   "rough": 0.35,
+   "amount": 0.6
+  },
+  "signature": {
+   "boost": 1.8,
+   "tint": "#bcd0ff",
+   "tintAmount": 0.6
+  },
+  "rim": {
+   "color": "#a8c4ff",
+   "amount": 1.2,
+   "power": 2.0
+  },
+  "shine": {
+   "color": "#d8e4ff"
+  },
+  "glint": "#d8e4ff"
+ },
+ "prismatic": {
+  "kind": "morph",
+  "body": {
+   "tint": "#ffffff",
+   "amount": 0.3,
+   "gain": 1.2,
+   "bias": 0.1
+  },
+  "overlay": {
+   "texture": "ov_rune",
+   "scale": 1.6,
+   "scroll": [
+    0.04,
+    0.02
+   ],
+   "albedo": 0.6,
+   "albedoTint": "#ff9ef2",
+   "emissive": 0.7,
+   "emissiveTint": "#7fe8ff",
+   "top": 0,
+   "edge": 1.0
+  },
+  "material": {
+   "metal": 0.8,
+   "rough": 0.1,
+   "amount": 0.8
+  },
+  "signature": {
+   "boost": 2.0,
+   "tint": "#ffd0ff",
+   "tintAmount": 0.5
+  },
+  "rim": {
+   "color": "#ff9ef2",
+   "amount": 1.4,
+   "power": 1.8
+  },
+  "shine": {
+   "color": "#ffe8ff"
+  },
+  "glint": "#ffe8ff"
+ },
+ "ancient": {
+  "kind": "morph",
+  "body": {
+   "tint": "#6e6448",
+   "amount": 0.7,
+   "gain": 0.85,
+   "bias": 0.0
+  },
+  "overlay": {
+   "texture": "ov_rust",
+   "scale": 1.5,
+   "scroll": [
+    0,
+    0
+   ],
+   "albedo": 0.7,
+   "albedoTint": "#9a8a5a",
+   "emissive": 0.25,
+   "emissiveTint": "#e2c26a",
+   "top": 0.6
+  },
+  "material": {
+   "metal": 0.4,
+   "rough": 0.75,
+   "amount": 0.7
+  },
+  "signature": {
+   "boost": 1.6,
+   "tint": "#ffd88a",
+   "tintAmount": 0.5
+  },
+  "rim": {
+   "color": "#e8c870",
+   "amount": 0.9,
+   "power": 2.2
+  },
+  "shine": {
+   "color": "#f0d890"
+  },
+  "glint": "#f0d890"
  },
  "storm": {
   "kind": "element",

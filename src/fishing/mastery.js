@@ -1,3 +1,4 @@
+import { stepUp } from './variants.js';
 // The mastery gauge (perfect fishing during a fight). Fill it by reeling with the tension in the sweet
 // band, steering against the fish, bowing at leaps and countering superpowers; red-lining drains it.
 // A fuller gauge tires the fish faster, so a well-played fight is a short one. Grades (Good / Great /
@@ -14,7 +15,7 @@ const DEFAULTS = {
   grades: [
     { id: 'good', at: 0.4, name: 'Good', valueMult: 1.2 },
     { id: 'great', at: 0.7, name: 'Great', valueMult: 1.5, streak: 1 },
-    { id: 'perfect', at: 1.0, name: 'Perfect', valueMult: 2.5, streak: 2, upgrade: { chance: 0.3, from: ['basic'], to: 'gilded' } },
+    { id: 'perfect', at: 1.0, name: 'Perfect', valueMult: 2.5, streak: 2, upgrade: { chance: 0.45, to: 'next', steps: [1, 2] } },
   ],
   streak: { max: 3, rareWeight: 0.7, perfectCastWeight: 0.4 },
 };
@@ -67,8 +68,13 @@ export function createMastery({ state, fight, hooks }) {
     if (!grade) return { grade: null, valueMult: 1, variant };
     let v = variant;
     const up = grade.upgrade;
-    const exists = !up || state.data?.variants?.[up.to];
-    if (up && exists && (up.from || ['basic']).includes(variant || 'basic') && Math.random() < up.chance) v = up.to;
+    if (up && up.to === 'next') {
+      // A Perfect fight steps the catch up the rank ladder (Casper 9 Nov: Common → … → Legendary).
+      if (Math.random() < up.chance) v = stepUp(state, variant || 'basic', up.steps ? up.steps[0] + Math.floor(Math.random() * (up.steps[1] - up.steps[0] + 1)) : 1);
+    } else {
+      const exists = !up || state.data?.variants?.[up.to];
+      if (up && exists && (up.from || ['basic']).includes(variant || 'basic') && Math.random() < up.chance) v = up.to;
+    }
     return { grade: grade.id, valueMult: grade.valueMult ?? 1, variant: v, upgraded: v !== variant };
   }
 

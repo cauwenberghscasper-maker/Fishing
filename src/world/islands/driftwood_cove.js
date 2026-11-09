@@ -32,6 +32,7 @@ export const driftwoodCove = {
     { id: 'shoal_coral', x: 12, z: 37, rx: 10, rz: 8, rot: 0.3, top: -1.7, edge: 6, rough: 0.35 },
     { id: 'shoal_brig', x: -27, z: 30, rx: 9, rz: 7, rot: -0.4, top: -3.0, edge: 6, rough: 0.25 },
     { id: 'shoal_kelp', x: -47, z: -14, rx: 10, rz: 9, rot: 0.2, top: -3.6, edge: 7, rough: 0.3 },
+    { id: 'shoal_arch', x: 4, z: -42, rx: 8, rz: 6, rot: 0.15, top: -3.0, edge: 6, rough: 0.3 },
     { id: 'shoal_golden', x: 36, z: -30, rx: 10, rz: 8, rot: -0.3, top: -1.3, edge: 6, rough: 0.15 },
     // The outer ring (Casper: "upgrade 360, lots of room per upgrade for machines and fishers").
     // East: Sunset Dunes, a long golden beach with a palm-topped dune crest.
@@ -129,9 +130,9 @@ export const driftwoodCove = {
     { asset: ['coral_staghorn_pink', 'coral_staghorn_blue'], x: 18, z: 36, rot: 0.2 }, { asset: ['coral_table_teal', 'coral_table_rose'], x: 11, z: 41, rot: 2.6 },
     { asset: ['coral_brain_gold', 'coral_brain_green'], x: 16.5, z: 34, rot: 0 }, { asset: ['coral_tube_orange', 'coral_tube_purple'], x: 8, z: 33, rot: 1.6 }, { asset: ['coral_seawhip_magenta', 'coral_seawhip_yellow'], x: 12.5, z: 43, rot: 0.8 },
     { asset: ['wreck_brig'], x: -27, z: 30, rot: 0.9 }, { asset: ['coral_bed_b'], x: -22, z: 34, rot: 1.2, scale: 0.7 },
-    { asset: ['kelp_cathedral_pillar'], x: -44, z: -11, rot: 0.3 }, { asset: ['kelp_cathedral_pillar'], x: -50, z: -12, rot: 1.7 },
-    { asset: ['kelp_cathedral_pillar'], x: -46, z: -18, rot: 2.9 }, { asset: ['kelp_cathedral_pillar'], x: -52, z: -17, rot: 0.9 },
-    { asset: ['kelp_cathedral_pillar'], x: -42, z: -16, rot: 2.2 }, { asset: ['kelp_cathedral_pillar'], x: -48, z: -9, rot: 4.1 },
+    { asset: ['kelp_cathedral_pillar'], x: -44, z: -11, rot: 0.3, scale: 0.55 }, { asset: ['kelp_cathedral_pillar'], x: -50, z: -12, rot: 1.7, scale: 0.55 },
+    { asset: ['kelp_cathedral_pillar'], x: -46, z: -18, rot: 2.9, scale: 0.55 }, { asset: ['kelp_cathedral_pillar'], x: -52, z: -17, rot: 0.9, scale: 0.55 },
+    { asset: ['kelp_cathedral_pillar'], x: -42, z: -16, rot: 2.2, scale: 0.55 }, { asset: ['kelp_cathedral_pillar'], x: -48, z: -9, rot: 4.1, scale: 0.55 },
     { asset: ['sea_arch'], x: 4, z: -42, rot: 0.15 },
     { asset: ['wreck_skiff'], x: 37, z: -28, rot: 2.4 }, { asset: ['coral_fan_violet', 'coral_fan_red'], x: 33, z: -33, rot: 0.5, scale: 0.8 },
     { asset: ['marker_buoy'], x: 20, z: 30, rot: 0, float: true }, { asset: ['marker_buoy'], x: -20, z: 26, rot: 0, float: true },

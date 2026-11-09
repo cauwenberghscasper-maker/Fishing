@@ -24,6 +24,21 @@ export function variantInfo(state, id) {
   return variantTable(state)[id] || FALLBACK[id] || FALLBACK.basic;
 }
 
+/** The rank ladder (variants.json step): the same species from Common up to Legendary morphs. */
+export function rankOf(state, id) {
+  const v = variantInfo(state, id);
+  return { rank: v.rank || (v.kind === 'element' ? 'mythic' : 'common'), step: v.step ?? (v.kind === 'element' ? 11 : 0) };
+}
+/** n steps up the morph ladder (an elemental fish stays elemental; the top morph stays). */
+export function stepUp(state, id, n = 1) {
+  const table = variantTable(state);
+  const cur = table[id] || table.basic || { step: 0 };
+  if (cur.kind === 'element') return id;
+  const ladder = Object.entries(table).filter(([k, v]) => !k.startsWith('_') && v && v.kind !== 'element' && Number.isFinite(v.step)).sort((a, b) => a[1].step - b[1].step);
+  const i = Math.max(0, ladder.findIndex(([k]) => k === (id || 'basic')));
+  return ladder[Math.min(ladder.length - 1, i + n)]?.[0] ?? id;
+}
+
 export function isElemental(state, id) {
   return variantInfo(state, id).kind === 'element';
 }

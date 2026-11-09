@@ -29,5 +29,11 @@ export const MOVES = {
   bob: { dur: [1.0, 1.4], pull: 0.1, line: 0, reelGain: 1.8, depth: 0.1, swim: 'still', next: 'dive', hint: 'It corked up: reel the slack in before it dives' },
   // Saltcrust sole: buries in the sand. Heavy, hardly hurts; steering levers it out.
   bury: { dur: [2.0, 2.8], pull: 1.3, damage: 0.4, steerBonus: 2.5, depth: 'bottom', swim: 'tired', hint: 'Buried in the sand: steer to lever it out' },
+  // Spindrift flyingfish: glides off the surface on the line; the slack must come in fast.
+  glide: { dur: [1.0, 1.5], pull: 0.15, line: 1.4, reelGain: 1.7, depth: 0, swim: 'run', hint: 'It glides off the surface: reel the slack in' },
+  // Hullback sunfish: rolls flat on the swell, a dead weight; only steering turns it.
+  bask: { dur: [2.2, 3.0], pull: 1.25, damage: 0.45, steerBonus: 2.4, depth: 0.1, swim: 'still', hint: 'Basking like a capsized hull: steer to turn it' },
+  // Rigging shark: violent head-shakes; the tension wobbles hard both ways.
+  headshake: { dur: [1.2, 1.8], pull: 1.15, oscillate: 0.3, flipEvery: 0.18, shake: 0.3, damage: 1.25, swim: 'thrash', hint: 'Head-shakes! Keep the line in the green' },
   inflate: { dur: [2.6, 3.4], pull: 0.6, reelTension: 1.9, passiveDrain: 0.035, inflate: 1, swim: 'tired', hint: 'Puffed up! Reeling now spikes the line, wait it out' },
 };

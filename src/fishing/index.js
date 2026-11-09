@@ -10,7 +10,7 @@ import { MOVES } from './moves.js';
 import { createPowerRunner, powerFor } from './powers.js';
 import { createPredation } from './predation.js';
 import { createMastery, updateStreak } from './mastery.js';
-import { createSurge } from './surge.js';
+import { createSurge, islandElement } from './surge.js';
 import { createTaunt } from './taunt.js';
 import { createMinigames } from './minigames.js';
 import { variantInfo } from './variants.js';
@@ -59,6 +59,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   let surge = null;       // mid-fight upgrade minigame (surge.js)
   let surgeTap = false;
   let minigames = null;   // snag + landing (minigames.js)
+  let overmatched = null; // a monster on a rod too weak for it
   const gestures = [];
   let lureState = null;   // the lure object the fish system reads (taunt level lives on it)
   let waitHold = null;    // press-and-hold in wait mode reels in; a tap twitches (taunt)
@@ -272,6 +273,23 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     }) : null;
   }
 
+  // The fish on the line turns into a new variant mid-fight (surge, perfect hold or pump): splash,
+  // shake, its name in gold, and an elemental one fights back with its superpower.
+  function transform(fish, to) {
+    if (!fish || fish.variant === to) return;
+    fish.variant = to;
+    if (fish.object) fish.object.userData.variant = to;
+    events.emit('fish:variant', { uid: fish.uid, fishId: fish.id, variant: to, object: fish.object });
+    const v = variantInfo(state, to);
+    splashes.splash(fish.pos.x, fish.pos.z, 2.4); water.addRipple(fish.pos.x, fish.pos.z, 2.0); water.addRipple(fish.pos.x, fish.pos.z, 1.2, 0.25);
+    cameraRig.shakeFor(0.5, 0.5); loop.slowmo(0.4, 0.8); audio.perfect(); navigator.vibrate?.([40, 30, 80]);
+    hud.toast(`${(v.name || to).toUpperCase()} ${fish.info.name.toUpperCase()}! ×${v.valueMult ?? 1}`, 2.6);
+    if (v.kind === 'element') {
+      const p = makePower(fish);
+      if (p) fight?.setPower(p);
+    }
+  }
+
   function startFight(fish) {
     fishSystem.take(fish);
     fightFish = fish;
@@ -329,31 +347,13 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         beat: (hit) => { if (hit) { audio.tick(); navigator.vibrate?.(25); } else audio.lost(); },
         end: ({ hits, to }) => {
           if (!to) { hud.toast(hits ? `The surge faded (${hits}/3)` : 'The surge faded', 1.6); return; }
-          fish.variant = to;
-          if (fish.object) fish.object.userData.variant = to;
-          events.emit('fish:variant', { uid: fish.uid, fishId: fish.id, variant: to, object: fish.object });
-          const v = variantInfo(state, to);
-          splashes.splash(fish.pos.x, fish.pos.z, 2.4); water.addRipple(fish.pos.x, fish.pos.z, 2.0);
-          cameraRig.shakeFor(0.5, 0.5); audio.perfect(); navigator.vibrate?.([40, 30, 80]);
-          hud.toast(`${(v.name || to).toUpperCase()} ${fish.info.name.toUpperCase()}! ×${v.valueMult ?? 1}`, 2.6);
-          if (v.kind === 'element') {
-            // It fights back with its new superpower.
-            const p = makePower(fish);
-            if (p) fight.setPower(p);
-          }
+          transform(fish, to);
         },
       },
     });
-    minigames = createMinigames({
-      state, fight,
-      hooks: {
-        snag: () => { hud.toast('Snagged! Swipe the arrows', 1.6); audio.creak?.(3); navigator.vibrate?.([30, 30, 30]); },
-        arrow: (ok) => { if (ok) { audio.tick(); navigator.vibrate?.(12); } },
-        snagEnd: (ok) => { if (ok) { mastery?.strike(); audio.perfect(); } else { audio.snap(); cameraRig.shakeFor(0.3, 0.3); } },
-        landing: () => { hud.toast('Land it! Tap in the gold', 1.4); navigator.vibrate?.(20); },
-        landed: (hit) => { if (hit) { audio.perfect(); navigator.vibrate?.([20, 30, 50]); } },
-      },
-    });
+    // Too strong for this rod (monsters): it takes the line and snaps it, with a clear reason.
+    overmatched = fish.info.minRating && (state.gear?.rating ?? 0) < fish.info.minRating ? { t: 0, need: fish.info.minRating } : null;
+    if (overmatched) { hud.toast(`${fish.info.name}! Far too strong...`, 1.6); cameraRig.shakeFor(0.7, 1.2); audio.lurk(); navigator.vibrate?.([60, 40, 120, 40, 200]); }
     hud.setMasteryGrade(null);
     fishSystem.setLure(null);
     audio.hook();
@@ -398,6 +398,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       for (const l of onLine) events.emit('fish:lost', { fishId: l.fish.id, variant: l.fish.variant || 'basic', reason: status });
       if (status === 'snap') { audio.snap(); hud.snapFlash(); hud.toast(onLine.length > 1 ? 'Snap! They took the line' : 'Snap! The line broke'); cameraRig.shake(0.4); }
       else if (status === 'predator') audio.lost();   // predation.js already said who ate it
+      else if (status === 'monster') { audio.snap(); hud.snapFlash(); cameraRig.shake(0.6); hud.toast(`It snapped your line! Needs a rod rated ${overmatched?.need ?? '?'} kg+`, 3.2); }
       else { audio.lost(); hud.toast('It threw the hook'); }
       if (predation) predation.release(status);
       if (status !== 'predator') fishSystem.finish(fish, 'escaped');
@@ -705,13 +706,14 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       if (!modal) mastery?.update(dt, input);
       if (!modal) {
         const surgeOwns = surge?.update(dt, surgeTap);
-        minigames?.update(dt, { gestures: gestures.splice(0), tap: surgeTap && !surgeOwns });
+        minigames?.update(dt, { gestures: gestures.splice(0), tap: surgeTap && !surgeOwns, steer: input.steer ?? 0 });
       } else gestures.length = 0;
       surgeTap = false;
       player.pose(fight.state.tension > 0.72 ? 'struggle' : 'reel');
       let status = modal ? 'fighting' : fight.update(dt, input);
       if (status === 'fighting' && !modal && predation?.update(dt)?.stolen) status = 'predator';
       if (status === 'caught' && minigames?.holdLanding) status = 'fighting';   // wait for the landing tap
+      if (overmatched && status === 'fighting') { overmatched.t += dt; fight.state.tension = Math.min(1, fight.state.tension + dt * 0.8); if (overmatched.t > 1.6) status = 'monster'; }
       const fp = fight.fishPoint();
       lure.pos.set(fp.x, water.surfaceY(fp.x, fp.z) - (fightFish.airY > 0 ? -fightFish.airY : 0.12), fp.z);
       line.setTension(fight.state.tension);
@@ -862,7 +864,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     // Debug: send a hunter at the fish on the line right now (double catch); call again once it's on for a triple.
     debugPredator() { return predation ? predation.force() : false; },
     debugSurge() { return surge ? surge.force() : false; },
-    debugSnag() { return minigames ? minigames.forceSnag() : false; },
+    debugSnag(kind) { return minigames ? minigames.force(kind) : false; },
     get minigameView() { return minigames?.view ?? null; },
     get surgeView() { return surge?.view ?? null; },
     get tauntView() { return taunt.view; },

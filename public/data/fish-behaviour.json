@@ -667,5 +667,518 @@
       "dusk": true
     },
     "signature": "Shakes its head like a ship in a squall, dives for the deep, then breaches."
+  },
+  "mossneck": {
+    "body": "eel",
+    "personality": "cautious",
+    "stamina": 60,
+    "pull": 1.1,
+    "moves": [
+      "dive",
+      "run",
+      "coil",
+      "bask",
+      "leap"
+    ],
+    "moveEvery": [
+      1.6,
+      2.4
+    ],
+    "swim": {
+      "amp": 0.08,
+      "freq": 0.5,
+      "speed": 2.2
+    },
+    "length": 7.0,
+    "cruise": 0.8,
+    "habitat": "abyss",
+    "hookWindow": 0.55,
+    "nibbles": [
+      1,
+      3
+    ],
+    "silhouette": "kelpwraith",
+    "glow": {
+      "color": "#7dffa0",
+      "strength": 0.5,
+      "dusk": true
+    },
+    "minigames": [
+      "snag",
+      "pump",
+      "hold"
+    ],
+    "signature": "Dives with all its humps, then rises like a causeway out of the sea."
+  },
+  "anchorjaw_leviathan": {
+    "body": "bulky",
+    "personality": "aggressive",
+    "stamina": 80,
+    "pull": 1.35,
+    "moves": [
+      "clamp",
+      "headshake",
+      "dive",
+      "burst",
+      "thrash"
+    ],
+    "moveEvery": [
+      1.4,
+      2.2
+    ],
+    "swim": {
+      "amp": 0.04,
+      "freq": 0.4,
+      "speed": 1.8
+    },
+    "length": 9.0,
+    "cruise": 0.6,
+    "habitat": "abyss",
+    "hookWindow": 0.5,
+    "nibbles": [
+      0,
+      2
+    ],
+    "silhouette": "generic",
+    "glow": null,
+    "minigames": [
+      "pump",
+      "snag",
+      "hold"
+    ],
+    "signature": "Clamps its anchor-jaw and drags like a dropped anchor; chain shakes the whole line."
+  },
+  "drowned_lighthouse": {
+    "body": "eel",
+    "personality": "shy",
+    "stamina": 110,
+    "pull": 1.5,
+    "moves": [
+      "run",
+      "vanish",
+      "glare",
+      "headshake",
+      "dive"
+    ],
+    "moveEvery": [
+      1.4,
+      2.0
+    ],
+    "swim": {
+      "amp": 0.07,
+      "freq": 0.45,
+      "speed": 2.4
+    },
+    "length": 12.0,
+    "cruise": 0.7,
+    "habitat": "abyss",
+    "hookWindow": 0.45,
+    "nibbles": [
+      1,
+      2
+    ],
+    "silhouette": "kelpwraith",
+    "glow": {
+      "color": "#ffd27a",
+      "strength": 1.0,
+      "dusk": true
+    },
+    "minigames": [
+      "hold",
+      "snag",
+      "pump"
+    ],
+    "signature": "Its beam sweeps the water; it dives out of the light and runs."
+  },
+  "barnacle_rockling": {
+    "body": "fusiform",
+    "personality": "cautious",
+    "stamina": 5,
+    "pull": 0.3,
+    "moves": [
+      "sulk",
+      "burst"
+    ],
+    "moveEvery": [
+      2.0,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.07,
+      "freq": 1.1,
+      "speed": 3.0
+    },
+    "length": 0.4,
+    "cruise": 0.8,
+    "habitat": "rocks",
+    "hookWindow": 0.8,
+    "nibbles": [
+      1,
+      3
+    ],
+    "silhouette": "generic",
+    "glow": null
+  },
+  "shingle_skipper": {
+    "body": "flat",
+    "personality": "greedy",
+    "stamina": 4,
+    "pull": 0.25,
+    "moves": [
+      "skip",
+      "bury"
+    ],
+    "moveEvery": [
+      2.0,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.07,
+      "freq": 1.1,
+      "speed": 3.0
+    },
+    "length": 0.35,
+    "cruise": 0.8,
+    "habitat": "bottom",
+    "hookWindow": 0.8,
+    "nibbles": [
+      1,
+      3
+    ],
+    "silhouette": "generic",
+    "glow": null
+  },
+  "chartline_mackerel": {
+    "body": "fusiform",
+    "personality": "aggressive",
+    "stamina": 6,
+    "pull": 0.38,
+    "moves": [
+      "run",
+      "zigzag"
+    ],
+    "moveEvery": [
+      2.0,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.06,
+      "freq": 1.6,
+      "speed": 6.0
+    },
+    "length": 0.5,
+    "cruise": 0.8,
+    "habitat": "open",
+    "hookWindow": 0.8,
+    "nibbles": [
+      1,
+      3
+    ],
+    "silhouette": "generic",
+    "glow": null,
+    "school": [
+      5,
+      8
+    ]
+  },
+  "tallow_candlefish": {
+    "body": "fusiform",
+    "personality": "greedy",
+    "stamina": 4,
+    "pull": 0.25,
+    "moves": [
+      "skip",
+      "dive"
+    ],
+    "moveEvery": [
+      2.0,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.07,
+      "freq": 1.1,
+      "speed": 3.0
+    },
+    "length": 0.35,
+    "cruise": 0.8,
+    "habitat": "surface",
+    "hookWindow": 0.8,
+    "nibbles": [
+      1,
+      3
+    ],
+    "silhouette": "generic",
+    "glow": {
+      "color": "#ffb35a",
+      "strength": 0.7,
+      "dusk": true
+    },
+    "school": [
+      6,
+      9
+    ]
+  },
+  "inkwell_cuttlefin": {
+    "body": "bulky",
+    "personality": "shy",
+    "stamina": 9,
+    "pull": 0.42,
+    "moves": [
+      "vanish",
+      "sulk",
+      "burst"
+    ],
+    "moveEvery": [
+      2.0,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.07,
+      "freq": 1.1,
+      "speed": 3.0
+    },
+    "length": 0.55,
+    "cruise": 0.8,
+    "habitat": "mid",
+    "hookWindow": 0.8,
+    "nibbles": [
+      1,
+      3
+    ],
+    "silhouette": "generic",
+    "glow": null
+  },
+  "bellows_grouper": {
+    "body": "bulky",
+    "personality": "aggressive",
+    "stamina": 13,
+    "pull": 0.55,
+    "moves": [
+      "clamp",
+      "thrash",
+      "sulk"
+    ],
+    "moveEvery": [
+      2.0,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.07,
+      "freq": 1.1,
+      "speed": 3.0
+    },
+    "length": 0.9,
+    "cruise": 0.8,
+    "habitat": "rocks",
+    "hookWindow": 0.8,
+    "nibbles": [
+      1,
+      3
+    ],
+    "silhouette": "generic",
+    "glow": null
+  },
+  "weathervane_gar": {
+    "body": "fusiform",
+    "personality": "aggressive",
+    "stamina": 8,
+    "pull": 0.45,
+    "moves": [
+      "run",
+      "leap",
+      "zigzag"
+    ],
+    "moveEvery": [
+      2.0,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.06,
+      "freq": 1.4,
+      "speed": 5.0
+    },
+    "length": 0.8,
+    "cruise": 0.8,
+    "habitat": "surface",
+    "hookWindow": 0.8,
+    "nibbles": [
+      1,
+      3
+    ],
+    "silhouette": "generic",
+    "glow": null
+  },
+  "glassfloat_jelly": {
+    "body": "jelly",
+    "personality": "shy",
+    "stamina": 7,
+    "pull": 0.3,
+    "moves": [
+      "vanish",
+      "sulk"
+    ],
+    "moveEvery": [
+      2.0,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.1,
+      "freq": 0.6,
+      "speed": 1.2
+    },
+    "length": 0.5,
+    "cruise": 0.8,
+    "habitat": "surface",
+    "hookWindow": 0.8,
+    "nibbles": [
+      1,
+      3
+    ],
+    "silhouette": "generic",
+    "glow": {
+      "color": "#ffc860",
+      "strength": 0.6,
+      "dusk": true
+    }
+  },
+  "reefbeak_parrotfish": {
+    "body": "fusiform",
+    "personality": "cautious",
+    "stamina": 12,
+    "pull": 0.5,
+    "moves": [
+      "sulk",
+      "burst",
+      "thrash"
+    ],
+    "moveEvery": [
+      2.0,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.07,
+      "freq": 1.1,
+      "speed": 3.0
+    },
+    "length": 0.8,
+    "cruise": 0.8,
+    "habitat": "rocks",
+    "hookWindow": 0.8,
+    "nibbles": [
+      1,
+      3
+    ],
+    "silhouette": "generic",
+    "glow": null
+  },
+  "keelback_sawfish": {
+    "body": "flat",
+    "personality": "cautious",
+    "stamina": 16,
+    "pull": 0.65,
+    "moves": [
+      "bury",
+      "headshake",
+      "run"
+    ],
+    "moveEvery": [
+      2.0,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.07,
+      "freq": 1.1,
+      "speed": 3.0
+    },
+    "length": 1.3,
+    "cruise": 0.8,
+    "habitat": "bottom",
+    "hookWindow": 0.8,
+    "nibbles": [
+      1,
+      3
+    ],
+    "silhouette": "generic",
+    "glow": null
+  },
+  "diamond_coelacanth": {
+    "body": "fusiform",
+    "personality": "cautious",
+    "stamina": 34,
+    "pull": 0.9,
+    "moves": [
+      "sulk",
+      "dive",
+      "glare",
+      "thrash"
+    ],
+    "moveEvery": [
+      1.8,
+      2.6
+    ],
+    "swim": {
+      "amp": 0.04,
+      "freq": 0.6,
+      "speed": 2.0
+    },
+    "length": 1.8,
+    "cruise": 0.5,
+    "habitat": "abyss",
+    "hookWindow": 0.55,
+    "nibbles": [
+      2,
+      4
+    ],
+    "silhouette": "generic",
+    "glow": {
+      "color": "#dfe8ff",
+      "strength": 0.7,
+      "dusk": false
+    },
+    "minigames": [
+      "pump",
+      "hold"
+    ],
+    "signature": "Slow and stubborn as the deep; flashes its diamonds to blind you, then sinks like a stone."
+  },
+  "golden_eel": {
+    "body": "eel",
+    "personality": "shy",
+    "stamina": 22,
+    "pull": 0.7,
+    "moves": [
+      "coil",
+      "vanish",
+      "run",
+      "zigzag"
+    ],
+    "moveEvery": [
+      1.6,
+      2.4
+    ],
+    "swim": {
+      "amp": 0.13,
+      "freq": 1.2,
+      "speed": 3.4
+    },
+    "length": 1.6,
+    "cruise": 0.9,
+    "habitat": "abyss",
+    "hookWindow": 0.55,
+    "nibbles": [
+      1,
+      3
+    ],
+    "silhouette": "kelpwraith",
+    "glow": {
+      "color": "#ffd24a",
+      "strength": 0.6,
+      "dusk": false
+    },
+    "minigames": [
+      "snag",
+      "hold"
+    ],
+    "signature": "Coils round your line and slips out of sight; a flash of gold and it's running."
   }
 }

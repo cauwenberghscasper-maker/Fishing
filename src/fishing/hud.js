@@ -246,6 +246,27 @@ export function createHud({ root }) {
           g.globalAlpha = 1;
           label('Swipe!', x, y - 104, { size: 16, color: theme.gold });
         }
+        if (mg.pump) {
+          // A ring closing on the fish each beat; dots for hits.
+          const r = 18 + 50 * Math.max(0, 1 - mg.pump.k);
+          ring(x, y, 18, theme.gold, 4, 0.9);
+          if (mg.pump.k <= 1.15) ring(x, y, r, theme.paper, 3, 0.85);
+          for (let i = 0; i < mg.pump.beats; i++) ring(x + (i - (mg.pump.beats - 1) / 2) * 20, y + 44, 6, i < mg.pump.hits ? theme.gold : theme.paper, i < mg.pump.beat ? 6 : 2, 0.9);
+          label('Pump!', x, y - 80, { size: 16, color: theme.gold });
+        }
+        if (mg.hold) {
+          // A brass bar: keep the marker in the gold middle; the fill shows how long you've held it.
+          const W = 180, bx = x - W / 2, by = y - 74;
+          g.fillStyle = 'rgba(6, 22, 24, 0.75)'; g.fillRect(bx - 4, by - 10, W + 8, 20);
+          g.fillStyle = theme.gold; g.globalAlpha = 0.55;
+          g.fillRect(x - (mg.hold.zone * W) / 2, by - 8, mg.hold.zone * W, 16);
+          g.globalAlpha = 1;
+          g.fillStyle = theme.glow; g.fillRect(bx, by + 12, W * Math.min(1, mg.hold.fill), 4);
+          const mx = x + Math.max(-1, Math.min(1, mg.hold.m)) * (W / 2);
+          g.fillStyle = theme.paper; g.beginPath(); g.moveTo(mx, by - 12); g.lineTo(mx - 7, by - 22); g.lineTo(mx + 7, by - 22); g.closePath(); g.fill();
+          g.fillRect(mx - 1.5, by - 10, 3, 20);
+          label('Steer!', x, by - 34, { size: 16, color: theme.gold });
+        }
         if (mg.landing) {
           // A brass half-dial: gold zone in the middle, the needle sweeping across.
           const R = 46, cx = x, cy = y - 30;

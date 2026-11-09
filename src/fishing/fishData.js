@@ -10,10 +10,10 @@ const FALLBACK = {
   old_mooring: { name: 'The Old Mooring', tier: 'big', weight: [18, 46], depth: [4, 12], time: 'any' },
 };
 
-export const TIER_RANK = { common: 0, uncommon: 1, rare: 2, epic: 3, legendary: 4, big: 3, boss: 5 };
+export const TIER_RANK = { common: 0, uncommon: 1, rare: 2, epic: 3, legendary: 4, big: 3, boss: 5, monster: 6 };
 
 // How many of each tier swim around at once (schools count as one).
-export const TIER_POPULATION = { common: 4, uncommon: 3, rare: 2, epic: 1, legendary: 1, big: 1, boss: 0 };
+export const TIER_POPULATION = { common: 4, uncommon: 3, rare: 2, epic: 1, legendary: 1, big: 1, boss: 0, monster: 1 };
 
 export function fishInfo(state, id) {
   const data = state.data?.fish?.[id] || {};

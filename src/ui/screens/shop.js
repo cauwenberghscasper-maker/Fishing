@@ -266,6 +266,29 @@ function gearView(ctx, slot, drawer, setDrawer) {
   return { grid: TileGrid(tiles, { label: slotInfo(slot)?.label ?? slot }), plate };
 }
 
+// What a better rod opens up (Casper 9 Nov: buying gear should always say what you get): fish
+// whose water is newly in casting reach, monsters it is now strong enough to land, and how much
+// further it throws (further out = bigger, rarer fish).
+const REACH = { open: 24, deep: 30, abyss: 40 };
+function rodUnlocks(state, item, cur) {
+  const island = state.world?.islandId || 'driftwood_cove';
+  const cast = item.stats?.castDistance ?? 0, rating = item.stats?.rating ?? 0;
+  const cast0 = cur?.stats?.castDistance ?? 0, rating0 = cur?.stats?.rating ?? 0;
+  const fresh = [];
+  for (const [fid, f] of Object.entries(state.data.fish ?? {})) {
+    if (!f || f.island !== island) continue;
+    const need = REACH[state.data.fishBehaviour?.[fid]?.habitat];
+    const reach = need && cast0 < need && cast >= need;
+    const strong = f.minRating && rating0 < f.minRating && rating >= f.minRating;
+    if (reach || strong) fresh.push(state.profile.fishdex?.[fid] ? f.name : `${f.name} (new)`);
+  }
+  const further = cast - cast0;
+  const parts = [];
+  if (fresh.length) parts.push(`Opens up: ${fresh.slice(0, 4).join(', ')}${fresh.length > 4 ? ` +${fresh.length - 4} more` : ''}.`);
+  if (further > 0) parts.push(`Casts ${further} m further: out there the fish run bigger and rarer.`);
+  return parts.join(' ') || null;
+}
+
 function gearDrawer(ctx, slot, id, item, drawer) {
   const { state, economy, ui } = ctx;
   const p = state.profile;
@@ -285,6 +308,7 @@ function gearDrawer(ctx, slot, id, item, drawer) {
   if (slot === 'bait') lines.push(baitBrings(state, id));
   if (slot === 'lure' && item.targets?.length) lines.push(`Best for ${item.targets.map((t) => state.data.fish?.[t]?.name ?? t).join(', ')}.`);
   if (isTool) lines.push(TOOL_LINE[id] ?? null);
+  if (slot === 'rod' && !isEquipped) lines.push(rodUnlocks(state, item, equipped));
   if (slot === 'rod' && item.unbreakable) lines.push('Never breaks.');
   if (slot === 'rod' && isEquipped && economy.rodStrain() > 0) lines.push(p.condition.rodBroken?.[id] ? 'Broken. Repair it here at the counter.' : `Strained ${Math.round(economy.rodStrain() * 100)}%.`);
   if (slot === 'line' && isEquipped && p.condition.lineWear > 0.01) lines.push(`${Math.round(p.condition.lineWear * 100)}% worn.`);

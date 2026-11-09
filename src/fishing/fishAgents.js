@@ -83,6 +83,8 @@ export function createFishSystem({ state, island, water, splashes, events, under
   function depthFor(f, x, z) {
     const water = island.waterDepthAt(x, z);
     const hab = f.behaviour.habitat;
+    // Monsters cruise just under the surface so their huge shadows are seen from the shore.
+    if (f.info.tier === 'monster') return Math.min(water - 0.5, 1.1 + Math.random() * 0.5);
     if (hab === 'bottom') return Math.max(0.25, water - 0.18);
     if (hab === 'surface') return Math.min(water - 0.2, 0.35 + Math.random() * 0.3);
     const [a, b] = f.info.depth;
@@ -102,7 +104,9 @@ export function createFishSystem({ state, island, water, splashes, events, under
     if (forcedUid && forcedUid > uidCounter) uidCounter = forcedUid;
     // Every fish has its own size, and you can see it: a bigger shadow is a heavier catch. One in
     // ~25 is a giant of its kind (well past the normal range). Schools share their leader's size.
-    let sizeU = school?.leader?.sizeU != null ? Math.max(0, Math.min(1, school.leader.sizeU + rand(-0.1, 0.1))) : Math.pow(Math.random(), 1.5);
+    // Further out, the fish run bigger (a long cast is a bigger catch).
+    const farOut = THREE.MathUtils.smoothstep(Math.hypot(p.x, p.z), 20, 60);
+    let sizeU = school?.leader?.sizeU != null ? Math.max(0, Math.min(1, school.leader.sizeU + rand(-0.1, 0.1))) : Math.pow(Math.random(), 1.5 - 0.8 * farOut);
     if (!school && Math.random() < GIANT_CHANCE * (Math.hypot(p.x, p.z) > 35 ? 2 : 1)) sizeU = 1 + rand(0.15, 0.6);
     const sizeLook = (0.72 + 0.56 * Math.min(1, sizeU)) * (sizeU > 1 ? 1 + (sizeU - 1) * 1.6 : 1);
     const f = {
@@ -480,6 +484,10 @@ export function createFishSystem({ state, island, water, splashes, events, under
       let w = (1 / (1 + rank * 1.2)) * baitBonus * (1.3 - d / (f.personality.notice * 1.6));
       if (lure.perfect) w *= 1 + rank * 0.8;
       if (taunt) w *= 1 + rank * taunt * 1.4;
+      // A long cast is rewarded (Casper 9 Nov): out past the island, rare fish bite far more and the
+      // commons thin out. 0 near shore, 1 at ~60 m from the island's heart.
+      const far = THREE.MathUtils.smoothstep(Math.hypot(lure.x, lure.z), 20, 60);
+      if (far) w *= rank === 0 ? 1 - 0.6 * far : 1 + rank * far * 1.6;
       // Variety: species you just caught bite less, ones missing from your Fishdex bite more.
       const recent = recentCatches.filter((id) => id === f.id).length;
       if (recent) w *= Math.pow(0.45, recent);

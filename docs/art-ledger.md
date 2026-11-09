@@ -228,3 +228,21 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 8 Nov 21:12 | lead | Qwen-Image ×1 | title art (storm marlin over the cove), also darkened for the loading screen | ~20 |
 
 **Agent C, 8 Nov poses (measured wall): 9 heroes + 2 failed flounder heroes on full Qwen-Image (~20 s each) + 18 rest/portrait on Qwen-Image-Fast (~4–8 s each in parallel batches) ≈ 61+60+59+48+23+31+70+31+? ≈ 400 s of the 450 s budget. No quota error was hit.**
+
+### Art agent — 9 Nov (new Driftwood Cove fish; agent stopped before finishing, lead finished the files)
+| Time (Brussels) | Tool | What | GPU s (wall-clock upper bound) |
+|---|---|---|---|
+| 00:39 | Qwen-Image ×3 | sailcloth_ray takes A/B/C, seeds 41101–41103 | ~85 |
+| 00:40–00:42 | Qwen-Image ×4 | knotted_needlefish takes, 42101 rejected, 42102–42104 kept | ~110 |
+| 00:43 | Qwen-Image ×3 | lampfin_gurnard takes 43101–43103 | ~85 |
+| 00:45 | Qwen-Image ×4 | oyster_hoarder takes 44101–44104 (44104 rejected: lips, teeth) | ~110 |
+| 00:47 | Qwen-Image ×3 | moonwake_ribbonfish takes 45101–45103 | ~80 |
+| 00:48 | Qwen-Image ×5 | heroes r1: needlefish kept (weak); ray, gurnard, oyster, ribbonfish rejected (props, teeth) | ~120 |
+| 00:50 | Qwen-Image ×4 | heroes r2: gurnard 53102 kept, ribbonfish 55102 kept, oyster rejected, ray timed out | ~150 |
+| 12:39 | Qwen-Image ×2 | ray hero 51102 kept, oyster hero 54103 kept | ~32 |
+| 12:40 | Qwen-Image-Fast ×5 | rests in a basket: only ribbonfish kept (not used: basket in the cut-out) | ~17 |
+| 12:41 | Qwen-Image ×4 | rests r2: ray 61102 and needlefish 62102 kept, gurnard and oyster rejected | ~65 |
+| 12:42–12:44 | Qwen-Image ×8 | straight views on teal: tops for ray, needlefish, gurnard, ribbonfish (kept as `_top`), side views of gurnard, oyster ×2, ribbonfish (used as their rest poses) | ~130 |
+| 12:45–12:48 | Qwen-Image ×9 | journal portraits, 1–2 per fish; best of each kept | ~140 |
+
+**9 Nov total ≈ 1,120 s wall over two quota days (00:39–00:52 on the 8 Nov quota, 12:39–12:48 on the 9 Nov quota).** Nothing was lost: every kept image is now in the game (hero, rest, portrait, preview for all five; top views for four). Still to make: oyster_hoarder top view; all art for bottlepost_wrasse and saltcrust_sole; the net_rig / reel_mill / cannery cards and concepts.

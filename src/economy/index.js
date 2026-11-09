@@ -385,6 +385,16 @@ export const economy = {
     changed('cooler');
     return c;
   },
+  /** Let a fish from the cooler go back into the sea (no coins). */
+  releaseCatch(catchId) {
+    const p = P();
+    const i = p.cooler.findIndex((c) => c.id === catchId);
+    if (i < 0) return fail('missing');
+    p.cooler.splice(i, 1);
+    changed('cooler');
+    E.emit('catch:released', { catchId });
+    return { ok: true };
+  },
   releaseHeld() {
     const p = P();
     if (!p.held) return fail('missing');

@@ -138,6 +138,36 @@ export function createHud({ root }) {
     if (labelEl.parentNode !== main) main.append(labelEl);
   }
 
+  // Painted fight gauges (F's hud set): brass tension dial + needle (+ crack near the snap point)
+  // and a spirit-level stamina gauge. B's .meter elements stay as the accessible fallback.
+  const HUD = {
+    dial: 'art/hud/gauge_tension.webp', needle: 'art/hud/gauge_tension_needle.webp', level: 'art/hud/gauge_stamina.webp',
+    ring: 'art/hud/ring_perfect.webp', strike: 'art/hud/prompt_strike.webp', band: 'art/hud/line_band.webp', crack: 'art/hud/crack.webp',
+  };
+  const img = {};
+  for (const [k, src] of Object.entries(HUD)) { const i = new Image(); i.onload = () => { img[k] = i; if (k === 'dial' || k === 'level') buildGauges(); }; i.src = src; }
+  const gauges = document.createElement('div');
+  gauges.style.cssText = 'position:absolute;left:calc(10px + env(safe-area-inset-left));bottom:calc(16px + env(safe-area-inset-bottom));width:min(62vw, 300px);height:132px;display:none;pointer-events:none;';
+  root.appendChild(gauges);
+  let dialEl = null, needleEl = null, crackEl = null, levelCover = null, levelEl = null;
+  function buildGauges() {
+    if (!img.dial || !img.level || dialEl) return;
+    gauges.innerHTML = `
+      <div data-g="dial" style="position:absolute;left:0;bottom:0;width:124px;height:124px;background:url(${HUD.dial}) center/contain no-repeat;filter:drop-shadow(0 4px 6px rgba(0,0,0,.45));">
+        <div data-g="needle" style="position:absolute;left:50%;top:50%;width:18px;height:92px;margin:-46px 0 0 -9px;background:url(${HUD.needle}) center/contain no-repeat;transform-origin:50% 50%;"></div>
+        <div data-g="crack" style="position:absolute;inset:14px;background:url(${HUD.crack}) center/contain no-repeat;opacity:0;mix-blend-mode:screen;"></div>
+      </div>
+      <div data-g="level" style="position:absolute;left:118px;right:0;bottom:30px;aspect-ratio:4/1;background:url(${HUD.level}) center/100% 100% no-repeat;filter:drop-shadow(0 3px 5px rgba(0,0,0,.4));">
+        <div data-g="cover" style="position:absolute;top:31%;bottom:31%;right:17%;width:0%;background:rgba(10,24,28,.78);border-radius:3px;"></div>
+      </div>`;
+    dialEl = gauges.querySelector('[data-g="dial"]');
+    needleEl = gauges.querySelector('[data-g="needle"]');
+    crackEl = gauges.querySelector('[data-g="crack"]');
+    levelEl = gauges.querySelector('[data-g="level"]');
+    levelCover = gauges.querySelector('[data-g="cover"]');
+  }
+  let gaugesOn = false;
+
   return {
     main,
     root,
@@ -171,6 +201,12 @@ export function createHud({ root }) {
       toastEl.textContent = text;
       toastEl.style.display = '';
       toastTimer = seconds;
+    },
+    snapFlash() {
+      if (!crackEl) return;
+      crackEl.style.opacity = '1';
+      gauges.style.display = 'block';
+      setTimeout(() => { gauges.style.display = gaugesOn ? 'block' : 'none'; }, 900);
     },
     clearToast() { toastTimer = 0; toastEl.style.display = 'none'; },
     // draw(frame): called every frame with what to show on the overlay canvas.
@@ -212,10 +248,21 @@ export function createHud({ root }) {
         g.lineWidth = 3.5 - (a.power || 0) * 1.6;
         g.globalAlpha = 0.75 + (a.power || 0) * 0.25;
         for (const s of [-1, 1]) {
-          g.beginPath();
-          g.moveTo(c.x + nx * c.r * 0.55 * s, c.y + ny * c.r * 0.55 * s);
-          g.lineTo(px, py);
-          g.stroke();
+          const sx = c.x + nx * c.r * 0.55 * s, sy = c.y + ny * c.r * 0.55 * s;
+          if (img.band && !inDead) {
+            // Painted rope band stretched from the button to the thumb.
+            const len = Math.hypot(px - sx, py - sy);
+            g.save();
+            g.translate(sx, sy);
+            g.rotate(Math.atan2(py - sy, px - sx));
+            g.drawImage(img.band, 0, -5 + (a.power || 0) * 1.5, len, 10 - (a.power || 0) * 3);
+            g.restore();
+          } else {
+            g.beginPath();
+            g.moveTo(sx, sy);
+            g.lineTo(px, py);
+            g.stroke();
+          }
         }
         g.globalAlpha = 1;
         g.fillStyle = col;
@@ -234,7 +281,15 @@ export function createHud({ root }) {
         if (a.reticle && a.hasAim) {
           const txt = a.valid ? `${a.band}  ${a.depth.toFixed(1)} m${a.fish ? `  ·  ${a.fish} fish` : ''}` : 'No water there';
           label(txt, a.reticle.x, a.reticle.y + 44, { size: 15, color: a.valid ? theme.paper : theme.danger, font: theme.fontNum });
-          if (a.perfect) label('Perfect', a.reticle.x, a.reticle.y - 46, { size: 16, color: theme.gold });
+          if (a.perfect) {
+            if (img.ring) {
+              const r = 46;
+              g.globalAlpha = 0.95;
+              g.drawImage(img.ring, a.reticle.x - r, a.reticle.y - r * 0.62, r * 2, r * 1.24);
+              g.globalAlpha = 1;
+            }
+            label('Perfect', a.reticle.x, a.reticle.y - 46, { size: 16, color: theme.gold });
+          }
         }
       }
 
@@ -243,7 +298,11 @@ export function createHud({ root }) {
       if (b) {
         const k = Math.max(0, b.remaining / b.window);
         ring(b.x, b.y, 18 + 26 * k, theme.gold, 4, 0.95);
-        label('!', b.x, b.y - 2, { size: 28, color: theme.gold });
+        if (img.strike) {
+          // Painted "Strike!" splash, punching in as the window opens.
+          const w = 120 * (0.9 + 0.25 * Math.min(1, (1 - k) * 4)), h = w * (320 / 768);
+          g.drawImage(img.strike, b.x - w / 2, b.y - h - 26, w, h);
+        } else label('!', b.x, b.y - 2, { size: 28, color: theme.gold });
       }
 
       // Taunt (taunt.js): a ring closes on the lure each beat; the gold arc is how taunted it is.

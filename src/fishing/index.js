@@ -379,7 +379,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       const streak = updateStreak(state, status, null);
       if (streak.before > 0) setTimeout(() => hud.toast('Your lucky streak is over', 1.8), 1800);
       for (const l of onLine) events.emit('fish:lost', { fishId: l.fish.id, variant: l.fish.variant || 'basic', reason: status });
-      if (status === 'snap') { audio.snap(); hud.toast(onLine.length > 1 ? 'Snap! They took the line' : 'Snap! The line broke'); cameraRig.shake(0.4); }
+      if (status === 'snap') { audio.snap(); hud.snapFlash(); hud.toast(onLine.length > 1 ? 'Snap! They took the line' : 'Snap! The line broke'); cameraRig.shake(0.4); }
       else if (status === 'predator') audio.lost();   // predation.js already said who ate it
       else { audio.lost(); hud.toast('It threw the hook'); }
       if (predation) predation.release(status);

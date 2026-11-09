@@ -4,17 +4,36 @@
     "personality": "greedy",
     "stamina": 5,
     "pull": 0.25,
-    "moves": ["skip", "zigzag"],
-    "moveEvery": [2.2, 3.6],
-    "swim": { "amp": 0.09, "freq": 1.1, "speed": 9.0 },
+    "moves": [
+      "skip",
+      "zigzag"
+    ],
+    "moveEvery": [
+      2.2,
+      3.6
+    ],
+    "swim": {
+      "amp": 0.09,
+      "freq": 1.1,
+      "speed": 9.0
+    },
     "length": 0.5,
     "cruise": 1.6,
     "habitat": "surface",
-    "school": [5, 8],
+    "school": [
+      5,
+      8
+    ],
     "hookWindow": 0.95,
-    "nibbles": [0, 1],
+    "nibbles": [
+      0,
+      1
+    ],
     "silhouette": "glasswing",
-    "glow": { "color": "#5ff2e0", "strength": 0.9 },
+    "glow": {
+      "color": "#5ff2e0",
+      "strength": 0.9
+    },
     "signature": "Schools skip across the surface like thrown pebbles; on the line it skips instead of diving."
   },
   "driftback": {
@@ -22,15 +41,28 @@
     "personality": "cautious",
     "stamina": 7,
     "pull": 0.38,
-    "moves": ["playdead", "bolt"],
-    "moveEvery": [2.8, 4.2],
-    "swim": { "amp": 0.045, "freq": 0.8, "speed": 3.2 },
+    "moves": [
+      "playdead",
+      "bolt"
+    ],
+    "moveEvery": [
+      2.8,
+      4.2
+    ],
+    "swim": {
+      "amp": 0.045,
+      "freq": 0.8,
+      "speed": 3.2
+    },
     "length": 0.85,
     "cruise": 0.7,
     "habitat": "driftwood",
     "idleStill": 0.55,
     "hookWindow": 0.85,
-    "nibbles": [2, 4],
+    "nibbles": [
+      2,
+      4
+    ],
     "silhouette": "driftback",
     "glow": null,
     "signature": "Lies dead still like a branch, then bolts. On the line it goes limp, then rips line out."
@@ -40,16 +72,32 @@
     "personality": "shy",
     "stamina": 8,
     "pull": 0.34,
-    "moves": ["hug", "dive"],
-    "moveEvery": [3.0, 4.5],
-    "swim": { "amp": 0.07, "freq": 1.6, "speed": 4.2 },
+    "moves": [
+      "hug",
+      "dive"
+    ],
+    "moveEvery": [
+      3.0,
+      4.5
+    ],
+    "swim": {
+      "amp": 0.07,
+      "freq": 1.6,
+      "speed": 4.2
+    },
     "length": 0.8,
     "cruise": 0.5,
     "habitat": "bottom",
     "hookWindow": 0.85,
-    "nibbles": [1, 3],
+    "nibbles": [
+      1,
+      3
+    ],
     "silhouette": "compass",
-    "glow": { "color": "#e8b85a", "strength": 0.35 },
+    "glow": {
+      "color": "#e8b85a",
+      "strength": 0.35
+    },
     "signature": "Hugs the bottom; its needle-spine swings north. On the line it suctions flat to the sand."
   },
   "shellback_blenny": {
@@ -57,14 +105,27 @@
     "personality": "aggressive",
     "stamina": 9,
     "pull": 0.42,
-    "moves": ["shell", "burst"],
-    "moveEvery": [2.4, 3.6],
-    "swim": { "amp": 0.08, "freq": 2.0, "speed": 10.0 },
+    "moves": [
+      "shell",
+      "burst"
+    ],
+    "moveEvery": [
+      2.4,
+      3.6
+    ],
+    "swim": {
+      "amp": 0.08,
+      "freq": 2.0,
+      "speed": 10.0
+    },
     "length": 0.45,
     "cruise": 0.9,
     "habitat": "rocks",
     "hookWindow": 0.7,
-    "nibbles": [0, 1],
+    "nibbles": [
+      0,
+      1
+    ],
     "silhouette": "shellback",
     "glow": null,
     "signature": "Snaps the hook without hesitation, then pulls back into its spiral shell: reeling does nothing until it peeks out."
@@ -74,17 +135,35 @@
     "personality": "shy",
     "stamina": 11,
     "pull": 0.5,
-    "moves": ["zigzag", "run", "dive"],
-    "moveEvery": [2.0, 3.2],
-    "swim": { "amp": 0.13, "freq": 1.75, "speed": 4.6 },
+    "moves": [
+      "zigzag",
+      "run",
+      "dive"
+    ],
+    "moveEvery": [
+      2.0,
+      3.2
+    ],
+    "swim": {
+      "amp": 0.13,
+      "freq": 1.75,
+      "speed": 4.6
+    },
     "length": 1.5,
     "cruise": 0.8,
     "habitat": "kelp",
     "camouflage": 0.35,
     "hookWindow": 0.65,
-    "nibbles": [2, 5],
+    "nibbles": [
+      2,
+      5
+    ],
     "silhouette": "kelpwraith",
-    "glow": { "color": "#ffb347", "strength": 0.8, "dusk": true },
+    "glow": {
+      "color": "#ffb347",
+      "strength": 0.8,
+      "dusk": true
+    },
     "signature": "Invisible in the kelp until it moves; amber float-bulbs glow at dusk. Fights in long S-curves."
   },
   "seaglass_puffer": {
@@ -92,16 +171,33 @@
     "personality": "cautious",
     "stamina": 13,
     "pull": 0.48,
-    "moves": ["inflate", "sulk", "burst"],
-    "moveEvery": [2.6, 3.8],
-    "swim": { "amp": 0.05, "freq": 1.0, "speed": 2.6 },
+    "moves": [
+      "inflate",
+      "sulk",
+      "burst"
+    ],
+    "moveEvery": [
+      2.6,
+      3.8
+    ],
+    "swim": {
+      "amp": 0.05,
+      "freq": 1.0,
+      "speed": 2.6
+    },
     "length": 0.7,
     "cruise": 0.45,
     "habitat": "mid",
     "hookWindow": 0.5,
-    "nibbles": [3, 6],
+    "nibbles": [
+      3,
+      6
+    ],
     "silhouette": "puffer",
-    "glow": { "color": "#9ff0c8", "strength": 0.45 },
+    "glow": {
+      "color": "#9ff0c8",
+      "strength": 0.45
+    },
     "signature": "Inflates into a spiky glass ball: reeling hard while it is puffed spikes the tension, waiting it out pays."
   },
   "old_mooring": {
@@ -109,14 +205,31 @@
     "personality": "cautious",
     "stamina": 30,
     "pull": 0.8,
-    "moves": ["run", "dive", "sulk", "thrash", "burst", "leap"],
-    "moveEvery": [1.8, 3.0],
-    "swim": { "amp": 0.06, "freq": 0.85, "speed": 2.0 },
+    "moves": [
+      "run",
+      "dive",
+      "sulk",
+      "thrash",
+      "burst",
+      "leap"
+    ],
+    "moveEvery": [
+      1.8,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.06,
+      "freq": 0.85,
+      "speed": 2.0
+    },
     "length": 2.7,
     "cruise": 0.55,
     "habitat": "deep",
     "hookWindow": 0.75,
-    "nibbles": [3, 5],
+    "nibbles": [
+      3,
+      5
+    ],
     "silhouette": "mooring",
     "glow": null,
     "signature": "The one that got away for fifty years: rope barbels, iron ring in its lip, a jaw full of old hooks. Runs, dives, sulks and thrashes."
@@ -126,14 +239,27 @@
     "personality": "greedy",
     "stamina": 6,
     "pull": 0.32,
-    "moves": ["kite", "leap"],
-    "moveEvery": [2.4, 3.6],
-    "swim": { "amp": 0.09, "freq": 0.9, "speed": 2.4 },
+    "moves": [
+      "kite",
+      "leap"
+    ],
+    "moveEvery": [
+      2.4,
+      3.6
+    ],
+    "swim": {
+      "amp": 0.09,
+      "freq": 0.9,
+      "speed": 2.4
+    },
     "length": 0.8,
     "cruise": 0.9,
     "habitat": "surface",
     "hookWindow": 0.9,
-    "nibbles": [1, 3],
+    "nibbles": [
+      1,
+      3
+    ],
     "silhouette": "generic",
     "glow": null,
     "signature": "Glides like a sail: on the line it kites sideways and catches the current."
@@ -143,14 +269,27 @@
     "personality": "aggressive",
     "stamina": 5,
     "pull": 0.3,
-    "moves": ["skip", "coil"],
-    "moveEvery": [2.0, 3.0],
-    "swim": { "amp": 0.06, "freq": 1.6, "speed": 4.8 },
+    "moves": [
+      "skip",
+      "coil"
+    ],
+    "moveEvery": [
+      2.0,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.06,
+      "freq": 1.6,
+      "speed": 4.8
+    },
     "length": 0.75,
     "cruise": 1.3,
     "habitat": "surface",
     "hookWindow": 0.75,
-    "nibbles": [0, 2],
+    "nibbles": [
+      0,
+      2
+    ],
     "silhouette": "generic",
     "glow": null,
     "signature": "Whip-fast; ties itself in knots on the line, which puts a wobble on the tension."
@@ -160,16 +299,34 @@
     "personality": "cautious",
     "stamina": 9,
     "pull": 0.42,
-    "moves": ["hug", "glare", "burst"],
-    "moveEvery": [2.4, 3.6],
-    "swim": { "amp": 0.05, "freq": 1.1, "speed": 2.2 },
+    "moves": [
+      "hug",
+      "glare",
+      "burst"
+    ],
+    "moveEvery": [
+      2.4,
+      3.6
+    ],
+    "swim": {
+      "amp": 0.05,
+      "freq": 1.1,
+      "speed": 2.2
+    },
     "length": 0.7,
     "cruise": 0.5,
     "habitat": "bottom",
     "hookWindow": 0.8,
-    "nibbles": [2, 4],
+    "nibbles": [
+      2,
+      4
+    ],
     "silhouette": "generic",
-    "glow": { "color": "#ffb347", "strength": 0.9, "dusk": true },
+    "glow": {
+      "color": "#ffb347",
+      "strength": 0.9,
+      "dusk": true
+    },
     "signature": "Walks the bottom; flares its lantern wings to dazzle, then bursts away."
   },
   "oyster_hoarder": {
@@ -177,14 +334,28 @@
     "personality": "cautious",
     "stamina": 12,
     "pull": 0.5,
-    "moves": ["sulk", "clamp", "thrash"],
-    "moveEvery": [2.2, 3.4],
-    "swim": { "amp": 0.05, "freq": 0.9, "speed": 2.6 },
+    "moves": [
+      "sulk",
+      "clamp",
+      "thrash"
+    ],
+    "moveEvery": [
+      2.2,
+      3.4
+    ],
+    "swim": {
+      "amp": 0.05,
+      "freq": 0.9,
+      "speed": 2.6
+    },
     "length": 0.9,
     "cruise": 0.6,
     "habitat": "rocks",
     "hookWindow": 0.7,
-    "nibbles": [2, 4],
+    "nibbles": [
+      2,
+      4
+    ],
     "silhouette": "generic",
     "glow": null,
     "signature": "Clamps its shell-cheeks shut on the line and digs in; patience opens it."
@@ -194,16 +365,35 @@
     "personality": "shy",
     "stamina": 14,
     "pull": 0.55,
-    "moves": ["zigzag", "leap", "run", "vanish"],
-    "moveEvery": [1.8, 2.8],
-    "swim": { "amp": 0.15, "freq": 1.4, "speed": 4.0 },
+    "moves": [
+      "zigzag",
+      "leap",
+      "run",
+      "vanish"
+    ],
+    "moveEvery": [
+      1.8,
+      2.8
+    ],
+    "swim": {
+      "amp": 0.15,
+      "freq": 1.4,
+      "speed": 4.0
+    },
     "length": 2.2,
     "cruise": 0.9,
     "habitat": "surface",
     "hookWindow": 0.55,
-    "nibbles": [3, 5],
+    "nibbles": [
+      3,
+      5
+    ],
     "silhouette": "generic",
-    "glow": { "color": "#dfe9ff", "strength": 1.0, "dusk": true },
+    "glow": {
+      "color": "#dfe9ff",
+      "strength": 1.0,
+      "dusk": true
+    },
     "signature": "Dances on the surface in moonlight, leaps in silver arcs and vanishes under the wake."
   },
   "bottlepost_wrasse": {
@@ -211,14 +401,28 @@
     "personality": "greedy",
     "stamina": 8,
     "pull": 0.4,
-    "moves": ["bob", "burst", "thrash"],
-    "moveEvery": [2.2, 3.2],
-    "swim": { "amp": 0.08, "freq": 1.3, "speed": 3.0 },
+    "moves": [
+      "bob",
+      "burst",
+      "thrash"
+    ],
+    "moveEvery": [
+      2.2,
+      3.2
+    ],
+    "swim": {
+      "amp": 0.08,
+      "freq": 1.3,
+      "speed": 3.0
+    },
     "length": 0.6,
     "cruise": 0.8,
     "habitat": "rocks",
     "hookWindow": 0.85,
-    "nibbles": [1, 3],
+    "nibbles": [
+      1,
+      3
+    ],
     "silhouette": "generic",
     "glow": null,
     "signature": "Corks to the surface (the line goes slack), then dives hard with the slack gone."
@@ -228,16 +432,100 @@
     "personality": "cautious",
     "stamina": 6,
     "pull": 0.3,
-    "moves": ["bury", "sulk"],
-    "moveEvery": [2.6, 3.6],
-    "swim": { "amp": 0.05, "freq": 0.8, "speed": 2.0 },
+    "moves": [
+      "bury",
+      "sulk"
+    ],
+    "moveEvery": [
+      2.6,
+      3.6
+    ],
+    "swim": {
+      "amp": 0.05,
+      "freq": 0.8,
+      "speed": 2.0
+    },
     "length": 0.55,
     "cruise": 0.4,
     "habitat": "bottom",
     "hookWindow": 0.8,
-    "nibbles": [2, 4],
+    "nibbles": [
+      2,
+      4
+    ],
     "silhouette": "generic",
     "glow": null,
     "signature": "Buries itself in the sand: heavy, barely moving. Steer to lever it out."
+  },
+  "storm_marlin": {
+    "body": "fusiform",
+    "personality": "aggressive",
+    "stamina": 40,
+    "pull": 0.95,
+    "moves": [
+      "run",
+      "leap",
+      "dive",
+      "burst",
+      "zigzag"
+    ],
+    "moveEvery": [
+      1.6,
+      2.6
+    ],
+    "swim": {
+      "amp": 0.05,
+      "freq": 0.9,
+      "speed": 5.5
+    },
+    "length": 3.2,
+    "cruise": 1.4,
+    "habitat": "deep",
+    "hookWindow": 0.45,
+    "nibbles": [
+      0,
+      1
+    ],
+    "silhouette": "generic",
+    "glow": {
+      "color": "#ffe45c",
+      "strength": 0.9
+    },
+    "signature": "Lightning-rod bill and a torn storm-sail dorsal: it runs, then leaps and shakes sparks off at the top."
+  },
+  "temple_manta": {
+    "body": "ray",
+    "personality": "cautious",
+    "stamina": 45,
+    "pull": 0.85,
+    "moves": [
+      "dive",
+      "sulk",
+      "run",
+      "burst"
+    ],
+    "moveEvery": [
+      2.0,
+      3.2
+    ],
+    "swim": {
+      "amp": 0.12,
+      "freq": 0.6,
+      "speed": 2.4
+    },
+    "length": 3.4,
+    "cruise": 0.9,
+    "habitat": "deep",
+    "hookWindow": 0.5,
+    "nibbles": [
+      2,
+      4
+    ],
+    "silhouette": "generic",
+    "glow": {
+      "color": "#3ff0d8",
+      "strength": 0.9
+    },
+    "signature": "Carved temple-stone wings and a glowing rune seal: it glides, then dives for the bottom."
   }
 }

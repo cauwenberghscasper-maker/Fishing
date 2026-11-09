@@ -14,3 +14,7 @@
 - Shop tiles: item art sits directly on the paper tag (no dark picture box), `object-fit: contain`, never cropped. Tab icons are one style: CSS turns every painted icon into a gilded engraving (dark ink on the selected brass tab), fixed size 32 px (sub-tabs 22 px). Casper approved this direction; keep it for every menu.
 - Art now live: all 24 tackle cards, 18 building cards (`building.<id>.l1..l3`), 11 variant emblems, 8 island stamps + chart cards, title/loading art, hud set, 19 tab icons.
 - Player trap fix in src/world/island.js `resolveMove`: a step that leads out of a collider is always allowed (a building that appears around the player can never trap them).
+
+## 9 Nov, 13:35 — Casper: "implement everything" (all generated art must be visible in the game)
+`node tools/check-art.mjs` now has a "NOT SHOWN IN THE GAME" list: registered art that no code asks for. It must be empty.
+Open now: screen.cooler.l0–l3 + fish rest poses in the cooler (B), stamp.* + fish portraits in the logbook (B), hud.* gauges/ring/strike/line/crack (A), fish 3D models in the water (A uses, C builds).

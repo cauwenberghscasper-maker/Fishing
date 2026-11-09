@@ -171,7 +171,7 @@ function sellView(ctx, drawer, setDrawer) {
   return { grid, plate };
 }
 
-export function fishDrawer(ctx, c, drawer, { keepLabel = 'Keep' } = {}) {
+export function fishDrawer(ctx, c, drawer, { keepLabel = 'Keep', onKeep = null } = {}) {
   const { state, economy, ui } = ctx;
   const f = state.data.fish?.[c.fishId] ?? { name: c.fishId };
   const v = economy.variant(c.variant);
@@ -187,7 +187,7 @@ export function fishDrawer(ctx, c, drawer, { keepLabel = 'Keep' } = {}) {
     h('h3.drawer__title', name),
     h('div.drawer__facts', h('span.t-num', fmtKg(c.weight)), size ? h(`span.stamp.stamp--${size.id}`, size.name) : null, variantToken(economy, c.variant)),
     h('div.drawer__actions',
-      Plate(keepLabel, () => drawer.close(), { kind: 'wood' }),
+      Plate(keepLabel, () => { onKeep?.(); drawer.close(); }, { kind: 'wood' }),
       Plate([h('span', 'Sell'), money(price)], (e) => {
         const rect = e.currentTarget.getBoundingClientRect();
         const r = economy.sellCatch(c.id);

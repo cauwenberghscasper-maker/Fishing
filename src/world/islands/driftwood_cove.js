@@ -22,6 +22,15 @@ export const driftwoodCove = {
     { id: 'basalt_cliff', plot: 'basalt_cliff', x: 6.0, z: -10.5, rx: 7.2, rz: 4.4, rot: 0.05, top: 1.7, edge: 2.2, rough: 0.35, rocky: true },
     { id: 'kelp_shallows', plot: 'kelp_shallows', x: -6.5, z: 10.0, rx: 6.0, rz: 4.4, rot: 0.1, top: -0.55, edge: 3.0, rough: 0.1 },
     { id: 'mooring_deep', plot: 'mooring_deep', x: 12.0, z: 11.0, rx: 3.4, rz: 3.6, rot: 0.5, top: 0.9, edge: 1.8, rough: 0.3, rocky: true },
+    // The outer ring (Casper: "upgrade 360, lots of room per upgrade for machines and fishers").
+    // East: Sunset Dunes, a long golden beach with a palm-topped dune crest.
+    { id: 'sunset_dunes', plot: 'sunset_dunes', x: 31.0, z: -1.0, rx: 11.0, rz: 7.5, rot: 0.15, top: 1.05, edge: 3.6, rough: 0.16 },
+    { id: 'sunset_dunes_crest', plot: 'sunset_dunes', x: 35.0, z: -5.5, rx: 5.0, rz: 3.0, rot: 0.3, top: 2.3, edge: 3.0, rough: 0.25 },
+    // West: Gull Headland, a high grassy rock shoulder past the west cliffs.
+    { id: 'gull_headland', plot: 'gull_headland', x: -35.0, z: 5.0, rx: 9.5, rz: 8.0, rot: -0.3, top: 1.7, edge: 2.6, rough: 0.3, rocky: true },
+    { id: 'gull_headland_knoll', plot: 'gull_headland', x: -39.5, z: 0.5, rx: 4.0, rz: 3.4, rot: 0.2, top: 3.0, edge: 2.4, rough: 0.4, rocky: true },
+    // South: Lantern Atoll, a palm ring far out past the Old Mooring, lit at night.
+    { id: 'lantern_atoll', plot: 'lantern_atoll', x: 27.0, z: 22.0, rx: 8.5, rz: 6.5, rot: 0.4, top: 0.9, edge: 3.8, rough: 0.1 },
   ],
 
   // Plots: where the dressing model (D's plot_<id>, origin at the plot centre on the ground, +Z
@@ -35,6 +44,19 @@ export const driftwoodCove = {
     basalt_cliff: { model: 'plot_basalt_cliff', x: 6.0, z: -10.5, rot: 0, spots: [{ x: 3.5, z: -10.5, rot: 0 }, { x: 8.5, z: -10.8, rot: -0.1 }] },
     kelp_shallows: { model: 'plot_kelp_shallows', x: -6.5, z: 10.0, rot: 0.1, spots: [] },
     mooring_deep: { model: 'plot_mooring_deep', x: 12.0, z: 11.0, rot: 0.5, spots: [{ x: 12.0, z: 10.0, rot: -0.4 }] },
+    // Outer ring: big plots dressed with props (no plot_* model), lots of build spots each.
+    sunset_dunes: { x: 31.0, z: -1.0, rot: 0, spots: [
+      { x: 24.5, z: -1.5, rot: -0.3 }, { x: 28.5, z: 2.8, rot: 0.2 }, { x: 33.5, z: 3.0, rot: 0 },
+      { x: 38.0, z: 0.5, rot: -0.4 }, { x: 27.5, z: -5.0, rot: 0.1 }, { x: 31.0, z: -1.5, rot: 0 },
+    ] },
+    gull_headland: { x: -35.0, z: 5.0, rot: 0, spots: [
+      { x: -29.5, z: 3.0, rot: 0.3 }, { x: -32.0, z: 7.5, rot: 0.1 }, { x: -36.5, z: 9.5, rot: -0.2 },
+      { x: -41.0, z: 6.5, rot: 0.6 }, { x: -34.5, z: 4.5, rot: 0 },
+    ] },
+    lantern_atoll: { x: 27.0, z: 22.0, rot: 0, spots: [
+      { x: 22.5, z: 20.0, rot: 0.4 }, { x: 27.0, z: 18.5, rot: 0 }, { x: 31.5, z: 22.5, rot: -0.3 },
+      { x: 27.5, z: 25.5, rot: 3.1 }, { x: 23.0, z: 24.5, rot: 2.6 },
+    ] },
   },
 
   // Day one: the tarp lean-to and a driftwood fire, always there.
@@ -71,6 +93,12 @@ export const driftwoodCove = {
     { pier: 1, side: -1 }, { pier: 2, side: 1 }, { pier: 3, side: -1 }, { pier: 4, side: 1 },
     { x: 13.5, z: 0.4, face: [16, 6], plot: 'palm_spit' },
     { x: -10.5, z: -1.6, face: [-12, 6], plot: 'wreck_beach' },
+    { x: 29.0, z: 6.0, face: [29, 12], plot: 'sunset_dunes' },
+    { x: 41.5, z: 3.0, face: [46, 6], plot: 'sunset_dunes' },
+    { x: -34.0, z: 12.5, face: [-34, 18], plot: 'gull_headland' },
+    { x: -43.5, z: 6.5, face: [-49, 8], plot: 'gull_headland' },
+    { x: 34.0, z: 25.5, face: [39, 28], plot: 'lantern_atoll' },
+    { x: 21.6, z: 26.4, face: [17, 31], plot: 'lantern_atoll' },
   ],
 
   // Interaction zones that are not buildings (buildings get zones from their placement).
@@ -88,6 +116,55 @@ export const driftwoodCove = {
     { asset: ['rock_m'], x: 8.5, z: 3.5, rot: 2.2 },
     { asset: ['rock_m'], x: -5.5, z: -2.0, rot: 1.2 },
     { asset: ['starfish_a'], x: 0.6, z: 0.9, rot: 2.6, plot: 'sandbar' },
+    // Sunset Dunes: palms on the crest, grass in the hollows, driftwood washed up on the waterline.
+    { asset: ['palm_twin'], x: 35.5, z: -6.0, rot: 0.4, plot: 'sunset_dunes' },
+    { asset: ['palm_tall'], x: 33.0, z: -7.5, rot: 2.1, scale: 0.9, plot: 'sunset_dunes' },
+    { asset: ['palm_bent'], x: 41.0, z: -3.5, rot: -0.9, plot: 'sunset_dunes' },
+    { asset: ['palm_young'], x: 22.5, z: 2.5, rot: 1.3, plot: 'sunset_dunes' },
+    { asset: ['palm_bent'], x: 36.0, z: 5.5, rot: 2.8, scale: 0.85, plot: 'sunset_dunes' },
+    { asset: ['bush_seagrape'], x: 38.5, z: -6.5, rot: 0.7, plot: 'sunset_dunes' },
+    { asset: ['bush_seagrape_s'], x: 30.0, z: -6.8, rot: 2.2, plot: 'sunset_dunes' },
+    { asset: ['beach_grass_a'], x: 26.0, z: -6.5, rot: 0.3, plot: 'sunset_dunes' },
+    { asset: ['beach_grass_b'], x: 31.5, z: -8.0, rot: 1.7, plot: 'sunset_dunes' },
+    { asset: ['beach_grass_a'], x: 40.0, z: -5.5, rot: 2.5, plot: 'sunset_dunes' },
+    { asset: ['beach_grass_b'], x: 24.0, z: 4.0, rot: 0.9, plot: 'sunset_dunes' },
+    { asset: ['beach_grass_a'], x: 39.5, z: 3.5, rot: 1.1, plot: 'sunset_dunes' },
+    { asset: ['driftwood_log'], x: 31.0, z: 6.0, rot: 0.2, plot: 'sunset_dunes' },
+    { asset: ['driftwood_branch'], x: 25.5, z: 5.2, rot: 2.4, plot: 'sunset_dunes' },
+    { asset: ['shells_a'], x: 33.5, z: 6.2, rot: 0.5, plot: 'sunset_dunes' },
+    { asset: ['coconut_pile'], x: 34.5, z: -4.0, rot: 0, plot: 'sunset_dunes' },
+    { asset: ['rock_cluster'], x: 42.5, z: 0.0, rot: 1.4, plot: 'sunset_dunes' },
+    { asset: ['signpost'], x: 22.8, z: -3.8, rot: -0.6, plot: 'sunset_dunes' },
+    { asset: ['lantern_post'], x: 26.5, z: 0.8, rot: 0, plot: 'sunset_dunes' },
+    // Gull Headland: wind-bent scrub on grey rock, a cairn path up the knoll, nets drying.
+    { asset: ['rock_l'], x: -40.5, z: -1.0, rot: 0.6, plot: 'gull_headland' },
+    { asset: ['rock_cluster'], x: -43.0, z: 2.5, rot: 2.2, plot: 'gull_headland' },
+    { asset: ['columns_steps'], x: -37.0, z: 2.0, rot: -0.4, plot: 'gull_headland' },
+    { asset: ['cairn_lantern'], x: -38.5, z: -0.5, rot: 0, plot: 'gull_headland' },
+    { asset: ['cairn_lantern'], x: -33.0, z: 1.0, rot: 0, plot: 'gull_headland' },
+    { asset: ['cairn_lantern'], x: -28.5, z: 6.5, rot: 0, plot: 'gull_headland' },
+    { asset: ['bush_spiky'], x: -42.0, z: -2.0, rot: 1.0, plot: 'gull_headland' },
+    { asset: ['bush_spiky'], x: -30.0, z: -0.5, rot: 2.6, plot: 'gull_headland' },
+    { asset: ['bush_seagrape'], x: -38.0, z: 11.5, rot: 0.4, plot: 'gull_headland' },
+    { asset: ['bush_seagrape_s'], x: -27.5, z: 9.5, rot: 1.9, plot: 'gull_headland' },
+    { asset: ['palm_young'], x: -40.0, z: 10.5, rot: 2.9, plot: 'gull_headland' },
+    { asset: ['net_rack'], x: -32.5, z: 12.0, rot: 0.1, plot: 'gull_headland' },
+    { asset: ['rock_shore'], x: -44.0, z: 9.5, rot: 0.8, plot: 'gull_headland' },
+    // Lantern Atoll: a ring of palms and lanterns around a sandy middle, a mooring post offshore.
+    { asset: ['palm_tall'], x: 20.5, z: 22.5, rot: 0.5, plot: 'lantern_atoll' },
+    { asset: ['palm_bent'], x: 33.5, z: 19.0, rot: -1.2, plot: 'lantern_atoll' },
+    { asset: ['palm_twin'], x: 25.0, z: 15.8, rot: 1.6, scale: 0.85, plot: 'lantern_atoll' },
+    { asset: ['palm_young'], x: 31.5, z: 26.5, rot: 2.4, plot: 'lantern_atoll' },
+    { asset: ['lantern_post'], x: 24.5, z: 18.0, rot: 0, plot: 'lantern_atoll' },
+    { asset: ['lantern_post'], x: 30.0, z: 19.5, rot: 0, plot: 'lantern_atoll' },
+    { asset: ['lantern_post'], x: 29.5, z: 25.0, rot: 0, plot: 'lantern_atoll' },
+    { asset: ['lantern_post'], x: 24.5, z: 26.5, rot: 0, plot: 'lantern_atoll' },
+    { asset: ['tide_pool_a'], x: 27.0, z: 22.0, rot: 0.3, plot: 'lantern_atoll' },
+    { asset: ['anchor'], x: 33.5, z: 23.5, rot: 1.1, plot: 'lantern_atoll' },
+    { asset: ['rope_coil'], x: 21.5, z: 25.5, rot: 0.4, plot: 'lantern_atoll' },
+    { asset: ['beach_grass_b'], x: 22.0, z: 18.0, rot: 2.0, plot: 'lantern_atoll' },
+    { asset: ['shells_a'], x: 28.5, z: 27.5, rot: 0.2, plot: 'lantern_atoll' },
+    { asset: ['mooring_dolphin'], x: 36.5, z: 21.0, rot: 0.3, plot: 'lantern_atoll' },
   ],
 
   // Scattered beds (seeded so the cove looks the same every time).
@@ -99,13 +176,13 @@ export const driftwoodCove = {
 
   // Where each fish habitat lives (fish-behaviour.json `habitat`). Areas are circles.
   habitats: {
-    surface: { minDepth: 1.2, areas: [{ x: 4, z: 18, r: 12 }, { x: -4, z: 10, r: 7 }] },
+    surface: { minDepth: 1.2, areas: [{ x: 4, z: 18, r: 12 }, { x: -4, z: 10, r: 7 }, { x: 31, z: 11, r: 6 }, { x: 38, z: 22, r: 5 }] },
     driftwood: { minDepth: 0.8, areas: [{ x: -5, z: 4.5, r: 4 }, { x: 10, z: 4, r: 4 }] },
     bottom: { minDepth: 1.5, areas: [{ x: 0, z: 7, r: 7 }, { x: 11, z: 9, r: 5 }] },
-    rocks: { minDepth: 0.9, areas: [{ x: -12, z: 6, r: 4.5 }, { x: -9.5, z: 12.5, r: 3.5 }] },
+    rocks: { minDepth: 0.9, areas: [{ x: -12, z: 6, r: 4.5 }, { x: -9.5, z: 12.5, r: 3.5 }, { x: -36, z: 15, r: 5 }, { x: 45, z: -4, r: 4 }] },
     kelp: { minDepth: 2.0, areas: [{ x: -6, z: 15, r: 5 }] },
     mid: { minDepth: 3.0, areas: [{ x: 6, z: 17, r: 8 }, { x: -2, z: 20, r: 8 }] },
-    deep: { minDepth: 6.0, areas: [{ x: 6, z: 26, r: 8 }] },
+    deep: { minDepth: 6.0, areas: [{ x: 6, z: 26, r: 8 }, { x: 30, z: 34, r: 8 }] },
   },
 
   // Kelp drawn as swaying silhouettes only when the kelp model is missing.

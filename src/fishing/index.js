@@ -837,7 +837,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     if (mode === 'aim') {
       const info = aim.info;
       frame.aim = {
-        drag: aim.dragVector, dragLength: aim.dragLength, deadZone: aim.deadZone, maxDrag: aim.maxDrag, power: aim.power, centre: aim.centre, moved: aim.moved,
+        drag: aim.dragVector, dragLength: aim.dragLength, deadZone: aim.deadZone, maxDrag: aim.maxDrag, power: aim.power, centre: aim.centre, fisher: screenOf(tmp2.set(player.position.x, player.position.y + 0.9, player.position.z)), moved: aim.moved,
         hasAim: info.hasAim, valid: info.valid, band: info.band.name, depth: info.depth, fish: info.fishInside,
         reticle: info.hasAim ? screenOf(aim.target) : null, perfect: aim.perfectNow,
       };

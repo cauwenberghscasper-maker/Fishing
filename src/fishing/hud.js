@@ -345,8 +345,9 @@ export function createHud({ root }) {
       const a = frame.aim;
       if (a) {
         const c = buttonCentre();
-        const o = a.centre ? { x: a.centre.x, y: a.centre.y, r: 26 } : c;
-        const px = o.x + a.drag.x, py = o.y + a.drag.y;
+        // The band is drawn from where the fisher stands now (the camera may have moved) to the thumb.
+        const o = a.fisher ? { x: a.fisher.x, y: a.fisher.y, r: 26 } : a.centre ? { x: a.centre.x, y: a.centre.y, r: 26 } : c;
+        const px = (a.centre ? a.centre.x : o.x) + a.drag.x, py = (a.centre ? a.centre.y : o.y) + a.drag.y;
         const inDead = !a.hasAim;
         const col = inDead ? theme.danger : theme.paper;
         const nx = -a.drag.y / (a.dragLength || 1), ny = a.drag.x / (a.dragLength || 1);

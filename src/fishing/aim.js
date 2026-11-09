@@ -173,6 +173,17 @@ export function createAim({ island, fishSystem, water, state }) {
   // Casper 9 Nov: "throwing up or to the left is almost impossible, the screen is too small". The
   // band now pulls from the fisher (who stands mid-screen), not from the corner button, so every
   // direction has the same room: pull the thumb away from the fisher, the cast flies the other way.
+  // How far the thumb can pull from the fisher in this direction before it reaches the screen edge.
+  function pullRoom(ux, uy) {
+    const W = window.innerWidth, H = window.innerHeight;
+    const c = centre || { x: W / 2, y: H / 2 };
+    let t = Infinity;
+    if (ux > 1e-3) t = Math.min(t, (W - 18 - c.x) / ux);
+    if (ux < -1e-3) t = Math.min(t, (c.x - 18) / -ux);
+    if (uy > 1e-3) t = Math.min(t, (H - 18 - c.y) / uy);
+    if (uy < -1e-3) t = Math.min(t, (c.y - 70) / -uy);
+    return THREE.MathUtils.clamp(t, PULL_R0 + 90, 420);
+  }
   function maxDragPx() {
     return Math.max(120, Math.min(260, Math.min(window.innerHeight, window.innerWidth) * 0.4));
   }
@@ -263,7 +274,10 @@ export function createAim({ island, fishSystem, water, state }) {
       arc.mesh.visible = true;
       reticle.mesh.visible = true;
       // Pull back to throw: the cast goes opposite to the drag (camera looks north, no yaw).
-      power = Math.pow(THREE.MathUtils.clamp((len - PULL_R0) / (maxDragPx() - PULL_R0), 0, 1), 1.1);
+      // Power runs from the fisher out to the screen edge in the pull's direction (Casper 9 Nov:
+      // "fishing up is always max throw"): pulling down has the whole lower screen for its range,
+      // so every direction gets the full scale from a short lob to a full cast.
+      power = Math.pow(THREE.MathUtils.clamp((len - PULL_R0) / (pullRoom(drag.x / len, drag.y / len) - PULL_R0), 0, 1), 1.1);
       const step = Math.min(4, Math.floor(power * 4 + 0.001));
       if (step > lastPowerStep) feel.powerStep = step;
       lastPowerStep = step;

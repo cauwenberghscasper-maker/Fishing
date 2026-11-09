@@ -46,3 +46,11 @@ Self-hosted in `public/fonts/` (licence texts: `public/fonts/OFL-*.txt`), from t
 ## Idle machines (net_rig, reel_mill, cannery, l1–l3)
 - `public/assets/world/{net_rig,reel_mill,cannery}_l{1,2,3}/` (model.glb + preview.webp): original work, built procedurally in Blender 5.2 (bpy, GPL; the output models are our own) by the Blender machines agent, released CC0 with the game. No kit pieces are used. They are painted with the shared `cove_atlas.jpg` / `cove_net.png`, and the AO and weathering are baked into the vertex colours.
 - Compressed with glTF-Transform (MIT) and meshoptimizer (MIT). Previews and contact sheets are rendered with three.js (MIT) in Playwright (Apache-2.0).
+
+## Sea world: wrecks, coral, arch, kelp, buoy, treasure chests
+- `public/assets/world/{wreck_brig,wreck_skiff,coral_*,coral_bed_a,coral_bed_b,sea_arch,kelp_cathedral_pillar,marker_buoy,treasure_chest_wood,treasure_chest_silver,treasure_chest_gold}/` (model.glb + preview.webp): original work, built procedurally in Blender (bpy, GPL; the output models are our own) by the Blender sea agent, released CC0 with the game. No kit pieces are used. They are painted with the shared `cove_atlas.jpg` / `cove_net.png`. Coral colours are per-vertex colour ramps on the atlas's flat cell (no new texture). AO, algae, the wet band at the waterline and gull streaks are baked into the vertex colours.
+- Compressed with glTF-Transform (MIT) and meshoptimizer (MIT). Previews and contact sheets are rendered with three.js (MIT) in Playwright (Apache-2.0).
+
+## Sea monsters (mossneck, anchorjaw_leviathan, drowned_lighthouse)
+- `public/assets/fish/{mossneck,anchorjaw_leviathan,drowned_lighthouse}/` (model.glb + preview.webp): original work, built procedurally in Blender 5.2 (bpy, GPL; the output models are our own) by the Blender monsters agent, released CC0 with the game. No kit pieces, scans or generated images are used. Textures are painted procedurally (numpy noise over baked position/normal/AO maps) and baked to 1024 base colour, 512 emissive and 256 metal/rough WebP maps.
+- Compressed with glTF-Transform (MIT), meshoptimizer (MIT) and sharp (Apache-2.0). Previews and contact sheets are rendered with three.js (MIT) in Playwright (Apache-2.0).

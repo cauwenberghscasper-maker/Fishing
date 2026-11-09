@@ -263,6 +263,7 @@ export async function startWorld({ canvas, state, events }) {
     wadeHunter: () => wading.force(),
     surge: () => fishing.debugSurge(),
     get surgeView() { return fishing.surgeView; },
+    get tauntView() { return fishing.tauntView; },
     get fightVariant() { return fishing.fightVariant; },
     mastery: (v) => fishing.debugMastery(v),
     get onLine() { return fishing.onLine; },

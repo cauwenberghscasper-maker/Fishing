@@ -435,11 +435,14 @@ export function createFishSystem({ state, island, water, splashes, events, under
       if (f.school && f.school.leader !== f && Math.random() < 0.6) continue;
       const d = Math.hypot(f.pos.x - lure.x, f.pos.z - lure.z);
       const baitBonus = f.info.bait.length ? (f.info.bait.includes(bait) ? 1.5 : 0.7) : 1;
-      if (d > f.personality.notice * baitBonus) continue;
+      // A taunted lure (rhythmic twitches) is noticed from much further away.
+      const taunt = lure.taunt || 0;
+      if (d > f.personality.notice * baitBonus * (1 + taunt * 1.2)) continue;
       const rank = TIER_RANK[f.info.tier] ?? 0;
       // Rarer fish are less likely; a perfect cast tilts the odds towards them.
       let w = (1 / (1 + rank * 1.2)) * baitBonus * (1.3 - d / (f.personality.notice * 1.6));
       if (lure.perfect) w *= 1 + rank * 0.8;
+      if (taunt) w *= 1 + rank * taunt * 1.4;
       // Variety: species you just caught bite less, ones missing from your Fishdex bite more.
       const recent = recentCatches.filter((id) => id === f.id).length;
       if (recent) w *= Math.pow(0.45, recent);
@@ -644,6 +647,56 @@ export function createFishSystem({ state, island, water, splashes, events, under
     },
     moveLure(x, z) { if (lure) { lure.x = x; lure.z = z; } },
     // Tap during the wait: hook a biting fish, or spook one that is only inspecting.
+    /**
+     * The player twitched the lure (taunting). good = on the beat. A good twitch makes a curious fish
+     * commit sooner; a sloppy or frantic one can spook it. Returns 'spooked' | 'teased' | 'none'.
+     */
+    twitch(good, frantic = false) {
+      if (!lure) return 'none';
+      water.addRipple(lure.x, lure.z, good ? 0.45 : 0.3);
+      const f = engaged;
+      if (!f || f.controlled) return 'none';
+      if (['approach', 'inspect', 'nibble'].includes(f.state)) {
+        const spook = frantic ? 0.7 : good ? 0 : 0.3 * (f.personality.spook || 1);
+        if (Math.random() < spook) {
+          events.emit('fish:lost', { fishId: f.id, variant: f.variant, reason: 'spooked' });
+          flee(f, lure.x, lure.z);
+          engageTimer = rand(2, 3.5);
+          return 'spooked';
+        }
+        if (good) {
+          // Teased into it: fewer nibbles, it goes for the strike.
+          if (f.state === 'nibble') f.nibblesLeft = Math.max(0, (f.nibblesLeft || 0) - 1);
+          else f.timer = Math.min(f.timer, 0.3);
+          return 'teased';
+        }
+      }
+      return 'none';
+    },
+    /** A full taunt can call something rare in from further out (once per cast). */
+    summonRare(minRank = 2) {
+      if (!lure) return null;
+      const hour = lighting.hour;
+      const ids = rosterFor(state, state.world.islandId).filter((id) => {
+        const info = fishInfo(state, id);
+        const r = TIER_RANK[info.tier] ?? 0;
+        return r >= minRank && info.tier !== 'boss' && info.behaviour && timeAllows(info.time, hour);
+      });
+      if (!ids.length) return null;
+      const id = ids[Math.floor(Math.random() * ids.length)];
+      for (let i = 0; i < 12; i++) {
+        const a = Math.random() * Math.PI * 2, r = rand(5, 8);
+        const x = lure.x + Math.sin(a) * r, z = lure.z + Math.cos(a) * r;
+        if (island.waterDepthAt(x, z) > 1.5) {
+          const f = makeFish(id, { x, z, area: { x, z, r: 4 } });
+          if (engaged && !engaged.controlled) { setState(engaged, 'wander', 2); }
+          engaged = f;
+          setState(f, 'approach');
+          return f;
+        }
+      }
+      return null;
+    },
     tryHook() {
       const f = engaged;
       if (!f) return { result: 'none' };

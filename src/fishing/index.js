@@ -11,6 +11,7 @@ import { createPowerRunner, powerFor } from './powers.js';
 import { createPredation } from './predation.js';
 import { createMastery, updateStreak } from './mastery.js';
 import { createSurge } from './surge.js';
+import { createTaunt } from './taunt.js';
 import { variantInfo } from './variants.js';
 import { isElemental } from './variants.js';
 import { audio } from '../core/audio.js';
@@ -56,6 +57,28 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   let mastery = null;     // the perfect-fight gauge (mastery.js)
   let surge = null;       // mid-fight upgrade minigame (surge.js)
   let surgeTap = false;
+  let lureState = null;   // the lure object the fish system reads (taunt level lives on it)
+  let waitHold = null;    // press-and-hold in wait mode reels in; a tap twitches (taunt)
+  const taunt = createTaunt({
+    state,
+    hooks: {
+      twitch: (good, frantic, level) => {
+        if (lureState) lureState.taunt = level;
+        lure.dip = Math.max(lure.dip, good ? 0.12 : 0.07);
+        splashes.splash(lure.pos.x, lure.pos.z, good ? 0.35 : 0.2);
+        if (good) { audio.tick(); navigator.vibrate?.(10); }
+        const r = fishSystem.twitch(good, frantic);
+        if (r === 'spooked') { hud.toast(frantic ? 'Too frantic, it fled' : 'Off beat, it fled', 1.4); audio.lost(); }
+        hint('taunt', 'Tap on the pulse. Hold to reel in');
+      },
+      full: (summon) => {
+        if (lureState) lureState.taunt = 1;
+        const f = summon ? fishSystem.summonRare() : null;
+        hud.toast(f ? 'Something big took notice...' : 'Big fish are watching', 2.2);
+        if (f) { audio.lurk(); navigator.vibrate?.([20, 50, 20]); }
+      },
+    },
+  });
   const tip = new THREE.Vector3();
   const hand = new THREE.Vector3();
   const tmp = new THREE.Vector3();
@@ -89,7 +112,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     else if (mode === 'aim') hud.setMainLabel('Aim');
     else if (mode === 'wait') {
       const biting = fishSystem.biteProgress();
-      hud.setMainLabel(biting ? 'Hook!' : flight.active ? '' : 'Reel', { ariaLabel: biting ? 'Hook the fish' : 'Reel the line in' });
+      hud.setMainLabel(biting ? 'Hook!' : flight.active ? '' : 'Tease', { ariaLabel: biting ? 'Hook the fish' : 'Tap on the pulse to tease fish, hold to reel the line in' });
     } else if (mode === 'fight' || mode === 'hooked') hud.setMainLabel('Reel', { ariaLabel: 'Hold to reel, drag sideways to steer' });
     else hud.setMainLabel('', { hidden: true });
   }
@@ -174,7 +197,9 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     cameraRig.shake(0.08);
     lastCast = { ...c };
     const attraction = state.gear?.baitAttraction || 1;
-    fishSystem.setLure({ x: c.x, z: c.z, perfect: c.perfect, attraction });
+    lureState = { x: c.x, z: c.z, perfect: c.perfect, attraction, taunt: 0 };
+    taunt.reset();
+    fishSystem.setLure(lureState);
     events.emit('cast:land', { x: c.x, z: c.z, depth: Math.round(c.depth * 100) / 100, perfect: Boolean(c.perfect) });
     if (c.perfect) { hud.toast('Perfect cast'); audio.perfect(); }
     rod.tipWorld(tip);
@@ -248,7 +273,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     fishSystem.take(fish);
     fightFish = fish;
     fightInfo = fish.info;
-    const roll = rollCatch(fish.info, lastCast?.perfect);
+    const roll = rollCatch(fish.info, lastCast?.perfect, taunt.sizeBonus);
+    if (taunt.level > 0.5) hint('taunt-size', 'It took the lure hard!');
     fish.catchRoll = roll;
     const castAngle = Math.atan2(lure.pos.x - player.position.x, lure.pos.z - player.position.z);
     const power = makePower(fish);
@@ -477,8 +503,10 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
 
   function pressMain(x, y) {
     if (mode === 'explore') beginAim(x, y);
-    else if (mode === 'wait') tryHook();
-    else if (mode === 'fight') {
+    else if (mode === 'wait') {
+      if (fishSystem.biteProgress() || flight.active || retrieve) tryHook();
+      else waitHold = { t: 0 };
+    } else if (mode === 'fight') {
       reeling = true;
       pressEdge = true;
       surgeTap = true;
@@ -493,6 +521,11 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   function releaseMain(cancelled) {
     if (mode === 'aim') { if (cancelled) cancelAim(); else endAim(); }
     if (mode === 'fight') { reeling = false; steer = 0; hud.setMainPressed(false); }
+    if (mode === 'wait' && waitHold) {
+      const quick = waitHold.t < 0.4;
+      waitHold = null;
+      if (quick && !cancelled && !flight.active && !retrieve) taunt.tap();
+    }
   }
 
   // Tapping anywhere on the game during the bite window also sets the hook (bigger target).
@@ -502,6 +535,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   gameEl?.addEventListener('pointerdown', (e) => {
     if (modal) return;
     if (mode === 'wait' && fishSystem.biteProgress()) tryHook();
+    else if (mode === 'wait' && !flight.active && !retrieve) taunt.tap();
     else if (mode === 'fight') {
       surgeTap = true;
       if (fight?.state.bowWindow) bowTap = true;
@@ -629,6 +663,9 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       if (flight.active) updateFlight(dt);
       else if (retrieve) updateRetrieve(dt);
       else {
+        taunt.update(realDt);
+        // Holding the button reels the line in (a tap twitches the lure instead).
+        if (waitHold) { waitHold.t += realDt; if (waitHold.t >= 0.4) { waitHold = null; tryHook(); } }
         // Lure floats with the swell; nibbles dip it, a bite drags it under.
         const bp = fishSystem.biteProgress();
         lure.dip = Math.max(0, lure.dip - dt * 0.5);
@@ -710,6 +747,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     if (bp) {
       const s = screenOf(lure.pos);
       frame.bite = { x: s.x, y: s.y, remaining: bp.remaining, window: bp.window };
+    } else if (mode === 'wait' && !flight.active && !retrieve && lure.inWater) {
+      frame.taunt = { ...screenOf(lure.pos), ...taunt.view };
     }
     if (mode === 'fight' && fight) {
       const fp = fight.fishPoint();
@@ -787,6 +826,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     debugPredator() { return predation ? predation.force() : false; },
     debugSurge() { return surge ? surge.force() : false; },
     get surgeView() { return surge?.view ?? null; },
+    get tauntView() { return taunt.view; },
     get fightVariant() { return fightFish?.variant ?? null; },
     debugMastery(v = 1) { if (mastery) mastery.fill(v); return mastery?.value ?? null; },
     get onLine() { return predation ? predation.line.map((l) => l.fish.id) : []; },

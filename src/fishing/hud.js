@@ -246,6 +246,23 @@ export function createHud({ root }) {
         label('!', b.x, b.y - 2, { size: 28, color: theme.gold });
       }
 
+      // Taunt (taunt.js): a ring closes on the lure each beat; the gold arc is how taunted it is.
+      const tn = frame.taunt;
+      if (tn) {
+        const r = 14 + 46 * (1 - tn.beat);
+        ring(tn.x, tn.y, r, theme.paper, 2, 0.25 + 0.5 * tn.beat);
+        ring(tn.x, tn.y, 14, theme.glow, 2, 0.5);
+        if (tn.level > 0.01) {
+          g.strokeStyle = theme.gold;
+          g.lineWidth = 4;
+          g.globalAlpha = 0.95;
+          g.beginPath();
+          g.arc(tn.x, tn.y, 22, -Math.PI / 2, -Math.PI / 2 + tn.level * Math.PI * 2);
+          g.stroke();
+          g.globalAlpha = 1;
+        }
+        if (tn.flash) label(tn.flash.text, tn.x, tn.y - 34 - tn.flash.t * 24, { size: 16, color: tn.flash.ok ? theme.gold : theme.danger, alpha: 1 - tn.flash.t / 0.6 });
+      }
       // Fight: which way the fish pulls, and a bow prompt during leaps.
       const f = frame.fight;
       if (f) {

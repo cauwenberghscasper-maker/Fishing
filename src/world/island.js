@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import { createTerrain } from './terrain.js';
 import { loadModel, pickAsset, assetEntry } from '../core/assets.js';
 import { collidersFor, drawColliderDebug } from './colliders.js';
+import { createAnimParts } from './animParts.js';
 
 const WADE_DEPTH = 1.0;    // the player can wade this deep (past 0.45 is deep water, where big fish hunt: wading.js)
 const MAX_SLOPE = 1.05;
@@ -50,6 +51,8 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
   const terrain = createTerrain(layout, layout.palette, owned.plots);
   group.add(terrain.mesh);
 
+  // Moving parts of models (animParts.js); puffs of smoke live in the island group too.
+  const animParts = createAnimParts({ scene: group });
   const groups = {};
   for (const name of ['props', 'plots', 'piers', 'buildings', 'boat', 'camp']) {
     groups[name] = new THREE.Group();
@@ -94,6 +97,7 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
     obj.rotation.y = rot || 0;
     if (scale && scale !== 1) obj.scale.multiplyScalar(scale);
     obj.userData.assetId = id;
+    animParts.register(obj);   // wheels, gears, bells, floats, chimney smoke (named nodes)
     obj.userData.colliders = collidersFor(id, model.entry, x, z, rot || 0, (scale || 1) * (Number(model.entry.scale) || 1));
     target.add(obj);
     return obj;
@@ -494,6 +498,7 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
   }
 
   function update(dt, time) {
+    animParts.update(dt, time);
     for (let i = tweens.length - 1; i >= 0; i--) {
       const tw = tweens[i];
       tw.t += dt;

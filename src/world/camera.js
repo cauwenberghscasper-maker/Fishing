@@ -25,6 +25,8 @@ export function createCameraRig({ fov = 45 } = {}) {
   const timedShakes = []; // { amp, dur, t }
   let aspect = 1;
   let snapNext = true;
+  let zoom = 1;          // extra framing scale from frame() (long casts)
+  let zoomGoal = 1;
 
   function distanceFor(w, h) {
     const vt = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
@@ -39,7 +41,29 @@ export function createCameraRig({ fov = 45 } = {}) {
     setMode(next) { if (MODES[next]) mode = next; },
     setAspect(a) { aspect = a; camera.aspect = a; camera.updateProjectionMatrix(); },
     // Point of interest on the ground: player, or player↔lure, or player↔fish.
-    setFocus(x, y, z) { focus.set(x, y, z); },
+    setFocus(x, y, z) { focus.set(x, y, z); zoomGoal = 1; },
+    /**
+     * Keep both the player (a) and the lure or fish (b) in view: zoom out as far as needed, up to
+     * `maxSpan` metres; past that, follow b and let the player slip off screen behind it. The far
+     * point is what matters (the fish, the minigame rings), so it always stays inside the frame.
+     */
+    frame(ax, az, bx, bz, { bias = 0.55, margin = 5, maxSpan = 34 } = {}) {
+      const m = MODES[mode];
+      const dx = bx - ax, dz = bz - az;
+      const d = Math.hypot(dx, dz);
+      // Portrait screens show more depth (z) than width (x): measure the span on each axis.
+      const needW = Math.abs(dx) + margin * 2, needH = Math.abs(dz) + margin * 2;
+      const want = Math.max(1, needW / m.width, needH / m.height);
+      const cap = maxSpan / Math.max(m.width, m.height) * 1.0;
+      zoomGoal = Math.min(want, Math.max(1, cap));
+      if (want <= zoomGoal + 1e-3 || d < 1e-3) {
+        focus.set(ax + dx * bias, 0, az + dz * bias);
+      } else {
+        // Too far to show both: centre so b sits a margin inside the frame edge, on the far side.
+        const halfW = (m.width * zoomGoal) / 2 - margin, halfH = (m.height * zoomGoal) / 2 - margin;
+        focus.set(bx - Math.sign(dx) * Math.min(Math.abs(dx), Math.max(0, halfW)), 0, bz - Math.sign(dz) * Math.min(Math.abs(dz), Math.max(0, halfH)));
+      }
+    },
     snap() { snapNext = true; },
     shake(amount) { shake = Math.min(1.2, shake + amount); },
     // Additive shake that decays over `seconds` (state.render.shake for effects).
@@ -51,8 +75,9 @@ export function createCameraRig({ fov = 45 } = {}) {
       target.lerp(desired, k);
       const ka = snapNext ? 1 : 1 - Math.exp(-2.2 * realDt);
       pitch += (m.pitch - pitch) * ka;
-      width += (m.width - width) * ka;
-      height += (m.height - height) * ka;
+      zoom += (zoomGoal - zoom) * (snapNext ? 1 : 1 - Math.exp(-1.6 * realDt));
+      width += (m.width * zoom - width) * ka;
+      height += (m.height * zoom - height) * ka;
       snapNext = false;
 
       const dist = distanceFor(width, height);

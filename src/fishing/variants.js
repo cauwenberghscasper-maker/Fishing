@@ -28,7 +28,8 @@ export function isElemental(state, id) {
   return variantInfo(state, id).kind === 'element';
 }
 
-export function rollVariant(state, islandId, weather = 'clear') {
+/** elementBoost: extra weight on elemental variants (open sea, glimmer hot spots: sea.js). */
+export function rollVariant(state, islandId, weather = 'clear', elementBoost = 1) {
   const table = variantTable(state);
   // Test mode (?test=100) makes elemental variants common so powers can be played.
   const testBoost = state.test ? 30 : 1;
@@ -38,7 +39,7 @@ export function rollVariant(state, islandId, weather = 'clear') {
     let w = v.chance;
     w *= v.islandBoost?.[islandId] || 1;
     w *= v.weatherBoost?.[weather] || 1;
-    if (v.kind === 'element') w *= testBoost;
+    if (v.kind === 'element') w *= testBoost * elementBoost;
     total += w;
     return [id, w];
   });

@@ -72,6 +72,7 @@ export function createHud({ root }) {
   }
 
   // --- drawing helpers -------------------------------------------------------------------
+  const THREE_clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
   function ring(x, y, r, color, width = 2, alpha = 1) {
     g.globalAlpha = alpha;
     g.strokeStyle = color;
@@ -218,6 +219,45 @@ export function createHud({ root }) {
       if (canvas.width !== Math.round(root.clientWidth * dpr)) resize();
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
       g.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Hot spots (sea.js): on screen a pulsing ring and its name; off screen a brass arrow at the
+      // edge pointing the way, so you can go and find the fish.
+      if (frame.hotspots) {
+        const W = root.clientWidth, H = root.clientHeight, pad = 34;
+        const t = performance.now() / 1000;
+        for (const s of frame.hotspots) {
+          const a = s.fade;
+          if (a <= 0.01) continue;
+          const on = s.visible && s.x > pad && s.x < W - pad && s.y > pad + 70 && s.y < H - pad - 110;
+          if (on) {
+            const r = 26 + 8 * Math.sin(t * 3);
+            ring(s.x, s.y, r, s.color, 2.5, 0.75 * a);
+            ring(s.x, s.y, r * 0.55, s.color, 1.5, 0.45 * a);
+            label(s.label, s.x, s.y - r - 12, { size: 14, color: s.color, alpha: a });
+          } else {
+            // Clamp the direction from the screen centre to the edge (behind the camera: flip).
+            let dx = s.x - W / 2, dy = s.y - H / 2;
+            if (!s.visible) { dx = -dx; dy = -dy; }
+            const k = Math.min((W / 2 - pad) / Math.max(1e-3, Math.abs(dx)), (H / 2 - pad - 90) / Math.max(1e-3, Math.abs(dy)));
+            const ex = W / 2 + dx * k, ey = H / 2 + dy * k;
+            const ang = Math.atan2(dy, dx);
+            g.save();
+            g.translate(ex, ey);
+            g.rotate(ang);
+            g.globalAlpha = 0.92 * a;
+            g.fillStyle = 'rgba(6, 22, 24, 0.7)';
+            g.beginPath(); g.arc(-6, 0, 17, 0, Math.PI * 2); g.fill();
+            g.fillStyle = s.color;
+            g.beginPath(); g.moveTo(14, 0); g.lineTo(-2, -9); g.lineTo(2, 0); g.lineTo(-2, 9); g.closePath(); g.fill();
+            g.strokeStyle = theme.gold; g.lineWidth = 1.5;
+            g.beginPath(); g.arc(-6, 0, 17, 0, Math.PI * 2); g.stroke();
+            g.restore();
+            g.globalAlpha = 1;
+            const lx = THREE_clamp(ex - Math.cos(ang) * 40, 50, W - 50), ly = THREE_clamp(ey - Math.sin(ang) * 34, 90, H - 120);
+            label(s.label, lx, ly, { size: 12, color: s.color, alpha: 0.9 * a });
+          }
+        }
+      }
 
       // Floating joystick: a brass compass bezel with a paper knob.
       const j = frame.joystick;

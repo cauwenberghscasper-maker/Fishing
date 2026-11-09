@@ -63,6 +63,14 @@
     "old_mooring": {
       "eats": ["glasswing_sardine", "driftback", "compass_flounder", "shellback_blenny", "kelp_wraith", "seaglass_puffer", "sailcloth_ray", "knotted_needlefish", "lampfin_gurnard", "oyster_hoarder", "bottlepost_wrasse", "saltcrust_sole"],
       "weight": 0.25
+    },
+    "signalflag_tuna": {
+      "eats": ["spindrift_flyingfish", "glasswing_sardine", "knotted_needlefish"],
+      "weight": 1.0
+    },
+    "rigging_shark": {
+      "eats": ["spindrift_flyingfish", "signalflag_tuna", "driftback", "kelp_wraith", "sailcloth_ray", "bottlepost_wrasse"],
+      "weight": 0.5
     }
   },
   "wading": {
@@ -79,6 +87,6 @@
     },
     "knockback": 2.4,
     "stealFish": true,
-    "hunters": ["kelp_wraith", "lampfin_gurnard", "oyster_hoarder", "seaglass_puffer", "moonwake_ribbonfish", "old_mooring"]
+    "hunters": ["kelp_wraith", "lampfin_gurnard", "oyster_hoarder", "seaglass_puffer", "moonwake_ribbonfish", "old_mooring", "signalflag_tuna", "rigging_shark"]
   }
 }

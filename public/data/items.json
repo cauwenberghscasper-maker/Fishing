@@ -60,7 +60,7 @@
       "cost": 6000,
       "model": "rod.tidecaster",
       "stats": {
-        "castDistance": 32,
+        "castDistance": 42,
         "steadiness": 0.74,
         "rodPower": 1.9,
         "rating": 30
@@ -73,7 +73,7 @@
       "cost": 20000,
       "model": "rod.lighthouse_spar",
       "stats": {
-        "castDistance": 38,
+        "castDistance": 58,
         "steadiness": 0.86,
         "rodPower": 2.3,
         "rating": 60

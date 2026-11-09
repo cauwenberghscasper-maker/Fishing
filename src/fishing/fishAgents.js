@@ -37,14 +37,26 @@ export function createFishSystem({ state, island, water, splashes, events, under
   let authority = true;
   const netTargets = new Map(); // uid -> latest snapshot entry (visitors)
 
+  // Where the player is looking (camera target): new fish favour areas near it, so the water you
+  // can see is busy even though the habitats now ring the whole island.
+  const viewer = { x: 0, z: 0, set: false };
+  function pickArea(areas) {
+    if (!viewer.set || areas.length < 3) return areas[Math.floor(Math.random() * areas.length)];
+    let total = 0;
+    const w = areas.map((a) => { const d = Math.hypot(a.x - viewer.x, a.z - viewer.z); const v = 1 / (1 + (d / 22) ** 2); total += v; return v; });
+    let r = Math.random() * total;
+    for (let i = 0; i < areas.length; i++) { r -= w[i]; if (r <= 0) return areas[i]; }
+    return areas[areas.length - 1];
+  }
+
   function areaPoint(habitatName, minDepth) {
     const hab = habitats[habitatName] || habitats.mid;
     for (let tries = 0; tries < 40; tries++) {
-      const area = hab.areas[Math.floor(Math.random() * hab.areas.length)];
+      const area = pickArea(hab.areas);
       const a = Math.random() * Math.PI * 2;
       const r = Math.sqrt(Math.random()) * area.r;
       const x = area.x + Math.cos(a) * r, z = area.z + Math.sin(a) * r;
-      if (island.waterDepthAt(x, z) >= (minDepth ?? hab.minDepth)) return { x, z, area };
+      if (island.waterDepthAt(x, z) >= Math.max(1.2, minDepth ?? hab.minDepth)) return { x, z, area };
     }
     // Every try landed on land (a plot rose over this habitat): any water point in any habitat.
     for (const h of Object.values(habitats)) for (const area of h.areas) {
@@ -115,17 +127,21 @@ export function createFishSystem({ state, island, water, splashes, events, under
       school,
       slot: null,
       shadow: null,
-      variant: variant || rollVariant(state, state.world.islandId, state.world.weather),
+      // Elemental fish are twice as common as before near shore, up to 6× far out at sea (Casper 9 Nov).
+      variant: variant || rollVariant(state, state.world.islandId, state.world.weather, 2 + 4 * THREE.MathUtils.smoothstep(Math.hypot(p.x, p.z), 22, 60)),
       object: null,          // anchor Object3D (Agent E attaches variant looks here)
       model: null,
       swimUniforms: null,
       gone: false,
     };
     f.depth = f.depthTarget = depthFor(f, p.x, p.z);
+    // Elemental fish glow their element's colour through the water, so you can spot and chase them.
+    const look = state.data?.variantsLook?.[f.variant];
+    f.elementGlow = look?.kind === 'element' && look.color ? new THREE.Color(look.color) : null;
     f.shadow = shadows.acquire({
       cell: cellIndex(behaviour.silhouette || 'generic'),
       body: swim.bodyId,
-      glow: glow ? glow.multiplyScalar(behaviour.glow.strength ?? 0.6) : null,
+      glow: f.elementGlow ? f.elementGlow.clone().multiplyScalar(0.9) : glow ? glow.multiplyScalar(behaviour.glow.strength ?? 0.6) : null,
     });
     if (f.shadow === null) return null;
     f.object = new THREE.Group();
@@ -191,19 +207,29 @@ export function createFishSystem({ state, island, water, splashes, events, under
 
   // Keep each species at its population for the current hour.
   function maintainPopulation() {
+    // Recycle: a lone fish far out of view (and not busy) makes room for one near the player.
+    if (viewer.set) {
+      for (const f of fish) {
+        if (f.controlled || f === engaged || f.school || f.gone || f.held || f.hotspot) continue;
+        if (Math.hypot(f.pos.x - viewer.x, f.pos.z - viewer.z) > 62) { removeFish(f); break; }
+      }
+    }
     const roster = rosterFor(state, state.world.islandId);
     const hour = lighting.hour;
+    let budget = fish.length < 40 ? 4 : 1;
     for (const id of roster) {
       const info = fishInfo(state, id);
       if (!info.behaviour || !timeAllows(info.time, hour)) continue;
       const target = TIER_POPULATION[info.tier] ?? 1;
       const isSchool = Boolean(info.behaviour.school);
+      // Hot-spot fish (sea.js) are extra: they don't count against the island's population.
       const count = isSchool
-        ? new Set(fish.filter((f) => f.id === id && f.school).map((f) => f.school)).size
-        : fish.filter((f) => f.id === id).length;
+        ? new Set(fish.filter((f) => f.id === id && f.school && !f.hotspot).map((f) => f.school)).size
+        : fish.filter((f) => f.id === id && !f.hotspot).length;
       if (count < target) {
         if (isSchool) spawnSchool(id); else makeFish(id);
-        return; // one per tick so they fade in staggered
+        // Staggered fade-in, but never an empty sea: fill fast while the water is thin.
+        if (--budget <= 0) return;
       }
     }
   }
@@ -219,9 +245,12 @@ export function createFishSystem({ state, island, water, splashes, events, under
   function advance(f, dt) {
     const nx = f.pos.x + Math.sin(f.heading) * f.speed * dt;
     const nz = f.pos.z + Math.cos(f.heading) * f.speed * dt;
-    // Never swim onto the beach: turn back towards home when the water gets too thin.
-    const minD = (habitats[f.behaviour.habitat]?.minDepth ?? 1) * 0.6;
-    if (!f.controlled && island.waterDepthAt(nx, nz) < Math.max(0.45, minD) && f.state !== 'bite') {
+    // Never swim onto the beach or into the sandy shallows (Casper 9 Nov: fish sat inside the island's
+    // shallow edge): at least 0.9 m of water, more for big fish, measured at the nose.
+    const minD = Math.max(0.9 + f.length * 0.35, (habitats[f.behaviour.habitat]?.minDepth ?? 1) * 0.6);
+    const reach = f.length * 0.5;
+    const ahead = island.waterDepthAt(nx + Math.sin(f.heading) * reach, nz + Math.cos(f.heading) * reach);
+    if (!f.controlled && ahead < minD && f.state !== 'bite') {
       const homeWet = island.waterDepthAt(f.home.x, f.home.z) >= minD;
       if (homeWet) steerTo(f, f.home.x, f.home.z, dt, 6);
       else {
@@ -472,7 +501,7 @@ export function createFishSystem({ state, island, water, splashes, events, under
     const camo = f.behaviour.camouflage ? THREE.MathUtils.lerp(f.behaviour.camouflage, 1, Math.min(1, f.speed / 1.2)) : 1;
     const depthOpacity = THREE.MathUtils.lerp(0.86, 0.34, THREE.MathUtils.smoothstep(f.depth, 0.3, 6));
     const inAir = airY > 0.02 || f.held;
-    const glowBase = f.behaviour.glow ? (f.behaviour.glow.dusk ? 0.25 + 0.75 * lighting.dusk : 1) : 0;
+    const glowBase = f.elementGlow ? 0.7 + 0.3 * Math.sin(worldTime * 4 + f.uid) : f.behaviour.glow ? (f.behaviour.glow.dusk ? 0.25 + 0.75 * lighting.dusk : 1) : 0;
     shadows.set(f.shadow,
       { x: f.pos.x, y: inAir ? -0.05 : y, z: f.pos.z, heading: f.heading, length: f.length * (1 + f.inflate * 0.15), width: 1 },
       { phase: f.swim.phase(), amp: f.swim.amp, freq: f.swim.base.freq, bend: f.swim.bend, retract: f.retract, inflate: f.inflate },
@@ -500,7 +529,7 @@ export function createFishSystem({ state, island, water, splashes, events, under
   function update(dt, time) {
     worldTime = time;
     populationTimer -= dt;
-    if (authority && populationTimer <= 0) { populationTimer = 1.2; maintainPopulation(); }
+    if (authority && populationTimer <= 0) { populationTimer = 0.7; maintainPopulation(); }
 
     if (authority && lure && !engaged) {
       engageTimer -= dt;
@@ -526,10 +555,15 @@ export function createFishSystem({ state, island, water, splashes, events, under
       } else if (f.remote) {
         // Fought by another player: their snapshots drive it (host side).
         followSnapshot(f, dt);
-      } else if (!f.controlled && !f.air && f !== engaged && island.waterDepthAt(f.pos.x, f.pos.z) < 0.25) {
+      } else if (!f.controlled && !f.air && f !== engaged && island.waterDepthAt(f.pos.x, f.pos.z) < 0.6) {
         // Land rose right on top of it: it's gone, the population brings a new one in open water.
+        // In the sandy shallows (or under land that rose): swim straight out; if it can't, it's gone.
         f.stranded = (f.stranded || 0) + dt;
-        if (f.stranded > 0.4) { removeFish(f); continue; }
+        const a = deeperHeading(f.pos.x, f.pos.z);
+        f.heading = wrapAngle(f.heading + THREE.MathUtils.clamp(wrapAngle(a - f.heading), -8 * dt, 8 * dt));
+        f.pos.x += Math.sin(f.heading) * 2.5 * dt;
+        f.pos.z += Math.cos(f.heading) * 2.5 * dt;
+        if (f.stranded > 2.5 || island.waterDepthAt(f.pos.x, f.pos.z) < 0.15) { removeFish(f); continue; }
       } else if (!f.controlled) {
         f.stranded = 0;
         if (f.air) updateAir(f, dt);
@@ -672,6 +706,28 @@ export function createFishSystem({ state, island, water, splashes, events, under
         }
       }
       return 'none';
+    },
+    /** Where the player is looking (camera target), for spawn placement near them. */
+    setViewer(x, z) { viewer.x = x; viewer.z = z; viewer.set = true; },
+    /** Spawn a fish right here (hot spots: sea.js). Returns the fish or null. */
+    spawnAt(id, x, z, { variant = null, school = false, r = 5 } = {}) {
+      const area = { x, z, r };
+      if (school && fishInfo(state, id).behaviour?.school) {
+        const leader = makeFish(id, { x, z, area }, null, variant);
+        if (!leader) return null;
+        const [a, b] = fishInfo(state, id).behaviour.school;
+        const sc = { leader, members: [leader], skipTimer: rand(5, 11) };
+        leader.school = sc;
+        for (let i = 1; i < randInt(a, b); i++) {
+          const slot = { x: rand(-0.9, 0.9), z: -0.45 * i + rand(-0.3, 0.3) };
+          const m = makeFish(id, { x: x + slot.x, z: z + slot.z, area }, sc, variant);
+          if (!m) break;
+          m.slot = slot; m.heading = leader.heading; m.depth = m.depthTarget = leader.depth + rand(-0.08, 0.08);
+          sc.members.push(m);
+        }
+        return leader;
+      }
+      return makeFish(id, { x, z, area }, null, variant);
     },
     /** A full taunt can call something rare in from further out (once per cast). */
     summonRare(minRank = 2) {

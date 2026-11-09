@@ -1,7 +1,14 @@
 // Driftwood Cove layout. Units are metres; x = east, z = south (towards the camera), water at y = 0.
-// The camera looks north into the cove, like the key art: basalt cliffs at the back, a golden
+// The camera looks north over the cove. (Casper 9 Nov: no cliff wall at the back any more; open sea
+// all round so the island can grow in every direction.) A golden
 // beach crescent, the long patched pier running south into deep water.
 // Tweak placement here; nothing else needs to change.
+// A ring of habitat circles all round the island (the 360° sea, Casper 9 Nov).
+const ring = (radius, n, r, phase = 0) => Array.from({ length: n }, (_, i) => {
+  const a = phase + (i / n) * Math.PI * 2;
+  return { x: Math.round(Math.sin(a) * radius * 10) / 10, z: Math.round(Math.cos(a) * radius * 10) / 10, r };
+});
+
 export const driftwoodCove = {
   id: 'driftwood_cove',
   size: 150,               // terrain mesh extent (square)
@@ -12,8 +19,6 @@ export const driftwoodCove = {
   // edge = metres over which it falls to the shore, rough = noise amplitude on top.
   // `plot`: the shape only exists once that plot is owned (master prompt 4.6). No plot = backdrop.
   shapes: [
-    { id: 'cliffs', x: 0, z: -21, rx: 34, rz: 9.5, rot: 0.04, top: 7.4, edge: 2.4, rough: 1.1, cliff: true },
-    { id: 'cliffs_west', x: -23, z: -12, rx: 9, rz: 9, rot: 0.5, top: 6.2, edge: 2.2, rough: 1.0, cliff: true },
     { id: 'islet', x: -9.5, z: 12.5, rx: 2.1, rz: 1.6, rot: 0.4, top: 0.7, edge: 1.4, rough: 0.35, rocky: true },
     { id: 'sandbar', plot: 'sandbar', x: 1.5, z: -2.0, rx: 5.0, rz: 4.3, rot: 0.1, top: 0.75, edge: 3.2, rough: 0.06 },
     { id: 'palm_spit', plot: 'palm_spit', x: 11.5, z: -3.0, rx: 8.5, rz: 4.0, rot: 0.25, top: 1.0, edge: 3.5, rough: 0.1 },
@@ -106,10 +111,6 @@ export const driftwoodCove = {
 
   // Backdrop props (always there). Plot dressings come from D's plot_* models.
   props: [
-    { asset: ['cliff_columns_a'], x: -6.6, z: -14.0, rot: 0.05 },
-    { asset: ['cliff_columns_b'], x: 6.4, z: -14.4, rot: -0.1 },
-    { asset: ['cliff_columns_a'], x: 14.5, z: -12.0, rot: -0.45, scale: 0.9 },
-    { asset: ['cliff_columns_b'], x: -16.5, z: -8.0, rot: 0.6 },
     { asset: ['rock_l'], x: -9.6, z: 12.4, rot: 1.9, scale: 1.25 },
     { asset: ['rock_shore'], x: -2.4, z: 1.6, rot: 2.6, plot: 'sandbar' },
     { asset: ['rock_shore'], x: 6.2, z: -4.6, rot: 0.9, scale: 0.8, plot: 'sandbar' },
@@ -191,14 +192,19 @@ export const driftwoodCove = {
 
   // Where each fish habitat lives (fish-behaviour.json `habitat`). Areas are circles.
   habitats: {
-    surface: { minDepth: 1.2, areas: [{ x: 4, z: 18, r: 12 }, { x: -4, z: 10, r: 7 }, { x: 31, z: 11, r: 6 }, { x: 38, z: 22, r: 5 }] },
+    surface: { minDepth: 1.2, areas: [{ x: 4, z: 18, r: 12 }, { x: -4, z: 10, r: 7 }, { x: 31, z: 11, r: 6 }, { x: 38, z: 22, r: 5 }, ...ring(27, 12, 7, 0.2)] },
     driftwood: { minDepth: 0.8, areas: [{ x: -5, z: 4.5, r: 4 }, { x: 10, z: 4, r: 4 }] },
-    bottom: { minDepth: 1.5, areas: [{ x: 0, z: 7, r: 7 }, { x: 11, z: 9, r: 5 }] },
+    bottom: { minDepth: 1.5, areas: [{ x: 0, z: 7, r: 7 }, { x: 11, z: 9, r: 5 }, ...ring(25, 10, 6, 0.5)] },
     rocks: { minDepth: 0.9, areas: [{ x: -12, z: 6, r: 4.5 }, { x: -9.5, z: 12.5, r: 3.5 }, { x: -36, z: 15, r: 5 }, { x: 45, z: -4, r: 4 }] },
-    kelp: { minDepth: 2.0, areas: [{ x: -6, z: 15, r: 5 }] },
-    mid: { minDepth: 3.0, areas: [{ x: 6, z: 17, r: 8 }, { x: -2, z: 20, r: 8 }] },
-    deep: { minDepth: 6.0, areas: [{ x: 6, z: 26, r: 8 }, { x: 30, z: 34, r: 8 }] },
+    kelp: { minDepth: 2.0, areas: [{ x: -6, z: 15, r: 5 }, { x: 30, z: 12, r: 5 }, { x: -36, z: 16, r: 5 }, { x: 37, z: 23, r: 4 }] },
+    mid: { minDepth: 3.0, areas: [{ x: 6, z: 17, r: 8 }, { x: -2, z: 20, r: 8 }, ...ring(33, 12, 8, 0.1)] },
+    deep: { minDepth: 6.0, areas: [{ x: 6, z: 26, r: 8 }, { x: 30, z: 34, r: 8 }, ...ring(44, 14, 9, 0.3)] },
+    // The open sea: roaming schools and hunters well off the island, all the way round.
+    open: { minDepth: 5.0, areas: ring(38, 16, 10, 0) },
+    // Far out, the deepest water: the big and rare ones (and most of the elemental fish).
+    abyss: { minDepth: 9.0, areas: ring(60, 18, 12, 0.15) },
   },
+
 
   // Kelp drawn as swaying silhouettes only when the kelp model is missing.
   kelpBeds: [{ x: -6, z: 15, r: 4.5, count: 14 }, { x: 13, z: 15, r: 3, count: 7 }],

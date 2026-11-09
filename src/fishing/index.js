@@ -611,6 +611,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   });
 
   // --- frame -------------------------------------------------------------------------------
+  let sea = null;
+  const tmp2 = new THREE.Vector3();
   function screenOf(v) {
     tmp.copy(v).project(cameraRig.camera);
     const r = hudRoot.getBoundingClientRect();
@@ -655,10 +657,9 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       if (fx.perfectEdge) { navigator.vibrate?.(8); audio.tick(); }
       if (fx.fishEdge) navigator.vibrate?.(14);
       if (fx.powerStep) { audio.creak(fx.powerStep); navigator.vibrate?.(4 + fx.powerStep * 2); }
-      cameraRig.setFocus(
-        THREE.MathUtils.lerp(player.position.x, aim.info.hasAim ? aim.target.x : player.position.x, 0.5), 0,
-        THREE.MathUtils.lerp(player.position.z, aim.info.hasAim ? aim.target.z : player.position.z + 3, 0.5),
-      );
+      // Frame the player and the aim point together, however far the cast reaches.
+      if (aim.info.hasAim) cameraRig.frame(player.position.x, player.position.z, aim.target.x, aim.target.z, { bias: 0.5, margin: 4 });
+      else cameraRig.setFocus(player.position.x, 0, player.position.z + 1.5);
     } else if (mode === 'wait') {
       if (flight.active) updateFlight(dt);
       else if (retrieve) updateRetrieve(dt);
@@ -675,7 +676,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         if (lure.bobTimer <= 0) { water.addRipple(lure.pos.x, lure.pos.z, 0.14); lure.bobTimer = 1.8; }
         line.setLength(tip.distanceTo(lure.pos) * (bp ? 1.0 : 1.06));
       }
-      cameraRig.setFocus(THREE.MathUtils.lerp(player.position.x, lure.pos.x, 0.45), 0, THREE.MathUtils.lerp(player.position.z, lure.pos.z, 0.45));
+      // Follow the lure wherever it lands (Casper: long endgame casts must stay in view).
+      cameraRig.frame(player.position.x, player.position.z, lure.pos.x, lure.pos.z, { bias: 0.6, margin: 5 });
       refreshButton();
     } else if (mode === 'fight' && fight) {
       const input = { reeling: reeling || keyReel, steer: keySteer || steer, bowTap, pressEdge, taps: powerTaps.splice(0), swipes: powerSwipes.splice(0) };
@@ -703,7 +705,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         reelTickTimer -= realDt;
         if (reelTickTimer <= 0) { audio.reelTick(fight.state.tension); reelTickTimer = 0.07; }
       }
-      cameraRig.setFocus(THREE.MathUtils.lerp(player.position.x, fp.x, 0.45), 0, THREE.MathUtils.lerp(player.position.z, fp.z, 0.45));
+      // The fish and its minigame rings always stay on screen; the player may slip out on long fights.
+      cameraRig.frame(player.position.x, player.position.z, fp.x, fp.z, { bias: 0.62, margin: 6 });
       if (status !== 'fighting') endFight(status);
     } else if (mode === 'catch') {
       const focus = held[0]?.object?.position || player.position;
@@ -733,6 +736,14 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
 
     // Overlay
     const frame = {};
+    // Hot spots (sea.js): a label over each on screen, an arrow at the screen edge for the rest.
+    if (sea && sea.spots.length && mode !== 'catch' && !modal) {
+      frame.hotspots = sea.spots.map((s) => {
+        tmp2.set(s.x, 0.2, s.z);
+        const p = screenOf(tmp2);
+        return { x: p.x, y: p.y, visible: p.visible, label: s.label, color: s.color, kind: s.kind, fade: Math.min(1, s.t / 1.5, Math.max(0, s.dur - s.t) / 3) };
+      });
+    }
     const j = input.joystick;
     if (j.active) frame.joystick = { active: true, ox: j.ox, oy: j.oy, vx: j.vx, vy: j.vy, radius: input.JOY_RADIUS };
     if (mode === 'aim') {
@@ -822,6 +833,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       return true;
     },
     debugHook() { tryHook(); },
+    setSea(s) { sea = s; },
     // Debug: send a hunter at the fish on the line right now (double catch); call again once it's on for a triple.
     debugPredator() { return predation ? predation.force() : false; },
     debugSurge() { return surge ? surge.force() : false; },

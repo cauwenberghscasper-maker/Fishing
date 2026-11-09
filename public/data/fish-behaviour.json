@@ -527,5 +527,145 @@
       "strength": 0.9
     },
     "signature": "Carved temple-stone wings and a glowing rune seal: it glides, then dives for the bottom."
+  },
+  "spindrift_flyingfish": {
+    "body": "fusiform",
+    "personality": "greedy",
+    "stamina": 5,
+    "pull": 0.28,
+    "moves": [
+      "glide",
+      "skip"
+    ],
+    "moveEvery": [
+      2.0,
+      3.0
+    ],
+    "swim": {
+      "amp": 0.07,
+      "freq": 1.5,
+      "speed": 6.0
+    },
+    "length": 0.45,
+    "cruise": 1.6,
+    "habitat": "open",
+    "school": [
+      5,
+      8
+    ],
+    "hookWindow": 0.9,
+    "nibbles": [
+      0,
+      1
+    ],
+    "silhouette": "glasswing",
+    "glow": null,
+    "signature": "Glides off the surface on the line: the slack has to be reeled in fast."
+  },
+  "signalflag_tuna": {
+    "body": "fusiform",
+    "personality": "aggressive",
+    "stamina": 11,
+    "pull": 0.62,
+    "moves": [
+      "run",
+      "zigzag",
+      "burst"
+    ],
+    "moveEvery": [
+      1.8,
+      2.8
+    ],
+    "swim": {
+      "amp": 0.05,
+      "freq": 1.6,
+      "speed": 6.5
+    },
+    "length": 0.9,
+    "cruise": 1.8,
+    "habitat": "open",
+    "school": [
+      3,
+      5
+    ],
+    "hookWindow": 0.7,
+    "nibbles": [
+      0,
+      1
+    ],
+    "silhouette": "generic",
+    "glow": null,
+    "signature": "Hits hard and runs for the horizon; a fleet of them works the open sea."
+  },
+  "hullback_sunfish": {
+    "body": "bulky",
+    "personality": "cautious",
+    "stamina": 16,
+    "pull": 0.7,
+    "moves": [
+      "bask",
+      "sulk",
+      "thrash"
+    ],
+    "moveEvery": [
+      2.6,
+      3.6
+    ],
+    "swim": {
+      "amp": 0.04,
+      "freq": 0.6,
+      "speed": 1.4
+    },
+    "length": 1.6,
+    "cruise": 0.4,
+    "habitat": "open",
+    "hookWindow": 0.75,
+    "nibbles": [
+      2,
+      4
+    ],
+    "silhouette": "generic",
+    "glow": {
+      "color": "#ffb347",
+      "strength": 0.6,
+      "dusk": false
+    },
+    "signature": "Rolls flat on the swell like a capsized hull: a dead weight. Steer to turn it."
+  },
+  "rigging_shark": {
+    "body": "fusiform",
+    "personality": "aggressive",
+    "stamina": 20,
+    "pull": 0.85,
+    "moves": [
+      "run",
+      "dive",
+      "headshake",
+      "leap"
+    ],
+    "moveEvery": [
+      1.6,
+      2.6
+    ],
+    "swim": {
+      "amp": 0.06,
+      "freq": 1.0,
+      "speed": 4.2
+    },
+    "length": 2.4,
+    "cruise": 1.2,
+    "habitat": "abyss",
+    "hookWindow": 0.6,
+    "nibbles": [
+      0,
+      2
+    ],
+    "silhouette": "generic",
+    "glow": {
+      "color": "#7dffa0",
+      "strength": 0.8,
+      "dusk": true
+    },
+    "signature": "Shakes its head like a ship in a squall, dives for the deep, then breaches."
   }
 }

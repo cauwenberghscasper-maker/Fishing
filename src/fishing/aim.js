@@ -277,7 +277,11 @@ export function createAim({ island, fishSystem, water, state }) {
       // Power runs from the fisher out to the screen edge in the pull's direction (Casper 9 Nov:
       // "fishing up is always max throw"): pulling down has the whole lower screen for its range,
       // so every direction gets the full scale from a short lob to a full cast.
-      power = Math.pow(THREE.MathUtils.clamp((len - PULL_R0) / (pullRoom(drag.x / len, drag.y / len) - PULL_R0), 0, 1), 1.1);
+      // And it always starts small (Casper 9 Nov: "max power when you touch it"): power also can't
+      // exceed how far the thumb has pulled from where it pressed, so it builds up as you pull.
+      const fromFisher = (len - PULL_R0) / (pullRoom(drag.x / len, drag.y / len) - PULL_R0);
+      const fromPress = finger ? (Math.hypot(finger.x - anchor.x, finger.y - anchor.y) - DEAD_ZONE) / (maxDragPx() - DEAD_ZONE) : 0;
+      power = Math.pow(THREE.MathUtils.clamp(Math.min(fromFisher, fromPress), 0.02, 1), 1.1);
       const step = Math.min(4, Math.floor(power * 4 + 0.001));
       if (step > lastPowerStep) feel.powerStep = step;
       lastPowerStep = step;

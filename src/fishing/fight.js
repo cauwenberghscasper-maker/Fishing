@@ -20,6 +20,8 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
   const moveIds = (boss ? boss.moves : b.moves || []).filter((id) => MOVES[id]);
   const [moveMin, moveMax] = b.moveEvery || [2.5, 4];
 
+  const startDist = Math.hypot(fish.pos.x - playerPos.x, fish.pos.z - playerPos.z);
+  const maxLine = Math.max(MAX_LINE, startDist + 16, (state?.gear?.castDistance || 0) * 1.3);
   const s = {
     tension: 0.35,
     stamina: 1,
@@ -196,8 +198,13 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
     if (s.overload > snapTime) s.status = 'snap';
     const relaxing = m && (m.pull ?? 1) < 0.2;
     if (s.tension < 0.07 && !s.landing && !relaxing) s.slack += dt; else s.slack = Math.max(0, s.slack - dt * 2);
-    if (s.slack > 3.4) s.status = 'escape';
-    if (s.distance > MAX_LINE) s.status = 'escape';
+    // Casper 9 Nov: "fish throwing the hook is too much". Slack only loses the fish after a long
+    // while of not reeling at all, and the line limit is measured from where the fight began (long
+    // rods cast 80 m+, far past the old fixed 38 m, which threw every far fish at once).
+    if (s.slack > 3 && !s.slackWarned) { s.slackWarned = true; hooks.slack?.(); }
+    if (s.slack < 0.5) s.slackWarned = false;
+    if (s.slack > 6) s.status = 'escape';
+    if (s.distance > maxLine) s.status = 'escape';
 
     if (!s.landing && s.stamina <= 0) {
       s.landing = true;

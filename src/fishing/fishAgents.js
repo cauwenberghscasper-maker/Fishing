@@ -259,12 +259,19 @@ export function createFishSystem({ state, island, water, splashes, events, under
     const nz = f.pos.z + Math.cos(f.heading) * f.speed * dt;
     // Never swim onto the beach or into the sandy shallows (Casper 9 Nov: fish sat inside the island's
     // shallow edge): at least 0.9 m of water, more for big fish, measured at the nose.
-    const minD = Math.max(0.9 + f.length * 0.35, (habitats[f.behaviour.habitat]?.minDepth ?? 1) * 0.6);
+    // A fish going for the lure may come into shallower water to take it (else bait cast near the
+    // shore is never taken: Casper 9 Nov "fish can't catch the bait").
+    const minD = f === engaged ? 0.45 : Math.max(0.9 + f.length * 0.35, (habitats[f.behaviour.habitat]?.minDepth ?? 1) * 0.6);
     const reach = f.length * 0.5;
     const ahead = island.waterDepthAt(nx + Math.sin(f.heading) * reach, nz + Math.cos(f.heading) * reach);
     if (!f.controlled && ahead < minD && f.state !== 'bite') {
-      const homeWet = island.waterDepthAt(f.home.x, f.home.z) >= minD;
-      if (homeWet) steerTo(f, f.home.x, f.home.z, dt, 6);
+      // Casper 9 Nov: fish still got stuck in islands. Steering home could point straight through
+      // the land between (a home on the far side), leaving the fish nosed into the beach forever.
+      // Home only if the way there is open water; otherwise, and whenever it's already in the
+      // shallows, swim out toward the deepest water nearby and make that home.
+      const homeWet = island.waterDepthAt(f.home.x, f.home.z) >= minD && clearPath(f.pos.x, f.pos.z, f.home.x, f.home.z, minD * 0.8);
+      const here = island.waterDepthAt(f.pos.x, f.pos.z);
+      if (homeWet && here >= minD * 0.8) steerTo(f, f.home.x, f.home.z, dt, 6);
       else {
         // Its home is land now: find new water and make it home.
         const a = deeperHeading(f.pos.x, f.pos.z);
@@ -280,7 +287,19 @@ export function createFishSystem({ state, island, water, splashes, events, under
     f.pos.z = nz;
   }
 
+  // Open water all the way between two points (samples every ~1.5 m).
+  function clearPath(ax, az, bx, bz, minD) {
+    const d = Math.hypot(bx - ax, bz - az);
+    const n = Math.min(24, Math.ceil(d / 1.5));
+    for (let i = 1; i < n; i++) {
+      const k = i / n;
+      if (island.waterDepthAt(ax + (bx - ax) * k, az + (bz - az) * k) < minD) return false;
+    }
+    return true;
+  }
+
   function setState(f, s, timer = 0) {
+    if (s === 'approach') { f.approachBest = null; f.approachAt = 0; }
     f.state = s;
     f.stateTime = 0;
     f.timer = timer;
@@ -326,6 +345,17 @@ export function createFishSystem({ state, island, water, splashes, events, under
         ? { x: f.home.x + rand(-1, 1) * f.home.r, z: f.home.z + rand(-1, 1) * f.home.r }
         : { x: p.x, z: p.z };
       if (island.waterDepthAt(f.wander.x, f.wander.z) < 0.6) f.wander = { x: p.x, z: p.z };
+      // Only aim for water it can swim to without crossing land; else a nearby point of open water.
+      if (!clearPath(f.pos.x, f.pos.z, f.wander.x, f.wander.z, 0.9)) {
+        let ok = null;
+        for (let i = 0; i < 8 && !ok; i++) {
+          const a = Math.random() * Math.PI * 2, r = rand(2, 6);
+          const x = f.pos.x + Math.sin(a) * r, z = f.pos.z + Math.cos(a) * r;
+          if (island.waterDepthAt(x, z) >= 1.2 && clearPath(f.pos.x, f.pos.z, x, z, 0.9)) ok = { x, z };
+        }
+        if (ok) f.wander = ok;
+        else { const a = deeperHeading(f.pos.x, f.pos.z); f.wander = { x: f.pos.x + Math.sin(a) * 5, z: f.pos.z + Math.cos(a) * 5 }; }
+      }
       f.cruiseNow = cruise * rand(0.6, 1.1);
     }
     steerTo(f, f.wander.x, f.wander.z, dt, 1.6);
@@ -377,6 +407,9 @@ export function createFishSystem({ state, island, water, splashes, events, under
     const cruise = f.behaviour.cruise || 0.8;
     switch (f.state) {
       case 'approach': {
+        // Stalled (blocked somehow)? Give up so another fish can come.
+        if (f.stateTime > 1 && f.approachBest != null && dist > f.approachBest - 0.3 && f.stateTime - (f.approachAt || 0) > 2.5) { f.approachBest = null; setState(f, 'wander', rand(2, 4)); f.cooldown = 4; engaged = null; engageTimer = 0.3; return; }
+        if (f.approachBest == null || dist < f.approachBest - 0.3) { f.approachBest = dist; f.approachAt = f.stateTime; }
         const ang = Math.atan2(f.pos.x - L.x, f.pos.z - L.z);
         steerTo(f, L.x + Math.sin(ang) * 0.9, L.z + Math.cos(ang) * 0.9, dt, 3.2);
         f.speed += (cruise * 1.5 * P.approach + 0.4 - f.speed) * (1 - Math.exp(-3 * dt));
@@ -479,6 +512,8 @@ export function createFishSystem({ state, island, water, splashes, events, under
       // A taunted lure (rhythmic twitches) is noticed from much further away.
       const taunt = lure.taunt || 0;
       if (d > f.personality.notice * baitBonus * (1 + taunt * 1.2)) continue;
+      // Only fish that can actually swim to the lure (no land in between).
+      if (!clearPath(f.pos.x, f.pos.z, lure.x, lure.z, 0.45)) continue;
       const rank = TIER_RANK[f.info.tier] ?? 0;
       // Rarer fish are less likely; a perfect cast tilts the odds towards them.
       let w = (1 / (1 + rank * 1.2)) * baitBonus * (1.3 - d / (f.personality.notice * 1.6));

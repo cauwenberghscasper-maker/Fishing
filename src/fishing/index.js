@@ -368,6 +368,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         move: (id, m) => { hint(`move:${id}`, m.hint); if (m.air) audio.splash(m.air.height > 1 ? 1.4 : 0.5); },
         bow: () => { hud.toast('Bowed!', 0.8); audio.hook(); mastery?.bow(); },
         tired: () => hud.toast('It\'s tiring, bring it in!', 1.4),
+        slack: () => { hud.toast('Slack line! Reel in or it shakes loose', 1.8); navigator.vibrate?.(20); },
         thrash: () => audio.splash(0.4),
       },
     });

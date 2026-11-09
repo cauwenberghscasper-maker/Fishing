@@ -214,6 +214,9 @@ export function createPlayer({ island, input, cameraRig, water, events, state })
         }
       }
     }
+    // Deep water drags: past the shallows you wade at up to half speed and can't run.
+    const wadeDepth = Math.max(0, -position.y);
+    if (wadeDepth > 0.3) wishSpeed = Math.min(wishSpeed, WALK_SPEED) * (1 - Math.min(0.5, (wadeDepth - 0.3) * 0.75));
     // Smooth speed so starts/stops do not pop.
     speed += (wishSpeed - speed) * (1 - Math.exp(-10 * dt));
     if (wishSpeed > 0.01) desiredFacing = Math.atan2(wish.x, wish.y);

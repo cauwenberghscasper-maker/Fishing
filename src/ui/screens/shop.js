@@ -339,6 +339,9 @@ function buildingLine(state, id, lvl) {
     case 'smokehouse': return `Crew catch sells for ${Math.round((lvl.crewBonus ?? 0) * 100)}% more.`;
     case 'aquarium': return `${lvl.coinsPerSpeciesHour ?? 0} an hour per species.`;
     case 'boat_dock': return `Fits a ${(Object.values(state.data.economy?.boats ?? {}).find((b) => b?.tier === lvl.maxBoat)?.name ?? 'boat').toLowerCase()}.`;
+    case 'net_rig':
+    case 'reel_mill': return `Earns ${lvl.coinsPerHour ?? 0} an hour on its own.`;
+    case 'cannery': return `${lvl.coinsPerHour ?? 0} an hour, and all idle income +${Math.round((lvl.factoryBonus ?? 0) * 100)}%.`;
     default: return '';
   }
 }

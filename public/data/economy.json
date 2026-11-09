@@ -35,18 +35,20 @@
   },
   "variantSets": {
     "_notes": "Logbook goals per species. Reward coins = the fish's baseValue x coinsPerBase (x100 in test mode), paid once when the set is complete.",
-    "morphs": { "name": "Morph set", "ids": ["basic", "bleached", "inkdark", "gilded"], "coinsPerBase": 20, "pearls": 2 },
+    "morphs": {
+      "name": "Morph set",
+      "ids": ["basic", "bleached", "inkdark", "gilded"],
+      "coinsPerBase": 20,
+      "pearls": 2
+    },
     "all": { "name": "Every variant", "ids": "all", "coinsPerBase": 250, "pearls": 12 }
   },
   "market": {
-    "hotFish": { "bonus": 1.5, "excludeTiers": ["big", "legendary", "boss"] },
-    "saturation": {
-      "_notes": "Each fish of one species sold adds 1. Past freeUnits, every unit drops that species' price by dropPerUnit, down to floor. Recovers recoverPerMinute units per minute, also while away.",
-      "freeUnits": 8,
-      "dropPerUnit": 0.02,
-      "floor": 0.6,
-      "recoverPerMinute": 0.5
-    }
+    "hotFish": {
+      "bonus": 1.5,
+      "excludeTiers": ["big", "legendary", "boss"]
+    },
+    "saturation": { "_notes": "Each fish of one species sold adds 1. Past freeUnits, every unit drops that species' price by dropPerUnit, down to floor. Recovers recoverPerMinute units per minute, also while away.", "freeUnits": 8, "dropPerUnit": 0.02, "floor": 0.6, "recoverPerMinute": 0.5 }
   },
   "workers": {
     "_notes": "A fisher needs a bunk (workers' hut) and a spot to fish from (the sandbar stub, every pier, and plots with crewSpots). Each lands one fish every catchSeconds from the home island's common and uncommon pool (by spawnWeight), sold on the spot for the pool's average baseValue x valueMult x hut rateMult x (1 + smokehouse crewBonus).",
@@ -63,69 +65,13 @@
     "coinsPerHour": 60
   },
   "plots": {
-    "sandbar": {
-      "name": "The Sandbar",
-      "about": "Barely bigger than your boat. A pier stub, a tarp, a fire.",
-      "cost": 0,
-      "order": 0,
-      "model": "plot_sandbar",
-      "nets": 0,
-      "crewSpots": 0
-    },
-    "palm_spit": {
-      "name": "Palm Spit",
-      "about": "A crooked spit of sand with three leaning palms. Room for a crew to sleep.",
-      "cost": 70,
-      "order": 1,
-      "model": "plot_palm_spit",
-      "nets": 0,
-      "crewSpots": 0
-    },
-    "tidepool_shelf": {
-      "name": "Tide-pool Shelf",
-      "about": "Flat rock full of pools at low tide. Crabs, anemones, and a place for an aquarium.",
-      "cost": 700,
-      "order": 2,
-      "model": "plot_tidepool_shelf",
-      "nets": 1,
-      "crewSpots": 1
-    },
-    "wreck_beach": {
-      "name": "Wreck Beach",
-      "about": "Where the red boat beached itself years ago. Good timber, good shelter, room for a dock.",
-      "cost": 2600,
-      "order": 3,
-      "model": "plot_wreck_beach",
-      "nets": 0,
-      "crewSpots": 1
-    },
-    "kelp_shallows": {
-      "name": "Kelp Shallows",
-      "about": "Shallow water thick with kelp. The wraiths like it here.",
-      "cost": 7500,
-      "order": 4,
-      "model": "plot_kelp_shallows",
-      "nets": 2,
-      "crewSpots": 2
-    },
-    "basalt_cliff": {
-      "name": "Basalt Cliff",
-      "about": "Black columns rising out of the surf. One day a lighthouse will stand here.",
-      "cost": 18000,
-      "order": 5,
-      "model": "plot_basalt_cliff",
-      "nets": 0,
-      "crewSpots": 1
-    },
-    "mooring_deep": {
-      "name": "The Old Mooring's Deep",
-      "about": "The dark water where the Old Mooring has lived for fifty years.",
-      "cost": 40000,
-      "order": 6,
-      "model": "plot_mooring_deep",
-      "nets": 1,
-      "crewSpots": 2
-    }
+    "sandbar": { "name": "The Sandbar", "about": "Barely bigger than your boat. A pier stub, a tarp, a fire.", "cost": 0, "order": 0, "model": "plot_sandbar", "nets": 0, "crewSpots": 0 },
+    "palm_spit": { "name": "Palm Spit", "about": "A crooked spit of sand with three leaning palms. Room for a crew to sleep.", "cost": 70, "order": 1, "model": "plot_palm_spit", "nets": 0, "crewSpots": 0 },
+    "tidepool_shelf": { "name": "Tide-pool Shelf", "about": "Flat rock full of pools at low tide. Crabs, anemones, and a place for an aquarium.", "cost": 700, "order": 2, "model": "plot_tidepool_shelf", "nets": 1, "crewSpots": 1 },
+    "wreck_beach": { "name": "Wreck Beach", "about": "Where the red boat beached itself years ago. Good timber, good shelter, room for a dock.", "cost": 2600, "order": 3, "model": "plot_wreck_beach", "nets": 0, "crewSpots": 1 },
+    "kelp_shallows": { "name": "Kelp Shallows", "about": "Shallow water thick with kelp. The wraiths like it here.", "cost": 7500, "order": 4, "model": "plot_kelp_shallows", "nets": 2, "crewSpots": 2 },
+    "basalt_cliff": { "name": "Basalt Cliff", "about": "Black columns rising out of the surf. One day a lighthouse will stand here.", "cost": 18000, "order": 5, "model": "plot_basalt_cliff", "nets": 0, "crewSpots": 1 },
+    "mooring_deep": { "name": "The Old Mooring's Deep", "about": "The dark water where the Old Mooring has lived for fifty years.", "cost": 40000, "order": 6, "model": "plot_mooring_deep", "nets": 1, "crewSpots": 2 }
   },
   "piers": {
     "_notes": "Bought in order. Each needs its plot, reaches deeper water (depth in metres, for Agent A) and gives the crew one more spot to fish from.",
@@ -202,6 +148,39 @@
         { "name": "Plank Jetty", "about": "A jetty on the wreck's keel. Room for a skiff.", "cost": 1200, "maxBoat": 2, "model": "boat_dock_l1" },
         { "name": "Boat Dock", "about": "A real dock with a crane for a sloop.", "cost": 9000, "maxBoat": 3, "model": "boat_dock_l2" },
         { "name": "Shipwright's Slip", "about": "A slipway and a shipwright who never sleeps.", "cost": 30000, "maxBoat": 4, "model": "boat_dock_l3" }
+      ]
+    },
+    "net_rig": {
+      "name": "Net Rig",
+      "site": "tidepool_shelf",
+      "about": "Nets that fish on their own, day and night.",
+      "levels": [
+        { "name": "Not built", "cost": 0, "coinsPerHour": 0 },
+        { "name": "Stake Net", "about": "A hand-knotted net on driftwood stakes, cork floats bobbing.", "cost": 900, "coinsPerHour": 90, "model": "net_rig_l1" },
+        { "name": "Tidal Weir", "about": "A woven fence that lets the tide in and the fish not out.", "cost": 4800, "coinsPerHour": 320, "model": "net_rig_l2" },
+        { "name": "Drift-net Raft", "about": "A moored raft with a big hand-cranked winch.", "cost": 18000, "coinsPerHour": 900, "model": "net_rig_l3" }
+      ]
+    },
+    "reel_mill": {
+      "name": "Reel Mill",
+      "site": "palm_spit",
+      "about": "A machine that casts, waits and strikes for you.",
+      "levels": [
+        { "name": "Not built", "cost": 0, "coinsPerHour": 0 },
+        { "name": "Bell Rack", "about": "A row of rods; a bell rings on a bite and a bucket weight strikes.", "cost": 400, "coinsPerHour": 45, "model": "reel_mill_l1" },
+        { "name": "Tide Wheel", "about": "A waterwheel on the tide turns a long shaft of reels.", "cost": 3200, "coinsPerHour": 240, "model": "reel_mill_l2" },
+        { "name": "Clockwork Reel Mill", "about": "A brass gear tower working a dozen lines at once.", "cost": 14000, "coinsPerHour": 760, "model": "reel_mill_l3" }
+      ]
+    },
+    "cannery": {
+      "name": "Cannery",
+      "site": "wreck_beach",
+      "about": "Turns the harbour's catch into tins. Everything idle earns more.",
+      "levels": [
+        { "name": "Not built", "cost": 0, "coinsPerHour": 0, "factoryBonus": 0 },
+        { "name": "Tin Bench", "about": "Tins, brine and a hand press under a sailcloth roof.", "cost": 3000, "coinsPerHour": 80, "factoryBonus": 0.15, "model": "cannery_l1" },
+        { "name": "Steam Cannery", "about": "The wreck's old boiler, hissing away in a plank shed.", "cost": 11000, "coinsPerHour": 300, "factoryBonus": 0.35, "model": "cannery_l2" },
+        { "name": "Cannery Works", "about": "A chimney, a conveyor chute to the pier and a whistle at noon.", "cost": 36000, "coinsPerHour": 1100, "factoryBonus": 0.6, "model": "cannery_l3" }
       ]
     }
   },

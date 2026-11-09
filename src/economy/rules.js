@@ -17,7 +17,9 @@ export const groupOf = (slot) => SLOTS.find((s) => s.slot === slot)?.group;
 export const slotInfo = (slot) => SLOTS.find((s) => s.slot === slot);
 export const EQUIP_SLOTS = SLOTS.filter((s) => !s.tool).map((s) => s.slot);
 
-export const BUILDINGS = ['shop', 'cooler', 'workers_hut', 'smokehouse', 'aquarium', 'boat_dock'];
+export const BUILDINGS = ['shop', 'cooler', 'workers_hut', 'smokehouse', 'aquarium', 'boat_dock', 'net_rig', 'reel_mill', 'cannery'];
+/** Idle machines: each level earns coinsPerHour on its own; the cannery also multiplies what the crew, nets and machines bring in. */
+export const MACHINES = ['net_rig', 'reel_mill', 'cannery'];
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const entries = (obj) => Object.entries(obj ?? {}).filter(([k]) => !k.startsWith('_'));
@@ -223,7 +225,7 @@ export function priceOf(data, profile, test, c, extra = 0, hotId) {
   const size = sizeClassById(data, c.sizeClass) ?? sizeClassFor(data, c.fishId, c.weight);
   const variant = variantOf(data, c.variant ?? 'basic');
   const market = marketMult(data, profile, c.fishId, extra, hotId === undefined ? hotFishOf(data, profile) : hotId);
-  const raw = fish.baseValue * weightFactor * size.mult * (variant.valueMult ?? 1) * market * (1 + shopBonus(data, profile));
+  const raw = fish.baseValue * weightFactor * size.mult * (variant.valueMult ?? 1) * (c.bonus ?? 1) * market * (1 + shopBonus(data, profile));
   return Math.max(e.sell?.minPrice ?? 1, Math.round(raw)) * testMult(data, test, 'coins');
 }
 
@@ -315,7 +317,12 @@ export function incomeRates(data, profile, test) {
   const nets = netCount(data, profile) * ((data.economy?.nets?.coinsPerHour ?? 60) / 3600) * mult;
   const species = Object.keys(profile.fishdex ?? {}).length;
   const aquarium = species * ((aqua?.coinsPerSpeciesHour ?? 0) / 3600) * mult;
-  return { crew, nets, aquarium, total: crew + nets + aquarium, fishPerSecond };
+  const factory = 1 + (buildingLevel(data, profile, 'cannery')?.factoryBonus ?? 0);
+  let machines = 0;
+  for (const id of MACHINES) machines += (buildingLevel(data, profile, id)?.coinsPerHour ?? 0) / 3600;
+  machines *= mult * factory;
+  const crewF = crew * factory, netsF = nets * factory;
+  return { crew: crewF, nets: netsF, aquarium, machines, total: crewF + netsF + aquarium + machines, fishPerSecond };
 }
 
 export function offlineCapHours(data, profile) {
@@ -336,8 +343,9 @@ export function offlineEarnings(data, profile, test, seconds) {
     crew: Math.floor(r.crew * s),
     nets: Math.floor(r.nets * s),
     aquarium: Math.floor(r.aquarium * s),
+    machines: Math.floor(r.machines * s),
     crewFish: Math.floor(r.fishPerSecond * s),
-    get total() { return this.crew + this.nets + this.aquarium; },
+    get total() { return this.crew + this.nets + this.aquarium + this.machines; },
   };
 }
 

@@ -1,0 +1,84 @@
+{
+  "_about": "Agent A. Predators in the fight: a bigger fish strikes the fish on your line. If it gets hooked too you fight both (double catch); very rarely a third, bigger fish swallows the lot (triple catch). Haul the small fish in before the hunter arrives to save it. All tuning lives here. 'wading': wade past the shallows to cast further, but bigger fish stalk you there; get back to the shallows before one arrives or it knocks you back and snatches a fish from your basket.",
+  "chance": 0.12,
+  "perfectCastMult": 1.35,
+  "after": [2.5, 7.0],
+  "minStamina": 0.18,
+  "protectedTiers": ["big", "boss", "legendary"],
+  "stalk": {
+    "startDistance": [5.5, 8.5],
+    "searchRadius": 16,
+    "speed": 4.2,
+    "sprint": 7.5,
+    "maxTime": 3.2
+  },
+  "strike": {
+    "tensionSpike": 0.32,
+    "stealChance": 0.3,
+    "slowmo": 0.4,
+    "shake": 0.5
+  },
+  "load": {
+    "pullShare": 0.8,
+    "staminaShare": 1.0,
+    "learnMoves": true
+  },
+  "triple": {
+    "chance": 0.15,
+    "after": [2.0, 5.0]
+  },
+  "food": {
+    "knotted_needlefish": {
+      "eats": ["glasswing_sardine"],
+      "weight": 0.9
+    },
+    "driftback": {
+      "eats": ["glasswing_sardine", "shellback_blenny", "knotted_needlefish"],
+      "weight": 1
+    },
+    "compass_flounder": {
+      "eats": ["glasswing_sardine", "shellback_blenny"],
+      "weight": 0.8
+    },
+    "lampfin_gurnard": {
+      "eats": ["glasswing_sardine", "shellback_blenny", "knotted_needlefish"],
+      "weight": 0.9
+    },
+    "kelp_wraith": {
+      "eats": ["glasswing_sardine", "shellback_blenny", "driftback", "knotted_needlefish", "sailcloth_ray"],
+      "weight": 1
+    },
+    "seaglass_puffer": {
+      "eats": ["shellback_blenny"],
+      "weight": 0.6
+    },
+    "oyster_hoarder": {
+      "eats": ["shellback_blenny", "compass_flounder", "sailcloth_ray"],
+      "weight": 0.5
+    },
+    "moonwake_ribbonfish": {
+      "eats": ["glasswing_sardine", "knotted_needlefish", "driftback"],
+      "weight": 0.2
+    },
+    "old_mooring": {
+      "eats": ["glasswing_sardine", "driftback", "compass_flounder", "shellback_blenny", "kelp_wraith", "seaglass_puffer", "sailcloth_ray", "knotted_needlefish", "lampfin_gurnard", "oyster_hoarder"],
+      "weight": 0.25
+    }
+  },
+  "wading": {
+    "safeDepth": 0.45,
+    "graceSeconds": 2.5,
+    "chancePerSecond": 0.22,
+    "maxDepth": 1.0,
+    "cooldown": [10, 18],
+    "stalk": {
+      "startDistance": [6, 8],
+      "speed": 3.2,
+      "sprint": 7.5,
+      "time": 2.8
+    },
+    "knockback": 2.4,
+    "stealFish": true,
+    "hunters": ["kelp_wraith", "lampfin_gurnard", "oyster_hoarder", "seaglass_puffer", "moonwake_ribbonfish", "old_mooring"]
+  }
+}

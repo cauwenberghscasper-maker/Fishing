@@ -20,6 +20,7 @@ import { createAnglerRig } from '../fishing/anglerRig.js';
 import { createWorkers } from './workers.js';
 import { createPlacement } from './placement.js';
 import { audio } from '../core/audio.js';
+import { createWadingDanger } from '../fishing/wading.js';
 
 const ISLANDS = { driftwood_cove: driftwoodCove };
 const DAY_LENGTH = 30 * 60; // real seconds per in-game day
@@ -29,6 +30,14 @@ export async function startWorld({ canvas, state, events }) {
   if (!state.data.powers) {
     // Agent A's superpower tuning (B's loader does not read it).
     try { const r = await fetch('data/powers.json', { cache: 'no-cache' }); if (r.ok) state.data.powers = await r.json(); } catch { /* fallback table in powers.js */ }
+  }
+  if (!state.data.mastery) {
+    // Agent A's perfect-fight gauge tuning.
+    try { const r = await fetch('data/mastery.json', { cache: 'no-cache' }); if (r.ok) state.data.mastery = await r.json(); } catch { /* defaults in mastery.js */ }
+  }
+  if (!state.data.predation) {
+    // Agent A's predator tuning (double/triple catches).
+    try { const r = await fetch('data/predation.json', { cache: 'no-cache' }); if (r.ok) state.data.predation = await r.json(); } catch { /* defaults in predation.js */ }
   }
   state.world.islandId = state.world.islandId || 'driftwood_cove';
   state.world.weather = state.world.weather || 'clear';
@@ -78,6 +87,17 @@ export async function startWorld({ canvas, state, events }) {
   events.on('gear:changed', () => { fishing.loadGear(state.profile?.gear?.rod); });
 
   const quality = createQuality({ pipeline });
+  const wading = createWadingDanger({
+    state, events, island, player, fishSystem, economy: { loseCatch: () => state.economy?.loseCatch?.() ?? null },
+    hooks: {
+      toast: (text, sec) => fishing.hud.toast(text, sec),
+      warn: () => { audio.lurk(); navigator.vibrate?.([20, 60, 20, 60, 20]); cameraRig.shakeFor(0.12, 0.6); },
+      chomp: () => { audio.chomp(); navigator.vibrate?.([80, 30, 120]); },
+      splash: (x, z, st) => { splashes.splash(x, z, st); water.addRipple(x, z, st); },
+      ripple: (x, z, st) => water.addRipple(x, z, st),
+      shake: (a) => cameraRig.shakeFor(a, 0.4),
+    },
+  });
   const placement = createPlacement({ state, events, island, player, cameraRig, input, hud: fishing.hud, surface, under, fishing });
   events.on('build:start', (job) => {
     // Only from explore: never yank the player out of a cast or a fight.
@@ -167,6 +187,7 @@ export async function startWorld({ canvas, state, events }) {
       player.update(dt, realDt);
       fishSystem.update(dt, time);
       fishing.update(dt, realDt);
+      wading.update(dt, state.world.mode === 'explore' && fishing.mode === 'explore' && fishSystem.authority !== false);
       workers.update(dt);
       if (!placement.update(realDt) && overviewAt) { cameraRig.setMode('build'); cameraRig.setFocus(overviewAt.x, 0, overviewAt.z); }
       island.update(dt, time);
@@ -238,6 +259,10 @@ export async function startWorld({ canvas, state, events }) {
     cast: (x, z, perfect = false) => fishing.debugCast(x, z, perfect),
     forceBite: (id, variant) => Boolean(fishSystem.forceBite(id, variant)),
     hook: () => fishing.debugHook(),
+    predator: () => fishing.debugPredator(),
+    wadeHunter: () => wading.force(),
+    mastery: (v) => fishing.debugMastery(v),
+    get onLine() { return fishing.onLine; },
     reel: (on = true, steer = 0) => fishing.debugReel(on, steer),
     finishFight: (status) => fishing.debugFinishFight(status),
     aimTo: (x, y) => fishing.debugAimFrame(x, y),

@@ -84,7 +84,7 @@ function recordCatch(c) {
 
 function pearlsFor(fish, sizeClass) {
   const cfg = data().economy?.pearls ?? {};
-  return (cfg.byTier?.[fish?.tier] ?? 0) + (sizeClass === 'trophy' ? cfg.trophyBonus ?? 0 : 0);
+  return (cfg.byTier?.[fish?.tier] ?? 0) + (fish?.pearls ?? 0) + (sizeClass === 'trophy' ? cfg.trophyBonus ?? 0 : 0);
 }
 
 function onCaught(payload = {}) {
@@ -105,6 +105,9 @@ function onCaught(payload = {}) {
     perfect: !!payload.perfectCast,
     at: Date.now(),
   };
+  // Mastery (a well-fought catch sells for more) and double/triple catches from predators (Agent A).
+  const bonus = Number(payload.mastery?.valueMult);
+  if (Number.isFinite(bonus) && bonus > 1) { entry.bonus = Math.min(5, bonus); entry.grade = String(payload.mastery.grade ?? ''); }
   const { isNew, isRecord, isNewVariant, completed } = recordCatch(entry);
   const pearls = pearlsFor(fish, sizeClass) + (variant.pearls ?? 0);
   if (pearls) p.pearls += pearls;
@@ -121,6 +124,7 @@ function onCaught(payload = {}) {
   changed('cooler', 'fishdex', 'pearls', 'stats');
   E.emit('catch:landed', {
     catch: entry, variant, isNew, isRecord, isNewVariant, sets: completed, value, pearls, coolerFull, hot: hotFishOf(data(), p) === fishId,
+    multi: payload.multi ?? null, mastery: payload.mastery ?? null,
   });
 }
 
@@ -171,6 +175,7 @@ function grantOffline(seconds) {
     crew: (prev?.crew ?? 0) + earn.crew,
     nets: (prev?.nets ?? 0) + earn.nets,
     aquarium: (prev?.aquarium ?? 0) + earn.aquarium,
+    machines: (prev?.machines ?? 0) + earn.machines,
     crewFish: (prev?.crewFish ?? 0) + earn.crewFish,
     total: (prev?.total ?? 0) + total,
   };
@@ -365,6 +370,15 @@ export const economy = {
     if (!p.cooler.some((c) => c.id === catchId)) return fail('missing');
     E.emit('catch:kept', { catchId });
     return { ok: true };
+  },
+  /** A fish snatched from the basket (wading too deep, Agent A's wading.js). Picks one at random. */
+  loseCatch() {
+    const p = P();
+    if (!p.cooler.length) return null;
+    const c = p.cooler.splice(Math.floor(Math.random() * p.cooler.length), 1)[0];
+    E.emit('catch:stolen', { catchId: c.id, fishId: c.fishId });
+    changed('cooler');
+    return c;
   },
   releaseHeld() {
     const p = P();

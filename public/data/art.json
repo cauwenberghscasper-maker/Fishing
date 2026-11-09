@@ -1792,5 +1792,122 @@
     "path": "art/icons/tab_crew.webp",
     "usedBy": "ui/shop build sub-tab Crew",
     "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)"
+  },
+  "building.net_rig.l1": {
+    "path": "art/buildings/net_rig_l1.webp",
+    "name": "Stake Net (Net Rig level 1)",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model net_rig_l1",
+    "concept": "art/concepts/world/net_rig_l1.webp",
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
+    "planned": true
+  },
+  "building.net_rig.l2": {
+    "path": "art/buildings/net_rig_l2.webp",
+    "name": "Tidal Weir (Net Rig level 2)",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model net_rig_l2",
+    "concept": "art/concepts/world/net_rig_l2.webp",
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
+    "planned": true
+  },
+  "building.net_rig.l3": {
+    "path": "art/buildings/net_rig_l3.webp",
+    "name": "Drift-net Raft (Net Rig level 3)",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model net_rig_l3",
+    "concept": "art/concepts/world/net_rig_l3.webp",
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
+    "planned": true
+  },
+  "building.reel_mill.l1": {
+    "path": "art/buildings/reel_mill_l1.webp",
+    "name": "Bell Rack (Reel Mill level 1)",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model reel_mill_l1",
+    "concept": "art/concepts/world/reel_mill_l1.webp",
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
+    "planned": true
+  },
+  "building.reel_mill.l2": {
+    "path": "art/buildings/reel_mill_l2.webp",
+    "name": "Tide Wheel (Reel Mill level 2)",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model reel_mill_l2",
+    "concept": "art/concepts/world/reel_mill_l2.webp",
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
+    "planned": true
+  },
+  "building.reel_mill.l3": {
+    "path": "art/buildings/reel_mill_l3.webp",
+    "name": "Clockwork Reel Mill (Reel Mill level 3)",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model reel_mill_l3",
+    "concept": "art/concepts/world/reel_mill_l3.webp",
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
+    "planned": true
+  },
+  "building.cannery.l1": {
+    "path": "art/buildings/cannery_l1.webp",
+    "name": "Tin Bench (Cannery level 1)",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model cannery_l1",
+    "concept": "art/concepts/world/cannery_l1.webp",
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
+    "planned": true
+  },
+  "building.cannery.l2": {
+    "path": "art/buildings/cannery_l2.webp",
+    "name": "Steam Cannery (Cannery level 2)",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model cannery_l2",
+    "concept": "art/concepts/world/cannery_l2.webp",
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
+    "planned": true
+  },
+  "building.cannery.l3": {
+    "path": "art/buildings/cannery_l3.webp",
+    "name": "Cannery Works (Cannery level 3)",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model cannery_l3",
+    "concept": "art/concepts/world/cannery_l3.webp",
+    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
+    "planned": true
   }
 }

@@ -15,7 +15,7 @@ export function offlineLetter(ctx) {
     const po = state.profile.pendingOffline;
     if (!po) { fill(root); return; }
     const cap = economy.offlineCapHours();
-    const sources = [po.crew, po.nets, po.aquarium].filter((v) => v > 0).length;
+    const sources = [po.crew, po.nets, po.aquarium, po.machines].filter((v) => v > 0).length;
     const text = po.crewFish > 0
       ? `Your crew fished for ${fmtDuration(po.seconds)} and landed ${plural(po.crewFish, 'fish', 'fish')}.`
       : `Your harbour kept earning for ${fmtDuration(po.seconds)}.`;
@@ -26,6 +26,7 @@ export function offlineLetter(ctx) {
         sources > 1 && po.crew ? ledgerRow('Crew catch', money(po.crew)) : null,
         sources > 1 && po.nets ? ledgerRow('Nets and pots', money(po.nets)) : null,
         sources > 1 && po.aquarium ? ledgerRow('Aquarium visitors', money(po.aquarium)) : null,
+        sources > 1 && po.machines ? ledgerRow('Machines and cannery', money(po.machines)) : null,
         ledgerRow(sources > 1 ? 'Total' : 'Earned', money(po.total), 'ledger__row--total')),
       h('p.letter__note', po.capped
         ? `The harbour stops after ${cap} hours. A night watch keeps it going longer.`

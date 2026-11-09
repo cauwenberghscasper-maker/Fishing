@@ -317,5 +317,105 @@
     "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D later",
     "status": "concept",
     "planned": true
+  },
+  "sailcloth_ray": {
+    "path": null,
+    "preview": "assets/fish/sailcloth_ray/preview.webp",
+    "previewSize": [
+      512,
+      256
+    ],
+    "concept": "art/concepts/fish/sailcloth_ray.webp",
+    "scale": 1,
+    "body": "ray",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; cut-outs rembg IS-Net (MIT); 3D pending (Blender bpy build)",
+    "status": "concept",
+    "topView": "art/concepts/fish/sailcloth_ray_top.webp",
+    "hero": "assets/fish/sailcloth_ray/hero.webp",
+    "rest": "assets/fish/sailcloth_ray/rest.webp",
+    "portrait": "assets/fish/sailcloth_ray/portrait.webp",
+    "planned": true
+  },
+  "knotted_needlefish": {
+    "path": null,
+    "preview": "assets/fish/knotted_needlefish/preview.webp",
+    "previewSize": [
+      512,
+      256
+    ],
+    "concept": "art/concepts/fish/knotted_needlefish.webp",
+    "scale": 1,
+    "body": "eel",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; cut-outs rembg IS-Net (MIT); 3D pending (Blender bpy build)",
+    "status": "concept",
+    "topView": "art/concepts/fish/knotted_needlefish_top.webp",
+    "hero": "assets/fish/knotted_needlefish/hero.webp",
+    "rest": "assets/fish/knotted_needlefish/rest.webp",
+    "portrait": "assets/fish/knotted_needlefish/portrait.webp",
+    "planned": true
+  },
+  "lampfin_gurnard": {
+    "path": null,
+    "preview": "assets/fish/lampfin_gurnard/preview.webp",
+    "previewSize": [
+      512,
+      256
+    ],
+    "concept": "art/concepts/fish/lampfin_gurnard.webp",
+    "scale": 1,
+    "body": "bulky",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; cut-outs rembg IS-Net (MIT); 3D pending (Blender bpy build)",
+    "status": "concept",
+    "topView": "art/concepts/fish/lampfin_gurnard_top.webp",
+    "hero": "assets/fish/lampfin_gurnard/hero.webp",
+    "rest": "assets/fish/lampfin_gurnard/rest.webp",
+    "portrait": "assets/fish/lampfin_gurnard/portrait.webp",
+    "planned": true
+  },
+  "oyster_hoarder": {
+    "path": null,
+    "preview": "assets/fish/oyster_hoarder/preview.webp",
+    "previewSize": [
+      512,
+      256
+    ],
+    "concept": "art/concepts/fish/oyster_hoarder.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; cut-outs rembg IS-Net (MIT); 3D pending (Blender bpy build)",
+    "status": "concept",
+    "topView": "art/concepts/fish/oyster_hoarder_top.webp",
+    "hero": "assets/fish/oyster_hoarder/hero.webp",
+    "rest": "assets/fish/oyster_hoarder/rest.webp",
+    "portrait": "assets/fish/oyster_hoarder/portrait.webp",
+    "planned": true
+  },
+  "moonwake_ribbonfish": {
+    "path": null,
+    "preview": "assets/fish/moonwake_ribbonfish/preview.webp",
+    "previewSize": [
+      512,
+      256
+    ],
+    "concept": "art/concepts/fish/moonwake_ribbonfish.webp",
+    "scale": 1,
+    "body": "eel",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; cut-outs rembg IS-Net (MIT); 3D pending (Blender bpy build)",
+    "status": "concept",
+    "topView": "art/concepts/fish/moonwake_ribbonfish_top.webp",
+    "hero": "assets/fish/moonwake_ribbonfish/hero.webp",
+    "rest": "assets/fish/moonwake_ribbonfish/rest.webp",
+    "portrait": "assets/fish/moonwake_ribbonfish/portrait.webp",
+    "planned": true
   }
 }

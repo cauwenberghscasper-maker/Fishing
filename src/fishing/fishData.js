@@ -13,7 +13,7 @@ const FALLBACK = {
 export const TIER_RANK = { common: 0, uncommon: 1, rare: 2, epic: 3, legendary: 4, big: 3, boss: 5 };
 
 // How many of each tier swim around at once (schools count as one).
-export const TIER_POPULATION = { common: 3, uncommon: 2, rare: 1, epic: 1, legendary: 1, big: 1, boss: 0 };
+export const TIER_POPULATION = { common: 4, uncommon: 3, rare: 2, epic: 1, legendary: 1, big: 1, boss: 0 };
 
 export function fishInfo(state, id) {
   const data = state.data?.fish?.[id] || {};

@@ -76,7 +76,7 @@ export function shopSheet(ctx, { tab = 'sell', focus = null } = {}) {
   const { state, economy, ui } = ctx;
   // old entry points: tab 'buy' → gear, 'harbour' → build
   let section = { buy: 'gear', harbour: 'build' }[tab] ?? tab;
-  const subOf = { gear: 'rod', tackle: 'hook', build: focus === 'land' ? 'land' : focus === 'crew' || focus === 'workers_hut' ? 'crew' : 'buildings' };
+  const subOf = { gear: 'rod', tackle: 'hook', build: focus === 'land' ? 'land' : focus === 'crew' || focus === 'workers_hut' ? 'crew' : focus === 'boats' ? 'boats' : 'buildings' };
   const shopLevel = economy.building('shop')?.index || 1;
   const place = Place({
     id: 'shop',

@@ -42,3 +42,7 @@ Self-hosted in `public/fonts/` (licence texts: `public/fonts/OFL-*.txt`), from t
 ## UI icons and textures
 - UI icons (`src/ui/icons.js`): original SVG drawings made for this game by Agent B. No icon set is used.
 - Paper and driftwood textures (`src/ui/textures/`): generated procedurally by Agent B (numpy noise). Our own work.
+
+## Idle machines (net_rig, reel_mill, cannery, l1–l3)
+- `public/assets/world/{net_rig,reel_mill,cannery}_l{1,2,3}/` (model.glb + preview.webp): original work, built procedurally in Blender 5.2 (bpy, GPL; the output models are our own) by the Blender machines agent, released CC0 with the game. No kit pieces are used. They are painted with the shared `cove_atlas.jpg` / `cove_net.png`, and the AO and weathering are baked into the vertex colours.
+- Compressed with glTF-Transform (MIT) and meshoptimizer (MIT). Previews and contact sheets are rendered with three.js (MIT) in Playwright (Apache-2.0).

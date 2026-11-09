@@ -276,7 +276,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     fishSystem.take(fish);
     fightFish = fish;
     fightInfo = fish.info;
-    const roll = rollCatch(fish.info, lastCast?.perfect, taunt.sizeBonus);
+    const roll = rollCatch(fish.info, lastCast?.perfect, taunt.sizeBonus, fish.sizeU);
+    if (roll.sizeClass === 'giant') hud.toast(`A GIANT ${fish.info.name}!`, 2.2);
     if (taunt.level > 0.5) hint('taunt-size', 'It took the lure hard!');
     fish.catchRoll = roll;
     const castAngle = Math.atan2(lure.pos.x - player.position.x, lure.pos.z - player.position.z);

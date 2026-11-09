@@ -7,7 +7,8 @@ import { createBossController } from './boss.js';
 const rand = (a, b) => a + Math.random() * (b - a);
 const MAX_LINE = 38;
 
-export function createFight({ fish, info, weight, sizeClass, strength, state, island, water, splashes, playerPos, castAngle, hooks, power = null }) {
+export function createFight({ fish, info, weight, sizeClass, strength, state, island, water, splashes, playerPos, castAngle, hooks, power: firstPower = null }) {
+  let power = firstPower;
   const b = fish.behaviour;
   const g = state.gear || {};
   const gear = {
@@ -258,6 +259,8 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
     update,
     fishPoint,
     get power() { return power; },
+    /** The fish turned elemental mid-fight (surge.js): its superpower joins the fight. */
+    setPower(p) { power?.stop?.(api); power = p; },
     get lateral() { return lateralScreenX(); },
     get boss() { return boss; },
     // A predator got hooked on top of the fish (double/triple catch): more pull, more fight left.
@@ -275,9 +278,11 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
 }
 
 // Weight roll and size class. A perfect cast nudges the roll up.
-export function rollCatch(info, perfect) {
+export function rollCatch(info, perfect, tauntBonus = 0) {
   let u = Math.pow(Math.random(), 1.7);
   if (perfect) u = Math.max(u, Math.pow(Math.random(), 1.2));
+  // A taunted lure gets taken by the bigger ones (taunt.js): a second, kinder roll.
+  if (tauntBonus > 0) u = Math.max(u, Math.pow(Math.random(), 1.7 * (1 - tauntBonus)));
   const [lo, hi] = info.weight;
   const weight = Math.round((lo + (hi - lo) * u) * 100) / 100;
   const sizeClass = u < 0.3 ? 'small' : u < 0.75 ? 'normal' : u < 0.95 ? 'large' : 'trophy';

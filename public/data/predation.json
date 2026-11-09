@@ -45,7 +45,7 @@
       "weight": 0.9
     },
     "kelp_wraith": {
-      "eats": ["glasswing_sardine", "shellback_blenny", "driftback", "knotted_needlefish", "sailcloth_ray"],
+      "eats": ["glasswing_sardine", "shellback_blenny", "driftback", "knotted_needlefish", "sailcloth_ray", "saltcrust_sole"],
       "weight": 1
     },
     "seaglass_puffer": {
@@ -53,15 +53,15 @@
       "weight": 0.6
     },
     "oyster_hoarder": {
-      "eats": ["shellback_blenny", "compass_flounder", "sailcloth_ray"],
+      "eats": ["shellback_blenny", "compass_flounder", "sailcloth_ray", "saltcrust_sole"],
       "weight": 0.5
     },
     "moonwake_ribbonfish": {
-      "eats": ["glasswing_sardine", "knotted_needlefish", "driftback"],
+      "eats": ["glasswing_sardine", "knotted_needlefish", "driftback", "bottlepost_wrasse"],
       "weight": 0.2
     },
     "old_mooring": {
-      "eats": ["glasswing_sardine", "driftback", "compass_flounder", "shellback_blenny", "kelp_wraith", "seaglass_puffer", "sailcloth_ray", "knotted_needlefish", "lampfin_gurnard", "oyster_hoarder"],
+      "eats": ["glasswing_sardine", "driftback", "compass_flounder", "shellback_blenny", "kelp_wraith", "seaglass_puffer", "sailcloth_ray", "knotted_needlefish", "lampfin_gurnard", "oyster_hoarder", "bottlepost_wrasse", "saltcrust_sole"],
       "weight": 0.25
     }
   },

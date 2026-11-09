@@ -69,9 +69,12 @@
     "palm_spit": { "name": "Palm Spit", "about": "A crooked spit of sand with three leaning palms. Room for a crew to sleep.", "cost": 70, "order": 1, "model": "plot_palm_spit", "nets": 0, "crewSpots": 0 },
     "tidepool_shelf": { "name": "Tide-pool Shelf", "about": "Flat rock full of pools at low tide. Crabs, anemones, and a place for an aquarium.", "cost": 700, "order": 2, "model": "plot_tidepool_shelf", "nets": 1, "crewSpots": 1 },
     "wreck_beach": { "name": "Wreck Beach", "about": "Where the red boat beached itself years ago. Good timber, good shelter, room for a dock.", "cost": 2600, "order": 3, "model": "plot_wreck_beach", "nets": 0, "crewSpots": 1 },
-    "kelp_shallows": { "name": "Kelp Shallows", "about": "Shallow water thick with kelp. The wraiths like it here.", "cost": 7500, "order": 4, "model": "plot_kelp_shallows", "nets": 2, "crewSpots": 2 },
-    "basalt_cliff": { "name": "Basalt Cliff", "about": "Black columns rising out of the surf. One day a lighthouse will stand here.", "cost": 18000, "order": 5, "model": "plot_basalt_cliff", "nets": 0, "crewSpots": 1 },
-    "mooring_deep": { "name": "The Old Mooring's Deep", "about": "The dark water where the Old Mooring has lived for fifty years.", "cost": 40000, "order": 6, "model": "plot_mooring_deep", "nets": 1, "crewSpots": 2 }
+    "sunset_dunes": { "name": "Sunset Dunes", "about": "A long golden beach east of the spit, palms on the crest. Room for a whole works.", "cost": 5000, "order": 4, "model": null, "nets": 2, "crewSpots": 2 },
+    "kelp_shallows": { "name": "Kelp Shallows", "about": "Shallow water thick with kelp. The wraiths like it here.", "cost": 7500, "order": 5, "model": "plot_kelp_shallows", "nets": 2, "crewSpots": 2 },
+    "basalt_cliff": { "name": "Basalt Cliff", "about": "Black columns rising out of the surf. One day a lighthouse will stand here.", "cost": 18000, "order": 6, "model": "plot_basalt_cliff", "nets": 0, "crewSpots": 1 },
+    "gull_headland": { "name": "Gull Headland", "about": "A grassy rock shoulder past the west cliffs, cairns up the knoll, nets in the wind.", "cost": 24000, "order": 7, "model": null, "nets": 2, "crewSpots": 2 },
+    "mooring_deep": { "name": "The Old Mooring's Deep", "about": "The dark water where the Old Mooring has lived for fifty years.", "cost": 40000, "order": 8, "model": "plot_mooring_deep", "nets": 1, "crewSpots": 2 },
+    "lantern_atoll": { "name": "Lantern Atoll", "about": "A ring of palms far out in deep water. Its lanterns light the way home.", "cost": 70000, "order": 9, "model": null, "nets": 3, "crewSpots": 2 }
   },
   "piers": {
     "_notes": "Bought in order. Each needs its plot, reaches deeper water (depth in metres, for Agent A) and gives the crew one more spot to fish from.",
@@ -192,12 +195,13 @@
     "storm_cutter": { "name": "Storm Cutter", "about": "Built to sail straight through lightning.", "cost": 60000, "tier": 4, "reach": 8 }
   },
   "wear": {
-    "_notes": "4.7b. Rod strain per fight = max(0, fish kg - rating x strainFrom) x strainPerKg; it breaks at the rod's durability (the starter never breaks). Line wear per fight = line.wear x (fish kg / line strength, 0.2..2), doubled on a snap; a worn line keeps half its strength at full wear. Repair = repairShare x the rod's price. On a snap the hook, sinker, float and leader are lost (the tackle box keeps each with tackleBoxSave), and one lure.",
-    "strainFrom": 0.6,
-    "strainPerKg": 6,
+    "_notes": "4.7b. Rod strain per fight = max(0, fish kg - rating x strainFrom) x strainPerKg (Casper 9 Nov: rods broke too fast; only fish heavier than the rating strain it now); it breaks at the rod's durability (the starter never breaks). Line wear per fight = line.wear x (fish kg / line strength, 0.2..2), doubled on a snap; a worn line keeps half its strength at full wear. Repair = repairShare x the rod's price. On a snap the hook, sinker, float and leader are lost (the tackle box keeps each with tackleBoxSave), and one lure.",
+    "strainFrom": 1.0,
+    "strainPerKg": 2.5,
     "repairShare": 0.3,
     "tackleBoxSave": 0.6,
-    "baitBucketSave": 0.25
+    "baitBucketSave": 0.25,
+    "maxStrainPerFight": 0.3
   },
   "offline": {
     "_notes": "Crew, nets and aquarium keep earning while the game is closed, up to capHours. The night watch raises the cap.",

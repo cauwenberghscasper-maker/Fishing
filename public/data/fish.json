@@ -228,5 +228,43 @@
     "hint": "At night, a silver ribbon on the dark water that doesn't follow the moon.",
     "signature": "very long ribbon body that IS a strip of moonlit wake: rippling silver light with a crimson crest running its whole length, no visible scales",
     "palette": ["moon silver", "night teal", "crimson"]
+  },
+  "bottlepost_wrasse": {
+    "name": "Bottle-post Wrasse",
+    "island": "driftwood_cove",
+    "tier": "uncommon",
+    "element": "tide",
+    "personality": "greedy",
+    "baseValue": 34,
+    "weight": [0.6, 2.4],
+    "depth": [1, 5],
+    "bait": ["breadcrust", "glass_shrimp"],
+    "time": "any",
+    "weather": "any",
+    "spawnWeight": 11,
+    "model": "bottlepost_wrasse",
+    "lore": "Swallowed a message in a bottle and became one. Nobody has read the note yet.",
+    "hint": "A green glint bobbing between the rocks, like a bottle that swims.",
+    "signature": "body IS a sea-green message bottle: thick translucent glass flanks with a rolled, sealed letter visible inside, a cork for a snout, wax-seal red gill flash",
+    "palette": ["bottle green", "parchment", "sealing-wax red"]
+  },
+  "saltcrust_sole": {
+    "name": "Saltcrust Sole",
+    "island": "driftwood_cove",
+    "tier": "common",
+    "element": "tide",
+    "personality": "cautious",
+    "baseValue": 15,
+    "weight": [0.3, 1.6],
+    "depth": [0, 3],
+    "bait": ["sandworms"],
+    "time": "day",
+    "weather": "any",
+    "spawnWeight": 20,
+    "model": "saltcrust_sole",
+    "lore": "Lay so long in a drying tide pool the salt grew over it like frost.",
+    "hint": "A pale patch on the sandy bottom that cracks when it moves.",
+    "signature": "flat oval body crusted with white salt crystals in a cracked hexagon salt-flat pattern, rust-orange showing through the cracks; edge fins fringed with crystal",
+    "palette": ["salt white", "rust orange", "sand grey"]
   }
 }

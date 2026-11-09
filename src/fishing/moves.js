@@ -25,5 +25,9 @@ export const MOVES = {
   clamp: { dur: [1.8, 2.6], pull: 1.6, reelTension: 1.6, damage: 0.35, depth: 'bottom', swim: 'tired', shake: 0.2, hint: 'Clamped shut: short pumps, let the tension fall between' },
   // Moonwake ribbonfish: vanishes under its wake and runs; the line goes nearly slack, then snaps tight.
   vanish: { dur: [1.0, 1.4], pull: 0.3, line: 2.4, depth: 2.5, swim: 'dive', next: 'run', hint: 'It vanished under the wake: reel the slack in fast' },
+  // Bottle-post wrasse: corks up to the surface (slack line), then dives once the slack is gone.
+  bob: { dur: [1.0, 1.4], pull: 0.1, line: 0, reelGain: 1.8, depth: 0.1, swim: 'still', next: 'dive', hint: 'It corked up: reel the slack in before it dives' },
+  // Saltcrust sole: buries in the sand. Heavy, hardly hurts; steering levers it out.
+  bury: { dur: [2.0, 2.8], pull: 1.3, damage: 0.4, steerBonus: 2.5, depth: 'bottom', swim: 'tired', hint: 'Buried in the sand: steer to lever it out' },
   inflate: { dur: [2.6, 3.4], pull: 0.6, reelTension: 1.9, passiveDrain: 0.035, inflate: 1, swim: 'tired', hint: 'Puffed up! Reeling now spikes the line, wait it out' },
 };

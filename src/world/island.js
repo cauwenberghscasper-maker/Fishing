@@ -78,8 +78,11 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
     if (float) return 0;
     const placement = entry?.placement || 'ground';
     if (placement === 'water' || placement === 'shore') return 0;
-    if (placement === 'island') return Math.max(0, terrain.heightAt(x, z)) - 0.05;
-    return terrain.heightAt(x, z) - 0.04;
+    // The height the land is rising to (terrain.sample), not the grid mid-rise: props on a plot that is
+    // still coming up out of the sea must stand on its new ground, not be buried at the old seabed.
+    const h = terrain.sample(x, z).h;
+    if (placement === 'island') return Math.max(0, h) - 0.05;
+    return h - 0.04;
   }
 
   // Only a model that actually loaded can block the player, with its own footprint.
@@ -117,18 +120,27 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
   const easeOutBack = (k) => 1 + 2.2 * Math.pow(k - 1, 3) + 1.2 * Math.pow(k - 1, 2);
 
   // --- plots ----------------------------------------------------------------------------
+  // A plot's dressing: D's plot_<id> model if there is one, plus the layout props tagged with the
+  // plot (palms, rocks, lanterns...). Both rise with the land when the plot is bought.
   async function addPlotDressing(id, animate) {
     const def = layout.plots[id];
     if (!def) return;
-    const modelId = pickAsset('world', [def.model]);
-    if (!modelId) return;
-    const obj = await addProp(modelId, def.x, def.z, def.rot, 1, false, groups.plots);
-    if (!obj) return;
-    obj.userData.plot = id;
-    if (animate) {
-      const y1 = obj.position.y;
-      obj.position.y = y1 - 2.6;
-      tween(RISE_TIME, (k) => { obj.position.y = y1 - 2.6 * (1 - (k * k * (3 - 2 * k))); });
+    const jobs = [];
+    const modelId = def.model ? pickAsset('world', [def.model]) : null;
+    if (modelId) jobs.push(addProp(modelId, def.x, def.z, def.rot, 1, false, groups.plots));
+    for (const p of layout.props) {
+      if (p.plot !== id) continue;
+      const pid = pickAsset('world', p.asset);
+      if (pid) jobs.push(addProp(pid, p.x, p.z, p.rot, p.scale, p.float, groups.plots));
+    }
+    for (const obj of await Promise.all(jobs)) {
+      if (!obj) continue;
+      obj.userData.plot = id;
+      if (animate) {
+        const y1 = obj.position.y;
+        obj.position.y = y1 - 2.6;
+        tween(RISE_TIME, (k) => { obj.position.y = y1 - 2.6 * (1 - (k * k * (3 - 2 * k))); });
+      }
     }
   }
 
@@ -297,7 +309,7 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
   async function build() {
     const jobs = [];
     for (const p of layout.props) {
-      if (p.plot && !owned.plots.has(p.plot)) continue;
+      if (p.plot) continue;   // plot props come with their plot (addPlotDressing)
       const id = pickAsset('world', p.asset);
       if (id) jobs.push(addProp(id, p.x, p.z, p.rot, p.scale, p.float).then((o) => { if (o) o.userData.plot = p.plot || null; }));
     }

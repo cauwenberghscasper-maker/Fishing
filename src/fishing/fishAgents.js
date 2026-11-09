@@ -46,8 +46,24 @@ export function createFishSystem({ state, island, water, splashes, events, under
       const x = area.x + Math.cos(a) * r, z = area.z + Math.sin(a) * r;
       if (island.waterDepthAt(x, z) >= (minDepth ?? hab.minDepth)) return { x, z, area };
     }
+    // Every try landed on land (a plot rose over this habitat): any water point in any habitat.
+    for (const h of Object.values(habitats)) for (const area of h.areas) {
+      if (island.waterDepthAt(area.x, area.z) >= 1) return { x: area.x, z: area.z, area };
+    }
     const area = hab.areas[0];
     return { x: area.x, z: area.z, area };
+  }
+
+  // The deepest direction from here (fish that hit the shore swim out to sea, not toward a home
+  // that new land may now cover).
+  function deeperHeading(x, z) {
+    let best = null;
+    for (let i = 0; i < 12; i++) {
+      const a = (i / 12) * Math.PI * 2;
+      const d = island.waterDepthAt(x + Math.sin(a) * 2.5, z + Math.cos(a) * 2.5);
+      if (!best || d > best.d) best = { a, d };
+    }
+    return best.a;
   }
 
   function depthFor(f, x, z) {
@@ -206,7 +222,16 @@ export function createFishSystem({ state, island, water, splashes, events, under
     // Never swim onto the beach: turn back towards home when the water gets too thin.
     const minD = (habitats[f.behaviour.habitat]?.minDepth ?? 1) * 0.6;
     if (!f.controlled && island.waterDepthAt(nx, nz) < Math.max(0.45, minD) && f.state !== 'bite') {
-      steerTo(f, f.home.x, f.home.z, dt, 6);
+      const homeWet = island.waterDepthAt(f.home.x, f.home.z) >= minD;
+      if (homeWet) steerTo(f, f.home.x, f.home.z, dt, 6);
+      else {
+        // Its home is land now: find new water and make it home.
+        const a = deeperHeading(f.pos.x, f.pos.z);
+        f.heading = wrapAngle(f.heading + THREE.MathUtils.clamp(wrapAngle(a - f.heading), -6 * dt, 6 * dt));
+        f.pos.x += Math.sin(f.heading) * Math.max(1, f.speed) * dt;
+        f.pos.z += Math.cos(f.heading) * Math.max(1, f.speed) * dt;
+        if (island.waterDepthAt(f.pos.x, f.pos.z) >= minD + 0.5) f.home = { x: f.pos.x, z: f.pos.z, r: 4 };
+      }
       f.wander = null;
       return;
     }
@@ -397,6 +422,10 @@ export function createFishSystem({ state, island, water, splashes, events, under
     }
   }
 
+  // The last few species landed (variety weighting in pickEngager).
+  const recentCatches = [];
+  events.on('fish:caught', ({ fishId } = {}) => { if (fishId) { recentCatches.push(fishId); if (recentCatches.length > 5) recentCatches.shift(); } });
+
   function pickEngager() {
     if (!lure) return null;
     const bait = state.gear?.baitId;
@@ -406,11 +435,18 @@ export function createFishSystem({ state, island, water, splashes, events, under
       if (f.school && f.school.leader !== f && Math.random() < 0.6) continue;
       const d = Math.hypot(f.pos.x - lure.x, f.pos.z - lure.z);
       const baitBonus = f.info.bait.length ? (f.info.bait.includes(bait) ? 1.5 : 0.7) : 1;
-      if (d > f.personality.notice * baitBonus) continue;
+      // A taunted lure (rhythmic twitches) is noticed from much further away.
+      const taunt = lure.taunt || 0;
+      if (d > f.personality.notice * baitBonus * (1 + taunt * 1.2)) continue;
       const rank = TIER_RANK[f.info.tier] ?? 0;
       // Rarer fish are less likely; a perfect cast tilts the odds towards them.
       let w = (1 / (1 + rank * 1.2)) * baitBonus * (1.3 - d / (f.personality.notice * 1.6));
       if (lure.perfect) w *= 1 + rank * 0.8;
+      if (taunt) w *= 1 + rank * taunt * 1.4;
+      // Variety: species you just caught bite less, ones missing from your Fishdex bite more.
+      const recent = recentCatches.filter((id) => id === f.id).length;
+      if (recent) w *= Math.pow(0.45, recent);
+      if (!state.profile?.fishdex?.[f.id]) w *= 1.6;
       // Lucky streak from Great/Perfect fights: rarer species bite more often.
       const luck = state.world.luck || 0;
       if (luck) { const st = masteryConfig(state).streak; w *= 1 + rank * luck * (st.rareWeight + (lure.perfect ? st.perfectCastWeight : 0)); }
@@ -490,7 +526,12 @@ export function createFishSystem({ state, island, water, splashes, events, under
       } else if (f.remote) {
         // Fought by another player: their snapshots drive it (host side).
         followSnapshot(f, dt);
+      } else if (!f.controlled && !f.air && f !== engaged && island.waterDepthAt(f.pos.x, f.pos.z) < 0.25) {
+        // Land rose right on top of it: it's gone, the population brings a new one in open water.
+        f.stranded = (f.stranded || 0) + dt;
+        if (f.stranded > 0.4) { removeFish(f); continue; }
       } else if (!f.controlled) {
+        f.stranded = 0;
         if (f.air) updateAir(f, dt);
         else if (f === engaged) updateEngaged(f, dt);
         else if (f.state === 'flee' || f.state === 'leave') {
@@ -606,6 +647,56 @@ export function createFishSystem({ state, island, water, splashes, events, under
     },
     moveLure(x, z) { if (lure) { lure.x = x; lure.z = z; } },
     // Tap during the wait: hook a biting fish, or spook one that is only inspecting.
+    /**
+     * The player twitched the lure (taunting). good = on the beat. A good twitch makes a curious fish
+     * commit sooner; a sloppy or frantic one can spook it. Returns 'spooked' | 'teased' | 'none'.
+     */
+    twitch(good, frantic = false) {
+      if (!lure) return 'none';
+      water.addRipple(lure.x, lure.z, good ? 0.45 : 0.3);
+      const f = engaged;
+      if (!f || f.controlled) return 'none';
+      if (['approach', 'inspect', 'nibble'].includes(f.state)) {
+        const spook = frantic ? 0.7 : good ? 0 : 0.3 * (f.personality.spook || 1);
+        if (Math.random() < spook) {
+          events.emit('fish:lost', { fishId: f.id, variant: f.variant, reason: 'spooked' });
+          flee(f, lure.x, lure.z);
+          engageTimer = rand(2, 3.5);
+          return 'spooked';
+        }
+        if (good) {
+          // Teased into it: fewer nibbles, it goes for the strike.
+          if (f.state === 'nibble') f.nibblesLeft = Math.max(0, (f.nibblesLeft || 0) - 1);
+          else f.timer = Math.min(f.timer, 0.3);
+          return 'teased';
+        }
+      }
+      return 'none';
+    },
+    /** A full taunt can call something rare in from further out (once per cast). */
+    summonRare(minRank = 2) {
+      if (!lure) return null;
+      const hour = lighting.hour;
+      const ids = rosterFor(state, state.world.islandId).filter((id) => {
+        const info = fishInfo(state, id);
+        const r = TIER_RANK[info.tier] ?? 0;
+        return r >= minRank && info.tier !== 'boss' && info.behaviour && timeAllows(info.time, hour);
+      });
+      if (!ids.length) return null;
+      const id = ids[Math.floor(Math.random() * ids.length)];
+      for (let i = 0; i < 12; i++) {
+        const a = Math.random() * Math.PI * 2, r = rand(5, 8);
+        const x = lure.x + Math.sin(a) * r, z = lure.z + Math.cos(a) * r;
+        if (island.waterDepthAt(x, z) > 1.5) {
+          const f = makeFish(id, { x, z, area: { x, z, r: 4 } });
+          if (engaged && !engaged.controlled) { setState(engaged, 'wander', 2); }
+          engaged = f;
+          setState(f, 'approach');
+          return f;
+        }
+      }
+      return null;
+    },
     tryHook() {
       const f = engaged;
       if (!f) return { result: 'none' };

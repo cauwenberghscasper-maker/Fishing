@@ -254,7 +254,7 @@ function gearView(ctx, slot, drawer, setDrawer) {
       const r = economy.repairRod();
       if (r.ok) ui.toast('Your rod is good as new');
       else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need)} more coins`, 'danger');
-    });
+    }, { disabled: cost > p.coins });
   } else if (slot === 'line' && (p.condition?.lineWear ?? 0) > 0.25) {
     const cost = economy.respoolCost();
     plate = Plate([ico('line'), h('span', `Re-spool (${Math.round(p.condition.lineWear * 100)}% worn)`), money(cost)], () => {
@@ -302,13 +302,26 @@ function gearDrawer(ctx, slot, id, item, drawer) {
     if (owned && !isEquipped) actions.unshift(Plate('Use', () => { economy.equipItem(slot, id); }, { kind: 'wood' }));
   } else if (isTool) {
     actions.push(owned ? h('p.drawer__done', ico('check'), 'Always with you') : Plate([h('span', 'Buy'), money(item.cost)], buy(1), { disabled: short(1) }));
+  } else if (slot === 'rod' && owned && p.condition.rodBroken?.[id]) {
+    // A broken rod (in use or not): repair it here, with a clear answer either way.
+    const cost = economy.repairCost(id);
+    actions.push(Plate([ico('wrench'), h('span', 'Repair'), money(cost)], () => {
+      const r = economy.repairRod(id);
+      if (r.ok) { ui.toast('Your rod is good as new'); drawer.close(); }
+      else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need)} more coins`, 'danger');
+    }, { disabled: cost > p.coins }));
   } else if (!owned && !item.unlimited) {
     actions.push(Plate([h('span', 'Buy'), money(item.cost)], buy(1), { disabled: short(1) }));
   } else if (!isEquipped) {
     actions.push(Plate('Use this', () => economy.equipItem(slot, id)));
   } else {
     if (slot === 'rod' && (p.condition.rodBroken?.[id] || economy.rodStrain() > 0)) {
-      actions.push(Plate([ico('wrench'), h('span', 'Repair'), money(economy.repairCost(id))], () => economy.repairRod(id)));
+      const cost = economy.repairCost(id);
+      actions.push(Plate([ico('wrench'), h('span', 'Mend'), money(cost)], () => {
+        const r = economy.repairRod(id);
+        if (r.ok) { ui.toast('Your rod is good as new'); drawer.close(); }
+        else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need)} more coins`, 'danger');
+      }, { disabled: cost > p.coins }));
     } else if (slot === 'line' && p.condition.lineWear > 0.01) {
       actions.push(Plate([h('span', 'Re-spool'), money(economy.respoolCost())], () => economy.respool()));
     } else actions.push(h('p.drawer__done', ico('check'), 'In use'));

@@ -205,5 +205,39 @@
     "silhouette": "generic",
     "glow": { "color": "#dfe9ff", "strength": 1.0, "dusk": true },
     "signature": "Dances on the surface in moonlight, leaps in silver arcs and vanishes under the wake."
+  },
+  "bottlepost_wrasse": {
+    "body": "fusiform",
+    "personality": "greedy",
+    "stamina": 8,
+    "pull": 0.4,
+    "moves": ["bob", "burst", "thrash"],
+    "moveEvery": [2.2, 3.2],
+    "swim": { "amp": 0.08, "freq": 1.3, "speed": 3.0 },
+    "length": 0.6,
+    "cruise": 0.8,
+    "habitat": "rocks",
+    "hookWindow": 0.85,
+    "nibbles": [1, 3],
+    "silhouette": "generic",
+    "glow": null,
+    "signature": "Corks to the surface (the line goes slack), then dives hard with the slack gone."
+  },
+  "saltcrust_sole": {
+    "body": "flat",
+    "personality": "cautious",
+    "stamina": 6,
+    "pull": 0.3,
+    "moves": ["bury", "sulk"],
+    "moveEvery": [2.6, 3.6],
+    "swim": { "amp": 0.05, "freq": 0.8, "speed": 2.0 },
+    "length": 0.55,
+    "cruise": 0.4,
+    "habitat": "bottom",
+    "hookWindow": 0.8,
+    "nibbles": [2, 4],
+    "silhouette": "generic",
+    "glow": null,
+    "signature": "Buries itself in the sand: heavy, barely moving. Steer to lever it out."
   }
 }

@@ -237,7 +237,12 @@ function wearAfterFight(weight, snapped) {
   if (rod?.durability && !rod.unbreakable) {
     const over = Math.max(0, weight - (rod.stats?.rating ?? 3) * (w.strainFrom ?? 0.6));
     if (over > 0) {
-      p.condition.rodStrain[p.gear.rod] = (p.condition.rodStrain[p.gear.rod] ?? 0) + over * (w.strainPerKg ?? 6);
+      // One fight can only take a share of the rod's life: even a monster never snaps it outright.
+      const add = Math.min(over * (w.strainPerKg ?? 6), rod.durability * (w.maxStrainPerFight ?? 1));
+      const before = (p.condition.rodStrain[p.gear.rod] ?? 0) / rod.durability;
+      p.condition.rodStrain[p.gear.rod] = (p.condition.rodStrain[p.gear.rod] ?? 0) + add;
+      const after = p.condition.rodStrain[p.gear.rod] / rod.durability;
+      if (before < 0.7 && after >= 0.7 && after < 1) E.emit('gear:strained', { slot: 'rod', id: p.gear.rod, strain: after });
       if (p.condition.rodStrain[p.gear.rod] >= rod.durability) {
         p.condition.rodBroken[p.gear.rod] = true;
         E.emit('gear:broken', { slot: 'rod', id: p.gear.rod });

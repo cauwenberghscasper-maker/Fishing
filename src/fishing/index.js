@@ -557,6 +557,10 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     }
   });
 
+  // Rod condition: warn before it goes, say so plainly when it does (the shop counter repairs it).
+  events.on('gear:strained', ({ strain } = {}) => setTimeout(() => hud.toast(`Your rod is creaking (${Math.round((strain ?? 0.7) * 100)}%). Mend it at the shop`, 2.6), 2200));
+  events.on('gear:broken', () => setTimeout(() => { audio.snap(); hud.toast('Your rod broke! Repair it at the shop', 3.0); }, 2200));
+
   // Countering a superpower is the most masterful thing you can do in a fight.
   events.on('power:end', ({ success, remote } = {}) => { if (success && !remote) mastery?.countered(); });
 

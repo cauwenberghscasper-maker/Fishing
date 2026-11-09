@@ -262,6 +262,24 @@ export function createHud({ root }) {
           g.fill();
           g.globalAlpha = 1;
         }
+        // Surge (surge.js): a glow ring closes in on the fish; tap as it meets the target ring.
+        const sg = frame.surge;
+        if (sg && sg.fish) {
+          const { x, y } = sg.fish;
+          if (sg.running) {
+            const pulse = 0.6 + 0.4 * Math.sin(performance.now() / 90);
+            ring(x, y, 30, theme.glow, 5, 0.55 + 0.4 * pulse);
+            const r = 30 + 110 * Math.max(0, 1 - sg.k);
+            if (sg.k <= 1.12) ring(x, y, r, theme.gold, 3 + 3 * sg.k, 0.95);
+            for (let i = 0; i < sg.beats; i++) {
+              const done = i < sg.beat || (i === sg.beat && sg.flash);
+              const cx = x + (i - (sg.beats - 1) / 2) * 22, cy = y + 50;
+              ring(cx, cy, 6, i < sg.hits ? theme.glow : theme.paper, done ? 6 : 2, done ? 1 : 0.6);
+            }
+            label('Surge!', x, y - 58, { size: 18, color: theme.glow });
+          }
+          if (sg.flash) label(sg.flash.text, x, y - 80 - sg.flash.t * 30, { size: 22, color: sg.flash.ok ? theme.gold : theme.danger, alpha: 1 - sg.flash.t / 0.7 });
+        }
         if (f.bowWindow && f.fish) {
           ring(f.fish.x, f.fish.y, 34, theme.gold, 4, 0.95);
           label('Bow!', f.fish.x, f.fish.y - 52, { size: 20, color: theme.gold });

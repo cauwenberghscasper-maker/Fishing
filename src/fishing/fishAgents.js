@@ -397,6 +397,10 @@ export function createFishSystem({ state, island, water, splashes, events, under
     }
   }
 
+  // The last few species landed (variety weighting in pickEngager).
+  const recentCatches = [];
+  events.on('fish:caught', ({ fishId } = {}) => { if (fishId) { recentCatches.push(fishId); if (recentCatches.length > 5) recentCatches.shift(); } });
+
   function pickEngager() {
     if (!lure) return null;
     const bait = state.gear?.baitId;
@@ -411,6 +415,10 @@ export function createFishSystem({ state, island, water, splashes, events, under
       // Rarer fish are less likely; a perfect cast tilts the odds towards them.
       let w = (1 / (1 + rank * 1.2)) * baitBonus * (1.3 - d / (f.personality.notice * 1.6));
       if (lure.perfect) w *= 1 + rank * 0.8;
+      // Variety: species you just caught bite less, ones missing from your Fishdex bite more.
+      const recent = recentCatches.filter((id) => id === f.id).length;
+      if (recent) w *= Math.pow(0.45, recent);
+      if (!state.profile?.fishdex?.[f.id]) w *= 1.6;
       // Lucky streak from Great/Perfect fights: rarer species bite more often.
       const luck = state.world.luck || 0;
       if (luck) { const st = masteryConfig(state).streak; w *= 1 + rank * luck * (st.rareWeight + (lure.perfect ? st.perfectCastWeight : 0)); }

@@ -10,6 +10,8 @@ import { MOVES } from './moves.js';
 import { createPowerRunner, powerFor } from './powers.js';
 import { createPredation } from './predation.js';
 import { createMastery, updateStreak } from './mastery.js';
+import { createSurge } from './surge.js';
+import { variantInfo } from './variants.js';
 import { isElemental } from './variants.js';
 import { audio } from '../core/audio.js';
 import { loadModel, pickAsset } from '../core/assets.js';
@@ -52,6 +54,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   let caughtDelay = 0;
   let predation = null;   // hunters striking the fish on the line (predation.js)
   let mastery = null;     // the perfect-fight gauge (mastery.js)
+  let surge = null;       // mid-fight upgrade minigame (surge.js)
+  let surgeTap = false;
   const tip = new THREE.Vector3();
   const hand = new THREE.Vector3();
   const tmp = new THREE.Vector3();
@@ -212,15 +216,10 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   }
 
   // --- fight -------------------------------------------------------------------------------
-  function startFight(fish) {
-    fishSystem.take(fish);
-    fightFish = fish;
-    fightInfo = fish.info;
-    const roll = rollCatch(fish.info, lastCast?.perfect);
-    fish.catchRoll = roll;
-    const castAngle = Math.atan2(lure.pos.x - player.position.x, lure.pos.z - player.position.z);
+  // An elemental fish's superpower for the fight (also when it turns elemental mid-fight: surge.js).
+  function makePower(fish) {
     const powerDef = isElemental(state, fish.variant) ? powerFor(state, fish.variant) : null;
-    const power = powerDef ? createPowerRunner(powerDef, {
+    return powerDef ? createPowerRunner(powerDef, {
       fish,
       variant: fish.variant,
       events,
@@ -243,6 +242,16 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         },
       },
     }) : null;
+  }
+
+  function startFight(fish) {
+    fishSystem.take(fish);
+    fightFish = fish;
+    fightInfo = fish.info;
+    const roll = rollCatch(fish.info, lastCast?.perfect);
+    fish.catchRoll = roll;
+    const castAngle = Math.atan2(lure.pos.x - player.position.x, lure.pos.z - player.position.z);
+    const power = makePower(fish);
     fight = createFight({
       power,
       fish, info: fish.info, ...roll, state, island, water, splashes,
@@ -273,8 +282,35 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       hooks: {
         grade: (g) => {
           hud.setMasteryGrade(g.id, g.name);
+          if (surge?.maybeStart(g.id)) return;
           hud.toast(g.id === 'perfect' ? 'PERFECT FIGHT!' : `${g.name} fight!`, 1.4);
           if (g.id === 'perfect') { audio.perfect(); navigator.vibrate?.([20, 30, 40]); } else audio.tick();
+        },
+      },
+    });
+    surge = createSurge({
+      state, fish,
+      hooks: {
+        begin: (name) => {
+          hud.toast(`${name} surge! Tap as the rings close`, 2.0);
+          audio.lurk(); navigator.vibrate?.([30, 40, 30]);
+          loop.slowmo(0.55, 3.6);
+        },
+        beat: (hit) => { if (hit) { audio.tick(); navigator.vibrate?.(25); } else audio.lost(); },
+        end: ({ hits, to }) => {
+          if (!to) { hud.toast(hits ? `The surge faded (${hits}/3)` : 'The surge faded', 1.6); return; }
+          fish.variant = to;
+          if (fish.object) fish.object.userData.variant = to;
+          events.emit('fish:variant', { uid: fish.uid, fishId: fish.id, variant: to, object: fish.object });
+          const v = variantInfo(state, to);
+          splashes.splash(fish.pos.x, fish.pos.z, 2.4); water.addRipple(fish.pos.x, fish.pos.z, 2.0);
+          cameraRig.shakeFor(0.5, 0.5); audio.perfect(); navigator.vibrate?.([40, 30, 80]);
+          hud.toast(`${(v.name || to).toUpperCase()} ${fish.info.name.toUpperCase()}! ×${v.valueMult ?? 1}`, 2.6);
+          if (v.kind === 'element') {
+            // It fights back with its new superpower.
+            const p = makePower(fish);
+            if (p) fight.setPower(p);
+          }
         },
       },
     });
@@ -331,6 +367,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     fight = null;
     predation = null;
     mastery = null;
+    surge = null;
     fightFish = null;
     reeling = false;
     steer = 0;
@@ -444,6 +481,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     else if (mode === 'fight') {
       reeling = true;
       pressEdge = true;
+      surgeTap = true;
       if (fight?.state.bowWindow) bowTap = true;
       hud.setMainPressed(true);
     }
@@ -465,6 +503,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     if (modal) return;
     if (mode === 'wait' && fishSystem.biteProgress()) tryHook();
     else if (mode === 'fight') {
+      surgeTap = true;
       if (fight?.state.bowWindow) bowTap = true;
       const p = rel(e);
       swipe = { id: e.pointerId, x: p.x, y: p.y, x0: p.x, y0: p.y };
@@ -602,6 +641,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       bowTap = false;
       pressEdge = false;
       if (!modal) mastery?.update(dt, input);
+      if (!modal) surge?.update(dt, surgeTap);
+      surgeTap = false;
       player.pose(fight.state.tension > 0.72 ? 'struggle' : 'reel');
       let status = modal ? 'fighting' : fight.update(dt, input);
       if (status === 'fighting' && !modal && predation?.update(dt)?.stolen) status = 'predator';
@@ -675,6 +716,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         steer: keySteer || steer,
         good: fight.state.good,
       };
+      const sv = surge?.view;
+      if (sv) frame.surge = { ...sv, fish: frame.fight.fish };
       const pw = fight.power;
       if (pw && pw.phase !== 'cooldown') {
         const d = pw.detail || {};
@@ -738,6 +781,9 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     debugHook() { tryHook(); },
     // Debug: send a hunter at the fish on the line right now (double catch); call again once it's on for a triple.
     debugPredator() { return predation ? predation.force() : false; },
+    debugSurge() { return surge ? surge.force() : false; },
+    get surgeView() { return surge?.view ?? null; },
+    get fightVariant() { return fightFish?.variant ?? null; },
     debugMastery(v = 1) { if (mastery) mastery.fill(v); return mastery?.value ?? null; },
     get onLine() { return predation ? predation.line.map((l) => l.fish.id) : []; },
     debugReel(on, s = 0) { if (mode === 'fight') { reeling = on; steer = s; } },

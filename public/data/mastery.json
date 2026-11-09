@@ -1,14 +1,52 @@
 {
-  "_about": "Agent A. The mastery gauge in every fight: reel with the tension in the sweet band, steer against the fish, bow at its leaps and counter its powers to fill it. A fuller gauge tires the fish faster (shorter fights) and upgrades the catch. Grades lock in once reached. Great and Perfect fights build a lucky streak that makes rarer fish bite on the next casts.",
+  "_about": "Agent A. The mastery gauge in every fight: reel with the tension in the sweet band, steer against the fish, bow at its leaps and counter its powers to fill it. A fuller gauge tires the fish faster (shorter fights) and upgrades the catch. Grades lock in once reached. Great and Perfect fights build a lucky streak that makes rarer fish bite on the next casts. 'surge': once per fight, reaching Good/Great may start a surge: three closing rings, tap as each meets the fish. 3 hits = the island's elemental variant (it gets its superpower), 2 hits = gilded.",
   "band": [0.4, 0.86],
-  "gain": { "zone": 0.11, "steer": 0.07, "bow": 0.14, "counter": 0.18, "strike": 0.1 },
-  "loss": { "redline": 0.3, "slack": 0.05 },
+  "gain": {
+    "zone": 0.11,
+    "steer": 0.07,
+    "bow": 0.14,
+    "counter": 0.18,
+    "strike": 0.1
+  },
+  "loss": {
+    "redline": 0.3,
+    "slack": 0.05
+  },
   "damageBonus": 1.6,
-  "fatigue": { "after": 30, "drainPerSecond": 0.025 },
+  "fatigue": {
+    "after": 30,
+    "drainPerSecond": 0.025
+  },
   "grades": [
     { "id": "good", "at": 0.4, "name": "Good", "valueMult": 1.2 },
     { "id": "great", "at": 0.7, "name": "Great", "valueMult": 1.5, "streak": 1 },
-    { "id": "perfect", "at": 1.0, "name": "Perfect", "valueMult": 2.5, "streak": 2, "upgrade": { "chance": 0.3, "from": ["basic"], "to": "gilded" } }
+    {
+      "id": "perfect",
+      "at": 1.0,
+      "name": "Perfect",
+      "valueMult": 2.5,
+      "streak": 2,
+      "upgrade": {
+        "chance": 0.3,
+        "from": ["basic"],
+        "to": "gilded"
+      }
+    }
   ],
-  "streak": { "max": 3, "rareWeight": 0.7, "perfectCastWeight": 0.4 }
+  "streak": {
+    "max": 3,
+    "rareWeight": 0.7,
+    "perfectCastWeight": 0.4
+  },
+  "surge": {
+    "chanceAtGood": 0.3,
+    "chanceAtGreat": 0.65,
+    "beats": 3,
+    "beatTime": 1.15,
+    "window": 0.16,
+    "gap": 0.35,
+    "needForElement": 3,
+    "needForGild": 2,
+    "gildTo": "gilded"
+  }
 }

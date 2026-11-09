@@ -7,7 +7,8 @@ import { createBossController } from './boss.js';
 const rand = (a, b) => a + Math.random() * (b - a);
 const MAX_LINE = 38;
 
-export function createFight({ fish, info, weight, sizeClass, strength, state, island, water, splashes, playerPos, castAngle, hooks, power = null }) {
+export function createFight({ fish, info, weight, sizeClass, strength, state, island, water, splashes, playerPos, castAngle, hooks, power: firstPower = null }) {
+  let power = firstPower;
   const b = fish.behaviour;
   const g = state.gear || {};
   const gear = {
@@ -258,6 +259,8 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
     update,
     fishPoint,
     get power() { return power; },
+    /** The fish turned elemental mid-fight (surge.js): its superpower joins the fight. */
+    setPower(p) { power?.stop?.(api); power = p; },
     get lateral() { return lateralScreenX(); },
     get boss() { return boss; },
     // A predator got hooked on top of the fish (double/triple catch): more pull, more fight left.

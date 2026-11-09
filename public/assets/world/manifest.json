@@ -4477,102 +4477,937 @@
     "pier_slot": 6
   },
   "net_rig_l1": {
-    "path": null,
-    "status": "concept",
-    "concept": "art/concepts/world/net_rig_l1.webp",
+    "path": "assets/world/net_rig_l1/model.glb",
+    "scale": 1,
+    "tris": 3993,
+    "bounds": {
+      "min": [
+        -2.2,
+        -0.35,
+        -0.96
+      ],
+      "max": [
+        2.16,
+        1.78,
+        0.55
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow",
+      "cove_net"
+    ],
+    "bytes": 99084,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
     "category": "building",
+    "placement": "ground",
+    "story": "Level 1, Stake Net: Wim knotted a net from the Marigold's torn seine and strung it between four crooked stakes from the wreck beach (one is the skiff's broken blue oar). Wine corks threaded in threes bob on the headline, beach stones weigh the foot rope, fish glint in the mesh and one is still kicking; a lantern hangs off a bent iron arm for the night tide.",
     "building": "net_rig",
     "level": 1,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
-    "story": "Level 1, Stake Net",
-    "planned": true
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.1,
+        "x": -1.81,
+        "z": 0.05
+      },
+      {
+        "type": "circle",
+        "r": 0.07,
+        "x": -0.61,
+        "z": 0.31
+      },
+      {
+        "type": "circle",
+        "r": 0.04,
+        "x": 0.6,
+        "z": 0.3
+      },
+      {
+        "type": "circle",
+        "r": 0.06,
+        "x": 1.77,
+        "z": 0.01
+      }
+    ],
+    "footprint": {
+      "w": 4.36,
+      "d": 1.51
+    },
+    "preview": "assets/world/net_rig_l1/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_bob_3_22": [
+        -1.21,
+        1.01,
+        0.19
+      ],
+      "anim_bob_2_27": [
+        -0.02,
+        1.01,
+        0.31
+      ],
+      "anim_bob_3_19": [
+        1.18,
+        1.01,
+        0.16
+      ],
+      "anim_swing_y_22_5": [
+        -0.12,
+        0.74,
+        0.3
+      ],
+      "anim_swing_z_9_26": [
+        -2.12,
+        1.44,
+        0.1
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (-2.12, 1.22, 0.1) local, swings with its lantern (node anim_light)"
   },
   "net_rig_l2": {
-    "path": null,
-    "status": "concept",
-    "concept": "art/concepts/world/net_rig_l2.webp",
+    "path": "assets/world/net_rig_l2/model.glb",
+    "scale": 1,
+    "tris": 6929,
+    "bounds": {
+      "min": [
+        -2.11,
+        -0.3,
+        -2.08
+      ],
+      "max": [
+        2.06,
+        1.9,
+        2.27
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 159040,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
     "category": "building",
+    "placement": "ground",
+    "story": "Level 2, Tidal Weir: the stake net's posts became the spine of two woven willow wattle wings that funnel the ebbing tide into a plank pound. Its sluice gate is the Marigold's blue cabin door, hung by its own hinges and swinging with the tide; a stilted catwalk runs out to the pound, a red-and-white tide gauge stands at the sea corner, and the catch flaps on the wet sand inside.",
     "building": "net_rig",
     "level": 2,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
-    "story": "Level 2, Tidal Weir",
-    "planned": true
+    "collider": [
+      {
+        "type": "box",
+        "w": 0.61,
+        "d": 2.43,
+        "rot": -0.367,
+        "x": 1.14,
+        "z": -0.15
+      },
+      {
+        "type": "box",
+        "w": 1.47,
+        "d": 1.34,
+        "rot": -0.0,
+        "x": -0.08,
+        "z": 1.49
+      },
+      {
+        "type": "box",
+        "w": 3.13,
+        "d": 0.16,
+        "rot": -1.03,
+        "x": -1.28,
+        "z": -0.46
+      },
+      {
+        "type": "box",
+        "w": 0.17,
+        "d": 2.96,
+        "rot": -0.541,
+        "x": 1.25,
+        "z": -0.37
+      }
+    ],
+    "footprint": {
+      "w": 4.17,
+      "d": 4.35
+    },
+    "preview": "assets/world/net_rig_l2/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_swing_x_12_44": [
+        0.0,
+        1.25,
+        2.12
+      ],
+      "anim_swing_z_28_6": [
+        0.05,
+        0.12,
+        1.35
+      ],
+      "anim_swing_x_8_30": [
+        -1.08,
+        1.84,
+        2.18
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (-1.08, 1.62, 2.18) local, swings with its lantern (node anim_light)"
   },
   "net_rig_l3": {
-    "path": null,
-    "status": "concept",
-    "concept": "art/concepts/world/net_rig_l3.webp",
+    "path": "assets/world/net_rig_l3/model.glb",
+    "scale": 1,
+    "tris": 6780,
+    "bounds": {
+      "min": [
+        -2.35,
+        -0.3,
+        -1.66
+      ],
+      "max": [
+        2.41,
+        2.16,
+        3.09
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_glow",
+      "cove_net"
+    ],
+    "bytes": 173728,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
     "category": "building",
+    "placement": "ground",
+    "story": "Level 3, Drift-net Raft: a plank raft lashed to three driftwood keel logs and four tarred barrels, drawn up at the tide line, moored to a heavy post with an old anchor bedded in the sand. A hand-cranked winch (30-tooth drum gear, 10-tooth crank pinion) winds the drift net, which runs over a stern roller into the shallows with its corks riding the wash; a red board from the Marigold's hull patches the deck and a lantern on a crooked pole lights the night haul.",
     "building": "net_rig",
     "level": 3,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
-    "story": "Level 3, Drift-net Raft",
-    "planned": true
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.13,
+        "x": -2.22,
+        "z": -1.52
+      },
+      {
+        "type": "box",
+        "w": 3.5,
+        "d": 2.31,
+        "rot": -0.0,
+        "x": -0.0,
+        "z": 0.57
+      }
+    ],
+    "footprint": {
+      "w": 4.76,
+      "d": 4.75
+    },
+    "preview": "assets/world/net_rig_l3/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_bob_3_46": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "anim_spin_x_m24": [
+        0.0,
+        1.32,
+        0.2
+      ],
+      "anim_spin_x_72": [
+        0.9,
+        1.81,
+        -0.15
+      ],
+      "anim_spin_x_m96": [
+        0.0,
+        0.82,
+        1.78
+      ],
+      "anim_bob_4_21": [
+        0.0,
+        0.06,
+        3.03
+      ],
+      "anim_swing_z_10_28": [
+        1.22,
+        2.08,
+        1.74
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (1.22, 1.86, 1.74) local, swings with its lantern (node anim_light)"
   },
   "reel_mill_l1": {
-    "path": null,
-    "status": "concept",
-    "concept": "art/concepts/world/reel_mill_l1.webp",
+    "path": "assets/world/reel_mill_l1/model.glb",
+    "scale": 1,
+    "tris": 4513,
+    "bounds": {
+      "min": [
+        -1.75,
+        -0.3,
+        -1.52
+      ],
+      "max": [
+        2.19,
+        1.69,
+        1.74
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 127688,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
     "category": "building",
+    "placement": "ground",
+    "story": "Level 1, Bell Rack: Old Tobin's lazy rack. Six rods rescued from the shop's broken-rod bin (two splinted with twine) lean out over the water from a driftwood rail, each tip carrying a little brass handbell; a see-saw lever on a tarred post, weighted with a bucket of beach stones, strikes when a bell rings. A worm tin, a three-legged stool and the bin of broken rods sit on the sand.",
     "building": "reel_mill",
     "level": 1,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
-    "story": "Level 1, Bell Rack",
-    "planned": true
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.07,
+        "x": 1.96,
+        "z": -0.35
+      },
+      {
+        "type": "box",
+        "w": 3.4,
+        "d": 1.23,
+        "rot": -0.0,
+        "x": -0.05,
+        "z": -0.26
+      }
+    ],
+    "footprint": {
+      "w": 3.94,
+      "d": 3.26
+    },
+    "preview": "assets/world/reel_mill_l1/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_swing_x_2_31": [
+        0.0,
+        0.88,
+        -0.0
+      ],
+      "anim_swing_x_3_37": [
+        0.0,
+        0.88,
+        -0.0
+      ],
+      "anim_swing_x_16_7": [
+        -1.43,
+        1.63,
+        1.16
+      ],
+      "anim_swing_z_14_8": [
+        -0.85,
+        1.58,
+        1.09
+      ],
+      "anim_swing_x_18_6": [
+        -0.29,
+        1.65,
+        1.19
+      ],
+      "anim_swing_z_15_9": [
+        0.29,
+        1.68,
+        1.24
+      ],
+      "anim_swing_x_16_8": [
+        0.86,
+        1.65,
+        1.2
+      ],
+      "anim_swing_z_12_7": [
+        1.36,
+        1.56,
+        1.06
+      ],
+      "anim_swing_x_7_34": [
+        1.95,
+        1.25,
+        -0.35
+      ],
+      "anim_swing_z_6_17": [
+        2.04,
+        1.23,
+        -1.13
+      ]
+    }
   },
   "reel_mill_l2": {
-    "path": null,
-    "status": "concept",
-    "concept": "art/concepts/world/reel_mill_l2.webp",
+    "path": "assets/world/reel_mill_l2/model.glb",
+    "scale": 1,
+    "tris": 6441,
+    "bounds": {
+      "min": [
+        -2.06,
+        -0.25,
+        -0.88
+      ],
+      "max": [
+        2.44,
+        2.15,
+        2.51
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 153128,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
     "category": "building",
+    "placement": "ground",
+    "story": "Level 2, Tide Wheel: an undershot wheel turns in a plank flume as the tide runs; its axle carries a 36-tooth brass gear that drives a 12-tooth pinion three times faster on a long reel shaft. Five brass reels on the shaft wind lines up to five bell-tipped rods racked over the shallows; the old rack's striker bell hangs on a bracket and a sail awning on two oars keeps the reels dry.",
     "building": "reel_mill",
     "level": 2,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
-    "story": "Level 2, Tide Wheel",
-    "planned": true
+    "collider": [
+      {
+        "type": "box",
+        "w": 2.1,
+        "d": 0.46,
+        "rot": -0.0,
+        "x": 1.05,
+        "z": 0.24
+      },
+      {
+        "type": "box",
+        "w": 1.17,
+        "d": 2.27,
+        "rot": -0.07,
+        "x": -1.34,
+        "z": 1.1
+      },
+      {
+        "type": "box",
+        "w": 2.56,
+        "d": 0.12,
+        "rot": -0.0,
+        "x": 0.93,
+        "z": 1.0
+      }
+    ],
+    "footprint": {
+      "w": 4.5,
+      "d": 3.39
+    },
+    "preview": "assets/world/reel_mill_l2/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_spin_x_m30": [
+        -1.35,
+        0.92,
+        1.2
+      ],
+      "anim_spin_x_90": [
+        -0.62,
+        0.92,
+        0.24
+      ],
+      "anim_swing_x_14_9": [
+        2.15,
+        1.23,
+        1.33
+      ],
+      "anim_swing_x_9_27": [
+        -1.97,
+        1.72,
+        2.42
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (-1.97, 1.5, 2.42) local, swings with its lantern (node anim_light)"
   },
   "reel_mill_l3": {
-    "path": null,
-    "status": "concept",
-    "concept": "art/concepts/world/reel_mill_l3.webp",
+    "path": "assets/world/reel_mill_l3/model.glb",
+    "scale": 1,
+    "tris": 9653,
+    "bounds": {
+      "min": [
+        -2.71,
+        -0.25,
+        -1.64
+      ],
+      "max": [
+        2.76,
+        5.56,
+        2.85
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_glow"
+    ],
+    "bytes": 243688,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
     "category": "building",
+    "placement": "ground",
+    "story": "Level 3, Clockwork Reel Mill: an open timber tower over a tide-wheel flume. The wheel's 40-tooth brass gear drives a 16/32 compound gear and two 12-tooth pinions on two shafts of six reels each, working a dozen rods fanned out from the crown ring. A pendulum ticks on the front, the tide clock's hand creeps round, the bell under the crown swings and a brass fish weathervane turns on the spire.",
     "building": "reel_mill",
     "level": 3,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
-    "story": "Level 3, Clockwork Reel Mill",
-    "planned": true
+    "collider": [
+      {
+        "type": "box",
+        "w": 1.01,
+        "d": 2.44,
+        "rot": -0.0,
+        "x": -1.65,
+        "z": 0.05
+      },
+      {
+        "type": "box",
+        "w": 2.15,
+        "d": 1.87,
+        "rot": -0.0,
+        "x": -0.0,
+        "z": 0.0
+      }
+    ],
+    "footprint": {
+      "w": 5.47,
+      "d": 4.49
+    },
+    "preview": "assets/world/reel_mill_l3/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_swing_y_35_90": [
+        0.0,
+        5.3,
+        -0.0
+      ],
+      "anim_swing_x_16_13": [
+        0.0,
+        3.8,
+        0.8
+      ],
+      "anim_spin_x_m24": [
+        -1.65,
+        0.95,
+        -0.0
+      ],
+      "anim_spin_x_60": [
+        1.14,
+        2.05,
+        0.19
+      ],
+      "anim_spin_x_m160": [
+        1.14,
+        2.82,
+        0.63
+      ],
+      "anim_spin_x_160": [
+        1.14,
+        3.3,
+        0.63
+      ],
+      "anim_swing_z_9_20": [
+        0.0,
+        1.92,
+        0.97
+      ],
+      "anim_spin_z_m6": [
+        0.0,
+        3.2,
+        0.96
+      ],
+      "anim_swing_x_8_25": [
+        1.3,
+        2.43,
+        1.1
+      ],
+      "anim_swing_z_8_29": [
+        -1.3,
+        2.43,
+        1.1
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (1.3, 2.21, 1.1) local, swings with its lantern (node anim_light); lantern: warm point light #ffc35a at (-1.3, 2.21, 1.1) local, swings with its lantern (node anim_light)"
   },
   "cannery_l1": {
-    "path": null,
-    "status": "concept",
-    "concept": "art/concepts/world/cannery_l1.webp",
+    "path": "assets/world/cannery_l1/model.glb",
+    "scale": 1,
+    "tris": 4951,
+    "bounds": {
+      "min": [
+        -2.12,
+        -0.25,
+        -1.15
+      ],
+      "max": [
+        2.12,
+        2.23,
+        1.82
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 110732,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
     "category": "building",
+    "placement": "ground",
+    "story": "Level 1, Tin Bench: the first tins were packed on the shop's old crate-stall boards under the Marigold's spare jib. A cargo jack from the dock became the sealing press (its tommy bar swings as it seals); a brine barrel with a ladle, a basket of the day's catch, crates of labelled tins under the bench and a lantern hung from the ridge.",
     "building": "cannery",
     "level": 1,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
-    "story": "Level 1, Tin Bench",
-    "planned": true
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.27,
+        "x": 1.3,
+        "z": 0.55
+      },
+      {
+        "type": "box",
+        "w": 2.22,
+        "d": 0.69,
+        "rot": -0.0,
+        "x": -0.14,
+        "z": 0.05
+      },
+      {
+        "type": "circle",
+        "r": 0.06,
+        "x": -1.66,
+        "z": 1.0
+      },
+      {
+        "type": "circle",
+        "r": 0.07,
+        "x": 1.61,
+        "z": 1.04
+      },
+      {
+        "type": "circle",
+        "r": 0.07,
+        "x": -1.53,
+        "z": -0.95
+      },
+      {
+        "type": "circle",
+        "r": 0.07,
+        "x": 1.51,
+        "z": -1.0
+      }
+    ],
+    "footprint": {
+      "w": 4.24,
+      "d": 2.97
+    },
+    "preview": "assets/world/cannery_l1/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_swing_y_28_32": [
+        0.6,
+        1.43,
+        -0.0
+      ],
+      "anim_swing_z_8_24": [
+        0.2,
+        2.0,
+        0.6
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (0.2, 1.76, 0.6) local, swings with its lantern (node anim_light)"
   },
   "cannery_l2": {
-    "path": null,
-    "status": "concept",
-    "concept": "art/concepts/world/cannery_l2.webp",
+    "path": "assets/world/cannery_l2/model.glb",
+    "scale": 1,
+    "tris": 7348,
+    "bounds": {
+      "min": [
+        -2.3,
+        -0.1,
+        -2.17
+      ],
+      "max": [
+        2.2,
+        4.02,
+        2.0
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 172200,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
     "category": "building",
+    "placement": "ground",
+    "story": "Level 2, Steam Cannery: a plank shed built round the wreck's old boiler, still on its brick saddles with its firebox door glowing at the beach end. The stovepipe smokes through a roof patched with sailcloth and odd boards, a flywheel on the boiler's piston drives the sealing bench and press inside, crates of tins wait by the door and chopped driftwood feeds the fire.",
     "building": "cannery",
     "level": 2,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
-    "story": "Level 2, Steam Cannery",
-    "planned": true
+    "collider": [
+      {
+        "type": "box",
+        "w": 3.89,
+        "d": 0.12,
+        "rot": -0.0,
+        "x": -0.05,
+        "z": -1.75
+      },
+      {
+        "type": "box",
+        "w": 1.32,
+        "d": 0.61,
+        "rot": -0.0,
+        "x": 1.04,
+        "z": -0.95
+      },
+      {
+        "type": "box",
+        "w": 1.0,
+        "d": 1.9,
+        "rot": -0.0,
+        "x": -1.0,
+        "z": -0.1
+      },
+      {
+        "type": "circle",
+        "r": 0.25,
+        "x": -0.15,
+        "z": 1.62
+      },
+      {
+        "type": "box",
+        "w": 0.58,
+        "d": 1.1,
+        "rot": -1.414,
+        "x": 1.27,
+        "z": 1.49
+      },
+      {
+        "type": "box",
+        "w": 0.12,
+        "d": 2.89,
+        "rot": -0.0,
+        "x": 1.9,
+        "z": -0.3
+      },
+      {
+        "type": "box",
+        "w": 1.7,
+        "d": 0.12,
+        "rot": -0.0,
+        "x": 1.05,
+        "z": 1.15
+      },
+      {
+        "type": "box",
+        "w": 0.13,
+        "d": 0.13,
+        "rot": -0.0,
+        "x": 0.0,
+        "z": 1.15
+      },
+      {
+        "type": "box",
+        "w": 0.12,
+        "d": 2.89,
+        "rot": -0.0,
+        "x": -2.0,
+        "z": -0.3
+      }
+    ],
+    "footprint": {
+      "w": 4.5,
+      "d": 4.17
+    },
+    "preview": "assets/world/cannery_l2/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_smoke": [
+        -1.0,
+        4.0,
+        0.45
+      ],
+      "anim_spin_x_150": [
+        -0.25,
+        0.95,
+        0.45
+      ],
+      "anim_swing_y_24_28": [
+        0.8,
+        1.38,
+        -1.05
+      ],
+      "anim_swing_x_8_26": [
+        0.15,
+        2.03,
+        1.4
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (0.15, 1.81, 1.4) local, swings with its lantern (node anim_light)"
   },
   "cannery_l3": {
-    "path": null,
-    "status": "concept",
-    "concept": "art/concepts/world/cannery_l3.webp",
+    "path": "assets/world/cannery_l3/model.glb",
+    "scale": 1,
+    "tris": 7314,
+    "bounds": {
+      "min": [
+        -2.25,
+        -0.1,
+        -1.94
+      ],
+      "max": [
+        2.4,
+        5.45,
+        3.0
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 189196,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
     "category": "building",
+    "placement": "ground",
+    "story": "Level 3, Cannery Works: basalt rubble ground floor, a plank upper storey with lit windows, a banded brick chimney and the noon whistle on the ridge. Tins ride a roller chute down the east side towards the pier, a belt-driven flywheel turns on the west wall, a hoist on the gable swings a crate of tins and the blue double doors stand open on the boiler's glow.",
     "building": "cannery",
     "level": 3,
-    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
-    "story": "Level 3, Cannery Works",
-    "planned": true
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.26,
+        "x": -1.45,
+        "z": 1.75
+      },
+      {
+        "type": "circle",
+        "r": 0.24,
+        "x": -0.95,
+        "z": 1.87
+      },
+      {
+        "type": "box",
+        "w": 0.88,
+        "d": 0.88,
+        "rot": -0.0,
+        "x": -1.45,
+        "z": -1.5
+      },
+      {
+        "type": "box",
+        "w": 0.56,
+        "d": 1.18,
+        "rot": -0.0,
+        "x": 2.12,
+        "z": 2.0
+      },
+      {
+        "type": "box",
+        "w": 0.52,
+        "d": 0.4,
+        "rot": -0.0,
+        "x": 2.12,
+        "z": 2.8
+      },
+      {
+        "type": "box",
+        "w": 0.12,
+        "d": 0.79,
+        "rot": -0.0,
+        "x": -2.09,
+        "z": 0.25
+      },
+      {
+        "type": "box",
+        "w": 3.96,
+        "d": 2.96,
+        "rot": -0.0,
+        "x": -0.11,
+        "z": -0.05
+      }
+    ],
+    "footprint": {
+      "w": 4.65,
+      "d": 4.94
+    },
+    "preview": "assets/world/cannery_l3/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_smoke": [
+        -1.45,
+        5.6,
+        -1.5
+      ],
+      "anim_spin_x_m200": [
+        2.12,
+        1.86,
+        -0.56
+      ],
+      "anim_spin_x_m200_1": [
+        2.12,
+        1.57,
+        0.14
+      ],
+      "anim_spin_x_m200_2": [
+        2.12,
+        1.27,
+        0.82
+      ],
+      "anim_spin_x_m200_3": [
+        2.12,
+        0.99,
+        1.51
+      ],
+      "anim_spin_x_m200_4": [
+        2.12,
+        0.69,
+        2.2
+      ],
+      "anim_spin_x_90": [
+        -2.1,
+        0.9,
+        0.25
+      ],
+      "anim_swing_x_5_33": [
+        1.25,
+        3.0,
+        2.03
+      ],
+      "anim_swing_x_8_24": [
+        -0.7,
+        1.27,
+        1.73
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (-0.7, 1.05, 1.73) local, swings with its lantern (node anim_light)"
   }
 }

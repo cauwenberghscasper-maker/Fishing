@@ -456,3 +456,22 @@
   .meter--tension[data-state="danger"] .meter__fill { animation: none; }
   .btn, .meter__fill { transition: none; }
 }
+
+/* .save-paused — game data didn't load (bad wifi): saving is paused so progress can't be lost. */
+.save-paused {
+  position: fixed;
+  left: 50%;
+  top: calc(env(safe-area-inset-top, 0px) + 64px);
+  transform: translateX(-50%);
+  z-index: 60;
+  max-width: calc(100vw - 32px);
+  padding: 8px 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--c-paper, #f3e6c8);
+  background: rgba(60, 20, 12, 0.88);
+  border: 1px solid var(--c-brass, #b8862e);
+  border-radius: 6px;
+  text-align: center;
+  pointer-events: none;
+}

@@ -305,6 +305,7 @@ let saveTimer = 0;
 
 export function saveProfile(state = saveState) {
   if (!state?.profile) return false;
+  if (state.saveBlocked) return false;   // loaded without all game data: never overwrite the real save
   clearTimeout(saveTimer);
   saveTimer = 0;
   const ls = storage();
@@ -335,6 +336,21 @@ export function eraseSave(state) {
 export async function loadProfile(state, events) {
   saveState = state;
   const raw = readSave(state);
+  const ls0 = storage();
+  // Keep the previous save as a backup before anything can write over it.
+  try { const text = ls0?.getItem(keyFor(state)); if (text) ls0.setItem(`${keyFor(state)}-prev`, text); } catch { /* full */ }
+  // Game data failed to download (bad connection): play on, but don't touch the save on disk.
+  state.saveBlocked = Boolean(raw && state.dataIncomplete);
+  if (state.saveBlocked) {
+    console.warn('[save] game data incomplete, saving paused to protect progress', state.dataIncomplete);
+    try {
+      const note = document.createElement('div');
+      note.className = 'save-paused';
+      note.setAttribute('role', 'status');
+      note.textContent = 'Connection trouble: your progress is safe. Reload when you have signal.';
+      document.body.appendChild(note);
+    } catch { /* no DOM */ }
+  }
   const migrated = migrate(raw ?? {});
   state.profile = sanitizeProfile(raw ? migrated : null, state.data, state.test);
   state.gear = deriveGear(state.data, state.profile);

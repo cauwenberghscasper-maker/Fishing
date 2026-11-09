@@ -9,6 +9,8 @@ import { loadModel, hasAsset, rawAssetEntry } from '../core/assets.js';
 import { rollVariant } from './variants.js';
 import { masteryConfig } from './mastery.js';
 
+const GIANT_CHANCE = 0.04;   // giants of their kind (fishAgents makeFish, fight.js rollCatch)
+
 const PERSONALITY = {
   shy: { notice: 4.5, approach: 0.75, circles: [2.2, 3.8], spook: 1.8, loseInterest: 0.15 },
   greedy: { notice: 7.5, approach: 1.6, circles: [0.3, 1.0], spook: 0.5, loseInterest: 0 },
@@ -98,6 +100,11 @@ export function createFishSystem({ state, island, water, splashes, events, under
     const swim = createSwimState(behaviour);
     const glow = behaviour.glow ? new THREE.Color(behaviour.glow.color) : null;
     if (forcedUid && forcedUid > uidCounter) uidCounter = forcedUid;
+    // Every fish has its own size, and you can see it: a bigger shadow is a heavier catch. One in
+    // ~25 is a giant of its kind (well past the normal range). Schools share their leader's size.
+    let sizeU = school?.leader?.sizeU != null ? Math.max(0, Math.min(1, school.leader.sizeU + rand(-0.1, 0.1))) : Math.pow(Math.random(), 1.5);
+    if (!school && Math.random() < GIANT_CHANCE * (Math.hypot(p.x, p.z) > 35 ? 2 : 1)) sizeU = 1 + rand(0.15, 0.6);
+    const sizeLook = (0.72 + 0.56 * Math.min(1, sizeU)) * (sizeU > 1 ? 1 + (sizeU - 1) * 1.6 : 1);
     const f = {
       uid: forcedUid || ++uidCounter,
       id,
@@ -116,7 +123,8 @@ export function createFishSystem({ state, island, water, splashes, events, under
       stateTime: 0,
       timer: rand(1, 3),
       swim,
-      length: (behaviour.length || 0.8) * DISPLAY_SCALE * rand(0.88, 1.12),
+      length: (behaviour.length || 0.8) * DISPLAY_SCALE * sizeLook,
+      sizeU,
       fade: 0,
       highlight: 0,
       retract: 0,
@@ -127,8 +135,8 @@ export function createFishSystem({ state, island, water, splashes, events, under
       school,
       slot: null,
       shadow: null,
-      // Elemental fish are twice as common as before near shore, up to 6× far out at sea (Casper 9 Nov).
-      variant: variant || rollVariant(state, state.world.islandId, state.world.weather, 2 + 4 * THREE.MathUtils.smoothstep(Math.hypot(p.x, p.z), 22, 60)),
+      // Elemental fish: 3x as common as the base tables near shore, up to 10x far out at sea (Casper 9 Nov: "way too rare").
+      variant: variant || rollVariant(state, state.world.islandId, state.world.weather, 3 + 7 * THREE.MathUtils.smoothstep(Math.hypot(p.x, p.z), 22, 60)),
       object: null,          // anchor Object3D (Agent E attaches variant looks here)
       model: null,
       swimUniforms: null,

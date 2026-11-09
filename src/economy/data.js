@@ -13,14 +13,18 @@ const FILES = {
   vfxAssets: 'assets/vfx/manifest.json',     // Agent E (catch-reveal backdrops: backdrop.<variantId>)
 };
 
-async function getJSON(path) {
-  try {
-    const res = await fetch(path, { cache: 'no-cache' });
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null; // file not created yet (e.g. another agent's data)
+// Bad wifi must never cost progress (Casper 9 Nov): network errors are retried a few times; a 404
+// (file not made yet) is not.
+async function getJSON(path, tries = 4) {
+  for (let i = 0; i < tries; i++) {
+    try {
+      const res = await fetch(path, { cache: 'no-cache' });
+      if (res.status === 404) return null;
+      if (res.ok) return await res.json();
+    } catch { /* network: retry */ }
+    await new Promise((r) => setTimeout(r, 400 * (i + 1)));
   }
+  return null;
 }
 
 export async function loadData(state) {
@@ -28,12 +32,17 @@ export async function loadData(state) {
   for (const [key, value] of entries) {
     if (value) state.data[key] = value;
   }
+  const missing = [];
   for (const key of ['fish', 'islands', 'items', 'economy', 'variants']) {
     if (!state.data[key]) {
       console.error(`[data] missing ${FILES[key]}`);
+      missing.push(key);
       state.data[key] = {};
     }
   }
+  // Without these the save can't be checked properly: the save loader keeps the player's save
+  // untouched and doesn't write until a reload with all data (src/save/profile.js).
+  state.dataIncomplete = missing.length ? missing : null;
   if (!state.data.fishAssets) state.data.fishAssets = {};
   if (!state.data.art) state.data.art = {};
   if (!state.data.vfxAssets) state.data.vfxAssets = {};

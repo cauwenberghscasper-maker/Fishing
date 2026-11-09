@@ -278,8 +278,16 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
 }
 
 // Weight roll and size class. A perfect cast nudges the roll up.
-export function rollCatch(info, perfect, tauntBonus = 0) {
-  let u = Math.pow(Math.random(), 1.7);
+/** sizeU: the size you could see in the water (fishAgents); the catch matches it, give or take. */
+export function rollCatch(info, perfect, tauntBonus = 0, sizeU = null) {
+  let u = sizeU != null ? Math.max(0, Math.min(1, sizeU + (Math.random() - 0.5) * 0.12)) : Math.pow(Math.random(), 1.7);
+  if (sizeU > 1) {
+    // A giant of its kind: past the normal range, its own size class.
+    const [lo, hi] = info.weight;
+    const weight = Math.round(hi * (1 + (sizeU - 1) * 1.5) * 100) / 100;
+    void lo;
+    return { weight, sizeClass: 'giant', strength: 1.2 + (sizeU - 1) * 0.6 };
+  }
   if (perfect) u = Math.max(u, Math.pow(Math.random(), 1.2));
   // A taunted lure gets taken by the bigger ones (taunt.js): a second, kinder roll.
   if (tauntBonus > 0) u = Math.max(u, Math.pow(Math.random(), 1.7 * (1 - tauntBonus)));

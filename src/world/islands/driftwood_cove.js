@@ -20,8 +20,8 @@ export const driftwoodCove = {
     { id: 'wreck_beach', plot: 'wreck_beach', x: -8.5, z: -6.0, rx: 7.8, rz: 5.0, rot: -0.15, top: 0.95, edge: 4.0, rough: 0.12 },
     { id: 'tidepool_shelf', plot: 'tidepool_shelf', x: -15.0, z: 0.5, rx: 6.5, rz: 5.2, rot: -0.35, top: 1.2, edge: 2.8, rough: 0.45, rocky: true },
     { id: 'basalt_cliff', plot: 'basalt_cliff', x: 6.0, z: -10.5, rx: 7.2, rz: 4.4, rot: 0.05, top: 1.7, edge: 2.2, rough: 0.35, rocky: true },
-    { id: 'kelp_shallows', plot: 'kelp_shallows', x: -6.5, z: 10.0, rx: 6.8, rz: 5.0, rot: 0.1, top: 0.4, edge: 4.0, rough: 0.08 },
-    { id: 'mooring_deep', plot: 'mooring_deep', x: 12.0, z: 11.0, rx: 4.6, rz: 4.8, rot: 0.5, top: 0.9, edge: 2.4, rough: 0.3, rocky: true },
+    { id: 'kelp_shallows', plot: 'kelp_shallows', x: -6.5, z: 10.0, rx: 6.0, rz: 4.4, rot: 0.1, top: -0.55, edge: 3.0, rough: 0.1 },
+    { id: 'mooring_deep', plot: 'mooring_deep', x: 12.0, z: 11.0, rx: 3.4, rz: 3.6, rot: 0.5, top: 0.9, edge: 1.8, rough: 0.3, rocky: true },
   ],
 
   // Plots: where the dressing model (D's plot_<id>, origin at the plot centre on the ground, +Z
@@ -33,7 +33,7 @@ export const driftwoodCove = {
     wreck_beach: { model: 'plot_wreck_beach', x: -8.5, z: -6.0, rot: -0.15, spots: [{ x: -6.0, z: -6.5, rot: 0.2 }, { x: -11.5, z: -5.5, rot: 0.4 }, { x: -8.8, z: -3.6, rot: 0.1 }] },
     tidepool_shelf: { model: 'plot_tidepool_shelf', x: -15.0, z: 0.5, rot: 0.5, spots: [{ x: -14.0, z: -2.5, rot: 0.6 }, { x: -16.5, z: 1.8, rot: 0.9 }] },
     basalt_cliff: { model: 'plot_basalt_cliff', x: 6.0, z: -10.5, rot: 0, spots: [{ x: 3.5, z: -10.5, rot: 0 }, { x: 8.5, z: -10.8, rot: -0.1 }] },
-    kelp_shallows: { model: 'plot_kelp_shallows', x: -6.5, z: 10.0, rot: -0.2, spots: [{ x: -6.0, z: 8.5, rot: 0.2 }] },
+    kelp_shallows: { model: 'plot_kelp_shallows', x: -6.5, z: 10.0, rot: 0.1, spots: [] },
     mooring_deep: { model: 'plot_mooring_deep', x: 12.0, z: 11.0, rot: 0.5, spots: [{ x: 12.0, z: 10.0, rot: -0.4 }] },
   },
 

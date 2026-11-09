@@ -220,6 +220,8 @@ export function createPlacement({ state, events, island, player, cameraRig, inpu
 
   return {
     get active() { return Boolean(job); },
+    // Debug/test: confirm at the current (snapped) spot.
+    confirmNow() { if (job && job.valid) { confirm(); return true; } if (job) { cancel(); } return false; },
     start,
     cancel,
     // Called each frame: camera focus while placing or showing a build.

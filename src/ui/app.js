@@ -85,8 +85,10 @@ export async function startUI({ root, state, events }) {
     if (!wasOpen) events.emit('ui:modal', { open: true, id: view.id });
     actionDock.hidden = true;
   }
-  function close() {
+  /** Close the open screen. With `view`, only if that view is still the open one (delayed closes never hit a newer screen). */
+  function close(view) {
     if (!current) return;
+    if (view && typeof view === 'object' && 'el' in view && view !== current) return;
     current.onClose?.();
     current = null;
     modalHost.replaceChildren();

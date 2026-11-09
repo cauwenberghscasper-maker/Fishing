@@ -9,3 +9,8 @@
 - **Shopkeeper**: Casper asked for a different, curvier, more attractive keeper. `npc.shopkeeper` is now **Marin Ballast** (new story in art.json); Nell is archived in art/concepts/_rejected/.
 - **Casting HUD**: hud.* art exists (cast/reel buttons, tension dial + needle, stamina level, ring, strike splash, line band, crack, tag). Cast/reel buttons are wired in src/fishing/hud.js; A wires the rest.
 - Tackle and building tiles still show drawn placeholder icons until F paints `gear.<slot>.<id>` and `building.<id>.l<n>`.
+
+## 8 Nov, 21:15 — more lead changes
+- Shop tiles: item art sits directly on the paper tag (no dark picture box), `object-fit: contain`, never cropped. Tab icons are one style: CSS turns every painted icon into a gilded engraving (dark ink on the selected brass tab), fixed size 32 px (sub-tabs 22 px). Casper approved this direction; keep it for every menu.
+- Art now live: all 24 tackle cards, 18 building cards (`building.<id>.l1..l3`), 11 variant emblems, 8 island stamps + chart cards, title/loading art, hud set, 19 tab icons.
+- Player trap fix in src/world/island.js `resolveMove`: a step that leads out of a collider is always allowed (a building that appears around the player can never trap them).

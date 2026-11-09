@@ -3423,7 +3423,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_aquarium_l1_l2.webp",
+    "concept": "art/buildings/aquarium_l1.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 1, the rock pool: a ring of basalt around a pool, and a driftwood shelf of sea-glass jars that glow at dusk",
@@ -3441,7 +3441,9 @@
       "w": 3.54,
       "d": 3.32
     },
-    "preview": "assets/world/aquarium_l1/preview.webp"
+    "preview": "assets/world/aquarium_l1/preview.webp",
+    "concept_alt": "art/concepts/world/building_aquarium_l1_l2.webp",
+    "concept_note": "Agent F building card"
   },
   "aquarium_l2": {
     "path": "assets/world/aquarium_l2/model.glb",
@@ -3467,7 +3469,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_aquarium_l1_l2.webp",
+    "concept": "art/buildings/aquarium_l2.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 2, the barrel tanks: three cooperage vats with brass porthole windows lit from inside, on a plank viewing deck with lanterns",
@@ -3485,7 +3487,9 @@
       "w": 4.28,
       "d": 3.02
     },
-    "preview": "assets/world/aquarium_l2/preview.webp"
+    "preview": "assets/world/aquarium_l2/preview.webp",
+    "concept_alt": "art/concepts/world/building_aquarium_l1_l2.webp",
+    "concept_note": "Agent F building card"
   },
   "aquarium_l3": {
     "path": "assets/world/aquarium_l3/model.glb",
@@ -3511,7 +3515,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_aquarium_l3.webp",
+    "concept": "art/buildings/aquarium_l3.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 3, the glasshouse: salvaged ship windows and portholes in tarred timber around a great glowing round tank, roofed with an upturned dinghy",
@@ -3529,7 +3533,9 @@
       "w": 4.6,
       "d": 5.38
     },
-    "preview": "assets/world/aquarium_l3/preview.webp"
+    "preview": "assets/world/aquarium_l3/preview.webp",
+    "concept_alt": "art/concepts/world/building_aquarium_l3.webp",
+    "concept_note": "Agent F building card"
   },
   "boat_dock_l1": {
     "path": "assets/world/boat_dock_l1/model.glb",
@@ -3554,7 +3560,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_boat_dock_l1_l2.webp",
+    "concept": "art/buildings/boat_dock_l1.webp",
     "category": "building",
     "placement": "water",
     "story": "Level 1: a raft of lashed planks on cork floats tied to one old mooring post",
@@ -3569,7 +3575,9 @@
       "w": 2.52,
       "d": 2.54
     },
-    "preview": "assets/world/boat_dock_l1/preview.webp"
+    "preview": "assets/world/boat_dock_l1/preview.webp",
+    "concept_alt": "art/concepts/world/building_boat_dock_l1_l2.webp",
+    "concept_note": "Agent F building card"
   },
   "boat_dock_l2": {
     "path": "assets/world/boat_dock_l2/model.glb",
@@ -3595,7 +3603,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_boat_dock_l1_l2.webp",
+    "concept": "art/buildings/boat_dock_l2.webp",
     "category": "building",
     "placement": "water",
     "story": "Level 2, a proper dock: deck on piles, cannon bollards, cork fenders, a ladder and a lantern post",
@@ -3610,95 +3618,101 @@
       "w": 4.56,
       "d": 3.31
     },
-    "preview": "assets/world/boat_dock_l2/preview.webp"
+    "preview": "assets/world/boat_dock_l2/preview.webp",
+    "concept_alt": "art/concepts/world/building_boat_dock_l1_l2.webp",
+    "concept_note": "Agent F building card"
   },
   "cooler_l1": {
     "path": "assets/world/cooler_l1/model.glb",
     "scale": 1,
-    "tris": 1386,
+    "tris": 1414,
     "bounds": {
       "min": [
-        -1.04,
+        -0.85,
         0,
-        -0.82
+        -0.81
       ],
       "max": [
-        1.04,
-        1.58,
-        0.82
+        0.85,
+        1.35,
+        0.81
       ]
     },
     "materials": [
-      "cove_atlas",
-      "cove_atlas_ds"
+      "cove_atlas_ds",
+      "cove_atlas"
     ],
-    "bytes": 37488,
+    "bytes": 34352,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_cooler_l1_l2.webp",
+    "concept": "art/buildings/cooler_l1.webp",
     "category": "building",
     "placement": "ground",
-    "story": "Level 1: the sea-chest cooler dug into wet sand under a sail shade, a bucket of seawater to keep it damp",
+    "story": "Level 1: a wicker basket lined with seaweed, the day's catch on top, in the shade of a sail on two sticks (matches the cooler screen: basket -> ice chest -> cellar)",
     "building": "cooler",
     "level": 1,
+    "preview": "assets/world/cooler_l1/preview.webp",
     "collider": {
       "type": "box",
-      "w": 1.48,
-      "d": 2.07,
-      "rot": -1.569,
-      "x": -0.04,
-      "z": -0.03
+      "w": 1.71,
+      "d": 1.05,
+      "rot": 2.936,
+      "x": 0.04,
+      "z": 0.19
     },
     "footprint": {
-      "w": 2.08,
-      "d": 1.64
+      "w": 1.7,
+      "d": 1.62
     },
-    "preview": "assets/world/cooler_l1/preview.webp"
+    "concept_alt": "art/concepts/world/building_cooler_l1_l2.webp",
+    "concept_note": "Agent F building card"
   },
   "cooler_l2": {
     "path": "assets/world/cooler_l2/model.glb",
     "scale": 1,
-    "tris": 2437,
+    "tris": 1400,
     "bounds": {
       "min": [
-        -2.23,
+        -1.11,
         0,
-        -2.03
+        -0.8
       ],
       "max": [
-        2.23,
-        2.46,
-        2.03
+        1.11,
+        1.75,
+        0.8
       ]
     },
     "materials": [
       "cove_atlas",
       "cove_atlas_ds"
     ],
-    "bytes": 67528,
+    "bytes": 38132,
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_cooler_l1_l2.webp",
+    "concept": "art/buildings/cooler_l2.webp",
     "category": "building",
     "placement": "ground",
-    "story": "Level 2, the ice house: a plank shed half dug into the dune, roof packed with seaweed thatch for insulation, blue door, ice blocks stacked outside",
+    "story": "Level 2, the ice chest: an old ship's sea chest packed with ice, dug into wet sand under a sail shade, ice blocks stacked beside it",
     "building": "cooler",
     "level": 2,
+    "preview": "assets/world/cooler_l2/preview.webp",
     "collider": {
       "type": "box",
-      "w": 3.77,
-      "d": 3.83,
-      "rot": 3.091,
-      "x": -0.13,
-      "z": 0.08
+      "w": 2.17,
+      "d": 1.2,
+      "rot": -3.065,
+      "x": -0.08,
+      "z": -0.01
     },
     "footprint": {
-      "w": 4.46,
-      "d": 4.06
+      "w": 2.22,
+      "d": 1.6
     },
-    "preview": "assets/world/cooler_l2/preview.webp"
+    "concept_alt": "art/concepts/world/building_cooler_l1_l2.webp",
+    "concept_note": "Agent F building card"
   },
   "cooler_l3": {
     "path": "assets/world/cooler_l3/model.glb",
@@ -3724,7 +3738,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_cooler_l3.webp",
+    "concept": "art/buildings/cooler_l3.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 3, the cold cellar: basalt walls under a turf roof, a heavy tarred door bound with brass, a timber hoist lowering a crate of fish",
@@ -3742,7 +3756,9 @@
       "w": 4.4,
       "d": 4.74
     },
-    "preview": "assets/world/cooler_l3/preview.webp"
+    "preview": "assets/world/cooler_l3/preview.webp",
+    "concept_alt": "art/concepts/world/building_cooler_l3.webp",
+    "concept_note": "Agent F building card"
   },
   "scaffold": {
     "path": "assets/world/scaffold/model.glb",
@@ -3808,7 +3824,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_shop_levels.webp",
+    "concept": "art/buildings/shop_l1.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 1, the first stall: fish crates for a counter, the patched sail off your own rowboat as a canopy on two oars, a red oar blade as the sign, a brass hanging scale",
@@ -3826,7 +3842,9 @@
       "w": 3.5,
       "d": 2.78
     },
-    "preview": "assets/world/shop_l1/preview.webp"
+    "preview": "assets/world/shop_l1/preview.webp",
+    "concept_alt": "art/concepts/world/building_shop_levels.webp",
+    "concept_note": "Agent F building card"
   },
   "shop_l3": {
     "path": "assets/world/shop_l3/model.glb",
@@ -3853,7 +3871,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_shop_levels.webp",
+    "concept": "art/buildings/shop_l3.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 3, the Hull House raised: a second storey of salvaged boards lifts the hull roof, lit porthole windows, a balcony with a rope rail, an outside stair, and the old mast now carries a crow's nest with a lantern and a red pennant",
@@ -3871,7 +3889,9 @@
       "w": 7.3,
       "d": 6.58
     },
-    "preview": "assets/world/shop_l3/preview.webp"
+    "preview": "assets/world/shop_l3/preview.webp",
+    "concept_alt": "art/concepts/world/building_shop_levels.webp",
+    "concept_note": "Agent F building card"
   },
   "smokehouse_l1": {
     "path": "assets/world/smokehouse_l1/model.glb",
@@ -3897,7 +3917,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_smokehouse_l1_l2.webp",
+    "concept": "art/buildings/smokehouse_l1.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 1, smoking racks: driftwood A-frames with three poles of fish over a smouldering pit, a scrap of sail as a hood, a woodpile",
@@ -3915,7 +3935,9 @@
       "w": 3.7,
       "d": 1.64
     },
-    "preview": "assets/world/smokehouse_l1/preview.webp"
+    "preview": "assets/world/smokehouse_l1/preview.webp",
+    "concept_alt": "art/concepts/world/building_smokehouse_l1_l2.webp",
+    "concept_note": "Agent F building card"
   },
   "smokehouse_l2": {
     "path": "assets/world/smokehouse_l2/model.glb",
@@ -3941,7 +3963,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_smokehouse_l1_l2.webp",
+    "concept": "art/buildings/smokehouse_l2.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 2, the smoke shed: tarred boards, smoke-stained eaves, a tall stovepipe, the hatch swung open on rows of golden fish, a woodpile and axe",
@@ -3959,7 +3981,9 @@
       "w": 3.86,
       "d": 3.34
     },
-    "preview": "assets/world/smokehouse_l2/preview.webp"
+    "preview": "assets/world/smokehouse_l2/preview.webp",
+    "concept_alt": "art/concepts/world/building_smokehouse_l1_l2.webp",
+    "concept_note": "Agent F building card"
   },
   "smokehouse_l3": {
     "path": "assets/world/smokehouse_l3/model.glb",
@@ -3985,7 +4009,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_smokehouse_l3.webp",
+    "concept": "art/buildings/smokehouse_l3.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 3, the smoke tower: basalt firebox with a glowing fire door, tall tarred octagonal tower with louvred vents, verdigris copper cowl with a fish weathervane, fish hung on every side",
@@ -4003,7 +4027,9 @@
       "w": 3.38,
       "d": 2.96
     },
-    "preview": "assets/world/smokehouse_l3/preview.webp"
+    "preview": "assets/world/smokehouse_l3/preview.webp",
+    "concept_alt": "art/concepts/world/building_smokehouse_l3.webp",
+    "concept_note": "Agent F building card"
   },
   "workers_hut_l1": {
     "path": "assets/world/workers_hut_l1/model.glb",
@@ -4029,7 +4055,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_workers_hut_l1_l3.webp",
+    "concept": "art/buildings/workers_hut_l1.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 1, one hired hand: a hammock under a tarp between two posts, a sea chest, a rack of rods",
@@ -4047,7 +4073,9 @@
       "w": 3.8,
       "d": 2.56
     },
-    "preview": "assets/world/workers_hut_l1/preview.webp"
+    "preview": "assets/world/workers_hut_l1/preview.webp",
+    "concept_alt": "art/concepts/world/building_workers_hut_l1_l3.webp",
+    "concept_note": "Agent F building card"
   },
   "workers_hut_l3": {
     "path": "assets/world/workers_hut_l3/model.glb",
@@ -4073,7 +4101,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/building_workers_hut_l1_l3.webp",
+    "concept": "art/buildings/workers_hut_l3.webp",
     "category": "building",
     "placement": "ground",
     "story": "Level 3, the bunkhouse: a long hall roofed with the two halves of a sawn-up fishing boat, lit bunk portholes, a ship's bell on a gallows to call the shift, a hire board with pinned notes",
@@ -4091,7 +4119,9 @@
     "footprint": {
       "w": 6.7,
       "d": 4.78
-    }
+    },
+    "concept_alt": "art/concepts/world/building_workers_hut_l1_l3.webp",
+    "concept_note": "Agent F building card"
   },
   "shop_l2": {
     "path": "assets/world/shop_hullhouse/model.glb",
@@ -4118,7 +4148,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_shop_detail.webp",
+    "concept": "art/buildings/shop_l2.webp",
     "category": "building",
     "placement": "ground",
     "story": "The Hull House: an old fishing boat turned keel-up for a roof, walls of salvaged boards, a red-dyed patched sail as the awning on two oars, an old oar hung on ropes as the shop sign, the boat's mast still standing at the back with its furled sail",
@@ -4138,7 +4168,9 @@
     },
     "alias_of": "shop_hullhouse",
     "building": "shop",
-    "level": 2
+    "level": 2,
+    "concept_alt": "art/concepts/world/driftwood_cove_shop_detail.webp",
+    "concept_note": "Agent F building card"
   },
   "workers_hut_l2": {
     "path": "assets/world/workers_hut/model.glb",
@@ -4165,7 +4197,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/buildings/workers_hut_l2.webp",
     "category": "building",
     "placement": "ground",
     "story": "The workers sleep under the patched sail of the boat that brought them, stretched over A-frames of crossed oars; nets dry on an oar rack",
@@ -4185,7 +4217,9 @@
     },
     "alias_of": "workers_hut",
     "building": "workers_hut",
-    "level": 2
+    "level": 2,
+    "concept_alt": "art/concepts/world/driftwood_cove_key.webp",
+    "concept_note": "Agent F building card"
   },
   "boat_dock_l3": {
     "path": "assets/world/boat_dock/model.glb",
@@ -4211,7 +4245,7 @@
     "licence": "original (Agent D, Blender bpy build, CC0)",
     "source": "bespoke, painted with cove_atlas",
     "status": "temp",
-    "concept": "art/concepts/world/driftwood_cove_key.webp",
+    "concept": "art/buildings/boat_dock_l3.webp",
     "category": "building",
     "placement": "water",
     "story": "Two great ribs from the wreck crossed into an arch over the dock; cannons as bollards; the wreck's wheel leans against the arch",
@@ -4227,7 +4261,9 @@
     },
     "alias_of": "boat_dock",
     "building": "boat_dock",
-    "level": 3
+    "level": 3,
+    "concept_alt": "art/concepts/world/driftwood_cove_key.webp",
+    "concept_note": "Agent F building card"
   },
   "pier_1": {
     "path": "assets/world/pier_straight/model.glb",

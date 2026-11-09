@@ -110,6 +110,7 @@ export async function startWorld({ canvas, state, events }) {
 
   // state.render contract (Agent E draws into this scene).
   const frameCallbacks = new Set();
+  let overviewAt = null;
   const clock = {
     get elapsedTime() { return loop.time; },
     getElapsedTime() { return loop.time; },
@@ -175,7 +176,7 @@ export async function startWorld({ canvas, state, events }) {
       fishSystem.update(dt, time);
       fishing.update(dt, realDt);
       workers.update(dt);
-      placement.update(realDt);
+      if (!placement.update(realDt) && overviewAt) { cameraRig.setMode('build'); cameraRig.setFocus(overviewAt.x, 0, overviewAt.z); }
       island.update(dt, time);
       dust.update(dt);
       island.terrain.uniforms.uTime.value = time;
@@ -256,6 +257,8 @@ export async function startWorld({ canvas, state, events }) {
     get mode() { return state.world.mode; },
     placement,
     workers,
+    // Wide view over the whole island (screenshots).
+    overview(on = true, x = 0, z = -2) { overviewAt = on ? { x, z } : null; },
   };
   events.on('game:ready', () => {
     queueMicrotask(() => {

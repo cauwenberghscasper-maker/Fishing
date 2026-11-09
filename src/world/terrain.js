@@ -32,7 +32,8 @@ function fbm(x, z) {
 // nearest plot already linked. A plot that already touches its neighbour gets a link hidden inside the land.
 function causewaysFor(layout, activePlots) {
   if (!activePlots) return [];
-  const plots = layout.shapes.filter((sh) => sh.plot && activePlots.has(sh.plot));
+  // Underwater plots (kelp shallows) are fished, not walked: no path into them.
+  const plots = layout.shapes.filter((sh) => sh.plot && activePlots.has(sh.plot) && sh.top > 0);
   const root = plots.find((sh) => sh.plot === 'sandbar') || plots[0];
   if (!root) return [];
   const linked = [root];
@@ -74,13 +75,14 @@ export function createHeightFunction(layout, activePlots = null) {
       const d = r > 1e-5 ? dist - dist / r : -Math.min(sh.rx, sh.rz); // metres outside the edge
       let hs;
       let t = 0;
+      const shore = Math.min(SHORE, sh.top); // underwater shelves stay underwater at their edge
       if (d <= 0) {
         t = Math.min(1, -d / sh.edge);
         t = t * t * (3 - 2 * t);
-        hs = SHORE + (sh.top - SHORE) * t;
+        hs = shore + (sh.top - shore) * t;
       } else {
         // Gentle turquoise shelf near the shore, then a drop-off into deep teal.
-        hs = SHORE - maxDepth * (1 - Math.exp(-Math.pow(d / fall, 1.7))) - d * 0.01;
+        hs = shore - maxDepth * (1 - Math.exp(-Math.pow(d / fall, 1.7))) - d * 0.01;
       }
       h = h === -Infinity ? hs : smax(h, hs, sh.cliff ? 0.9 : 1.6);
       rough = Math.max(rough, sh.rough * t);

@@ -174,16 +174,16 @@ export async function startUI({ root, state, events }) {
   function actionFor(zone) {
     const { kind, zoneId } = zone;
     const visitor = isVisitor(state);   // on a friend's island only the shop is ours to use
-    if (kind === 'shop') return { icon: 'scale', label: 'Open the shop', go: () => ui.openShop({ tab: state.profile.cooler.length ? 'sell' : 'buy' }) };
+    if (kind === 'shop') return { icon: 'scale', label: 'Shop', go: () => ui.openShop({ tab: state.profile.cooler.length ? 'sell' : 'buy' }) };
     if (visitor) return null;
-    if (kind === 'boat') return { icon: 'compass', label: 'Chart a course', go: () => ui.openTravel() };
-    if (kind === 'plot') return { icon: 'plot', label: 'Raise new land', go: () => ui.openShop({ tab: 'harbour', focus: 'land' }) };
+    if (kind === 'boat') return { icon: 'compass', label: 'Sail', go: () => ui.openTravel() };
+    if (kind === 'plot') return { icon: 'plot', label: 'Build', go: () => ui.openShop({ tab: 'harbour', focus: 'land' }) };
     if (kind === 'building') {
       const def = state.data.economy?.buildings?.[zoneId];
-      if (zoneId === 'workers_hut') return { icon: 'hat', label: 'Hire a fisher', go: () => ui.openShop({ tab: 'harbour', focus: 'crew' }) };
+      if (zoneId === 'workers_hut') return { icon: 'hat', label: 'Hire', go: () => ui.openShop({ tab: 'harbour', focus: 'crew' }) };
       if (zoneId === 'shop') return actionFor({ kind: 'shop', zoneId });
-      if (zoneId === 'boat_dock') return { icon: 'compass', label: 'Chart a course', go: () => ui.openTravel() };
-      return { icon: 'hammer', label: def ? `Improve the ${def.name.toLowerCase()}` : 'Build', go: () => ui.openShop({ tab: 'harbour', focus: zoneId }) };
+      if (zoneId === 'boat_dock') return { icon: 'compass', label: 'Sail', go: () => ui.openTravel() };
+      return { icon: 'hammer', label: 'Build', go: () => ui.openShop({ tab: 'harbour', focus: zoneId }) };
     }
     return null;   // piers and fishing spots belong to Agent A's controls
   }

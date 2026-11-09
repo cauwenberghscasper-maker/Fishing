@@ -873,3 +873,7 @@
   .catch--element, .catch__emblem, .modal-layer.is-element::before, .modal-layer.is-element::after, .title-meter .meter__fill { animation: none !important; }
 }
 .toast__who { width: 12px; height: 12px; flex: none; border-radius: 50%; box-shadow: 0 0 0 1.5px var(--c-ink); }
+
+/* round 4: the context plank sits bottom-left so it never touches Agent A's painted cast button (bottom-right) */
+.action-dock { left: calc(var(--safe-l) + 12px); right: auto; justify-content: flex-start; }
+.action-dock .btn--primary { min-width: 136px; max-width: calc(100vw - var(--safe-l) - var(--safe-r) - 200px); padding-left: 30px; padding-right: 30px; }

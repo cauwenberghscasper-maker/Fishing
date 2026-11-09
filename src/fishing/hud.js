@@ -246,6 +246,27 @@ export function createHud({ root }) {
           g.globalAlpha = 1;
           label('Swipe!', x, y - 104, { size: 16, color: theme.gold });
         }
+        if (mg.pump) {
+          // A ring closing on the fish each beat; dots for hits.
+          const r = 18 + 50 * Math.max(0, 1 - mg.pump.k);
+          ring(x, y, 18, theme.gold, 4, 0.9);
+          if (mg.pump.k <= 1.15) ring(x, y, r, theme.paper, 3, 0.85);
+          for (let i = 0; i < mg.pump.beats; i++) ring(x + (i - (mg.pump.beats - 1) / 2) * 20, y + 44, 6, i < mg.pump.hits ? theme.gold : theme.paper, i < mg.pump.beat ? 6 : 2, 0.9);
+          label('Pump!', x, y - 80, { size: 16, color: theme.gold });
+        }
+        if (mg.hold) {
+          // A brass bar: keep the marker in the gold middle; the fill shows how long you've held it.
+          const W = 180, bx = x - W / 2, by = y - 74;
+          g.fillStyle = 'rgba(6, 22, 24, 0.75)'; g.fillRect(bx - 4, by - 10, W + 8, 20);
+          g.fillStyle = theme.gold; g.globalAlpha = 0.55;
+          g.fillRect(x - (mg.hold.zone * W) / 2, by - 8, mg.hold.zone * W, 16);
+          g.globalAlpha = 1;
+          g.fillStyle = theme.glow; g.fillRect(bx, by + 12, W * Math.min(1, mg.hold.fill), 4);
+          const mx = x + Math.max(-1, Math.min(1, mg.hold.m)) * (W / 2);
+          g.fillStyle = theme.paper; g.beginPath(); g.moveTo(mx, by - 12); g.lineTo(mx - 7, by - 22); g.lineTo(mx + 7, by - 22); g.closePath(); g.fill();
+          g.fillRect(mx - 1.5, by - 10, 3, 20);
+          label('Steer!', x, by - 34, { size: 16, color: theme.gold });
+        }
         if (mg.landing) {
           // A brass half-dial: gold zone in the middle, the needle sweeping across.
           const R = 46, cx = x, cy = y - 30;
@@ -320,12 +341,13 @@ export function createHud({ root }) {
         ring(kx, ky, 22, theme.gold, 2);
       }
 
-      // Slingshot band from the cast button to the thumb.
+      // Slingshot band from the fisher to the thumb (it pulls from the fisher: room all round).
       const a = frame.aim;
       if (a) {
         const c = buttonCentre();
-        const px = c.x + a.drag.x, py = c.y + a.drag.y;
-        const inDead = a.dragLength <= a.deadZone;
+        const o = a.centre ? { x: a.centre.x, y: a.centre.y, r: 26 } : c;
+        const px = o.x + a.drag.x, py = o.y + a.drag.y;
+        const inDead = !a.hasAim;
         const col = inDead ? theme.danger : theme.paper;
         const nx = -a.drag.y / (a.dragLength || 1), ny = a.drag.x / (a.dragLength || 1);
         g.strokeStyle = col;
@@ -333,7 +355,7 @@ export function createHud({ root }) {
         g.lineWidth = 3.5 - (a.power || 0) * 1.6;
         g.globalAlpha = 0.75 + (a.power || 0) * 0.25;
         for (const s of [-1, 1]) {
-          const sx = c.x + nx * c.r * 0.55 * s, sy = c.y + ny * c.r * 0.55 * s;
+          const sx = o.x + nx * o.r * 0.55 * s, sy = o.y + ny * o.r * 0.55 * s;
           if (img.band && !inDead) {
             // Painted rope band stretched from the button to the thumb.
             const len = Math.hypot(px - sx, py - sy);
@@ -353,15 +375,15 @@ export function createHud({ root }) {
         g.fillStyle = col;
         g.beginPath(); g.arc(px, py, 9, 0, Math.PI * 2); g.fill();
         // Power ring around the button.
-        const p = Math.min(1, Math.max(0, (a.dragLength - a.deadZone) / (a.maxDrag - a.deadZone)));
+        const p = Math.min(1, Math.max(0, a.power || 0));
         g.strokeStyle = theme.gold;
         g.lineWidth = 4;
         g.beginPath();
         g.arc(c.x, c.y, c.r + 9, -Math.PI / 2, -Math.PI / 2 + p * Math.PI * 2);
         g.stroke();
         if (inDead) {
-          ring(c.x, c.y, a.deadZone, theme.danger, 1.5, 0.6);
-          label(a.hasAim ? 'Release to cancel' : 'Pull back to aim', c.x - c.r - 6, c.y - c.r - 24, { size: 14, align: 'right', font: theme.fontBody });
+          ring(o.x, o.y, 26, theme.danger, 1.5, 0.6);
+          label((a.moved || 0) > a.deadZone ? 'Release to cancel' : 'Pull away from your fisher to aim', c.x - c.r - 6, c.y - c.r - 24, { size: 14, align: 'right', font: theme.fontBody });
         }
         if (a.reticle && a.hasAim) {
           const txt = a.valid ? `${a.band}  ${a.depth.toFixed(1)} m${a.fish ? `  ·  ${a.fish} fish` : ''}` : 'No water there';

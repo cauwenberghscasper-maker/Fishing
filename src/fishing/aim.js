@@ -5,7 +5,8 @@ import * as THREE from 'three';
 
 const ARC_POINTS = 40;
 const RETICLE_R = 1.1;          // metres
-const DEAD_ZONE = 30;           // px: release inside = cancel
+const DEAD_ZONE = 30;           // px the thumb must move from where it pressed before it aims
+const PULL_R0 = 26;             // px round the fisher: a thumb this close is no pull (release = cancel)
 const PERFECT_PERIOD = 1.3;     // s (real time)
 
 export const DEPTH_BANDS = [
@@ -140,7 +141,10 @@ export function createAim({ island, fishSystem, water, state }) {
   const start = new THREE.Vector3();
   let active = false;
   let anchor = { x: 0, y: 0 };
-  let drag = { x: 0, y: 0 };
+  let drag = { x: 0, y: 0 };      // the pull: thumb minus the fisher on screen
+  let finger = null;              // thumb position (hud px)
+  let centre = null;              // the fisher on screen: the slingshot pulls from them, 360° all round
+  let moved = 0;
   let lastPointer = null;
   let holdStill = 0;
   let realTime = 0;
@@ -166,8 +170,11 @@ export function createAim({ island, fishSystem, water, state }) {
     };
   }
 
+  // Casper 9 Nov: "throwing up or to the left is almost impossible, the screen is too small". The
+  // band now pulls from the fisher (who stands mid-screen), not from the corner button, so every
+  // direction has the same room: pull the thumb away from the fisher, the cast flies the other way.
   function maxDragPx() {
-    return Math.max(140, Math.min(320, Math.min(window.innerHeight, window.innerWidth * 1.6) * 0.36));
+    return Math.max(120, Math.min(260, Math.min(window.innerHeight, window.innerWidth) * 0.4));
   }
 
   // A slow sway that settles while the thumb is still: patience gives accuracy,
@@ -195,6 +202,9 @@ export function createAim({ island, fishSystem, water, state }) {
       active = true;
       anchor = { x: anchorX, y: anchorY };
       drag = { x: 0, y: 0 };
+      finger = { x: anchorX, y: anchorY };
+      moved = 0;
+      centre = null;
       holdStill = 0;
       startTime = realTime;
       hasAim = false;
@@ -208,7 +218,9 @@ export function createAim({ island, fishSystem, water, state }) {
       group.visible = true;
     },
     pointer(x, y) {
-      drag = { x: x - anchor.x, y: y - anchor.y };
+      finger = { x, y };
+      moved = Math.max(moved, Math.hypot(x - anchor.x, y - anchor.y));
+      if (centre) drag = { x: x - centre.x, y: y - centre.y };
       if (lastPointer) {
         // moving the thumb unsettles the aim a little, never all the way back
         const moved = Math.hypot(x - lastPointer.x, y - lastPointer.y);
@@ -227,12 +239,19 @@ export function createAim({ island, fishSystem, water, state }) {
     get dragLength() { return Math.hypot(drag.x, drag.y); },
     get deadZone() { return DEAD_ZONE; },
     get maxDrag() { return maxDragPx(); },
-    update(realDt, rodTip, playerPos) {
+    get centre() { return centre; },
+    get finger() { return finger; },
+    get moved() { return moved; },
+    update(realDt, rodTip, playerPos, playerScreen = null) {
       realTime += realDt;
       if (!active) return;
       holdStill += realDt;
+      // Fixed where the fisher stood on screen when the press began: the camera framing the cast
+      // must not move the slingshot's centre under the thumb.
+      if (playerScreen && !centre) centre = { x: playerScreen.x, y: playerScreen.y };
+      if (centre && finger) drag = { x: finger.x - centre.x, y: finger.y - centre.y };
       const len = Math.hypot(drag.x, drag.y);
-      hasAim = len > DEAD_ZONE;
+      hasAim = moved > DEAD_ZONE && len > PULL_R0;
       const g = gear();
       start.copy(rodTip);
       if (!hasAim) {
@@ -244,7 +263,7 @@ export function createAim({ island, fishSystem, water, state }) {
       arc.mesh.visible = true;
       reticle.mesh.visible = true;
       // Pull back to throw: the cast goes opposite to the drag (camera looks north, no yaw).
-      power = Math.pow(THREE.MathUtils.clamp((len - DEAD_ZONE) / (maxDragPx() - DEAD_ZONE), 0, 1), 1.1);
+      power = Math.pow(THREE.MathUtils.clamp((len - PULL_R0) / (maxDragPx() - PULL_R0), 0, 1), 1.1);
       const step = Math.min(4, Math.floor(power * 4 + 0.001));
       if (step > lastPowerStep) feel.powerStep = step;
       lastPowerStep = step;
@@ -304,9 +323,8 @@ export function createAim({ island, fishSystem, water, state }) {
     },
     // Returns the cast or { cancelled: true }.
     release() {
-      const len = Math.hypot(drag.x, drag.y);
-      const result = (!hasAim || len <= DEAD_ZONE || !valid)
-        ? { cancelled: true, reason: !hasAim || len <= DEAD_ZONE ? 'centre' : 'land' }
+      const result = (!hasAim || !valid)
+        ? { cancelled: true, reason: !hasAim ? 'centre' : 'land' }
         : {
           cancelled: false,
           x: target.x,

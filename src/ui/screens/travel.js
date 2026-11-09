@@ -14,7 +14,13 @@ export function travelSheet(ctx) {
     if (r.kind === 'coins') return h(cls, money(r.need));
     if (r.kind === 'species') return h(cls, `${r.need} species in your logbook (${Math.min(r.have, r.need)})`);
     if (r.kind === 'legendary') return h(cls, `landing the ${state.data.fish?.[r.fishId]?.name ?? r.fishId.replace(/_/g, ' ')}`);
-    if (r.kind === 'boat') return r.met ? null : h(cls, 'a boat that sails this far');
+    if (r.kind === 'boat') {
+      if (r.met) return null;
+      // Name the boat that gets you there, so it's clear what to buy (Casper 9 Nov).
+      const isle = state.data.islands?.[r.islandId];
+      const boats = Object.entries(state.data.economy?.boats ?? {}).filter(([k, b]) => k !== '_notes' && (b.reach ?? 0) >= (isle?.index ?? 99)).sort((a, b) => a[1].cost - b[1].cost);
+      return h(cls, boats.length ? `the ${boats[0][1].name} (Shop › Build › Boats)` : 'a boat that sails this far');
+    }
     return null;
   }
 
@@ -30,13 +36,18 @@ export function travelSheet(ctx) {
       let go;
       if (id === here) go = h('div.isle__go', h('span.pebble.pebble--glow', 'You are here'));
       else if (visitor) go = h('div.isle__go', h('span.reqs', unlocked ? 'On your chart.' : 'Not on your chart yet.'));
-      else if (unlocked && charted) {
+      else if (!charted) {
+        // Not built yet: say so plainly instead of listing requirements you can meet and still not sail.
+        go = h('div.isle__go', h('span.reqs', 'Uncharted: these waters are still being mapped. Coming in a later voyage.'));
+      } else if (unlocked && charted) {
         go = h('div.isle__go', h('span', ''), h('button.btn', { on: { click: () => { const r = economy.travel(id); if (r.ok) ui.close(); } } }, ico('boat'), 'Set sail'));
       } else {
-        const reqs = economy.islandRequirements(id) ?? [];
+        const reqs = (economy.islandRequirements(id) ?? []).map((r) => ({ ...r, islandId: id }));
         const allMet = reqs.every((r) => r.met);
         const parts = reqs.map(reqLine).filter(Boolean);
+        const boatMissing = reqs.some((r) => r.kind === 'boat' && !r.met);
         go = h('div.isle__go',
+          boatMissing ? h('button.btn', { on: { click: () => ui.openShop({ tab: 'harbour', focus: 'boats' }) } }, ico('boat'), 'Boats') : null,
           h('span.reqs', unlocked ? 'Unlocked.' : ['Needs ', parts.flatMap((el, i) => (i ? [h('span', i === parts.length - 1 ? ' and ' : ', '), el] : [el])), '.']),
           allMet && charted && !unlocked ? h('button.btn', { on: { click: () => { const r = economy.unlockIsland(id); if (r.ok) ui.toast(`${isle.name} is on your chart`); } } }, 'Unlock') : null);
       }

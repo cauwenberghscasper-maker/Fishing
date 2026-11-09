@@ -234,6 +234,26 @@ export function createTerrain(layout, palette, activePlots = null) {
   mesh.receiveShadow = true;
   mesh.castShadow = true;
   mesh.name = 'terrain';
+  // The open sea floor beyond the island's terrain (Casper 9 Nov: "map should be really big, up to
+  // 6 km"; nothing may sit "outside the map"): a 6 km ring at the depth of the terrain's edge,
+  // shelving slowly deeper, under the terrain where they overlap. Fog swallows it long before its rim.
+  {
+    const edge = sample(size / 2, 0).h;
+    const ring = new THREE.RingGeometry(size * 0.46, 3000, 96, 12);
+    ring.rotateX(-Math.PI / 2);
+    const rp = ring.attributes.position;
+    for (let i = 0; i < rp.count; i++) {
+      const r = Math.hypot(rp.getX(i), rp.getZ(i));
+      rp.setY(i, edge - 0.25 - Math.min(40, (r - size * 0.46) * 0.02));
+    }
+    ring.setAttribute('aRock', new THREE.BufferAttribute(new Float32Array(rp.count), 1));
+    ring.setAttribute('aDelta', new THREE.BufferAttribute(new Float32Array(rp.count), 1));
+    ring.computeVertexNormals();
+    const far = new THREE.Mesh(ring, material);
+    far.name = 'seafloor-far';
+    far.receiveShadow = true;
+    mesh.add(far);
+  }
 
   const half = size / 2;
   const cell = size / seg;

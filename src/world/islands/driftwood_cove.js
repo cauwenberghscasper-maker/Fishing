@@ -27,6 +27,12 @@ export const driftwoodCove = {
     { id: 'basalt_cliff', plot: 'basalt_cliff', x: 6.0, z: -10.5, rx: 9.4, rz: 5.7, rot: 0.05, top: 1.7, edge: 2.2, rough: 0.35, rocky: true },
     { id: 'kelp_shallows', plot: 'kelp_shallows', x: -6.5, z: 10.0, rx: 7.8, rz: 5.7, rot: 0.1, top: -0.55, edge: 3.0, rough: 0.1 },
     { id: 'mooring_deep', plot: 'mooring_deep', x: 12.0, z: 11.0, rx: 4.4, rz: 4.7, rot: 0.5, top: 0.9, edge: 1.8, rough: 0.3, rocky: true },
+    // Fishing grounds' seabed (grounds below): shoals that lift the sea floor so coral, wrecks and
+    // sand show through clear water. Always there, never dry land.
+    { id: 'shoal_coral', x: 12, z: 37, rx: 10, rz: 8, rot: 0.3, top: -1.7, edge: 6, rough: 0.35 },
+    { id: 'shoal_brig', x: -27, z: 30, rx: 9, rz: 7, rot: -0.4, top: -3.0, edge: 6, rough: 0.25 },
+    { id: 'shoal_kelp', x: -47, z: -14, rx: 10, rz: 9, rot: 0.2, top: -3.6, edge: 7, rough: 0.3 },
+    { id: 'shoal_golden', x: 36, z: -30, rx: 10, rz: 8, rot: -0.3, top: -1.3, edge: 6, rough: 0.15 },
     // The outer ring (Casper: "upgrade 360, lots of room per upgrade for machines and fishers").
     // East: Sunset Dunes, a long golden beach with a palm-topped dune crest.
     { id: 'sunset_dunes', plot: 'sunset_dunes', x: 35.6, z: -1.1, rx: 14.9, rz: 10.1, rot: 0.15, top: 1.05, edge: 3.6, rough: 0.16 },
@@ -117,6 +123,20 @@ export const driftwoodCove = {
     { asset: ['rock_m'], x: 8.5, z: 3.5, rot: 2.2 },
     { asset: ['rock_m'], x: -5.5, z: -2.0, rot: 1.2 },
     { asset: ['starfish_a'], x: 0.6, z: 0.9, rot: 2.6, plot: 'sandbar' },
+    // Fishing grounds' landmarks (Blender builds; skipped until their models exist).
+    { asset: ['coral_bed_a'], x: 9, z: 35, rot: 0.4 }, { asset: ['coral_bed_b'], x: 15, z: 39, rot: 2.1 },
+    { asset: ['coral_bed_a'], x: 14, z: 32, rot: 4.0, scale: 0.8 }, { asset: ['coral_fan_red', 'coral_fan_violet'], x: 6.5, z: 38.5, rot: 1.0 },
+    { asset: ['coral_staghorn_pink', 'coral_staghorn_blue'], x: 18, z: 36, rot: 0.2 }, { asset: ['coral_table_teal', 'coral_table_rose'], x: 11, z: 41, rot: 2.6 },
+    { asset: ['coral_brain_gold', 'coral_brain_green'], x: 16.5, z: 34, rot: 0 }, { asset: ['coral_tube_orange', 'coral_tube_purple'], x: 8, z: 33, rot: 1.6 }, { asset: ['coral_seawhip_magenta', 'coral_seawhip_yellow'], x: 12.5, z: 43, rot: 0.8 },
+    { asset: ['wreck_brig'], x: -27, z: 30, rot: 0.9 }, { asset: ['coral_bed_b'], x: -22, z: 34, rot: 1.2, scale: 0.7 },
+    { asset: ['kelp_cathedral_pillar'], x: -44, z: -11, rot: 0.3 }, { asset: ['kelp_cathedral_pillar'], x: -50, z: -12, rot: 1.7 },
+    { asset: ['kelp_cathedral_pillar'], x: -46, z: -18, rot: 2.9 }, { asset: ['kelp_cathedral_pillar'], x: -52, z: -17, rot: 0.9 },
+    { asset: ['kelp_cathedral_pillar'], x: -42, z: -16, rot: 2.2 }, { asset: ['kelp_cathedral_pillar'], x: -48, z: -9, rot: 4.1 },
+    { asset: ['sea_arch'], x: 4, z: -42, rot: 0.15 },
+    { asset: ['wreck_skiff'], x: 37, z: -28, rot: 2.4 }, { asset: ['coral_fan_violet', 'coral_fan_red'], x: 33, z: -33, rot: 0.5, scale: 0.8 },
+    { asset: ['marker_buoy'], x: 20, z: 30, rot: 0, float: true }, { asset: ['marker_buoy'], x: -20, z: 26, rot: 0, float: true },
+    { asset: ['marker_buoy'], x: -38, z: -10, rot: 0, float: true }, { asset: ['marker_buoy'], x: 10, z: -33, rot: 0, float: true },
+    { asset: ['marker_buoy'], x: 28, z: -24, rot: 0, float: true }, { asset: ['marker_buoy'], x: 0, z: 50, rot: 0, float: true },
     // Sunset Dunes: palms on the crest, grass in the hollows, driftwood washed up on the waterline.
     { asset: ['palm_twin'], x: 40.8, z: -6.9, rot: 0.4, plot: 'sunset_dunes' },
     { asset: ['palm_tall'], x: 37.9, z: -8.6, rot: 2.1, scale: 0.9, plot: 'sunset_dunes' },
@@ -205,6 +225,25 @@ export const driftwoodCove = {
     abyss: { minDepth: 9.0, areas: ring(60, 18, 12, 0.15) },
   },
 
+
+  // Fishing grounds (Casper 9 Nov: "special locations for certain fishes that change with time",
+  // "different places with different colours, sunken ships, colourful coral"): named places round
+  // the island, each with its own water colour, landmark models and residents by time of day
+  // (src/fishing/grounds.js). Props are placed when their models exist (Blender builds).
+  grounds: [
+    { id: 'coral_garden', name: 'The Coral Garden', x: 12, z: 37, r: 10, tint: '#36d6c0', strength: 0.55,
+      residents: { day: ['reefbeak_parrotfish', 'barnacle_rockling', 'chartline_mackerel'], dusk: ['lampfin_gurnard', 'reefbeak_parrotfish'], night: ['glassfloat_jelly', 'moonwake_ribbonfish'] } },
+    { id: 'sunken_brig', name: 'The Sunken Brig', x: -27, z: 30, r: 9, tint: '#1f7a62', strength: 0.5,
+      residents: { day: ['bellows_grouper', 'inkwell_cuttlefin', 'oyster_hoarder'], dusk: ['inkwell_cuttlefin', 'rigging_shark'], night: ['rigging_shark', 'golden_eel'] } },
+    { id: 'kelp_cathedral', name: 'The Kelp Cathedral', x: -47, z: -14, r: 11, tint: '#5c7a2c', strength: 0.5,
+      residents: { day: ['kelp_wraith', 'knotted_needlefish'], dusk: ['tallow_candlefish', 'kelp_wraith', 'lampfin_gurnard'], night: ['golden_eel', 'kelp_wraith'] } },
+    { id: 'stone_arch', name: 'The Stone Arch', x: 4, z: -42, r: 10, tint: '#2c5d8f', strength: 0.45,
+      residents: { day: ['weathervane_gar', 'spindrift_flyingfish', 'signalflag_tuna'], dusk: ['signalflag_tuna', 'mossneck'], night: ['mossneck', 'moonwake_ribbonfish'] } },
+    { id: 'golden_shallows', name: 'The Golden Shallows', x: 36, z: -30, r: 10, tint: '#c8b468', strength: 0.5,
+      residents: { day: ['shingle_skipper', 'saltcrust_sole', 'keelback_sawfish'], dusk: ['keelback_sawfish', 'sailcloth_ray'], night: ['glassfloat_jelly', 'saltcrust_sole'] } },
+    { id: 'the_deep', name: 'The Deep', x: 0, z: 63, r: 14, tint: '#1b2c74', strength: 0.55,
+      residents: { day: ['diamond_coelacanth', 'golden_eel', 'hullback_sunfish'], dusk: ['anchorjaw_leviathan', 'diamond_coelacanth'], night: ['drowned_lighthouse', 'anchorjaw_leviathan', 'golden_eel'] } },
+  ],
 
   // Kelp drawn as swaying silhouettes only when the kelp model is missing.
   kelpBeds: [{ x: -6, z: 15, r: 4.5, count: 14 }, { x: 13, z: 15, r: 3, count: 7 }],

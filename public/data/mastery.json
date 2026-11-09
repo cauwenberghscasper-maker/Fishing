@@ -39,8 +39,8 @@
     "perfectCastWeight": 0.4
   },
   "surge": {
-    "chanceAtGood": 0.3,
-    "chanceAtGreat": 0.65,
+    "chanceAtGood": 0.45,
+    "chanceAtGreat": 0.8,
     "beats": 3,
     "beatTime": 1.15,
     "window": 0.16,

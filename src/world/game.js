@@ -21,6 +21,7 @@ import { createWorkers } from './workers.js';
 import { createPlacement } from './placement.js';
 import { audio } from '../core/audio.js';
 import { createWadingDanger } from '../fishing/wading.js';
+import { createGrounds } from '../fishing/grounds.js';
 import { createSea } from '../fishing/sea.js';
 
 const ISLANDS = { driftwood_cove: driftwoodCove };
@@ -120,6 +121,18 @@ export async function startWorld({ canvas, state, events }) {
     },
   });
   fishing.setSea(sea);
+  // Named fishing grounds round the island: their colours, landmarks and residents by time of day.
+  const grounds = createGrounds({
+    state, island, water, fishSystem, lighting,
+    hooks: {
+      enter: (g, slot, names, first) => {
+        const when = slot === 'night' ? 'Tonight' : slot === 'dusk' ? 'At dusk' : 'By day';
+        fishing.hud.toast(first && names.length ? `${g.name} · ${when}: ${names.join(', ')}` : g.name, first ? 3.2 : 1.8);
+      },
+    },
+  });
+  let groundsLure = null;
+  events.on('cast:land', ({ x, z }) => { groundsLure = { x, z }; });
   const placement = createPlacement({ state, events, island, player, cameraRig, input, hud: fishing.hud, surface, under, fishing });
   events.on('build:start', (job) => {
     // Only from explore: never yank the player out of a cast or a fight.
@@ -210,6 +223,7 @@ export async function startWorld({ canvas, state, events }) {
       fishSystem.setViewer(cameraRig.target.x, cameraRig.target.z);
       fishSystem.update(dt, time);
       sea.update(dt);
+      grounds.update(dt, cameraRig.target, groundsLure); groundsLure = null;
       fishing.update(dt, realDt);
       wading.update(dt, state.world.mode === 'explore' && fishing.mode === 'explore' && fishSystem.authority !== false);
       workers.update(dt);
@@ -286,6 +300,7 @@ export async function startWorld({ canvas, state, events }) {
     predator: () => fishing.debugPredator(),
     wadeHunter: () => wading.force(),
     hotspot: (kind) => { const s = sea.force(kind); return s ? { kind: s.kind, x: s.x, z: s.z, fish: s.fish.length } : null; },
+    chest: (tier) => fishing.debugChest(tier),
     get hotspots() { return sea.spots.map((s) => ({ kind: s.kind, x: s.x, z: s.z, fish: s.fish.length })); },
     surge: () => fishing.debugSurge(),
     snag: () => fishing.debugSnag(),

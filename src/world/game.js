@@ -288,6 +288,8 @@ export async function startWorld({ canvas, state, events }) {
     hotspot: (kind) => { const s = sea.force(kind); return s ? { kind: s.kind, x: s.x, z: s.z, fish: s.fish.length } : null; },
     get hotspots() { return sea.spots.map((s) => ({ kind: s.kind, x: s.x, z: s.z, fish: s.fish.length })); },
     surge: () => fishing.debugSurge(),
+    snag: () => fishing.debugSnag(),
+    get minigameView() { return fishing.minigameView; },
     get surgeView() { return fishing.surgeView; },
     get tauntView() { return fishing.tauntView; },
     get fightVariant() { return fishing.fightVariant; },

@@ -140,7 +140,7 @@ export function createFishSystem({ state, island, water, splashes, events, under
       slot: null,
       shadow: null,
       // Elemental fish: 3x as common as the base tables near shore, up to 10x far out at sea (Casper 9 Nov: "way too rare").
-      variant: variant || rollVariant(state, state.world.islandId, state.world.weather, 3 + 7 * THREE.MathUtils.smoothstep(Math.hypot(p.x, p.z), 22, 60)),
+      variant: variant || rollVariant(state, state.world.islandId, state.world.weather, (3 + 7 * THREE.MathUtils.smoothstep(Math.hypot(p.x, p.z), 22, 60)) * (state.profile?.charm?.kind === 'element' && state.profile.charm.casts > 0 ? 4 : 1)),
       object: null,          // anchor Object3D (Agent E attaches variant looks here)
       model: null,
       swimUniforms: null,
@@ -488,6 +488,8 @@ export function createFishSystem({ state, island, water, splashes, events, under
       // commons thin out. 0 near shore, 1 at ~60 m from the island's heart.
       const far = THREE.MathUtils.smoothstep(Math.hypot(lure.x, lure.z), 20, 60);
       if (far) w *= rank === 0 ? 1 - 0.6 * far : 1 + rank * far * 1.6;
+      // A treasure chest's lucky charm (treasure.js): rare fish come to the lure for a few casts.
+      if (state.profile?.charm?.kind === 'rare' && state.profile.charm.casts > 0) w *= 1 + rank * 2;
       // Variety: species you just caught bite less, ones missing from your Fishdex bite more.
       const recent = recentCatches.filter((id) => id === f.id).length;
       if (recent) w *= Math.pow(0.45, recent);

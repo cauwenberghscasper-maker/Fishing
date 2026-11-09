@@ -86,7 +86,19 @@ export function shopSheet(ctx, { tab = 'sell', focus = null } = {}) {
     onClose: () => ui.close(),
   });
   const drawer = Drawer(place.drawerHost);
-  let drawerFor = null;   // re-render the open drawer after a purchase
+  let drawerFor = null;
+  // Your money, always in view while you shop (Casper 9 Nov).
+  const purseCoins = h('span.purse__coins.t-num');
+  const pursePearls = h('span.t-num');
+  const pursePearlBox = h('span.purse__pearls', ico('pearl'), pursePearls);
+  const purse = h('div.purse__plate.plaque.shop-purse', { role: 'status', 'aria-label': 'Money available' }, ico('coin'), purseCoins, pursePearlBox);
+  place.root.querySelector('.place__top')?.insertBefore(purse, place.root.querySelector('.place__close'));
+  function refreshPurse() {
+    purseCoins.textContent = fmt(state.profile.coins);
+    pursePearls.textContent = fmt(state.profile.pearls);
+    pursePearlBox.hidden = state.profile.pearls <= 0;
+  }
+  refreshPurse();   // re-render the open drawer after a purchase
 
   // the shopkeeper, behind the counter (a cut-out painting; left out until it exists)
   const keeper = h('div.shopkeeper');
@@ -132,7 +144,7 @@ export function shopSheet(ctx, { tab = 'sell', focus = null } = {}) {
     id: 'shop',
     el: place.root,
     layerClass: 'is-place',
-    refresh: () => { if (gate(sig(), state.profile.coins, prices)) render(); },
+    refresh: () => { refreshPurse(); if (gate(sig(), state.profile.coins, prices)) render(); },
     onClose: () => detachAllGearPreviews(),
     dismiss: () => { if (drawer.isOpen) drawer.close(); else ui.close(); },
   };

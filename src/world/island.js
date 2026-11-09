@@ -99,8 +99,30 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
     obj.userData.assetId = id;
     animParts.register(obj);   // wheels, gears, bells, floats, chimney smoke (named nodes)
     obj.userData.colliders = collidersFor(id, model.entry, x, z, rot || 0, (scale || 1) * (Number(model.entry.scale) || 1));
+    // Buildings (Casper 9 Nov: "can walk through close placed buildings"): a building whose manifest
+    // shape is missing or much smaller than what you see gets its own walls, a box at ~80% of the
+    // model's footprint, so two buildings side by side never leave a gap to walk through.
+    if (target === groups.buildings && model.entry.placement !== 'water') obj.userData.colliders = buildingColliders(obj, id, x, z, rot || 0, obj.userData.colliders);
     target.add(obj);
     return obj;
+  }
+
+  const _box = new THREE.Box3();
+  function buildingColliders(obj, id, x, z, rot, shapes) {
+    // Footprint in the model's own frame (unrotated), then rotated like the prop.
+    const ry = obj.rotation.y;
+    obj.rotation.y = 0;
+    obj.updateMatrixWorld(true);
+    _box.setFromObject(obj, true);
+    obj.rotation.y = ry;
+    obj.updateMatrixWorld(true);
+    const w = (_box.max.x - _box.min.x) * 0.8, d = (_box.max.z - _box.min.z) * 0.8;
+    if (!(w > 0.4 && d > 0.4)) return shapes;
+    const seen = shapes.reduce((a, c) => a + (c.type === 'box' ? 4 * c.hw * c.hd : Math.PI * c.r * c.r), 0);
+    if (seen >= w * d * 0.45) return shapes;
+    const cx = (_box.min.x + _box.max.x) / 2 - x, cz = (_box.min.z + _box.max.z) / 2 - z;
+    const c = Math.cos(rot), s = Math.sin(rot);
+    return [...shapes, { type: 'box', x: x + cx * c + cz * s, z: z - cx * s + cz * c, hw: w / 2, hd: d / 2, rot, cos: Math.cos(rot), sin: Math.sin(rot), source: `${id}:footprint` }];
   }
 
   function seeded(seed) {
@@ -231,8 +253,13 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
     const modelId = pickAsset('world', modelChain(id, b));
     if (!modelId) { if (prev) prev.obj?.removeFromParent(); buildingObjs[id] = { ...b, ...spot, obj: null }; return; }
     if (prev?.obj && prev.modelId === modelId && prev.x === spot.x && prev.z === spot.z) {
-      prev.obj.rotation.y = spot.rot;
+      if (prev.obj.rotation.y !== spot.rot) {
+        prev.obj.rotation.y = spot.rot;
+        const entry = assetEntry('world', modelId);
+        prev.obj.userData.colliders = buildingColliders(prev.obj, modelId, spot.x, spot.z, spot.rot, collidersFor(modelId, entry, spot.x, spot.z, spot.rot, Number(entry?.scale) || 1));
+      }
       buildingObjs[id] = { ...prev, ...b, ...spot };
+      rebuildColliders();
       return;
     }
     const obj = await addProp(modelId, spot.x, spot.z, spot.rot, 1, false, groups.buildings);
@@ -248,6 +275,7 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
     buildingObjs[id] = { ...b, ...spot, obj, modelId, deck };
     if (animate) construct(obj, prev?.obj);
     else prev?.obj?.removeFromParent();
+    rebuildColliders();   // blocks at once (a moved building no longer blocks where it was)
   }
 
   // Construction: the old model sinks into a dust cloud, the new one grows up with a bounce

@@ -312,3 +312,11 @@
 .reveal__element { font-size: clamp(3rem, 19vw, 6.4rem); }
 .reveal__stage { overflow: hidden; }
 .reveal__hero { height: 100%; max-height: min(36vh, 340px); min-height: 0; }
+
+/* The purse in the shop's header (Casper 9 Nov: show the money you have while shopping). */
+.place__top .shop-purse { margin-left: auto; margin-right: 10px; height: 40px; padding: 0 14px 0 6px; }
+.place__top .shop-purse svg { width: 26px; height: 26px; }
+.place__top .shop-purse .purse__coins { font-size: var(--fs-l); }
+.place__top .shop-purse .purse__pearls { margin-left: 8px; font-size: var(--fs-m); }
+.place__top .shop-purse .purse__pearls svg { width: 18px; height: 18px; }
+@media (max-width: 380px) { .place__top .shop-purse .purse__pearls { display: none; } }

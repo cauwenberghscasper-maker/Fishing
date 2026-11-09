@@ -3,11 +3,13 @@ import './theme.css';
 import './ui.css';
 import './places.css';
 import './kit.css';
+import './treasure.css';
 import { h, ico, fmt, fmtKg, money, artImg } from './dom.js';
 import { economy } from '../economy/index.js';
 import { artPath } from '../economy/data.js';
 import { fullName } from '../economy/rules.js';
 import { catchReveal } from './screens/reveal.js';
+import { treasureChest } from './screens/treasure.js';
 import { sfx, initSfx } from './sfx.js';
 import { shopSheet } from './screens/shop.js';
 import { travelSheet } from './screens/travel.js';
@@ -129,11 +131,13 @@ export async function startUI({ root, state, events }) {
   const rateEl = h('div.purse__rate', rateNum, rateUnit, rateFrom);
   const coolerCount = h('span.badge-count.pebble.t-num');
   const coolerBtn = h('button.btn.btn--round', { 'aria-label': 'Cooler', on: { click: () => ui.openCooler() } }, ico('cooler'), coolerCount);
+  // The shop is always one tap away (Casper 9 Nov), wherever you stand.
+  const shopBtn = h('button.btn.btn--round', { 'aria-label': 'Shop', on: { click: () => ui.openShop({ tab: state.profile.cooler.length ? 'sell' : 'buy' }) } }, ico('scale'));
   const logBtn = h('button.btn.btn--round', { 'aria-label': 'Logbook', on: { click: () => ui.openLogbook() } }, ico('logbook'));
   const setBtn = h('button.btn.btn--round', { 'aria-label': 'Settings', on: { click: () => ui.openSettings() } }, ico('dividers'));
   const hudTop = h('div.hud-top',
     h('div.purse', plate, rateEl),
-    h('div.hud-buttons', coolerBtn, logBtn, setBtn));
+    h('div.hud-buttons', shopBtn, coolerBtn, logBtn, setBtn));
 
   let shownCoins = state.profile.coins;
   let tween = 0;
@@ -230,6 +234,8 @@ export async function startUI({ root, state, events }) {
   events.on('coins:changed', ({ coins }) => { animateCoins(coins); refreshHud(); current?.refresh?.(); });
   events.on('profile:changed', () => { refreshHud(); current?.refresh?.(); });
   events.on('catch:landed', (info) => open(catchReveal(ctx, info), { queued: true }));
+  // A sunken chest hauled up on the line: open it and play its reels.
+  events.on('treasure:open', ({ tier = 'wood' } = {}) => open(treasureChest(ctx, { tier, onDone: () => events.emit('treasure:closed', { tier }) }), { queued: true }));
   events.on('offline:ready', () => {
     if (current?.id === 'offline') current.refresh?.();
     else if (!queue.some((v) => v.id === 'offline')) open(offlineLetter(ctx), { queued: true });

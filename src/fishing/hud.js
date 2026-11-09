@@ -341,12 +341,13 @@ export function createHud({ root }) {
         ring(kx, ky, 22, theme.gold, 2);
       }
 
-      // Slingshot band from the cast button to the thumb.
+      // Slingshot band from the fisher to the thumb (it pulls from the fisher: room all round).
       const a = frame.aim;
       if (a) {
         const c = buttonCentre();
-        const px = c.x + a.drag.x, py = c.y + a.drag.y;
-        const inDead = a.dragLength <= a.deadZone;
+        const o = a.centre ? { x: a.centre.x, y: a.centre.y, r: 26 } : c;
+        const px = o.x + a.drag.x, py = o.y + a.drag.y;
+        const inDead = !a.hasAim;
         const col = inDead ? theme.danger : theme.paper;
         const nx = -a.drag.y / (a.dragLength || 1), ny = a.drag.x / (a.dragLength || 1);
         g.strokeStyle = col;
@@ -354,7 +355,7 @@ export function createHud({ root }) {
         g.lineWidth = 3.5 - (a.power || 0) * 1.6;
         g.globalAlpha = 0.75 + (a.power || 0) * 0.25;
         for (const s of [-1, 1]) {
-          const sx = c.x + nx * c.r * 0.55 * s, sy = c.y + ny * c.r * 0.55 * s;
+          const sx = o.x + nx * o.r * 0.55 * s, sy = o.y + ny * o.r * 0.55 * s;
           if (img.band && !inDead) {
             // Painted rope band stretched from the button to the thumb.
             const len = Math.hypot(px - sx, py - sy);
@@ -374,15 +375,15 @@ export function createHud({ root }) {
         g.fillStyle = col;
         g.beginPath(); g.arc(px, py, 9, 0, Math.PI * 2); g.fill();
         // Power ring around the button.
-        const p = Math.min(1, Math.max(0, (a.dragLength - a.deadZone) / (a.maxDrag - a.deadZone)));
+        const p = Math.min(1, Math.max(0, a.power || 0));
         g.strokeStyle = theme.gold;
         g.lineWidth = 4;
         g.beginPath();
         g.arc(c.x, c.y, c.r + 9, -Math.PI / 2, -Math.PI / 2 + p * Math.PI * 2);
         g.stroke();
         if (inDead) {
-          ring(c.x, c.y, a.deadZone, theme.danger, 1.5, 0.6);
-          label(a.hasAim ? 'Release to cancel' : 'Pull back to aim', c.x - c.r - 6, c.y - c.r - 24, { size: 14, align: 'right', font: theme.fontBody });
+          ring(o.x, o.y, 26, theme.danger, 1.5, 0.6);
+          label((a.moved || 0) > a.deadZone ? 'Release to cancel' : 'Pull away from your fisher to aim', c.x - c.r - 6, c.y - c.r - 24, { size: 14, align: 'right', font: theme.fontBody });
         }
         if (a.reticle && a.hasAim) {
           const txt = a.valid ? `${a.band}  ${a.depth.toFixed(1)} m${a.fish ? `  ·  ${a.fish} fish` : ''}` : 'No water there';

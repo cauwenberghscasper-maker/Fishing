@@ -440,6 +440,16 @@ export const economy = {
     return { ok: true, total, count: list.length };
   },
 
+  /** A fish won from a treasure chest: lands like a catch (reveal, logbook), no fight, no rod wear. */
+  grantFish(payload) { onCaught(payload); },
+  /** A treasure chest's winnings (treasure.js): coins and pearls straight into the purse. */
+  grantTreasure({ coins = 0, pearls = 0 } = {}) {
+    if (coins > 0) addCoins(Math.round(coins));
+    if (pearls > 0) P().pearls += Math.round(pearls);
+    changed('coins', 'pearls');
+    return { coins, pearls };
+  },
+
   // --- gear
   owns: (slot, id) => {
     const item = itemOf(data(), slot, id);

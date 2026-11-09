@@ -16,6 +16,7 @@ const DEFAULTS = {
     frenzy: { weight: 5, label: 'Feeding frenzy', color: '#f4e3b0', dur: [55, 80], minDepth: 3, schools: [1, 2], extra: [2, 3] },
     glimmer: { weight: 3, label: 'Glimmer', color: '#7fe8ff', dur: [45, 70], minDepth: 5, count: [1, 3], homeElement: 0.6 },
     giant: { weight: 2, label: 'Giant', color: '#ff9a6a', dur: [60, 90], minDepth: 7, minRank: 2 },
+    chest: { weight: 0.45, label: 'Sunken chest', color: '#ffcf5a', dur: [80, 120], minDepth: 2 },
   },
   reach: { beyondShore: [6, 0.85] },
 };
@@ -93,8 +94,14 @@ export function createSea({ state, events, fishSystem, island, water, splashes, 
     } else if (kindId === 'giant') {
       const pool = species((info) => (TIER_RANK[info.tier] ?? 0) >= (k.minRank ?? 2) && info.tier !== 'boss');
       if (pool.length) tag(fishSystem.spawnAt(pick(pool), s.x, s.z, { r: 6 }));
+    } else if (kindId === 'chest') {
+      // A sunken chest (treasure.js): no fish, a glint and a column of bubbles. Cast onto it to haul it up.
+      const t = k.tiers || { wood: 70, silver: 24, gold: 6 };
+      let r = Math.random() * Object.values(t).reduce((a, b) => a + b, 0);
+      s.chest = Object.keys(t).find((id) => (r -= t[id]) <= 0) || 'wood';
+      s.label = k.labels?.[s.chest] || k.label;
     }
-    if (!s.fish.length) return null;
+    if (!s.fish.length && !s.chest) return null;
     spots.push(s);
     hooks.announce(s);
     events.emit('sea:hotspot', { id: s.id, kind: s.kind, x: s.x, z: s.z });
@@ -122,6 +129,10 @@ export function createSea({ state, events, fishSystem, island, water, splashes, 
       s.fx = 0.35;
       const f = pick(live);
       if (f) { water.addRipple(f.pos.x, f.pos.z, 0.35); if (Math.random() < 0.4) splashes.splash(f.pos.x, f.pos.z, 0.25); }
+    } else if (s.kind === 'chest') {
+      s.fx = 0.22;
+      water.addRipple(s.x + rand(-0.4, 0.4), s.z + rand(-0.4, 0.4), 0.18);   // bubbles breaking
+      if (Math.random() < 0.18) splashes.splash(s.x + rand(-0.3, 0.3), s.z + rand(-0.3, 0.3), 0.2);
     } else if (s.kind === 'giant') {
       s.fx = 0.9;
       const f = live[0];
@@ -139,7 +150,7 @@ export function createSea({ state, events, fishSystem, island, water, splashes, 
         s.x += (live.reduce((a, f) => a + f.pos.x, 0) / live.length - s.x) * Math.min(1, dt * 0.5);
         s.z += (live.reduce((a, f) => a + f.pos.z, 0) / live.length - s.z) * Math.min(1, dt * 0.5);
       }
-      if (s.t > s.dur || !live.length) { close(s); continue; }
+      if (s.t > s.dur || (!live.length && !s.chest)) { close(s); continue; }
       effects(s, dt);
     }
     nextIn -= dt;
@@ -152,6 +163,13 @@ export function createSea({ state, events, fishSystem, island, water, splashes, 
   return {
     update,
     get spots() { return spots; },
+    /** A cast that lands on a sunken chest claims it (the spot closes); returns the spot or null. */
+    claimChest(x, z, r = 2.8) {
+      const s = spots.find((sp) => sp.chest && Math.hypot(sp.x - x, sp.z - z) < r);
+      if (!s) return null;
+      close(s);
+      return s;
+    },
     /** Debug: open a hot spot of a kind now. */
     force(kind = 'frenzy') { return open(cfg.kinds[kind] ? kind : 'frenzy'); },
   };

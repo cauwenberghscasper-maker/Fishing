@@ -1,0 +1,97 @@
+/* Treasure chest opening + slot reels (screens/treasure.js). All drawn in CSS; tiers recolour it. */
+.modal-layer.is-chest { background: radial-gradient(ellipse at 50% 38%, rgba(40, 24, 6, 0.55), rgba(4, 10, 16, 0.92) 70%); display: grid; place-items: center; }
+.chest {
+  --metal: #b88a3a; --metal-hi: #f3d27e; --wood: #7a4a22; --wood-lo: #4a2a10; --glow: #ffd36b;
+  --cell: min(78px, 19vw);
+  position: relative; width: min(420px, calc(100vw - 32px)); display: flex; flex-direction: column; align-items: center; gap: 14px;
+  color: #fff3d6; font-family: var(--font-body); outline: none;
+}
+.chest.is-silver { --metal: #9aa8b4; --metal-hi: #eef6ff; --glow: #c9ecff; --wood: #5c4a3a; --wood-lo: #33261a; }
+.chest.is-gold { --metal: #d39b1c; --metal-hi: #fff0a6; --glow: #ffe27a; --wood: #8a3e1a; --wood-lo: #4e1c08; }
+.chest__title { font-family: var(--font-display); font-size: var(--fs-xl); letter-spacing: 0.04em; color: var(--metal-hi); text-shadow: 0 2px 0 #2a1606, 0 0 18px color-mix(in srgb, var(--glow) 60%, transparent); opacity: 0; transform: translateY(-8px); transition: 0.4s; }
+.chest.is-open .chest__title { opacity: 1; transform: none; }
+
+/* the chest */
+.chest__box { position: relative; width: 168px; height: 128px; margin-top: 28px; transform-origin: 50% 100%; }
+.chest.is-shaking .chest__box { animation: chest-rattle 0.18s linear infinite; }
+@keyframes chest-rattle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-3deg) translateY(-2px); } 75% { transform: rotate(3deg) translateY(-1px); } }
+.chest__body {
+  position: absolute; inset: 52px 0 0 0; border-radius: 6px 6px 10px 10px;
+  background:
+    linear-gradient(90deg, transparent 12%, var(--metal) 12% 19%, transparent 19% 81%, var(--metal) 81% 88%, transparent 88%),
+    repeating-linear-gradient(0deg, var(--wood) 0 17px, var(--wood-lo) 17px 19px);
+  border: 4px solid var(--metal); box-shadow: inset 0 -10px 0 rgba(0, 0, 0, 0.25), 0 14px 26px rgba(0, 0, 0, 0.55);
+}
+.chest__lock { position: absolute; left: 50%; top: -6px; width: 24px; height: 30px; margin-left: -12px; border-radius: 4px 4px 10px 10px; background: linear-gradient(var(--metal-hi), var(--metal)); border: 2px solid #3a2208; }
+.chest__lock::after { content: ''; position: absolute; left: 50%; top: 10px; width: 6px; height: 10px; margin-left: -3px; border-radius: 3px; background: #2a1606; }
+.chest__lid {
+  position: absolute; left: 0; right: 0; top: 6px; height: 54px; border-radius: 80px 80px 6px 6px / 46px 46px 6px 6px;
+  background:
+    linear-gradient(90deg, transparent 12%, var(--metal) 12% 19%, transparent 19% 81%, var(--metal) 81% 88%, transparent 88%),
+    repeating-linear-gradient(90deg, var(--wood) 0 20px, var(--wood-lo) 20px 22px);
+  border: 4px solid var(--metal); transform-origin: 50% 0; transition: transform 0.55s cubic-bezier(.3, 1.8, .5, 1);
+  z-index: 2;
+}
+.chest.is-open .chest__lid { transform: perspective(300px) translateY(-30px) rotateX(-68deg); }
+.chest__glow { position: absolute; left: 10%; right: 10%; top: 44px; height: 26px; border-radius: 50%; background: var(--glow); filter: blur(10px); opacity: 0; transition: opacity 0.4s 0.15s; z-index: 1; }
+.chest.is-open .chest__glow { opacity: 0.95; }
+.chest__rays {
+  position: absolute; left: 50%; top: 56px; width: 440px; height: 440px; margin: -220px 0 0 -220px; border-radius: 50%; pointer-events: none;
+  background: repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--glow) 55%, transparent) 0 7deg, transparent 7deg 22deg);
+  mask: radial-gradient(circle, #000 18%, transparent 68%); -webkit-mask: radial-gradient(circle, #000 18%, transparent 68%);
+  opacity: 0; transform: scale(0.3); transition: opacity 0.5s, transform 0.8s cubic-bezier(.2, 1.4, .4, 1);
+}
+.chest.is-open .chest__rays { opacity: 0.85; transform: scale(1); animation: chest-rays 14s linear infinite; }
+.chest.is-win .chest__rays { opacity: 1; animation-duration: 4s; }
+@keyframes chest-rays { to { rotate: 360deg; } }
+
+/* coins flying out */
+.chest__coins { position: absolute; left: 50%; top: 110px; width: 0; height: 0; pointer-events: none; z-index: 5; }
+.chest__coin { position: absolute; width: 18px; height: 18px; margin: -9px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff6c2, #f2c443 45%, #9c6a12); box-shadow: 0 0 6px rgba(255, 220, 120, 0.7); animation: chest-coin 1.4s cubic-bezier(.2, .7, .4, 1) forwards; }
+@keyframes chest-coin {
+  0% { transform: translate(0, 0) rotate(0) scale(0.4); opacity: 0; }
+  12% { opacity: 1; }
+  55% { transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(1); }
+  100% { transform: translate(calc(var(--dx) * 1.2), calc(var(--dy) * -0.2 + 160px)) rotate(calc(var(--r) * 2)) scale(0.9); opacity: 0; }
+}
+
+/* the reels */
+.chest__machine { display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0; transform: translateY(16px) scale(0.96); transition: 0.45s cubic-bezier(.2, 1.3, .4, 1); }
+.chest.is-ready .chest__machine { opacity: 1; transform: none; }
+.chest__reels {
+  position: relative; display: flex; gap: 8px; padding: 12px; border-radius: 16px;
+  background: linear-gradient(#3b2410, #20130a); border: 4px solid var(--metal);
+  box-shadow: inset 0 0 0 2px var(--metal-hi), 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 26px color-mix(in srgb, var(--glow) 25%, transparent);
+}
+.chest__window { position: relative; width: var(--cell); height: calc(var(--cell) * 1.5); overflow: hidden; border-radius: 10px; background: linear-gradient(#efe3c4, #fff8e6 45%, #e2d2ab); box-shadow: inset 0 8px 10px rgba(0, 0, 0, 0.35), inset 0 -8px 10px rgba(0, 0, 0, 0.35); transition: box-shadow 0.25s; }
+.chest__window::after { content: ''; position: absolute; inset: 0; background: linear-gradient(rgba(30, 16, 4, 0.45), transparent 28%, transparent 72%, rgba(30, 16, 4, 0.45)); pointer-events: none; }
+.chest__strip { position: absolute; left: 0; right: 0; top: calc(var(--cell) * -0.25); will-change: transform; }
+.chest__sym { width: var(--cell); height: var(--cell); display: grid; place-items: center; }
+.chest__sym svg { width: 74%; height: 74%; filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.25)); }
+.chest__payline { position: absolute; left: 6px; right: 6px; top: 50%; height: 2px; background: color-mix(in srgb, var(--glow) 70%, transparent); box-shadow: 0 0 8px var(--glow); pointer-events: none; opacity: 0.6; }
+.chest.is-tease .chest__window:nth-child(3) { box-shadow: inset 0 8px 10px rgba(0, 0, 0, 0.35), 0 0 0 3px var(--glow), 0 0 26px var(--glow); animation: chest-tease 0.3s ease-in-out infinite alternate; }
+@keyframes chest-tease { to { transform: scale(1.04); } }
+.chest__window.is-hit { box-shadow: 0 0 0 3px var(--glow), 0 0 30px var(--glow); animation: chest-hit 0.5s ease-out 3; }
+@keyframes chest-hit { 50% { transform: translateY(-6px) scale(1.06); } }
+
+.chest__controls { display: flex; align-items: center; gap: 14px; }
+.chest__pulls { font-size: var(--fs-s); opacity: 0.85; min-width: 9ch; text-align: right; }
+.chest__lever {
+  position: relative; display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 22px 0 10px; border-radius: 26px; border: 3px solid #3a2208;
+  background: linear-gradient(var(--metal-hi), var(--metal)); color: #2a1606; font-family: var(--font-display); font-size: var(--fs-l); cursor: pointer;
+  box-shadow: 0 5px 0 #3a2208, 0 8px 18px rgba(0, 0, 0, 0.5); transition: transform 0.1s, box-shadow 0.1s, filter 0.2s;
+}
+.chest__lever:active, .chest__lever.is-pulled { transform: translateY(4px); box-shadow: 0 1px 0 #3a2208, 0 4px 10px rgba(0, 0, 0, 0.5); }
+.chest__lever:disabled { filter: grayscale(0.7) brightness(0.8); cursor: default; }
+.chest__knob { width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff9a8a, #c0261a 60%, #6a0e08); border: 2px solid #3a2208; }
+.chest__lever.is-pulled .chest__knob { animation: chest-knob 0.5s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes chest-knob { 40% { transform: translateY(14px) scale(0.9); } }
+
+.chest__prize { min-height: 58px; text-align: center; display: flex; flex-direction: column; gap: 2px; opacity: 0; transform: scale(0.7); transition: 0.35s cubic-bezier(.2, 1.6, .4, 1); }
+.chest__prize.is-shown { opacity: 1; transform: none; }
+.chest__prize b { font-family: var(--font-display); font-size: var(--fs-l); color: var(--metal-hi); letter-spacing: 0.06em; }
+.chest__prize.is-big b { font-size: var(--fs-xl); text-shadow: 0 0 16px var(--glow); animation: chest-big 0.6s ease-in-out 3 alternate; }
+@keyframes chest-big { to { transform: scale(1.12); } }
+.chest__prize span { font-size: var(--fs-m); }
+.chest__collect { height: 46px; padding: 0 30px; border-radius: 23px; border: 3px solid #3a2208; background: linear-gradient(#a6e08a, #4f9a36); color: #13300a; font-family: var(--font-display); font-size: var(--fs-l); box-shadow: 0 4px 0 #234a14; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { .chest__rays { animation: none !important; } }

@@ -35,6 +35,9 @@ const fragmentShader = /* glsl */`
   uniform float uLight;
   uniform float uRefract;
   uniform vec4 uRipples[${MAX_RIPPLES}];
+  // Fishing grounds (src/fishing/grounds.js): soft circles that tint the sea's colour (x, z, radius, strength).
+  uniform vec4 uTintArea[8];
+  uniform vec3 uTintColor[8];
   varying vec3 vWorldPos;
   #include <fog_pars_fragment>
 
@@ -107,6 +110,12 @@ const fragmentShader = /* glsl */`
     vec3 scatter = mix(uShallow, uMid, smoothstep(0.25, 2.6, rDepth));
     scatter = mix(scatter, uDeep, smoothstep(2.2, 7.5, rDepth));
     scatter = mix(scatter, uAbyss, smoothstep(7.0, 18.0, rDepth));
+    for (int i = 0; i < 8; i++) {
+      vec4 a = uTintArea[i];
+      if (a.w <= 0.0) continue;
+      float k = (1.0 - smoothstep(a.z * 0.55, a.z, distance(vWorldPos.xz, a.xy))) * a.w;
+      scatter = mix(scatter, uTintColor[i] * (0.75 + 0.25 * smoothstep(0.0, 6.0, rDepth)), k);
+    }
     scatter *= uLight;
     vec3 col = refr * trans + scatter * (1.0 - trans);
 
@@ -165,9 +174,12 @@ export function createWater({ palette, sceneTarget, camera }) {
     uLight: { value: 1 },
     uRefract: { value: 0.022 },
     uRipples: { value: ripples },
+    uTintArea: { value: Array.from({ length: 8 }, () => new THREE.Vector4(0, 0, 1, 0)) },
+    uTintColor: { value: Array.from({ length: 8 }, () => new THREE.Color(0, 0, 0)) },
   }]);
   // merge() clones values; keep live references to the arrays/textures we update.
   uniforms.uRipples.value = ripples;
+  const tintArea = uniforms.uTintArea.value, tintColor = uniforms.uTintColor.value;
   uniforms.uNormalMap.value = normalMap;
   uniforms.uCaustic.value = causticMap;
   uniforms.tSceneColor.value = sceneTarget.texture;
@@ -189,10 +201,30 @@ export function createWater({ palette, sceneTarget, camera }) {
   mesh.name = 'water';
   mesh.frustumCulled = false;
   mesh.renderOrder = -10; // first in the surface pass; decals and line draw over it
+  // The open sea out to 6 km (Casper 9 Nov): a flat skirt round the detailed patch, same shader,
+  // with a square hole so the two never overlap. Fog hides its rim.
+  {
+    const s = new THREE.Shape([new THREE.Vector2(-3000, -3000), new THREE.Vector2(3000, -3000), new THREE.Vector2(3000, 3000), new THREE.Vector2(-3000, 3000)]);
+    s.holes.push(new THREE.Path([new THREE.Vector2(-210, -210), new THREE.Vector2(-210, 210), new THREE.Vector2(210, 210), new THREE.Vector2(210, -210)]));
+    const skirtGeo = new THREE.ShapeGeometry(s);
+    skirtGeo.rotateX(-Math.PI / 2);
+    const skirt = new THREE.Mesh(skirtGeo, material);
+    skirt.name = 'water-far';
+    skirt.frustumCulled = false;
+    skirt.renderOrder = -10;
+    mesh.add(skirt);
+  }
 
   return {
     mesh,
     uniforms,
+    /** Tint the sea in up to 8 soft circles (fishing grounds). list: [{ x, z, r, color, strength }]. */
+    setTints(list = []) {
+      for (let i = 0; i < 8; i++) {
+        const t = list[i];
+        if (t) { tintArea[i].set(t.x, t.z, t.r, t.strength ?? 0.6); tintColor[i].set(t.color); } else tintArea[i].w = 0;
+      }
+    },
     normalMap,
     // strength ~0.3 (nibble) .. 1.5 (big splash)
     addRipple(x, z, strength = 1, delay = 0) {

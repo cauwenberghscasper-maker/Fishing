@@ -13,6 +13,7 @@ import { createMastery, updateStreak } from './mastery.js';
 import { createSurge, islandElement } from './surge.js';
 import { createTaunt } from './taunt.js';
 import { createMinigames } from './minigames.js';
+import { createTreasure } from './treasure.js';
 import { variantInfo } from './variants.js';
 import { isElemental } from './variants.js';
 import { audio } from '../core/audio.js';
@@ -49,6 +50,9 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   let fightThrottle = 0;
   let reelTickTimer = 0;
   let retrieve = null;    // reel-in animation
+  let haul = null;        // a sunken chest coming up on the line: { t, spot, c, from, to, dur }
+  const treasure = createTreasure({ under, surface, island, water, splashes, events, audio });
+  events.on('treasure:closed', () => treasure.close());
   let modal = false;
   let held = [];          // fish shown at the catch until the catch moment ends (2–3 on a double/triple)
   let burst = null;       // the fish leaping out of the water into the player's hands
@@ -203,6 +207,9 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     const attraction = state.gear?.baitAttraction || 1;
     lureState = { x: c.x, z: c.z, perfect: c.perfect, attraction, taunt: 0 };
     taunt.reset();
+    // Landed on a sunken chest (sea.js): it comes up on the line instead of a fish.
+    const chest = sea?.claimChest?.(c.x, c.z);
+    if (chest) { startHaul(chest); return; }
     fishSystem.setLure(lureState);
     events.emit('cast:land', { x: c.x, z: c.z, depth: Math.round(c.depth * 100) / 100, perfect: Boolean(c.perfect) });
     if (c.perfect) { hud.toast('Perfect cast'); audio.perfect(); }
@@ -212,9 +219,61 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     refreshButton();
   }
 
+  // --- treasure haul ----------------------------------------------------------------------
+  function startHaul(spot) {
+    fishSystem.setLure(null);
+    hud.toast(spot.chest === 'gold' ? 'Something heavy… and golden!' : 'Something heavy on the line… a chest!', 2);
+    audio.perfect?.();
+    navigator.vibrate?.([30, 40, 60]);
+    const px = player.position.x, pz = player.position.z;
+    const dx = spot.x - px, dz = spot.z - pz, d = Math.hypot(dx, dz) || 1;
+    haul = { t: 0, spot, c: null, from: new THREE.Vector3(spot.x, -1.2, spot.z), to: new THREE.Vector3(px + (dx / d) * 1.3, 0, pz + (dz / d) * 1.3), dur: THREE.MathUtils.clamp(d * 0.06, 1.3, 3) };
+    treasure.lift(spot).then((c) => { if (haul) haul.c = c; else c.group.removeFromParent(); });
+    player.pose('reel');
+  }
+
+  function updateHaul(dt) {
+    const H = haul;
+    H.t += dt;
+    rod.tipWorld(tip);
+    const rise = 0.9;
+    const pos = lure.pos;
+    if (H.t < rise) {
+      // It breaks the surface: the line goes taut and the water boils.
+      const k = H.t / rise;
+      pos.set(H.from.x, THREE.MathUtils.lerp(H.from.y, 0, k * k), H.from.z);
+      if (Math.random() < dt * 14) splashes.splash(H.from.x + (Math.random() - 0.5), H.from.z + (Math.random() - 0.5), 0.3);
+      if (Math.random() < dt * 6) water.addRipple(H.from.x, H.from.z, 0.6);
+      cameraRig.shake(0.02);
+    } else {
+      const k = Math.min(1, (H.t - rise) / H.dur);
+      const e = k * k * (3 - 2 * k);
+      pos.lerpVectors(new THREE.Vector3(H.from.x, 0, H.from.z), H.to, e);
+      pos.y = Math.max(water.surfaceY(pos.x, pos.z) - 0.1, 0) + Math.sin(k * Math.PI) * 0.8 * (k > 0.7 ? 1 : 0.3);
+      if (Math.random() < dt * 10 && k < 0.85) water.addRipple(pos.x, pos.z, 0.35);
+      if (k >= 1) {
+        if (H.c) treasure.land(H.c, H.to.x, H.to.z, player.position.x, player.position.z, H.spot.chest);
+        haul = null;
+        line.hide();
+        lure.inWater = false;
+        player.pose(null);
+        setMode('explore');
+        return;
+      }
+    }
+    if (H.c) {
+      H.c.group.position.copy(pos);
+      H.c.group.rotation.y += dt * 0.8;
+      H.c.group.rotation.z = Math.sin(H.t * 5) * 0.12;
+    }
+    line.setTension(0.75);
+    line.setLength(tip.distanceTo(pos) * 1.0);
+    cameraRig.frame(player.position.x, player.position.z, pos.x, pos.z, { bias: 0.6, margin: 5 });
+  }
+
   // --- waiting / hook ----------------------------------------------------------------------
   function tryHook() {
-    if (mode !== 'wait' || flight.active || retrieve) return;
+    if (mode !== 'wait' || flight.active || retrieve || haul) return;
     const r = fishSystem.tryHook();
     if (r.result === 'hooked') startFight(r.fish);
     else if (r.result === 'spooked') { hud.toast('Too early, it fled'); audio.lost(); }
@@ -523,7 +582,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   function pressMain(x, y) {
     if (mode === 'explore') beginAim(x, y);
     else if (mode === 'wait') {
-      if (fishSystem.biteProgress() || flight.active || retrieve) tryHook();
+      if (haul) { /* hauling a chest */ } else if (fishSystem.biteProgress() || flight.active || retrieve) tryHook();
       else waitHold = { t: 0 };
     } else if (mode === 'fight') {
       reeling = true;
@@ -543,7 +602,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     if (mode === 'wait' && waitHold) {
       const quick = waitHold.t < 0.4;
       waitHold = null;
-      if (quick && !cancelled && !flight.active && !retrieve) taunt.tap();
+      if (quick && !cancelled && !flight.active && !retrieve && !haul) taunt.tap();
     }
   }
 
@@ -554,7 +613,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   gameEl?.addEventListener('pointerdown', (e) => {
     if (modal) return;
     if (mode === 'wait' && fishSystem.biteProgress()) tryHook();
-    else if (mode === 'wait' && !flight.active && !retrieve) taunt.tap();
+    else if (mode === 'wait' && !flight.active && !retrieve && !haul) taunt.tap();
     else if (mode === 'fight') {
       surgeTap = true;
       if (fight?.state.bowWindow) bowTap = true;
@@ -587,8 +646,9 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         if (mode === 'explore') {
           // Quick cast straight ahead of the player for keyboard users.
           const c = hud.buttonCentre();
+          const ps = screenOf(tmp2.set(player.position.x, player.position.y + 0.9, player.position.z));
           beginAim(c.x, c.y);
-          aim.pointer(c.x, c.y - aim.maxDrag * 0.6);
+          aim.pointer(ps.x, ps.y + aim.maxDrag * 0.7);   // pull straight down: cast straight ahead
         } else pressMain(0, 0);
       } else releaseMain(false);
     }
@@ -640,6 +700,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   }
 
   function update(dt, realDt) {
+    if (sea) treasure.sync(sea.spots);
+    treasure.update(dt, performance.now() / 1000);
     // Rod pose follows the hand.
     player.handAnchor.getWorldPosition(hand);
     let yaw = player.facing;
@@ -669,7 +731,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
 
     // Mode logic
     if (mode === 'aim') {
-      aim.update(realDt, tip, player.position);
+      aim.update(realDt, tip, player.position, screenOf(tmp2.set(player.position.x, player.position.y + 0.9, player.position.z)));
       if (aim.info.hasAim) player.faceTowards(aim.target.x, aim.target.z);
       // Feel: haptic ticks entering the perfect window and when a fish swims into the reticle,
       // a rope creak per quarter of pull-back.
@@ -682,6 +744,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
       else cameraRig.setFocus(player.position.x, 0, player.position.z + 1.5);
     } else if (mode === 'wait') {
       if (flight.active) updateFlight(dt);
+      else if (haul) updateHaul(dt);
       else if (retrieve) updateRetrieve(dt);
       else {
         taunt.update(realDt);
@@ -752,7 +815,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     // Line and lure
     if (line.active) {
       line.update(dt, tip, lure.pos, cameraRig.camera, (x, z) => water.surfaceY(x, z));
-      if (mode !== 'fight') line.setTension(fishSystem.biteProgress() ? 0.5 : 0);
+      if (mode !== 'fight') line.setTension(haul ? 0.75 : fishSystem.biteProgress() ? 0.5 : 0);
     }
     if (lure.model) {
       lure.model.visible = line.active;
@@ -774,7 +837,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     if (mode === 'aim') {
       const info = aim.info;
       frame.aim = {
-        drag: aim.dragVector, dragLength: aim.dragLength, deadZone: aim.deadZone, maxDrag: aim.maxDrag, power: aim.power,
+        drag: aim.dragVector, dragLength: aim.dragLength, deadZone: aim.deadZone, maxDrag: aim.maxDrag, power: aim.power, centre: aim.centre, moved: aim.moved,
         hasAim: info.hasAim, valid: info.valid, band: info.band.name, depth: info.depth, fish: info.fishInside,
         reticle: info.hasAim ? screenOf(aim.target) : null, perfect: aim.perfectNow,
       };
@@ -861,6 +924,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     },
     debugHook() { tryHook(); },
     setSea(s) { sea = s; },
+    /** Debug: haul a chest of a tier right now (as if a cast landed on one). */
+    debugChest(tier = 'gold') { const p = player.position; startHaul({ id: -Math.random(), chest: tier, x: p.x + 6, z: p.z + 6 }); setMode('wait'); line.show(tip, lure.pos, 0.3); return true; },
     // Debug: send a hunter at the fish on the line right now (double catch); call again once it's on for a triple.
     debugPredator() { return predation ? predation.force() : false; },
     debugSurge() { return surge ? surge.force() : false; },

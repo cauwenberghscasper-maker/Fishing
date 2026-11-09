@@ -85,23 +85,34 @@ export function applySwimToModel(object, bodyName) {
     uSwimA: { value: new THREE.Vector4(BODY_TYPES[bodyName] ?? 0, 0, 0.07, 1) },
     uSwimB: { value: new THREE.Vector4(0, 0, 0, 0) },
   };
+  // The bend works in the fish's own space (z -0.5..0.5). Compressed models (meshopt) keep their
+  // geometry quantized and put the scale/offset on the node, so each mesh bends in model space:
+  // mesh space -> model space, bend, back (identity for plain models).
+  object.updateMatrixWorld(true);
+  const rootInv = new THREE.Matrix4().copy(object.matrixWorld).invert();
   object.traverse((o) => {
     if (!o.isMesh) return;
+    const toModel = new THREE.Matrix4().multiplyMatrices(rootInv, o.matrixWorld);
+    const fromModel = toModel.clone().invert();
     const mats = Array.isArray(o.material) ? o.material : [o.material];
     const patched = mats.map((m) => {
       const mat = m.clone();
       mat.onBeforeCompile = (shader) => {
         shader.uniforms.uSwimA = uniforms.uSwimA;
         shader.uniforms.uSwimB = uniforms.uSwimB;
+        shader.uniforms.uSwimTo = { value: toModel };
+        shader.uniforms.uSwimFrom = { value: fromModel };
         shader.vertexShader = shader.vertexShader
           .replace('#include <common>', `#include <common>
             uniform vec4 uSwimA;
             uniform vec4 uSwimB;
+            uniform mat4 uSwimTo;
+            uniform mat4 uSwimFrom;
             ${GLSL_SWIM}`)
           .replace('#include <begin_vertex>', `#include <begin_vertex>
-            transformed = swimDisplace(transformed, uSwimA, uSwimB);`);
+            transformed = (uSwimFrom * vec4(swimDisplace((uSwimTo * vec4(transformed, 1.0)).xyz, uSwimA, uSwimB), 1.0)).xyz;`);
       };
-      mat.customProgramCacheKey = () => 'fish-swim-v1';
+      mat.customProgramCacheKey = () => 'fish-swim-v2';
       return mat;
     });
     o.material = Array.isArray(o.material) ? patched : patched[0];

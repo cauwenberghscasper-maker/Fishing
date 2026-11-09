@@ -97,3 +97,26 @@ if (missing.length) { console.log(`\nMISSING (${missing.length}) — registered 
 if (planned.length) console.log(`\nPLANNED (${planned.length}) — registered with planned: true, not generated yet (the game skips these):`), planned.forEach((p) => console.log('  ' + p));
 if (!unused.length && !missing.length) console.log(planned.length ? 'OK so far: everything shipped is used; planned art still to make.' : 'OK: every art file is used and every entry has its file.');
 if (unused.length || missing.length) process.exitCode = 1;
+
+// Wired check (Casper: "the game is missing already generated art"): a registered 2D art entry only counts
+// when game code asks for it: by its key, by a `prefix.${…}` template, or by its file path.
+{
+  const artFile = join(PUB, 'data', 'art.json');
+  if (existsSync(artFile)) {
+    const art = JSON.parse(readFileSync(artFile, 'utf8'));
+    const code = walk(join(ROOT, 'src')).filter((p) => /\.(js|css)$/.test(p)).map((p) => readFileSync(p, 'utf8')).join('\n');
+    const notWired = Object.entries(art).filter(([key, v]) => {
+      if (!v || v.planned) return false;
+      const prefix = key.split('.').slice(0, -1).join('.');
+      const prefix1 = key.split('.')[0];
+      return !(code.includes(`'${key}'`) || code.includes(`"${key}"`) || code.includes(`\`${key}\``)
+        || code.includes(`${prefix}.\${`) || code.includes("`" + prefix + ".") || code.includes(`'${prefix1}.' +`) || code.includes(`\`${prefix1}.\${`)
+        || (v.path && code.includes(v.path)));
+    }).map(([k]) => k);
+    if (notWired.length) {
+      console.log(`\nNOT SHOWN IN THE GAME (${notWired.length}) — made and registered, but no code asks for it:`);
+      notWired.forEach((k) => console.log('  ' + k));
+      process.exitCode = 1;
+    }
+  }
+}

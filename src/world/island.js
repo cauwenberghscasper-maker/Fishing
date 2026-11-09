@@ -106,7 +106,12 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
 
   function rebuildColliders() {
     colliders = [];
-    const visit = (o) => { if (o.userData.colliders && o.visible !== false && !o.userData.ghost) colliders.push(...o.userData.colliders); };
+    const visit = (o) => {
+      if (!o.userData.colliders || o.visible === false || o.userData.ghost) return;
+      // A building counts only through its current level's model.
+      if (o.userData.building && buildingObjs[o.userData.building]?.obj !== o) return;
+      colliders.push(...o.userData.colliders);
+    };
     for (const g of Object.values(groups)) g.children.forEach(visit);
     extraGroups.forEach((g) => g.children.forEach(visit));
     if (debugColliders) {
@@ -229,6 +234,8 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
     const obj = await addProp(modelId, spot.x, spot.z, spot.rot, 1, false, groups.buildings);
     if (!obj) return;
     obj.userData.building = id;
+    // Any older copy of this building (another level, a replay of island:changed) goes.
+    for (const c of [...groups.buildings.children]) if (c !== obj && c !== prev?.obj && c.userData.building === id) c.removeFromParent();
     const entry = assetEntry('world', modelId);
     let deck = null;
     if (entry?.placement === 'water') {

@@ -165,6 +165,16 @@ export const driftwoodCove = {
     { asset: ['beach_grass_b'], x: 22.0, z: 18.0, rot: 2.0, plot: 'lantern_atoll' },
     { asset: ['shells_a'], x: 28.5, z: 27.5, rot: 0.2, plot: 'lantern_atoll' },
     { asset: ['mooring_dolphin'], x: 36.5, z: 21.0, rot: 0.3, plot: 'lantern_atoll' },
+    { asset: ['starfish_a'], x: 30.5, z: 27.0, rot: 1.2, plot: 'lantern_atoll' },
+    { asset: ['starfish_a'], x: 21.0, z: 19.5, rot: 0.4, plot: 'lantern_atoll' },
+    { asset: ['seaweed_pile_a'], x: 34.0, z: 21.0, rot: 2.0, plot: 'lantern_atoll' },
+    { asset: ['coconut_pile'], x: 22.0, z: 23.5, rot: 0.6, plot: 'lantern_atoll' },
+    { asset: ['seaweed_pile_a'], x: 28.0, z: 6.5, rot: 0.9, plot: 'sunset_dunes' },
+    { asset: ['starfish_a'], x: 35.0, z: 6.8, rot: 2.2, plot: 'sunset_dunes' },
+    { asset: ['shells_a'], x: 23.5, z: 3.0, rot: 1.4, plot: 'sunset_dunes' },
+    { asset: ['rock_m'], x: -44.5, z: 4.0, rot: 1.0, plot: 'gull_headland' },
+    { asset: ['rock_s'], x: -29.0, z: 11.0, rot: 0.5, plot: 'gull_headland' },
+    { asset: ['shells_a'], x: -31.0, z: 12.5, rot: 2.5, plot: 'gull_headland' },
   ],
 
   // Scattered beds (seeded so the cove looks the same every time).
@@ -172,6 +182,11 @@ export const driftwoodCove = {
     { asset: ['kelp_a'], x: -6, z: 15, r: 4.2, count: 11, scale: [1.2, 1.9], seed: 3, minDepth: 1.8 },
     { asset: ['kelp_a'], x: 13, z: 14.5, r: 2.8, count: 6, scale: [1.1, 1.7], seed: 8, minDepth: 1.8 },
     { asset: ['kelp_a'], x: -13, z: 9, r: 2.2, count: 4, scale: [0.9, 1.3], seed: 5, minDepth: 1.2 },
+    // Kelp forests off the outer ring, so the new water has life in it.
+    { asset: ['kelp_a'], x: 30, z: 12, r: 5, count: 14, scale: [1.2, 2.0], seed: 11, minDepth: 1.6 },
+    { asset: ['kelp_a'], x: -36, z: 16, r: 5, count: 14, scale: [1.1, 1.9], seed: 12, minDepth: 1.6 },
+    { asset: ['kelp_a'], x: 37, z: 23, r: 4, count: 10, scale: [1.0, 1.8], seed: 13, minDepth: 1.6 },
+    { asset: ['kelp_a'], x: 18, z: 28, r: 4, count: 9, scale: [1.0, 1.7], seed: 14, minDepth: 1.6 },
   ],
 
   // Where each fish habitat lives (fish-behaviour.json `habitat`). Areas are circles.

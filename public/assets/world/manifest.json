@@ -4439,5 +4439,104 @@
     },
     "alias_of": "pier_end",
     "pier_slot": 6
+  },
+  "net_rig_l1": {
+    "path": null,
+    "status": "concept",
+    "concept": "art/concepts/world/net_rig_l1.webp",
+    "category": "building",
+    "building": "net_rig",
+    "level": 1,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
+    "story": "Level 1, Stake Net",
+    "planned": true
+  },
+  "net_rig_l2": {
+    "path": null,
+    "status": "concept",
+    "concept": "art/concepts/world/net_rig_l2.webp",
+    "category": "building",
+    "building": "net_rig",
+    "level": 2,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
+    "story": "Level 2, Tidal Weir",
+    "planned": true
+  },
+  "net_rig_l3": {
+    "path": null,
+    "status": "concept",
+    "concept": "art/concepts/world/net_rig_l3.webp",
+    "category": "building",
+    "building": "net_rig",
+    "level": 3,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
+    "story": "Level 3, Drift-net Raft",
+    "planned": true
+  },
+  "reel_mill_l1": {
+    "path": null,
+    "status": "concept",
+    "concept": "art/concepts/world/reel_mill_l1.webp",
+    "category": "building",
+    "building": "reel_mill",
+    "level": 1,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
+    "story": "Level 1, Bell Rack",
+    "planned": true
+  },
+  "reel_mill_l2": {
+    "path": null,
+    "status": "concept",
+    "concept": "art/concepts/world/reel_mill_l2.webp",
+    "category": "building",
+    "building": "reel_mill",
+    "level": 2,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
+    "story": "Level 2, Tide Wheel",
+    "planned": true
+  },
+  "reel_mill_l3": {
+    "path": null,
+    "status": "concept",
+    "concept": "art/concepts/world/reel_mill_l3.webp",
+    "category": "building",
+    "building": "reel_mill",
+    "level": 3,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
+    "story": "Level 3, Clockwork Reel Mill",
+    "planned": true
+  },
+  "cannery_l1": {
+    "path": null,
+    "status": "concept",
+    "concept": "art/concepts/world/cannery_l1.webp",
+    "category": "building",
+    "building": "cannery",
+    "level": 1,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
+    "story": "Level 1, Tin Bench",
+    "planned": true
+  },
+  "cannery_l2": {
+    "path": null,
+    "status": "concept",
+    "concept": "art/concepts/world/cannery_l2.webp",
+    "category": "building",
+    "building": "cannery",
+    "level": 2,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
+    "story": "Level 2, Steam Cannery",
+    "planned": true
+  },
+  "cannery_l3": {
+    "path": null,
+    "status": "concept",
+    "concept": "art/concepts/world/cannery_l3.webp",
+    "category": "building",
+    "building": "cannery",
+    "level": 3,
+    "licence": "generated: Qwen-Image (Apache-2.0) concept; 3D pending (Agent D Blender build)",
+    "story": "Level 3, Cannery Works",
+    "planned": true
   }
 }

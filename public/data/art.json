@@ -1909,5 +1909,149 @@
     "concept": "art/concepts/world/cannery_l3.webp",
     "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
     "planned": true
+  },
+  "gear.rod.coral_spine": {
+    "path": "art/gear/rod_coral_spine.webp",
+    "name": "Coral-Spine Rod",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop gear tile + detail drawer (B)",
+    "concept": "Grown, not carved: a living coral branch that stiffens when it bends.",
+    "licence": null
+  },
+  "gear.rod.kraken_rib": {
+    "path": "art/gear/rod_kraken_rib.webp",
+    "name": "Kraken-Rib Rod",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop gear tile + detail drawer (B)",
+    "concept": "A single rib from something the sea won't name. It flexes like a tentacle.",
+    "licence": null
+  },
+  "gear.rod.stormglass": {
+    "path": "art/gear/rod_stormglass.webp",
+    "name": "Stormglass Rod",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop gear tile + detail drawer (B)",
+    "concept": "Fused in a lightning strike on the beach. Thunder rolls inside it when a monster takes the bait.",
+    "licence": null
+  },
+  "gear.rod.leviathan_harpoon": {
+    "path": "art/gear/rod_leviathan_harpoon.webp",
+    "name": "Leviathan Harpoon-Rod",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop gear tile + detail drawer (B)",
+    "concept": "Half whaling harpoon, half rod. Built for the things that sink ships.",
+    "licence": null
+  },
+  "gear.rod.abyssal_spire": {
+    "path": "art/gear/rod_abyssal_spire.webp",
+    "name": "Abyssal Spire",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop gear tile + detail drawer (B)",
+    "concept": "Raised from the trench, black and humming. The deep listens when you cast it.",
+    "licence": null
+  },
+  "gear.reel.storm_capstan": {
+    "path": "art/gear/reel_storm_capstan.webp",
+    "name": "Storm Capstan Reel",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop gear tile + detail drawer (B)",
+    "concept": "A ship's capstan in miniature. Four sailors' strength in one crank.",
+    "licence": null
+  },
+  "gear.reel.leviathan_winch": {
+    "path": "art/gear/reel_leviathan_winch.webp",
+    "name": "Leviathan Winch",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop gear tile + detail drawer (B)",
+    "concept": "Geared from an anchor windlass. It has hauled up worse than whales.",
+    "licence": null
+  },
+  "gear.line.kraken_sinew": {
+    "path": "art/gear/line_kraken_sinew.webp",
+    "name": "Kraken Sinew",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop gear tile + detail drawer (B)",
+    "concept": "Stretches like a muscle, snaps back like one too.",
+    "licence": null
+  },
+  "gear.line.leviathan_silk": {
+    "path": "art/gear/line_leviathan_silk.webp",
+    "name": "Leviathan Silk",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop gear tile + detail drawer (B)",
+    "concept": "Spun by deep-sea spiders the size of rowboats. Holds a monster's run.",
+    "licence": null
+  },
+  "gear.line.abyss_thread": {
+    "path": "art/gear/line_abyss_thread.webp",
+    "name": "Abyss Thread",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop gear tile + detail drawer (B)",
+    "concept": "Black as the trench and twice as cold. Nothing alive has broken it.",
+    "licence": null
+  },
+  "gear.hook.anchor_fluke": {
+    "path": "art/gear/hook_anchor_fluke.webp",
+    "name": "Anchor-Fluke Hook",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop gear tile + detail drawer (B)",
+    "concept": "Forged from a broken anchor's fluke. Monsters stay hooked.",
+    "licence": null
+  },
+  "gear.leader.chain_leader": {
+    "path": "art/gear/leader_chain_leader.webp",
+    "name": "Ship's-Chain Leader",
+    "size": [
+      512,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop gear tile + detail drawer (B)",
+    "concept": "A fathom of fine chain. Teeth can't cut it.",
+    "licence": null
   }
 }

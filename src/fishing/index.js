@@ -435,7 +435,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         // A clean landing (minigames.js) adds its bonus on top of the fight grade.
         const landBonus = minigames?.valueBonus ?? 1;
         if (landBonus > 1) { r.valueMult = (r.valueMult || 1) * landBonus; r.grade = r.grade || 'good'; }
-        if (r.upgraded) hud.toast('A perfect fight: it turned gilded!', 2.2);
+        if (r.upgraded) hud.toast(`A perfect fight: it ranked up to ${variantInfo(state, r.variant).name}!`, 2.2);
         return {
         fishId: f.id,
         variant: r.variant,

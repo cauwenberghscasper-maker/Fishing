@@ -54,6 +54,19 @@
       },
       "durability": 90
     },
+    "coral_spine": {
+      "name": "Coral-Spine Rod",
+      "flavour": "Grown, not carved: a living coral branch that stiffens when it bends.",
+      "cost": 3400,
+      "model": "rod.coral_spine",
+      "stats": {
+        "castDistance": 34,
+        "steadiness": 0.68,
+        "rodPower": 1.75,
+        "rating": 22
+      },
+      "durability": 115
+    },
     "tidecaster": {
       "name": "Brass-Ferrule Tidecaster",
       "flavour": "The ferrules were cut from a sunken ship's bell. Sometimes it rings.",
@@ -67,6 +80,19 @@
       },
       "durability": 140
     },
+    "kraken_rib": {
+      "name": "Kraken-Rib Rod",
+      "flavour": "A single rib from something the sea won't name. It flexes like a tentacle.",
+      "cost": 11500,
+      "model": "rod.kraken_rib",
+      "stats": {
+        "castDistance": 50,
+        "steadiness": 0.8,
+        "rodPower": 2.1,
+        "rating": 45
+      },
+      "durability": 180
+    },
     "lighthouse_spar": {
       "name": "Lighthouse Spar",
       "flavour": "A spare from the lamp room. It still remembers the light.",
@@ -79,6 +105,45 @@
         "rating": 60
       },
       "durability": 220
+    },
+    "stormglass": {
+      "name": "Stormglass Rod",
+      "flavour": "Fused in a lightning strike on the beach. Thunder rolls inside it when a monster takes the bait.",
+      "cost": 48000,
+      "model": "rod.stormglass",
+      "stats": {
+        "castDistance": 66,
+        "steadiness": 0.9,
+        "rodPower": 2.7,
+        "rating": 90
+      },
+      "durability": 300
+    },
+    "leviathan_harpoon": {
+      "name": "Leviathan Harpoon-Rod",
+      "flavour": "Half whaling harpoon, half rod. Built for the things that sink ships.",
+      "cost": 120000,
+      "model": "rod.leviathan_harpoon",
+      "stats": {
+        "castDistance": 74,
+        "steadiness": 0.94,
+        "rodPower": 3.2,
+        "rating": 140
+      },
+      "durability": 420
+    },
+    "abyssal_spire": {
+      "name": "Abyssal Spire",
+      "flavour": "Raised from the trench, black and humming. The deep listens when you cast it.",
+      "cost": 300000,
+      "model": "rod.abyssal_spire",
+      "stats": {
+        "castDistance": 84,
+        "steadiness": 0.97,
+        "rodPower": 3.8,
+        "rating": 220
+      },
+      "durability": 600
     }
   },
   "reels": {
@@ -125,6 +190,24 @@
       "model": "reel.sextant_reel",
       "stats": {
         "reelSpeed": 1.9
+      }
+    },
+    "storm_capstan": {
+      "name": "Storm Capstan Reel",
+      "flavour": "A ship's capstan in miniature. Four sailors' strength in one crank.",
+      "cost": 38000,
+      "model": "reel.storm_capstan",
+      "stats": {
+        "reelSpeed": 2.3
+      }
+    },
+    "leviathan_winch": {
+      "name": "Leviathan Winch",
+      "flavour": "Geared from an anchor windlass. It has hauled up worse than whales.",
+      "cost": 95000,
+      "model": "reel.leviathan_winch",
+      "stats": {
+        "reelSpeed": 2.75
       }
     }
   },
@@ -193,6 +276,22 @@
       "wear": 0.06,
       "respool": 900
     },
+    "kraken_sinew": {
+      "name": "Kraken Sinew",
+      "flavour": "Stretches like a muscle, snaps back like one too.",
+      "cost": 7000,
+      "material": {
+        "colour": "#7a3f5a",
+        "thickness": 1.0,
+        "glow": 0.2
+      },
+      "stats": {
+        "lineStrength": 1.9,
+        "strength": 18
+      },
+      "wear": 0.05,
+      "respool": 1800
+    },
     "keepers_wire": {
       "name": "Lighthouse Keeper's Wire",
       "flavour": "Meant for the lamp. The keeper had other ideas.",
@@ -208,6 +307,38 @@
       },
       "wear": 0.04,
       "respool": 3600
+    },
+    "leviathan_silk": {
+      "name": "Leviathan Silk",
+      "flavour": "Spun by deep-sea spiders the size of rowboats. Holds a monster's run.",
+      "cost": 30000,
+      "material": {
+        "colour": "#d8f0ff",
+        "thickness": 0.8,
+        "glow": 0.5
+      },
+      "stats": {
+        "lineStrength": 2.5,
+        "strength": 45
+      },
+      "wear": 0.035,
+      "respool": 7200
+    },
+    "abyss_thread": {
+      "name": "Abyss Thread",
+      "flavour": "Black as the trench and twice as cold. Nothing alive has broken it.",
+      "cost": 110000,
+      "material": {
+        "colour": "#2a1f4a",
+        "thickness": 0.8,
+        "glow": 0.8
+      },
+      "stats": {
+        "lineStrength": 3.2,
+        "strength": 90
+      },
+      "wear": 0.025,
+      "respool": 20000
     }
   },
   "baits": {
@@ -301,6 +432,16 @@
       "stats": {
         "hookHold": 1.8,
         "biteWindow": 1.2
+      }
+    },
+    "anchor_fluke": {
+      "name": "Anchor-Fluke Hook",
+      "flavour": "Forged from a broken anchor's fluke. Monsters stay hooked.",
+      "cost": 14000,
+      "model": "hook.anchor_fluke",
+      "stats": {
+        "hookHold": 2.4,
+        "biteWindow": 1.35
       }
     }
   },
@@ -397,6 +538,15 @@
       "model": "leader.silkweed_leader",
       "stats": {
         "leader": 35
+      }
+    },
+    "chain_leader": {
+      "name": "Ship's-Chain Leader",
+      "flavour": "A fathom of fine chain. Teeth can't cut it.",
+      "cost": 16000,
+      "model": "leader.chain_leader",
+      "stats": {
+        "leader": 70
       }
     }
   },

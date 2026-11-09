@@ -411,5 +411,53 @@
     "hero": "assets/fish/moonwake_ribbonfish/hero.webp",
     "rest": "assets/fish/moonwake_ribbonfish/rest.webp",
     "portrait": "assets/fish/moonwake_ribbonfish/portrait.webp"
+  },
+  "mossneck": {
+    "path": "assets/fish/mossneck/model.glb",
+    "preview": "assets/fish/mossneck/preview.webp",
+    "previewSize": [
+      512,
+      224
+    ],
+    "concept": null,
+    "scale": 1,
+    "body": "eel",
+    "tris": 11856,
+    "island": "driftwood_cove",
+    "licence": "original (Blender bpy build, CC0)",
+    "status": "temp",
+    "story": "The old causeway to the cove, swimming: three drowned arches for humps, a mooring column for a neck."
+  },
+  "anchorjaw_leviathan": {
+    "path": "assets/fish/anchorjaw_leviathan/model.glb",
+    "preview": "assets/fish/anchorjaw_leviathan/preview.webp",
+    "previewSize": [
+      512,
+      250
+    ],
+    "concept": null,
+    "scale": 1,
+    "body": "bulky",
+    "tris": 11949,
+    "island": "driftwood_cove",
+    "licence": "original (Blender bpy build, CC0)",
+    "status": "temp",
+    "story": "Every ship that anchored over it lost the anchor; it wears them all as teeth."
+  },
+  "drowned_lighthouse": {
+    "path": "assets/fish/drowned_lighthouse/model.glb",
+    "preview": "assets/fish/drowned_lighthouse/preview.webp",
+    "previewSize": [
+      512,
+      130
+    ],
+    "concept": null,
+    "scale": 1,
+    "body": "eel",
+    "tris": 8714,
+    "island": "driftwood_cove",
+    "licence": "original (Blender bpy build, CC0)",
+    "status": "temp",
+    "story": "A lighthouse that fell into the sea and kept its light on."
   }
 }

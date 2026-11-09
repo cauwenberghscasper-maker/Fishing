@@ -5409,5 +5409,908 @@
       ]
     },
     "light": "lantern: warm point light #ffc35a at (-0.7, 1.05, 1.73) local, swings with its lantern (node anim_light)"
+  },
+  "wreck_brig": {
+    "path": "assets/world/wreck_brig/model.glb",
+    "scale": 1,
+    "tris": 9581,
+    "bounds": {
+      "min": [
+        -7.66,
+        -1.28,
+        -9.75
+      ],
+      "max": [
+        4.95,
+        7.51,
+        10.24
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 222160,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "landmark",
+    "placement": "seabed",
+    "story": "The Lantern Maid, a two-masted brig that carried lamp oil to the lighthouse islands a hundred years before the Marigold. A gale threw her onto the reef; she settled on her port side with her starboard bilge torn open, so the ribs show and fish shelter in her hold. Her foremast still stands out of the water at a drunken angle, the crow's nest and a rag of her fore course bleached by the sun; the mainmast snapped and lies in the sand off her port side with its yard, among spilled oil barrels, a carronade and her bower anchor. Her figurehead, a carved woman holding up a brass lantern, leans out under the broken bowsprit, and the lantern hung from her hand still burns under the water on calm nights.",
+    "collider": {
+      "type": "circle",
+      "r": 0.64,
+      "x": -2.07,
+      "z": 3.59
+    },
+    "footprint": {
+      "w": 12.61,
+      "d": 19.99
+    },
+    "preview": "assets/world/wreck_brig/preview.webp",
+    "origin": "origin on the seabed (y=0) under the hull, bow +Z; designed for ~3 m of water: masthead at y~7.3 (+4.3 above the surface), crow's nest y~5.3; the hull is buried ~0.7 m into the floor",
+    "water_depth": 3.0,
+    "anim": {
+      "anim_swing_z_7_46": [
+        -0.35,
+        1.63,
+        8.18
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (-0.35, 1.13, 8.18) local, moves with its node (anim_light)"
+  },
+  "wreck_skiff": {
+    "path": "assets/world/wreck_skiff/model.glb",
+    "scale": 1,
+    "tris": 2735,
+    "bounds": {
+      "min": [
+        -1.61,
+        -0.48,
+        -3.24
+      ],
+      "max": [
+        2.02,
+        1.98,
+        2.76
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_net"
+    ],
+    "bytes": 71648,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "The Dory Bess, Wim's grandfather's lobster skiff, swamped by a squall while hauling pots off the point. White strakes, a blue sheer and the teal gunwale the cove still paints its boats with; one strake was stove in on a rock. Her stern has sunk into a drift of sand, one oar still sits in its rowlock, the other lies where it fell, and her last lobster pot lies tipped beside her bow on its line, with a crab living in it.",
+    "collider": null,
+    "footprint": {
+      "w": 3.63,
+      "d": 6.0
+    },
+    "preview": "assets/world/wreck_skiff/preview.webp",
+    "origin": "origin on the seabed (y=0), bow +Z; fully under water in >=2 m; stern buried in its own sand drift (blends with sand.under #b89a5c)",
+    "water_depth": 2.0
+  },
+  "coral_fan_red": {
+    "path": "assets/world/coral_fan_red/model.glb",
+    "scale": 1,
+    "tris": 2582,
+    "bounds": {
+      "min": [
+        -0.78,
+        -0.04,
+        -0.14
+      ],
+      "max": [
+        0.83,
+        1.48,
+        0.14
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_net"
+    ],
+    "bytes": 43656,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "A sea fan (gorgonian) grown across the current on its rock: a branching crimson skeleton with a fine lattice between the branches that sieves the drifting plankton; it always faces the tide, so you can read the current from it.",
+    "collider": null,
+    "footprint": {
+      "w": 1.61,
+      "d": 0.28
+    },
+    "preview": "assets/world/coral_fan_red/preview.webp",
+    "origin": "origin on the seabed (y=0) at the base; no collider (fully under water)"
+  },
+  "coral_fan_violet": {
+    "path": "assets/world/coral_fan_violet/model.glb",
+    "scale": 1,
+    "tris": 3222,
+    "bounds": {
+      "min": [
+        -0.92,
+        -0.04,
+        -0.18
+      ],
+      "max": [
+        0.98,
+        1.48,
+        0.39
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_net"
+    ],
+    "bytes": 54936,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "A sea fan (gorgonian) grown across the current on its rock: a branching violet skeleton with a fine lattice between the branches that sieves the drifting plankton; it always faces the tide, so you can read the current from it.",
+    "collider": null,
+    "footprint": {
+      "w": 1.9,
+      "d": 0.57
+    },
+    "preview": "assets/world/coral_fan_violet/preview.webp",
+    "origin": "origin on the seabed (y=0) at the base; no collider (fully under water)"
+  },
+  "coral_brain_gold": {
+    "path": "assets/world/coral_brain_gold/model.glb",
+    "scale": 1,
+    "tris": 2523,
+    "bounds": {
+      "min": [
+        -0.6,
+        -0.08,
+        -0.57
+      ],
+      "max": [
+        0.62,
+        0.27,
+        0.54
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 40228,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "A brain coral boulder that has been growing one finger-width a year since before the cove had a name: amber ridges and dark meandering valleys, a favourite cleaning station for small fish.",
+    "collider": null,
+    "footprint": {
+      "w": 1.22,
+      "d": 1.11
+    },
+    "preview": "assets/world/coral_brain_gold/preview.webp",
+    "origin": "origin on the seabed (y=0) at the base; no collider (fully under water)"
+  },
+  "coral_brain_green": {
+    "path": "assets/world/coral_brain_green/model.glb",
+    "scale": 1,
+    "tris": 2512,
+    "bounds": {
+      "min": [
+        -0.56,
+        -0.08,
+        -0.52
+      ],
+      "max": [
+        0.58,
+        0.28,
+        0.54
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 39316,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "A brain coral boulder in lime and deep teal, its meandering valleys glowing faintly green in the shallows; the cove's divers call the big ones 'old heads'.",
+    "collider": null,
+    "footprint": {
+      "w": 1.14,
+      "d": 1.06
+    },
+    "preview": "assets/world/coral_brain_green/preview.webp",
+    "origin": "origin on the seabed (y=0) at the base; no collider (fully under water)"
+  },
+  "coral_staghorn_pink": {
+    "path": "assets/world/coral_staghorn_pink/model.glb",
+    "scale": 1,
+    "tris": 1898,
+    "bounds": {
+      "min": [
+        -0.43,
+        -0.06,
+        -0.41
+      ],
+      "max": [
+        0.76,
+        1.08,
+        0.65
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 34820,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "A thicket of staghorn coral: rose-pink antlers on a dusky base, the pale growing tips are the newest coral. Fry hide between the branches from anything bigger.",
+    "collider": null,
+    "footprint": {
+      "w": 1.19,
+      "d": 1.06
+    },
+    "preview": "assets/world/coral_staghorn_pink/preview.webp",
+    "origin": "origin on the seabed (y=0) at the base; no collider (fully under water)"
+  },
+  "coral_staghorn_blue": {
+    "path": "assets/world/coral_staghorn_blue/model.glb",
+    "scale": 1,
+    "tris": 1934,
+    "bounds": {
+      "min": [
+        -0.55,
+        -0.06,
+        -0.56
+      ],
+      "max": [
+        0.64,
+        1.07,
+        0.7
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 33500,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "Blue-tipped staghorn: ochre antlers whose growing tips burn electric blue, the colour the cove's children try to paint and never quite get.",
+    "collider": null,
+    "footprint": {
+      "w": 1.19,
+      "d": 1.26
+    },
+    "preview": "assets/world/coral_staghorn_blue/preview.webp",
+    "origin": "origin on the seabed (y=0) at the base; no collider (fully under water)"
+  },
+  "coral_tube_orange": {
+    "path": "assets/world/coral_tube_orange/model.glb",
+    "scale": 1,
+    "tris": 1196,
+    "bounds": {
+      "min": [
+        -0.44,
+        -0.08,
+        -0.34
+      ],
+      "max": [
+        0.42,
+        1.06,
+        0.42
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 23964,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "A cluster of orange tube coral / organ-pipe sponges: open pipes with dark throats and yellow lips that hum when the swell passes over them.",
+    "collider": null,
+    "footprint": {
+      "w": 0.86,
+      "d": 0.76
+    },
+    "preview": "assets/world/coral_tube_orange/preview.webp",
+    "origin": "origin on the seabed (y=0) at the base; no collider (fully under water)"
+  },
+  "coral_tube_purple": {
+    "path": "assets/world/coral_tube_purple/model.glb",
+    "scale": 1,
+    "tris": 1196,
+    "bounds": {
+      "min": [
+        -0.41,
+        -0.08,
+        -0.37
+      ],
+      "max": [
+        0.38,
+        1.09,
+        0.43
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 23968,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "Purple tube sponges, open pipes with lavender lips and dark throats; blennies back into them and only their heads stick out.",
+    "collider": null,
+    "footprint": {
+      "w": 0.79,
+      "d": 0.8
+    },
+    "preview": "assets/world/coral_tube_purple/preview.webp",
+    "origin": "origin on the seabed (y=0) at the base; no collider (fully under water)"
+  },
+  "coral_table_teal": {
+    "path": "assets/world/coral_table_teal/model.glb",
+    "scale": 1,
+    "tris": 1456,
+    "bounds": {
+      "min": [
+        -1.14,
+        -0.08,
+        -1.1
+      ],
+      "max": [
+        1.1,
+        0.95,
+        1.04
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 23824,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "A table coral: a broad teal plate on a short stalk with a pale growing rim and little upright corallites; fish shade under it at noon.",
+    "collider": null,
+    "footprint": {
+      "w": 2.24,
+      "d": 2.14
+    },
+    "preview": "assets/world/coral_table_teal/preview.webp",
+    "origin": "origin on the seabed (y=0) at the base; no collider (fully under water)"
+  },
+  "coral_table_rose": {
+    "path": "assets/world/coral_table_rose/model.glb",
+    "scale": 1,
+    "tris": 1456,
+    "bounds": {
+      "min": [
+        -1.03,
+        -0.08,
+        -1.04
+      ],
+      "max": [
+        1.11,
+        0.95,
+        1.06
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 23432,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "A rose table coral, a dusky-pink plate with a cream growing rim and a smaller second tier below, shading the sand like a parasol.",
+    "collider": null,
+    "footprint": {
+      "w": 2.14,
+      "d": 2.1
+    },
+    "preview": "assets/world/coral_table_rose/preview.webp",
+    "origin": "origin on the seabed (y=0) at the base; no collider (fully under water)"
+  },
+  "coral_seawhip_yellow": {
+    "path": "assets/world/coral_seawhip_yellow/model.glb",
+    "scale": 1,
+    "tris": 608,
+    "bounds": {
+      "min": [
+        -0.57,
+        -0.03,
+        -0.39
+      ],
+      "max": [
+        0.79,
+        2.08,
+        0.53
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 14708,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "Golden sea whips: long thin gorgonian rods from one holdfast, a few forked, swaying slowly in the current (two sway nodes).",
+    "collider": null,
+    "footprint": {
+      "w": 1.36,
+      "d": 0.92
+    },
+    "preview": "assets/world/coral_seawhip_yellow/preview.webp",
+    "origin": "origin on the seabed (y=0) at the base; no collider (fully under water)",
+    "anim": {
+      "anim_swing_x_5_42": [
+        0.0,
+        0.03,
+        -0.0
+      ],
+      "anim_swing_z_4_51": [
+        0.0,
+        0.03,
+        -0.0
+      ]
+    }
+  },
+  "coral_seawhip_magenta": {
+    "path": "assets/world/coral_seawhip_magenta/model.glb",
+    "scale": 1,
+    "tris": 608,
+    "bounds": {
+      "min": [
+        -0.34,
+        -0.03,
+        -0.47
+      ],
+      "max": [
+        0.47,
+        2.16,
+        0.49
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 14620,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "Magenta sea whips swaying from one holdfast; at dusk their pink tips are the last colour to fade on the reef.",
+    "collider": null,
+    "footprint": {
+      "w": 0.81,
+      "d": 0.96
+    },
+    "preview": "assets/world/coral_seawhip_magenta/preview.webp",
+    "origin": "origin on the seabed (y=0) at the base; no collider (fully under water)",
+    "anim": {
+      "anim_swing_x_5_42": [
+        0.0,
+        0.03,
+        -0.0
+      ],
+      "anim_swing_z_4_51": [
+        0.0,
+        0.03,
+        -0.0
+      ]
+    }
+  },
+  "coral_bed_a": {
+    "path": "assets/world/coral_bed_a/model.glb",
+    "scale": 1,
+    "tris": 7998,
+    "bounds": {
+      "min": [
+        -3.02,
+        -0.08,
+        -2.69
+      ],
+      "max": [
+        3.56,
+        2.04,
+        2.89
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_net"
+    ],
+    "bytes": 128444,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "Warm reef patch: a sand rise with coralline-crusted rocks (pink crust on top), a red sea fan on the biggest rock, gold brain corals, orange tube coral, pink staghorn, a rose table, golden sea whips swaying, pink and green anemones, starfish and shells.",
+    "collider": null,
+    "footprint": {
+      "w": 6.58,
+      "d": 5.58
+    },
+    "preview": "assets/world/coral_bed_a/preview.webp",
+    "origin": "origin on the seabed at the centre of a ~6.2 x 5.8 m sand rise (0.24 m high, edge sinks below y=0 to blend)",
+    "anim": {
+      "anim_swing_x_5_42": [
+        0.15,
+        0.24,
+        0.3
+      ],
+      "anim_swing_z_4_51": [
+        0.15,
+        0.24,
+        0.3
+      ]
+    }
+  },
+  "coral_bed_b": {
+    "path": "assets/world/coral_bed_b/model.glb",
+    "scale": 1,
+    "tris": 7998,
+    "bounds": {
+      "min": [
+        -2.82,
+        -0.08,
+        -3.01
+      ],
+      "max": [
+        2.96,
+        2.01,
+        2.95
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_net"
+    ],
+    "bytes": 128880,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas + per-vertex colour ramps",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "seabed",
+    "story": "Cool reef patch: a teal table coral, a violet sea fan on a coralline rock, green brain corals, blue-tipped staghorn, purple tube sponges, magenta sea whips swaying, anemones, starfish and shells on a low sand rise.",
+    "collider": null,
+    "footprint": {
+      "w": 5.78,
+      "d": 5.96
+    },
+    "preview": "assets/world/coral_bed_b/preview.webp",
+    "origin": "origin on the seabed at the centre of a ~6.2 x 5.8 m sand rise (0.24 m high, edge sinks below y=0 to blend)",
+    "anim": {
+      "anim_swing_x_5_42": [
+        -0.8,
+        0.08,
+        1.9
+      ],
+      "anim_swing_z_4_51": [
+        -0.8,
+        0.08,
+        1.9
+      ]
+    }
+  },
+  "sea_arch": {
+    "path": "assets/world/sea_arch/model.glb",
+    "scale": 1,
+    "tris": 3820,
+    "bounds": {
+      "min": [
+        -6.82,
+        -1.7,
+        -2.04
+      ],
+      "max": [
+        7.09,
+        10.34,
+        3.05
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 70056,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "landmark",
+    "placement": "seabed",
+    "story": "The Bellows: a sea arch of the same columnar basalt as the island's cliffs. The legs are clusters of upright hexagonal columns; across the top the columns lie radially like the stones of a built arch, which is why the old fishermen swore giants laid it. Fallen column drums lie at its feet, a barnacle belt and a curtain of weed mark the tide line, and gulls nest on the crown, which is why its upper sides are streaked white. Boats and big fish pass under it; the swell booms through it like a bellows in a storm.",
+    "collider": [
+      {
+        "type": "box",
+        "w": 3.26,
+        "d": 3.28,
+        "rot": -0.489,
+        "x": 4.37,
+        "z": 0.16
+      },
+      {
+        "type": "box",
+        "w": 3.33,
+        "d": 3.67,
+        "rot": -0.506,
+        "x": -4.51,
+        "z": -0.0
+      }
+    ],
+    "footprint": {
+      "w": 13.91,
+      "d": 5.09
+    },
+    "preview": "assets/world/sea_arch/preview.webp",
+    "origin": "origin on the seabed at the centre between the legs; designed for ~3 m of water: crown y~10.3 (+7.3 above the surface), ~6 m clear width between the legs at the waterline; legs reach 1.7 m below the origin so a sloping floor is covered",
+    "water_depth": 3.0
+  },
+  "kelp_cathedral_pillar": {
+    "path": "assets/world/kelp_cathedral_pillar/model.glb",
+    "scale": 1,
+    "tris": 1802,
+    "bounds": {
+      "min": [
+        -1.27,
+        -0.06,
+        -1.37
+      ],
+      "max": [
+        2.5,
+        8.66,
+        1.33
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 45440,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "nature",
+    "placement": "seabed",
+    "story": "One pillar of the kelp cathedral: three amber-brown stipes twisting round each other from a holdfast gripping a rock, broad blades all the way up, each blade buoyed by a float bulb that glows amber at dusk, and a canopy of blades lying out flat on the surface. The upper fronds sway (anim_swing on two sections). Placed in groups they make the aisles where the Kelp Wraith hides.",
+    "collider": null,
+    "footprint": {
+      "w": 3.77,
+      "d": 2.7
+    },
+    "preview": "assets/world/kelp_cathedral_pillar/preview.webp",
+    "origin": "origin on the seabed; designed for ~7.6 m of water so the canopy lies on the surface (canopy y~7.6); in shallower water scale it to depth/7.6 or sink it",
+    "water_depth": 7.6,
+    "anim": {
+      "anim_swing_x_9_62": [
+        0.0,
+        5.0,
+        -0.0
+      ],
+      "anim_swing_z_4_47": [
+        0.0,
+        2.2,
+        -0.0
+      ]
+    }
+  },
+  "marker_buoy": {
+    "path": "assets/world/marker_buoy/model.glb",
+    "scale": 1,
+    "tris": 2574,
+    "bounds": {
+      "min": [
+        -1.19,
+        -4.52,
+        -1.19
+      ],
+      "max": [
+        1.19,
+        4.9,
+        1.19
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 56308,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "water",
+    "story": "A fishing-ground bell buoy: a red-and-white steel float with a rubbing fender, a red lattice tower with a bronze bell that rings as she rolls, a lamp with a glowing lens on top and a red diamond topmark you can see from the island. Weed fringes her waterline and her chain runs down into the dark. The harbourmaster anchors one at every named ground.",
+    "collider": {
+      "type": "circle",
+      "r": 1.1,
+      "x": 0.0,
+      "z": 0.0
+    },
+    "footprint": {
+      "w": 2.38,
+      "d": 2.38
+    },
+    "preview": "assets/world/marker_buoy/preview.webp",
+    "origin": "origin at the waterline (y=0, 'water' placement: put it at sea level, not on the floor); float to y~0.7, lamp y~3.6, topmark tip y~4.6; counterweight tail + chain hang to y~-4.5",
+    "anim": {
+      "anim_bob_9_38": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "anim_swing_z_5_47": [
+        0.0,
+        -0.3,
+        -0.0
+      ],
+      "anim_swing_x_16_13": [
+        0.0,
+        2.95,
+        -0.0
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (0.0, 3.6, -0.0) local, moves with its node (anim_light)"
+  },
+  "treasure_chest_wood": {
+    "path": "assets/world/treasure_chest_wood/model.glb",
+    "scale": 1,
+    "tris": 2194,
+    "bounds": {
+      "min": [
+        -0.58,
+        -0.0,
+        -0.36
+      ],
+      "max": [
+        0.58,
+        0.75,
+        0.37
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 48332,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "ground",
+    "story": "A ship's strongbox of oak planks with iron straps and corner irons and a brass lock plate; inside, a heap of gold coins.",
+    "collider": null,
+    "footprint": {
+      "w": 1.16,
+      "d": 0.73
+    },
+    "preview": "assets/world/treasure_chest_wood/preview.webp",
+    "origin": "origin at the floor (y=0) under the chest centre, front (lock) +Z; works on land or the seabed",
+    "lid": "node 'lid' (pivot on the back hinge edge at (0, 0.5, -0.33)); rotate about local X, negative = open (about -1.3 rad fully open); mesh child 'mesh_lid'. Interior is dark with a coin heap."
+  },
+  "treasure_chest_silver": {
+    "path": "assets/world/treasure_chest_silver/model.glb",
+    "scale": 1,
+    "tris": 2194,
+    "bounds": {
+      "min": [
+        -0.58,
+        -0.0,
+        -0.36
+      ],
+      "max": [
+        0.58,
+        0.75,
+        0.37
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 42668,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "ground",
+    "story": "A tarred-plank chest bound in silver straps and corners with a silver lock, the kind a captain kept under his bunk; a heap of gold coins inside.",
+    "collider": null,
+    "footprint": {
+      "w": 1.16,
+      "d": 0.73
+    },
+    "preview": "assets/world/treasure_chest_silver/preview.webp",
+    "origin": "origin at the floor (y=0) under the chest centre, front (lock) +Z; works on land or the seabed",
+    "lid": "node 'lid' (pivot on the back hinge edge at (0, 0.5, -0.33)); rotate about local X, negative = open (about -1.3 rad fully open); mesh child 'mesh_lid'. Interior is dark with a coin heap."
+  },
+  "treasure_chest_gold": {
+    "path": "assets/world/treasure_chest_gold/model.glb",
+    "scale": 1,
+    "tris": 2606,
+    "bounds": {
+      "min": [
+        -0.58,
+        -0.0,
+        -0.36
+      ],
+      "max": [
+        0.58,
+        0.75,
+        0.75
+      ]
+    },
+    "materials": [
+      "cove_atlas"
+    ],
+    "bytes": 54528,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "prop",
+    "placement": "ground",
+    "story": "A red-lacquered chest bound in gold with a gold lock, so full the lid won't shut: coins wedged in the lip, a green gem caught at the rim, more coins and a ruby spilled on the floor in front of it.",
+    "collider": null,
+    "footprint": {
+      "w": 1.16,
+      "d": 1.11
+    },
+    "preview": "assets/world/treasure_chest_gold/preview.webp",
+    "origin": "origin at the floor (y=0) under the chest centre, front (lock) +Z; works on land or the seabed; spilled coins reach z~0.7",
+    "lid": "node 'lid' (pivot on the back hinge edge at (0, 0.5, -0.33)); rotate about local X, negative = open (about -1.3 rad fully open); mesh child 'mesh_lid'. Interior is dark with a coin heap."
   }
 }

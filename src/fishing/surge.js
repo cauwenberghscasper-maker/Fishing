@@ -3,7 +3,7 @@
 // ring meets the fish. Three hits turn it into the island's elemental variant (worth ×5 and up, and
 // it fights back with its superpower), two hits gild it, fewer and the surge fades. Once per fight.
 // Tuning in public/data/mastery.json "surge".
-import { variantTable } from './variants.js';
+import { variantTable, stepUp, isElemental } from './variants.js';
 
 const DEFAULTS = {
   chanceAtGood: 0.3,
@@ -64,7 +64,7 @@ export function createSurge({ state, fish, hooks }) {
     const from = fish.variant || 'basic';
     let to = null;
     if (hits >= cfg.needForElement) to = target;
-    else if (hits >= cfg.needForGild && (from === 'basic' || from === 'bleached')) to = cfg.gildTo;
+    else if (hits >= cfg.needForGild && !isElemental(state, from)) to = stepUp(state, from, 2);   // two ranks up the ladder
     result = { hits, from, to };
     hooks.end(result);
   }

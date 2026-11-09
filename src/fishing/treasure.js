@@ -74,7 +74,7 @@ export function buildChest(tier = 'wood') {
   halo.position.y = 0.02;
   group.add(halo);
   group.scale.setScalar(1.25);
-  return { group, lid, glow, halo };
+  return { group, lid, glow, halo, open: -1.9 };
 }
 
 export function createTreasure({ under, surface, island, water, splashes, events, audio }) {
@@ -90,7 +90,7 @@ export function createTreasure({ under, surface, island, water, splashes, events
         const glow = new THREE.PointLight(LOOK[tier]?.glow ?? 0xffc85a, 0, 4, 2);
         glow.position.y = 0.6;
         m.scene.add(glow);
-        return { group: m.scene, lid, glow, halo: null };
+        return { group: m.scene, lid, glow, halo: null, open: -1.3 };
       }
     }
     return buildChest(tier);
@@ -110,7 +110,7 @@ export function createTreasure({ under, surface, island, water, splashes, events
         const depth = island.waterDepthAt(s.x, s.z);
         c.group.position.set(s.x, -Math.min(Math.max(0.6, depth - 0.15), 1.5), s.z);
         c.group.rotation.y = Math.random() * Math.PI * 2;
-        c.lid.rotation.x = -0.12;   // ajar: light leaks out
+        c.lid.rotation.x = (c.open ?? -1.9) * 0.08;   // ajar: light leaks out
         c.glow.intensity = 1.2;
         under.add(c.group);
       });
@@ -134,7 +134,7 @@ export function createTreasure({ under, surface, island, water, splashes, events
     land(c, x, z, faceX, faceZ, tier) {
       c.group.position.set(x, Math.max(0, island.groundAt?.(x, z) ?? 0), z);
       c.group.rotation.set(0, Math.atan2(faceX - x, faceZ - z), 0);
-      shown = { c, t: 0, tier, opened: false };
+      shown = { c, t: 0, tier, opened: false, s0: c.group.scale.x };
       splashes.splash(x, z, 0.6);
       audio?.plop?.();
     },
@@ -154,14 +154,14 @@ export function createTreasure({ under, surface, island, water, splashes, events
           g.rotation.z = 0;
           if (!s.opened) { s.opened = true; events.emit('treasure:open', { tier: s.tier }); }
           const k = Math.min(1, (s.t - 0.9) / 0.45);
-          s.c.lid.rotation.x = -1.9 * (1 - Math.pow(1 - k, 3)) - Math.sin(k * Math.PI) * 0.25;
+          s.c.lid.rotation.x = (s.c.open ?? -1.9) * (1 - Math.pow(1 - k, 3)) - Math.sin(k * Math.PI) * 0.25;
           s.c.glow.intensity = 3 * k;
           if (s.c.halo) s.c.halo.material.opacity = 0.45 * k;
         }
         if (s.closing != null) {
           s.closing += dt;
           const k = Math.min(1, s.closing / 0.8);
-          g.scale.setScalar(1.25 * (1 - k * k));
+          g.scale.setScalar(s.s0 * (1 - k * k));
           g.position.y += dt * 0.6;
           if (k >= 1) { g.removeFromParent(); shown = null; }
         }

@@ -46,6 +46,7 @@ function islandChanged(extra = {}) {
     plots: [...p.island.plots],
     piers: [...p.island.piers],
     buildings: { ...p.island.buildings },
+    decor: [...(p.island.decor ?? [])],
     boat: p.island.boat,
     workers: p.workers.map((w) => ({ id: w.id, name: w.name })),
     ...extra,
@@ -232,7 +233,7 @@ function wearAfterFight(weight, snapped) {
   const rod = itemOf(data(), 'rod', p.gear.rod);
   if (line?.wear) {
     const ratio = Math.min(2, Math.max(0.2, weight / (line.stats?.strength ?? 2.5)));
-    p.condition.lineWear = Math.min(1, (p.condition.lineWear ?? 0) + line.wear * ratio * (snapped ? 2 : 1));
+    p.condition.lineWear = Math.min(1, (p.condition.lineWear ?? 0) + line.wear * (data().economy?.wear?.lineWearMult ?? 1) * ratio * (snapped ? 2 : 1));
   }
   if (rod?.durability && !rod.unbreakable) {
     const over = Math.max(0, weight - (rod.stats?.rating ?? 3) * (w.strainFrom ?? 0.6));
@@ -310,6 +311,9 @@ function buildOffer(kind, id) {
   return fail('kind');
 }
 
+let pendingDecor = null;  // { uid, item, cost, moveIndex? }: a decoration in the player's hand
+let pendingMove = null;   // building id being moved (Casper 10 Nov: customise your island)
+
 function finishBuild(where) {
   const b = pendingBuild;
   if (!b) return;
@@ -327,9 +331,37 @@ function wireBuildEvents() {
     if (pendingBuild && (!id || id === pendingBuild.id)) { pendingBuild.acked = true; clearTimeout(ackTimer); }
   });
   E.on('build:placed', ({ id, x, z, rot } = {}) => {
+    if (pendingDecor && id === pendingDecor.uid) {
+      // A decoration set down: charged now (cancelling costs nothing); moving one is free.
+      const d = pendingDecor;
+      pendingDecor = null;
+      if (!Number.isFinite(x) || !Number.isFinite(z)) return;
+      const list = (P().island.decor ??= []);
+      if (d.moveIndex != null) { if (list[d.moveIndex]) list[d.moveIndex] = { ...list[d.moveIndex], x, z, rot: rot || 0 }; }
+      else {
+        if (!spend(d.cost)) return;
+        list.push({ uid: d.uid, item: d.item, x, z, rot: rot || 0 });
+      }
+      changed('island', 'coins');
+      islandChanged({ decorated: d.uid });
+      return;
+    }
+    if (pendingMove && id === pendingMove) {
+      // A building moved to a new place (free, any time): keep its level, store where it stands.
+      const cur = P().island.buildings[id];
+      pendingMove = null;
+      if (cur && Number.isFinite(x) && Number.isFinite(z)) {
+        P().island.buildings[id] = { ...cur, x, z, rot: Number.isFinite(rot) ? rot : cur.rot ?? 0 };
+        changed('island');
+        islandChanged({ moved: id });
+      }
+      return;
+    }
     if (pendingBuild && (!id || id === pendingBuild.id)) finishBuild({ x, z, rot });
   });
   E.on('build:cancel', ({ id } = {}) => {
+    if (pendingMove && id === pendingMove) { pendingMove = null; return; }
+    if (pendingDecor && id === pendingDecor.uid) { pendingDecor = null; return; }
     if (pendingBuild && (!id || id === pendingBuild.id)) {
       const b = pendingBuild;
       pendingBuild = null;
@@ -523,6 +555,47 @@ export const economy = {
 
   // --- harbour
   /** Apply a building level now (used by the placement flow; `where` = { x, z, rot } from Agent A). */
+  /** Buy a decoration: placement mode opens; coins are taken when it is set down. */
+  buyDecor(item) {
+    if (visiting()) return fail('visitor');
+    const def = data().economy?.decor?.items?.[item];
+    if (!def) return fail('missing');
+    if (pendingBuild || pendingMove || pendingDecor) return fail('busy');
+    if (P().coins < def.cost) return fail('coins', { need: def.cost - P().coins });
+    if ((P().island.decor?.length ?? 0) >= 150) return fail('full');
+    const uid = `decor_${Date.now().toString(36)}_${Math.floor(Math.random() * 1e4)}`;
+    pendingDecor = { uid, item, cost: def.cost };
+    E.emit('build:start', { kind: 'decor', id: uid, level: 1, model: def.model, place: true });
+    return { ok: true, name: def.name };
+  },
+  /** Pick a placed decoration up again: refund part of its price. */
+  removeDecor(uid) {
+    if (visiting()) return fail('visitor');
+    const list = P().island.decor ?? [];
+    const i = list.findIndex((d) => d.uid === uid);
+    if (i < 0) return fail('missing');
+    const def = data().economy?.decor?.items?.[list[i].item];
+    list.splice(i, 1);
+    const back = Math.round((def?.cost ?? 0) * (data().economy?.decor?.refundShare ?? 0.5));
+    if (back > 0) addCoins(back);
+    changed('island', 'coins');
+    islandChanged({ undecorated: uid });
+    return { ok: true, refund: back, name: def?.name };
+  },
+  /** Take back the decoration placed last (the shop's "Take back last"). */
+  removeLastDecor() { const l = P().island.decor ?? []; return l.length ? economy.removeDecor(l[l.length - 1].uid) : fail('missing'); },
+
+  /** Pick a built building up and put it somewhere else on your land (free). */
+  moveBuilding(id) {
+    if (visiting()) return fail('visitor');
+    const b = buildingLevel(data(), P(), id);
+    if (!b || !b.built || b.index < 1) return fail('missing');
+    if (pendingBuild || pendingMove) return fail('busy');
+    pendingMove = id;
+    E.emit('build:start', { kind: 'building', id, level: b.index, model: b.model ?? `${id}_l${b.index}`, place: true, move: true });
+    return { ok: true, name: b.name };
+  },
+
   upgradeBuilding(id, where = null) {
     if (visiting()) return fail('visitor');
     const b = buildingLevel(data(), P(), id);

@@ -91,11 +91,12 @@ export function createPlacement({ state, events, island, player, cameraRig, inpu
     }
     // Build freely (Casper 9 Nov: sandbox): anywhere on your own dry land, as long as it doesn't
     // sit on another building (spacing from the two footprints).
-    const mine = (assetEntry('world', job?.model)?.footprint?.w ?? 3) / 2;
+    const decor = job?.kind === 'decor';
+    const mine = decor ? 0.5 : (assetEntry('world', job?.model)?.footprint?.w ?? 3) / 2;
     for (const b of Object.values(island.buildings)) {
       if (!b.obj || b === island.buildings[job?.id]) continue;
       const other = (assetEntry('world', b.modelId)?.footprint?.w ?? 3) / 2;
-      if (Math.hypot(b.x - x, b.z - z) < Math.max(2.4, (mine + other) * 0.85)) return false;
+      if (Math.hypot(b.x - x, b.z - z) < (decor ? other * 0.8 + 0.4 : Math.max(2.4, (mine + other) * 0.85))) return false;
     }
     return true;
   }
@@ -148,7 +149,7 @@ export function createPlacement({ state, events, island, player, cameraRig, inpu
   async function start({ kind, id, level, model, place } = {}) {
     if (!id) return;
     events.emit('build:placing', { id });
-    if (!place || kind !== 'building') {
+    if (!place || (kind !== 'building' && kind !== 'decor')) {
       // Upgrade / plot / pier: no placement; B charges, island:changed animates it.
       const b = island.buildings[id];
       events.emit('build:placed', { kind, id, level, x: b?.x ?? null, z: b?.z ?? null, rot: b?.rot ?? 0 });
@@ -156,9 +157,9 @@ export function createPlacement({ state, events, island, player, cameraRig, inpu
       return;
     }
     if (job) cancel();
-    const modelId = pickAsset('world', [model, `${id}_l${level}`, `${id}_l1`]);
+    const modelId = pickAsset('world', kind === 'decor' ? [model] : [model, `${id}_l${level}`, `${id}_l1`]);
     job = { kind, id, level, model: modelId, ghost: null, mats: [], x: 0, z: 0, rot: 0, valid: false, spots: [], water: false };
-    job.spots = spotsFor(id, modelId);
+    job.spots = kind === 'decor' ? [] : spotsFor(id, modelId);
     for (const s of job.spots) {
       const m = new THREE.Mesh(ringGeo, ringMat);
       m.position.set(s.x, (s.water ? 0 : island.groundAt(s.x, s.z)) + 0.06, s.z);
@@ -171,7 +172,7 @@ export function createPlacement({ state, events, island, player, cameraRig, inpu
     hud.setMainLabel('', { hidden: true });
     bar.style.display = 'flex';
     cameraRig.setMode('build');
-    const first = job.spots[0] || { x: player.position.x + 2, z: player.position.z, rot: 0 };
+    const first = (kind === 'building' && island.buildings[id]?.obj ? island.buildings[id] : null) || job.spots[0] || { x: player.position.x + 2, z: player.position.z, rot: 0 };
     cameraRig.setFocus(first.x, 0, first.z + 1);
     if (modelId) {
       const m = await loadModel('world', modelId);

@@ -15,7 +15,9 @@
   },
   "sell": {
     "weightFactor": { "atMin": 0.8, "atMax": 1.2 },
-    "minPrice": 1
+    "minPrice": 1,
+    "globalMult": 1.4,
+    "_notes": "globalMult (Casper 10 Nov: too hard to make money): every sale x 1.4."
   },
   "sizeClasses": [
     { "id": "small", "name": "Small", "below": 0.2, "mult": 0.8 },
@@ -56,26 +58,33 @@
     "hireCost": 80,
     "costGrowth": 1.8,
     "catchSeconds": 90,
-    "valueMult": 0.5,
+    "valueMult": 0.7,
     "pool": ["common", "uncommon"],
     "baseSpots": 1,
     "names": ["Old Tobin", "Maris", "Pell", "Ines", "Corrie", "Bram", "Sol", "Juna", "Talley", "Ottoline", "Dace", "Fen", "Rook", "Annick", "Gale", "Morrow"]
   },
   "nets": {
     "_notes": "Crab pots and nets on owned land plots fill over time.",
-    "coinsPerHour": 60
+    "coinsPerHour": 110
   },
   "plots": {
     "sandbar": { "name": "The Sandbar", "about": "Barely bigger than your boat. A pier stub, a tarp, a fire.", "cost": 0, "order": 0, "model": "plot_sandbar", "nets": 0, "crewSpots": 0 },
     "palm_spit": { "name": "Palm Spit", "about": "A crooked spit of sand with three leaning palms. Room for a crew to sleep.", "cost": 70, "order": 1, "model": "plot_palm_spit", "nets": 0, "crewSpots": 0 },
-    "tidepool_shelf": { "name": "Tide-pool Shelf", "about": "Flat rock full of pools at low tide. Crabs, anemones, and a place for an aquarium.", "cost": 700, "order": 2, "model": "plot_tidepool_shelf", "nets": 1, "crewSpots": 1 },
-    "wreck_beach": { "name": "Wreck Beach", "about": "Where the red boat beached itself years ago. Good timber, good shelter, room for a dock.", "cost": 2600, "order": 3, "model": "plot_wreck_beach", "nets": 0, "crewSpots": 1 },
-    "sunset_dunes": { "name": "Sunset Dunes", "about": "A long golden beach east of the spit, palms on the crest. Room for a whole works.", "cost": 5000, "order": 4, "model": null, "nets": 2, "crewSpots": 2 },
-    "kelp_shallows": { "name": "Kelp Shallows", "about": "Shallow water thick with kelp. The wraiths like it here.", "cost": 7500, "order": 5, "model": "plot_kelp_shallows", "nets": 2, "crewSpots": 2 },
-    "basalt_cliff": { "name": "Basalt Cliff", "about": "Black columns rising out of the surf. One day a lighthouse will stand here.", "cost": 18000, "order": 6, "model": "plot_basalt_cliff", "nets": 0, "crewSpots": 1 },
-    "gull_headland": { "name": "Gull Headland", "about": "A grassy rock shoulder past the west cliffs, cairns up the knoll, nets in the wind.", "cost": 24000, "order": 7, "model": null, "nets": 2, "crewSpots": 2 },
-    "mooring_deep": { "name": "The Old Mooring's Deep", "about": "The dark water where the Old Mooring has lived for fifty years.", "cost": 40000, "order": 8, "model": "plot_mooring_deep", "nets": 1, "crewSpots": 2 },
-    "lantern_atoll": { "name": "Lantern Atoll", "about": "A ring of palms far out in deep water. Its lanterns light the way home.", "cost": 70000, "order": 9, "model": null, "nets": 3, "crewSpots": 2 }
+    "driftwood_flats": { "name": "Driftwood Flats", "about": "A broad stretch of firm sand behind the sandbar. Your first real room to build.", "cost": 450, "order": 2, "model": null, "nets": 0, "crewSpots": 1 },
+    "tidepool_shelf": { "name": "Tide-pool Shelf", "about": "Flat rock full of pools at low tide. Crabs, anemones, and a place for an aquarium.", "cost": 700, "order": 3, "model": "plot_tidepool_shelf", "nets": 1, "crewSpots": 1 },
+    "wreck_beach": { "name": "Wreck Beach", "about": "Where the red boat beached itself years ago. Good timber, good shelter, room for a dock.", "cost": 2600, "order": 4, "model": "plot_wreck_beach", "nets": 0, "crewSpots": 1 },
+    "east_strand": { "name": "East Strand", "about": "The beach runs on east of the palms. Room for a street of huts.", "cost": 4000, "order": 5, "model": null, "nets": 1, "crewSpots": 1 },
+    "sunset_dunes": { "name": "Sunset Dunes", "about": "A long golden beach east of the spit, palms on the crest. Room for a whole works.", "cost": 6500, "order": 6, "model": null, "nets": 2, "crewSpots": 2 },
+    "kelp_shallows": { "name": "Kelp Shallows", "about": "Shallow water thick with kelp. The wraiths like it here.", "cost": 9000, "order": 7, "model": "plot_kelp_shallows", "nets": 2, "crewSpots": 2 },
+    "west_strand": { "name": "West Strand", "about": "Wide sand behind the wreck, sheltered from the wind. A works yard in the making.", "cost": 13000, "order": 8, "model": null, "nets": 1, "crewSpots": 2 },
+    "basalt_cliff": { "name": "Basalt Cliff", "about": "Black columns rising out of the surf. One day a lighthouse will stand here.", "cost": 20000, "order": 9, "model": "plot_basalt_cliff", "nets": 0, "crewSpots": 1 },
+    "gull_headland": { "name": "Gull Headland", "about": "A grassy rock shoulder past the west cliffs, cairns up the knoll, nets in the wind.", "cost": 30000, "order": 10, "model": null, "nets": 2, "crewSpots": 2 },
+    "high_meadow": { "name": "The High Meadow", "about": "Grass above the tide line, the whole width of the cove. A village fits here.", "cost": 45000, "order": 11, "model": null, "nets": 0, "crewSpots": 2 },
+    "mooring_deep": { "name": "The Old Mooring's Deep", "about": "The dark water where the Old Mooring has lived for fifty years.", "cost": 60000, "order": 12, "model": "plot_mooring_deep", "nets": 1, "crewSpots": 2 },
+    "east_meadow": { "name": "Gullwing Meadow", "about": "Rising ground to the north-east, with a view of the dunes.", "cost": 90000, "order": 13, "model": null, "nets": 1, "crewSpots": 2 },
+    "lantern_atoll": { "name": "Lantern Atoll", "about": "A ring of palms far out in deep water. Its lanterns light the way home.", "cost": 130000, "order": 14, "model": null, "nets": 3, "crewSpots": 2 },
+    "west_meadow": { "name": "Windbreak Meadow", "about": "A long green shoulder to the north-west, out of the weather.", "cost": 190000, "order": 15, "model": null, "nets": 1, "crewSpots": 2 },
+    "kings_shelf": { "name": "King's Shelf", "about": "The high ground at the very back of the cove. Whoever builds here owns the view.", "cost": 420000, "order": 16, "model": null, "nets": 2, "crewSpots": 3 }
   },
   "piers": {
     "_notes": "Bought in order. Each needs its plot, reaches deeper water (depth in metres, for Agent A) and gives the crew one more spot to fish from.",
@@ -196,13 +205,14 @@
     "storm_cutter": { "name": "Storm Cutter", "about": "Built to sail straight through lightning.", "cost": 60000, "tier": 4, "reach": 8 }
   },
   "wear": {
-    "_notes": "4.7b. Rod strain per fight = max(0, fish kg - rating x strainFrom) x strainPerKg (Casper 9 Nov: rods broke too fast; only fish heavier than the rating strain it now); it breaks at the rod's durability (the starter never breaks). Line wear per fight = line.wear x (fish kg / line strength, 0.2..2), doubled on a snap; a worn line keeps half its strength at full wear. Repair = repairShare x the rod's price. On a snap the hook, sinker, float and leader are lost (the tackle box keeps each with tackleBoxSave), and one lure.",
+    "_notes": "4.7b. Rod strain per fight = max(0, fish kg - rating x strainFrom) x strainPerKg (Casper 9 Nov: rods broke too fast; only fish heavier than the rating strain it now); it breaks at the rod's durability (the starter never breaks). Line wear per fight = line.wear x (fish kg / line strength, 0.2..2), doubled on a snap; a worn line keeps half its strength at full wear. Repair = repairShare x the rod's price. On a snap the hook, sinker, float and leader are lost (the tackle box keeps each with tackleBoxSave), and one lure. Casper 10 Nov (repairing way too often): strain per kg 2.5 -> 1.0, at most 12% of the rod per fight, repair 12% of the price, and all line wear x lineWearMult (0.45).",
     "strainFrom": 1.0,
-    "strainPerKg": 2.5,
-    "repairShare": 0.3,
+    "strainPerKg": 1.0,
+    "repairShare": 0.12,
     "tackleBoxSave": 0.6,
     "baitBucketSave": 0.25,
-    "maxStrainPerFight": 0.3
+    "maxStrainPerFight": 0.12,
+    "lineWearMult": 0.45
   },
   "offline": {
     "_notes": "Crew, nets and aquarium keep earning while the game is closed, up to capHours. The night watch raises the cap.",
@@ -221,5 +231,37 @@
     "idleMult": 100,
     "startCoins": 0,
     "grantCoins": 10000
+  },
+  "decor": {
+    "_notes": "Decorations (Casper 10 Nov: customise your island, real world building). Bought one at a time, as many as you like, placed freely on your own land (placement mode), picked up again for refundShare of the price. model = a world model id.",
+    "refundShare": 0.5,
+    "items": {
+      "palm_young": { "name": "Young Palm", "cost": 40, "model": "palm_young" },
+      "palm_tall": { "name": "Tall Palm", "cost": 120, "model": "palm_tall" },
+      "palm_bent": { "name": "Leaning Palm", "cost": 120, "model": "palm_bent" },
+      "palm_twin": { "name": "Twin Palms", "cost": 200, "model": "palm_twin" },
+      "bush_seagrape": { "name": "Sea-grape Bush", "cost": 35, "model": "bush_seagrape" },
+      "bush_spiky": { "name": "Spiky Bush", "cost": 30, "model": "bush_spiky" },
+      "beach_grass": { "name": "Beach Grass", "cost": 15, "model": "beach_grass_a" },
+      "rock_m": { "name": "Boulder", "cost": 25, "model": "rock_m" },
+      "rock_cluster": { "name": "Rock Cluster", "cost": 60, "model": "rock_cluster" },
+      "driftwood_log": { "name": "Driftwood Log", "cost": 20, "model": "driftwood_log" },
+      "fence_rope": { "name": "Rope Fence", "cost": 30, "model": "fence_rope" },
+      "fence_planks": { "name": "Plank Fence", "cost": 45, "model": "fence_planks" },
+      "lantern_post": { "name": "Lantern Post", "cost": 150, "model": "lantern_post" },
+      "cairn_lantern": { "name": "Cairn Lantern", "cost": 260, "model": "cairn_lantern" },
+      "signpost": { "name": "Signpost", "cost": 80, "model": "signpost" },
+      "crate_stack": { "name": "Crate Stack", "cost": 50, "model": "crate_stack" },
+      "barrel": { "name": "Barrel", "cost": 30, "model": "barrel" },
+      "fish_crate_stack": { "name": "Fish Crates", "cost": 60, "model": "fish_crate_stack" },
+      "net_rack": { "name": "Net Rack", "cost": 110, "model": "net_rack" },
+      "crab_pot": { "name": "Crab Pot", "cost": 45, "model": "crab_pot" },
+      "rope_coil": { "name": "Rope Coil", "cost": 25, "model": "rope_coil" },
+      "anchor": { "name": "Old Anchor", "cost": 300, "model": "anchor" },
+      "hammock": { "name": "Hammock", "cost": 400, "model": "hammock" },
+      "fisher_hut": { "name": "Fisher's Hut", "cost": 1500, "model": "fisher_hut" },
+      "boat_skiff": { "name": "Beached Skiff", "cost": 900, "model": "boat_skiff" },
+      "coconut_pile": { "name": "Coconut Pile", "cost": 35, "model": "coconut_pile" }
+    }
   }
 }

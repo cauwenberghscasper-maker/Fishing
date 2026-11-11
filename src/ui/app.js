@@ -284,6 +284,7 @@ export async function startUI({ root, state, events }) {
   if (state.profile.pendingOffline) open(offlineLetter(ctx), { queued: true });
 
   window.__ui = ui;   // debug hook next to window.__game (opens screens from the console or tests)
+  ui.ctx = ctx;
   return ui;
 }
 

@@ -194,7 +194,7 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
 
     // Snap / slack / spool
     if (s.tension >= 0.985) s.overload += dt; else s.overload = Math.max(0, s.overload - dt * 1.4);
-    const snapTime = 0.75 + 0.35 * gear.lineStrength;
+    const snapTime = 1.3 + 0.45 * gear.lineStrength;   // Casper 10 Nov: fewer lost fish, more time to ease off
     if (s.overload > snapTime) s.status = 'snap';
     const relaxing = m && (m.pull ?? 1) < 0.2;
     if (s.tension < 0.07 && !s.landing && !relaxing) s.slack += dt; else s.slack = Math.max(0, s.slack - dt * 2);

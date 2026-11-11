@@ -225,7 +225,7 @@ export function priceOf(data, profile, test, c, extra = 0, hotId) {
   const size = sizeClassById(data, c.sizeClass) ?? sizeClassFor(data, c.fishId, c.weight);
   const variant = variantOf(data, c.variant ?? 'basic');
   const market = marketMult(data, profile, c.fishId, extra, hotId === undefined ? hotFishOf(data, profile) : hotId);
-  const raw = fish.baseValue * weightFactor * size.mult * (variant.valueMult ?? 1) * (c.bonus ?? 1) * market * (1 + shopBonus(data, profile));
+  const raw = fish.baseValue * (e.sell?.globalMult ?? 1) * weightFactor * size.mult * (variant.valueMult ?? 1) * (c.bonus ?? 1) * market * (1 + shopBonus(data, profile));
   return Math.max(e.sell?.minPrice ?? 1, Math.round(raw)) * testMult(data, test, 'coins');
 }
 

@@ -33,6 +33,8 @@ export function normalizeIsland(src, data) {
     plots,
     piers,
     buildings,
+    decor: (Array.isArray(src?.decor) ? src.decor : []).filter((d) => d && typeof d.uid === 'string' && Number.isFinite(d.x) && Number.isFinite(d.z))
+      .map((d) => ({ uid: d.uid, item: d.item, model: data?.economy?.decor?.items?.[d.item]?.model, x: d.x, z: d.z, rot: Number(d.rot) || 0 })).filter((d) => d.model),
     boat: typeof src?.boat === 'string' ? src.boat : 'rowboat',
     workers: Array.isArray(src?.workers) ? src.workers : [],
   };
@@ -54,7 +56,7 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
   // Moving parts of models (animParts.js); puffs of smoke live in the island group too.
   const animParts = createAnimParts({ scene: group });
   const groups = {};
-  for (const name of ['props', 'plots', 'piers', 'buildings', 'boat', 'camp']) {
+  for (const name of ['props', 'plots', 'piers', 'buildings', 'decor', 'boat', 'camp']) {
     groups[name] = new THREE.Group();
     groups[name].name = name;
     group.add(groups[name]);
@@ -383,6 +385,25 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
   }
 
   // Bring the visuals in line with a new owned state, animating what changed.
+  // Decorations the player placed (economy.json decor): props with their own colliders.
+  const decorObjs = new Map();   // uid -> { obj, x, z, rot, model }
+  async function syncDecor(list, animate) {
+    const live = new Set(list.map((d) => d.uid));
+    for (const [uid, e] of decorObjs) if (!live.has(uid)) { e.obj?.removeFromParent(); decorObjs.delete(uid); }
+    for (const d of list) {
+      const prev = decorObjs.get(d.uid);
+      if (prev && prev.x === d.x && prev.z === d.z && prev.rot === d.rot) continue;
+      prev?.obj?.removeFromParent();
+      const entry = { obj: null, x: d.x, z: d.z, rot: d.rot, model: d.model };
+      decorObjs.set(d.uid, entry);
+      const obj = await addProp(d.model, d.x, d.z, d.rot, 1, false, groups.decor);
+      if (decorObjs.get(d.uid) !== entry) { obj?.removeFromParent(); continue; }
+      entry.obj = obj;
+      if (obj && animate) construct(obj, null);
+    }
+    rebuildColliders();
+  }
+
   async function applyOwned(next, { animate = true, skipBuild = null } = {}) {
     const before = owned;
     owned = next;
@@ -401,6 +422,7 @@ export function createIsland({ layout, events, state, splashes, dust, audio, wat
     for (const id of Object.keys(buildingObjs)) {
       if (!next.buildings[id]) { buildingObjs[id].obj?.removeFromParent(); delete buildingObjs[id]; }
     }
+    await syncDecor(next.decor || [], animate);
     const count = 1 + next.piers.length;
     if (count !== pierCount) {
       const from = pierCount > 0 && animate ? pierCount - 1 : null;

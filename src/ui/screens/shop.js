@@ -24,7 +24,7 @@ const SUBS = {
   ],
   build: [
     { id: 'buildings', icon: 'house', label: 'Houses' }, { id: 'land', icon: 'plot', label: 'Land' }, { id: 'piers', icon: 'pier', label: 'Piers' },
-    { id: 'boats', icon: 'boat', label: 'Boats' }, { id: 'crew', icon: 'crew', label: 'Crew' },
+    { id: 'boats', icon: 'boat', label: 'Boats' }, { id: 'crew', icon: 'crew', label: 'Crew' }, { id: 'decor', icon: 'plot', label: 'Decor' },
   ],
 };
 const SLOT_ICON = { rod: 'rod', reel: 'reel', line: 'line', bait: 'worm', hook: 'hook', sinker: 'sinker', float: 'float', leader: 'leader', lure: 'lure', tool: 'net' };
@@ -432,7 +432,13 @@ function buildView(ctx, sub, drawer, setDrawer) {
             !bb.siteOwned ? h('p.drawer__note', `Stands on ${plotName(bb.def.site)}. Raise it first.`) : null,
             h('div.drawer__actions', nn
               ? Plate([h('span', lvlNow ? 'Upgrade' : 'Place it'), money(nn.cost)], () => start('building', id), { disabled: !bb.siteOwned || nn.cost > p.coins })
-              : h('p.drawer__done', ico('check'), 'Finished')));
+              : h('p.drawer__done', ico('check'), 'Finished'),
+              // Move it anywhere on your land, any time, for free (Casper 10 Nov: customise the island).
+              lvlNow ? h('button.btn.drawer__move', { type: 'button', on: { click: () => {
+                const r = economy.moveBuilding(id);
+                if (r.ok) { ui.close(); ui.toast(`${r.name}: drag it to its new place`); }
+                else if (r.reason === 'busy') ui.toast('Finish the build you started first', 'danger');
+              } } }, 'Move') : null));
         }),
       });
     });
@@ -453,6 +459,32 @@ function buildView(ctx, sub, drawer, setDrawer) {
             : h('p.drawer__note', `Raise ${plotName(next)} first.`)))),
       });
     });
+  } else if (sub === 'decor') {
+    // Decorations: buy as many as you like and set each down anywhere on your land.
+    const D = state.data.economy?.decor ?? {};
+    const have = p.island.decor ?? [];
+    const count = (item) => have.filter((d) => d.item === item).length;
+    tiles = Object.entries(D.items ?? {}).map(([id, def]) => Tile({
+      icon: 'plot', name: def.name,
+      value: money(def.cost),
+      state: def.cost > p.coins ? 'locked' : null,
+      onTap: () => setDrawer(() => drawer.open(
+        showcase(null, def.model, 'world'),
+        h('h3.drawer__title', def.name),
+        h('p.drawer__line', `Set it down anywhere on your land. You have ${count(id)} on the island.`),
+        h('div.drawer__actions',
+          Plate([h('span', 'Place one'), money(def.cost)], () => {
+            const r = economy.buyDecor(id);
+            if (r.ok) { ui.close(); ui.toast(`${r.name}: drag it where you want it`); }
+            else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need)} more coins`, 'danger');
+            else if (r.reason === 'full') ui.toast('The island is full of decorations', 'danger');
+            else if (r.reason === 'busy') ui.toast('Finish the build you started first', 'danger');
+          }, { disabled: def.cost > p.coins }),
+          have.length ? h('button.btn.drawer__move', { type: 'button', on: { click: () => {
+            const r = economy.removeLastDecor();
+            if (r.ok) ui.toast(`${r.name ?? 'Decoration'} taken back${r.refund ? `: +${fmt(r.refund)} coins` : ''}`);
+          } } }, 'Take back last') : null))),
+    }));
   } else if (sub === 'piers') {
     const next = economy.nextPier();
     tiles = Object.entries(state.data.economy?.piers ?? {}).filter(([k]) => !k.startsWith('_')).map(([id, def]) => {

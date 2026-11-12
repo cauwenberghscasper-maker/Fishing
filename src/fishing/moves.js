@@ -35,5 +35,22 @@ export const MOVES = {
   bask: { dur: [2.2, 3.0], pull: 1.25, damage: 0.45, steerBonus: 2.4, depth: 0.1, swim: 'still', hint: 'Basking like a capsized hull: steer to turn it' },
   // Rigging shark: violent head-shakes; the tension wobbles hard both ways.
   headshake: { dur: [1.2, 1.8], pull: 1.15, oscillate: 0.3, flipEvery: 0.18, shake: 0.3, damage: 1.25, swim: 'thrash', hint: 'Head-shakes! Keep the line in the green' },
+  // --- Signature moves (Casper 12 Nov: "more fishes with custom attack patterns") ---------------
+  // Corkscrew: spins round the line; quick alternating turns, steering pays.
+  spiral: { dur: [1.8, 2.4], pull: 1.45, line: 1.2, flipEvery: 0.33, steerBonus: 1.9, damage: 1.1, swim: 'thrash', hint: 'Corkscrewing! Steer against every turn' },
+  // Dead weight: drops like an anchor and hangs there. Cranking spikes the line; short pumps only.
+  anchor: { dur: [2.2, 3.0], pull: 2.1, reelTension: 1.8, damage: 0.3, depth: 'bottom', swim: 'tired', shake: 0.15, hint: 'Dead weight on the bottom: pump gently' },
+  // Tail-walk: dances across the surface on its tail, four hops; bow the rod on each.
+  tailwalk: { dur: [1.6, 1.8], pull: 0.7, air: { height: 0.9, dur: 0.4, hops: 4 }, bow: true, spikeNoBow: 0.14, swim: 'leap', shake: 0.2, hint: 'Tail-walking! Tap on each hop to bow the rod' },
+  // Long run: a sustained sprint that strips line. Ease off and let it go, then turn it.
+  surge: { dur: [2.6, 3.4], pull: 2.3, line: 3.0, flipSide: true, swim: 'run', shake: 0.2, hint: 'A long run! Ease off, let it take line' },
+  // Feint: stops dead and drifts toward you, then explodes away.
+  feint: { dur: [1.0, 1.5], pull: 0.05, line: 0, reelGain: 1.4, swim: 'still', next: 'bolt', hint: 'It stopped fighting... be ready' },
+  // Death roll: rolls on the line; tension swings wildly, it tires itself out fast.
+  roll: { dur: [1.5, 2.1], pull: 1.35, oscillate: 0.34, flipEvery: 0.25, damage: 1.5, shake: 0.35, splashEvery: 0.25, swim: 'thrash', hint: 'Death roll! Hold the line in the green' },
+  // Sounding: a monster going straight down, a long heavy dive.
+  sound: { dur: [2.4, 3.2], pull: 1.9, line: 1.6, spike: 0.2, depth: 3.5, reelTension: 1.4, swim: 'dive', shake: 0.25, hint: 'Sounding! It is going deep, ease off' },
+  // Lantern flash (glowing fish): blinds you; the tension bar blinks out and reeling spikes the line.
+  flash: { dur: [0.9, 1.2], pull: 0.4, line: 0.4, spikeIfReeling: 0.3, swim: 'still', next: 'surge', hint: 'A blinding flash: stop reeling!' },
   inflate: { dur: [2.6, 3.4], pull: 0.6, reelTension: 1.9, passiveDrain: 0.035, inflate: 1, swim: 'tired', hint: 'Puffed up! Reeling now spikes the line, wait it out' },
 };

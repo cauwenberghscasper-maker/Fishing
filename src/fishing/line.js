@@ -1,5 +1,5 @@
-// Fishing line: verlet rope from the rod tip to the lure, drawn as a thin camera-facing ribbon
-// that catches the low sun. Sags when slack, snaps straight under tension.
+// Fishing line: a stiff monofilament from the rod tip to the lure, drawn as a thin camera-facing
+// ribbon that catches the low sun. One clean sagging curve when slack, dead straight under tension.
 import * as THREE from 'three';
 
 const N = 30;
@@ -11,6 +11,8 @@ export function createLine() {
   let restLength = 1;
   let active = false;
   let tension = 0;
+  let sag = 0;
+  let windT = 0;
 
   const vertCount = N * 2;
   const positions = new Float32Array(vertCount * 3);
@@ -53,7 +55,7 @@ export function createLine() {
       void main() {
         float under = smoothstep(0.02, -0.35, vWorldY);
         vec3 c = uColor * uLight * (1.0 + uTension * 0.8);
-        float a = mix(0.9, 0.25, under);
+        float a = mix(0.95, 0.55, under);   // still clearly there under the surface
         gl_FragColor = vec4(c * a, a);
       }`,
     transparent: true,
@@ -89,55 +91,49 @@ export function createLine() {
       active = true;
       mesh.visible = true;
       reset(from, to);
+      sag = 0;
       restLength = length ?? from.distanceTo(to);
     },
     hide() { active = false; mesh.visible = false; },
     setLength(l) { restLength = Math.max(0.2, l); },
     setTension(t) { tension = t; material.uniforms.uTension.value = t; },
     setLight(l) { material.uniforms.uLight.value = l; },
-    // tip and end are pinned; surfaceY(x, z) gives the water height for buoyancy.
+    // tip and end are pinned; surfaceY(x, z) gives the water height.
+    // Casper 12 Nov: "the rope shouldn't disappear or look so flexible". A fishing line is stiff
+    // monofilament, not a rope: it hangs in one clean curve from the rod tip, lies along the water
+    // when slack, and pulls dead straight as the tension comes on. So the shape is computed, not
+    // simulated: a single sagging span (sag from the slack and the tension, eased so it never
+    // jitters), a breath of wind, and the part past the water's edge dropping to the lure.
     update(dt, tip, end, camera, surfaceY) {
       if (!active) return;
-      const seg = restLength / (N - 1);
-      const sub = Math.min(dt, 1 / 30);
-      for (let i = 1; i < N - 1; i++) {
-        const p = pos[i];
-        const v = tmpA.subVectors(p, prev[i]);
-        const sy = surfaceY(p.x, p.z);
-        const inWater = p.y < sy;
-        v.multiplyScalar(inWater ? 0.82 : 0.985);
-        prev[i].copy(p);
-        p.add(v);
-        p.y += (inWater ? -0.6 : -9.8) * sub * sub;
-        if (inWater && p.y < sy - 0.6) p.y = sy - 0.6;
+      const span = tip.distanceTo(end);
+      const slack = Math.max(0, restLength - span);
+      // Sag wanted: a slack line bellies, a loaded line is straight. Capped so it never loops.
+      const want = Math.min(span * 0.22, 0.25 + Math.sqrt(slack * span) * 0.35) * (1 - Math.min(1, tension * 1.25));
+      sag += (want - sag) * Math.min(1, dt * 5);
+      windT += dt;
+      const sway = Math.sin(windT * 1.3) * 0.012 * span * (1 - Math.min(1, tension * 2));
+      // Sideways direction for the wind sway.
+      tmpB.subVectors(end, tip); tmpB.y = 0;
+      const sl = tmpB.length() || 1;
+      const sx = -tmpB.z / sl, sz = tmpB.x / sl;
+      for (let i = 0; i < N; i++) {
+        const t = i / (N - 1);
+        const p = pos[i].lerpVectors(tip, end, t);
+        const bow = 4 * t * (1 - t);
+        // The belly sits nearer the lure (the rod end is held up).
+        const belly = bow * (0.6 + 0.8 * t) * 0.75;
+        p.y -= sag * belly;
+        p.x += sx * sway * bow; p.z += sz * sway * bow;
+        // Above the lure's depth the line never dips under the surface until its last stretch:
+        // slack line floats on the water, it does not dive through it.
+        if (t < 0.93) {
+          const sy = surfaceY(p.x, p.z) + 0.015;
+          if (p.y < sy) p.y = sy;
+        }
       }
       pos[0].copy(tip);
       pos[N - 1].copy(end);
-      for (let it = 0; it < 14; it++) {
-        for (let i = 0; i < N - 1; i++) {
-          const a = pos[i], b = pos[i + 1];
-          const d = tmpB.subVectors(b, a);
-          const len = d.length() || 1e-6;
-          // Rope: only resists stretching, never pushes.
-          if (len <= seg) continue;
-          const diff = (len - seg) / len;
-          const wa = i === 0 ? 0 : 0.5;
-          const wb = i + 1 === N - 1 ? 0 : 0.5;
-          const s = wa + wb || 1;
-          a.addScaledVector(d, (diff * wa) / s);
-          b.addScaledVector(d, (-diff * wb) / s);
-        }
-        pos[0].copy(tip);
-        pos[N - 1].copy(end);
-      }
-      // Under tension the line straightens regardless of the solver.
-      if (tension > 0.05) {
-        const k = Math.min(1, tension * 1.4);
-        for (let i = 1; i < N - 1; i++) {
-          tmpA.lerpVectors(tip, end, i / (N - 1));
-          pos[i].lerp(tmpA, k * 0.35);
-        }
-      }
       // Ribbon facing the camera.
       for (let i = 0; i < N; i++) {
         const p = pos[i];
@@ -145,7 +141,9 @@ export function createLine() {
         const o = pos[Math.max(0, i - 1)];
         tmpA.subVectors(q, o).normalize();
         view.subVectors(camera.position, p).normalize();
-        tmpB.crossVectors(tmpA, view).normalize().multiplyScalar(WIDTH * (1 + p.distanceTo(camera.position) * 0.012));
+        const dist = p.distanceTo(camera.position);
+        const px = (2 * Math.tan((camera.fov * Math.PI) / 360) * dist) / (window.innerHeight || 800) / (camera.zoom || 1);
+        tmpB.crossVectors(tmpA, view).normalize().multiplyScalar(Math.max(WIDTH, px * 0.9));   // >= ~1.8 px wide: never vanishes on a far cast
         positions[i * 6] = p.x + tmpB.x; positions[i * 6 + 1] = p.y + tmpB.y; positions[i * 6 + 2] = p.z + tmpB.z;
         positions[i * 6 + 3] = p.x - tmpB.x; positions[i * 6 + 4] = p.y - tmpB.y; positions[i * 6 + 5] = p.z - tmpB.z;
       }

@@ -107,7 +107,7 @@ export function createFishSystem({ state, island, water, splashes, events, under
     // Further out, the fish run bigger (a long cast is a bigger catch).
     const farOut = THREE.MathUtils.smoothstep(Math.hypot(p.x, p.z), 20, 60);
     let sizeU = school?.leader?.sizeU != null ? Math.max(0, Math.min(1, school.leader.sizeU + rand(-0.1, 0.1))) : Math.pow(Math.random(), 1.5 - 0.8 * farOut);
-    if (!school && Math.random() < GIANT_CHANCE * (Math.hypot(p.x, p.z) > 35 ? 2 : 1)) sizeU = 1 + rand(0.15, 0.6);
+    if (!school && Math.random() < GIANT_CHANCE * (state.world.season?.effects?.giant ?? 1) * (Math.hypot(p.x, p.z) > 35 ? 2 : 1)) sizeU = 1 + rand(0.15, 0.6);
     const sizeLook = (0.72 + 0.56 * Math.min(1, sizeU)) * (sizeU > 1 ? 1 + (sizeU - 1) * 1.6 : 1);
     const f = {
       uid: forcedUid || ++uidCounter,
@@ -140,7 +140,7 @@ export function createFishSystem({ state, island, water, splashes, events, under
       slot: null,
       shadow: null,
       // Elemental fish: 3x as common as the base tables near shore, up to 10x far out at sea (Casper 9 Nov: "way too rare").
-      variant: variant || rollVariant(state, state.world.islandId, state.world.weather, (3 + 7 * THREE.MathUtils.smoothstep(Math.hypot(p.x, p.z), 22, 60)) * (state.profile?.charm?.kind === 'element' && state.profile.charm.casts > 0 ? 4 : 1)),
+      variant: variant || rollVariant(state, state.world.islandId, state.world.weather, (3 + 7 * THREE.MathUtils.smoothstep(Math.hypot(p.x, p.z), 22, 60)) * (state.profile?.charm?.kind === 'element' && state.profile.charm.casts > 0 ? 4 : 1) * (state.world.season?.effects?.elemental ?? 1)),
       object: null,          // anchor Object3D (Agent E attaches variant looks here)
       model: null,
       swimUniforms: null,
@@ -525,6 +525,10 @@ export function createFishSystem({ state, island, water, splashes, events, under
       if (far) w *= rank === 0 ? 1 - 0.6 * far : 1 + rank * far * 1.6;
       // A treasure chest's lucky charm (treasure.js): rare fish come to the lure for a few casts.
       if (state.profile?.charm?.kind === 'rare' && state.profile.charm.casts > 0) w *= 1 + rank * 2;
+      // The season (world/seasons.js): the Autumn Run pulls rare fish in, Winter Storms the monsters.
+      const fx = state.world.season?.effects;
+      if (fx?.rare && rank >= 2 && rank < 6) w *= 1 + fx.rare;
+      if (fx?.monster && rank >= 6) w *= fx.monster;
       // Variety: species you just caught bite less, ones missing from your Fishdex bite more.
       const recent = recentCatches.filter((id) => id === f.id).length;
       if (recent) w *= Math.pow(0.45, recent);

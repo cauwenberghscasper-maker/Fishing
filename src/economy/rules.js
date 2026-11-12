@@ -225,7 +225,7 @@ export function priceOf(data, profile, test, c, extra = 0, hotId) {
   const size = sizeClassById(data, c.sizeClass) ?? sizeClassFor(data, c.fishId, c.weight);
   const variant = variantOf(data, c.variant ?? 'basic');
   const market = marketMult(data, profile, c.fishId, extra, hotId === undefined ? hotFishOf(data, profile) : hotId);
-  const raw = fish.baseValue * (e.sell?.globalMult ?? 1) * weightFactor * size.mult * (variant.valueMult ?? 1) * (c.bonus ?? 1) * market * (1 + shopBonus(data, profile));
+  const raw = fish.baseValue * (e.sell?.globalMult ?? 1) * (e.sell?.seasonMult ?? 1) * weightFactor * size.mult * (variant.valueMult ?? 1) * (c.bonus ?? 1) * market * (1 + shopBonus(data, profile));
   return Math.max(e.sell?.minPrice ?? 1, Math.round(raw)) * testMult(data, test, 'coins');
 }
 
@@ -313,8 +313,12 @@ export function incomeRates(data, profile, test) {
   const mult = testMult(data, test, 'idle');
   const crewN = profile.workers?.length ?? 0;
   const fishPerSecond = crewN * (hut?.rateMult ?? 1) / (w.catchSeconds ?? 90);
-  const crew = fishPerSecond * crewCatchValue(data) * (1 + (smoke?.crewBonus ?? 0)) * mult;
-  const nets = netCount(data, profile) * ((data.economy?.nets?.coinsPerHour ?? 60) / 3600) * mult;
+  // Idle upgrade ladders (economy.json crewTraining): each tier multiplies crew / net income.
+  const T = data.economy?.crewTraining ?? {};
+  const trainMult = 1 + (profile.training ?? 0) * (T.training?.bonusPerTier ?? 0);
+  const netMult = 1 + (profile.netting ?? 0) * (T.netting?.bonusPerTier ?? 0);
+  const crew = fishPerSecond * crewCatchValue(data) * (1 + (smoke?.crewBonus ?? 0)) * mult * trainMult;
+  const nets = netCount(data, profile) * ((data.economy?.nets?.coinsPerHour ?? 60) / 3600) * mult * netMult;
   const species = Object.keys(profile.fishdex ?? {}).length;
   const aquarium = species * ((aqua?.coinsPerSpeciesHour ?? 0) / 3600) * mult;
   const factory = 1 + (buildingLevel(data, profile, 'cannery')?.factoryBonus ?? 0);

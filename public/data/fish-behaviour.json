@@ -138,7 +138,8 @@
     "moves": [
       "zigzag",
       "run",
-      "dive"
+      "dive",
+      "spiral"
     ],
     "moveEvery": [
       2.0,
@@ -174,7 +175,8 @@
     "moves": [
       "inflate",
       "sulk",
-      "burst"
+      "burst",
+      "roll"
     ],
     "moveEvery": [
       2.6,
@@ -211,7 +213,10 @@
       "sulk",
       "thrash",
       "burst",
-      "leap"
+      "leap",
+      "surge",
+      "anchor",
+      "tailwalk"
     ],
     "moveEvery": [
       1.8,
@@ -241,7 +246,8 @@
     "pull": 0.32,
     "moves": [
       "kite",
-      "leap"
+      "leap",
+      "surge"
     ],
     "moveEvery": [
       2.4,
@@ -302,7 +308,8 @@
     "moves": [
       "hug",
       "glare",
-      "burst"
+      "burst",
+      "flash"
     ],
     "moveEvery": [
       2.4,
@@ -337,7 +344,8 @@
     "moves": [
       "sulk",
       "clamp",
-      "thrash"
+      "thrash",
+      "anchor"
     ],
     "moveEvery": [
       2.2,
@@ -369,7 +377,9 @@
       "zigzag",
       "leap",
       "run",
-      "vanish"
+      "vanish",
+      "spiral",
+      "flash"
     ],
     "moveEvery": [
       1.8,
@@ -570,7 +580,8 @@
     "moves": [
       "run",
       "zigzag",
-      "burst"
+      "burst",
+      "surge"
     ],
     "moveEvery": [
       1.8,
@@ -605,7 +616,9 @@
     "moves": [
       "bask",
       "sulk",
-      "thrash"
+      "thrash",
+      "anchor",
+      "roll"
     ],
     "moveEvery": [
       2.6,
@@ -641,7 +654,10 @@
       "run",
       "dive",
       "headshake",
-      "leap"
+      "leap",
+      "roll",
+      "surge",
+      "feint"
     ],
     "moveEvery": [
       1.6,
@@ -678,7 +694,10 @@
       "run",
       "coil",
       "bask",
-      "leap"
+      "leap",
+      "sound",
+      "spiral",
+      "surge"
     ],
     "moveEvery": [
       1.6,
@@ -720,7 +739,10 @@
       "headshake",
       "dive",
       "burst",
-      "thrash"
+      "thrash",
+      "anchor",
+      "roll",
+      "sound"
     ],
     "moveEvery": [
       1.4,
@@ -758,7 +780,10 @@
       "vanish",
       "glare",
       "headshake",
-      "dive"
+      "dive",
+      "flash",
+      "sound",
+      "surge"
     ],
     "moveEvery": [
       1.4,
@@ -855,7 +880,8 @@
     "pull": 0.38,
     "moves": [
       "run",
-      "zigzag"
+      "zigzag",
+      "tailwalk"
     ],
     "moveEvery": [
       2.0,
@@ -926,7 +952,8 @@
     "moves": [
       "vanish",
       "sulk",
-      "burst"
+      "burst",
+      "feint"
     ],
     "moveEvery": [
       2.0,
@@ -956,7 +983,8 @@
     "moves": [
       "clamp",
       "thrash",
-      "sulk"
+      "sulk",
+      "anchor"
     ],
     "moveEvery": [
       2.0,
@@ -986,7 +1014,9 @@
     "moves": [
       "run",
       "leap",
-      "zigzag"
+      "zigzag",
+      "tailwalk",
+      "spiral"
     ],
     "moveEvery": [
       2.0,
@@ -1049,7 +1079,9 @@
     "moves": [
       "sulk",
       "burst",
-      "thrash"
+      "thrash",
+      "feint",
+      "spiral"
     ],
     "moveEvery": [
       2.0,
@@ -1079,7 +1111,9 @@
     "moves": [
       "bury",
       "headshake",
-      "run"
+      "run",
+      "roll",
+      "surge"
     ],
     "moveEvery": [
       2.0,
@@ -1110,7 +1144,11 @@
       "sulk",
       "dive",
       "glare",
-      "thrash"
+      "thrash",
+      "anchor",
+      "flash",
+      "sound",
+      "feint"
     ],
     "moveEvery": [
       1.8,
@@ -1150,7 +1188,10 @@
       "coil",
       "vanish",
       "run",
-      "zigzag"
+      "zigzag",
+      "spiral",
+      "feint",
+      "surge"
     ],
     "moveEvery": [
       1.6,

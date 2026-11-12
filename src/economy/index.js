@@ -555,6 +555,25 @@ export const economy = {
 
   // --- harbour
   /** Apply a building level now (used by the placement flow; `where` = { x, z, rot } from Agent A). */
+  /** Idle upgrade ladders: kind 'training' (crew) or 'netting' (nets). */
+  ladder(kind) {
+    const def = data().economy?.crewTraining?.[kind];
+    if (!def) return null;
+    const tier = P()[kind] ?? 0;
+    const max = tier >= def.tiers;
+    return { def, tier, max, cost: max ? null : Math.round(def.base * Math.pow(def.growth, tier) / 10) * 10, title: def.titles?.[tier - 1] ?? null, nextTitle: def.titles?.[tier] ?? null, bonus: tier * def.bonusPerTier, nextBonus: (tier + 1) * def.bonusPerTier };
+  },
+  buyLadder(kind) {
+    if (visiting()) return fail('visitor');
+    const l = economy.ladder(kind);
+    if (!l) return fail('missing');
+    if (l.max) return fail('max');
+    if (!spend(l.cost)) return fail('coins', { need: l.cost - P().coins });
+    P()[kind] = l.tier + 1;
+    changed('coins', 'island');
+    return { ok: true, tier: l.tier + 1, name: l.nextTitle ?? l.def.name };
+  },
+
   /** Buy a decoration: placement mode opens; coins are taken when it is set down. */
   buyDecor(item) {
     if (visiting()) return fail('visitor');

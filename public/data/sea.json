@@ -1,13 +1,131 @@
 {
   "_about": "Agent A. The open sea round the island (Casper 9 Nov: a 360° playground where you go looking for fish). Hot spots appear in the water within reach of your rod, last a while, then move on. frenzy = a feeding school churning the surface (many quick bites); glimmer = elemental fish glowing in their element's colour (worth ×5 and up); giant = one big rare fish cruising with a heavy wake; chest = a rare sunken treasure chest (bubbles and a glint): cast onto it, haul it up and play its slot reels (treasure.js; tiers wood/silver/gold = more spins, better odds). Each kind has a weight, how long it lasts and what it brings. An arrow on the screen edge points to every live hot spot.",
   "maxActive": 3,
-  "firstAfter": [4, 8],
-  "every": [14, 26],
+  "firstAfter": [
+    4,
+    8
+  ],
+  "every": [
+    14,
+    26
+  ],
   "kinds": {
-    "frenzy": { "weight": 5, "label": "Feeding frenzy", "color": "#f4e3b0", "dur": [55, 80], "minDepth": 3, "schools": [1, 2], "extra": [2, 3] },
-    "glimmer": { "weight": 3, "label": "Glimmer", "color": "#7fe8ff", "dur": [45, 70], "minDepth": 5, "count": [1, 3], "homeElement": 0.6 },
-    "giant": { "weight": 2, "label": "Giant", "color": "#ff9a6a", "dur": [60, 90], "minDepth": 7, "minRank": 2 },
-    "chest": { "weight": 0.45, "label": "Sunken chest", "labels": { "wood": "Sunken chest", "silver": "Silver chest", "gold": "Golden chest" }, "color": "#ffcf5a", "dur": [80, 120], "minDepth": 2, "tiers": { "wood": 70, "silver": 24, "gold": 6 } }
+    "frenzy": {
+      "weight": 5,
+      "label": "Feeding frenzy",
+      "color": "#f4e3b0",
+      "dur": [
+        55,
+        80
+      ],
+      "minDepth": 3,
+      "schools": [
+        1,
+        2
+      ],
+      "extra": [
+        2,
+        3
+      ]
+    },
+    "glimmer": {
+      "weight": 3,
+      "label": "Glimmer",
+      "color": "#7fe8ff",
+      "dur": [
+        45,
+        70
+      ],
+      "minDepth": 5,
+      "count": [
+        1,
+        3
+      ],
+      "homeElement": 0.6
+    },
+    "giant": {
+      "weight": 2,
+      "label": "Giant",
+      "color": "#ff9a6a",
+      "dur": [
+        60,
+        90
+      ],
+      "minDepth": 7,
+      "minRank": 2
+    },
+    "chest": {
+      "weight": 0.45,
+      "label": "Sunken chest",
+      "labels": {
+        "wood": "Sunken chest",
+        "silver": "Silver chest",
+        "gold": "Golden chest"
+      },
+      "color": "#ffcf5a",
+      "dur": [
+        80,
+        120
+      ],
+      "minDepth": 2,
+      "tiers": {
+        "wood": 70,
+        "silver": 24,
+        "gold": 6
+      }
+    }
   },
-  "reach": { "beyondShore": [6, 0.85] }
+  "reach": {
+    "beyondShore": [
+      6,
+      0.85
+    ]
+  },
+  "seasons": {
+    "_notes": "Seasons (world/seasons.js): one per real day, in this order. effects: elemental (x elemental chance), giant (x giant chance), rare (extra pull of rare fish to the lure), monster (x how often monsters come for the lure), sell (x every sale). tint: the whole sea leans this colour (strength 0..1).",
+    "list": [
+      {
+        "id": "bloom",
+        "name": "Spring Bloom",
+        "about": "The sea blooms green and glowing. Elemental fish are twice as common.",
+        "tint": "#3fe0a8",
+        "strength": 0.2,
+        "effects": {
+          "elemental": 2
+        }
+      },
+      {
+        "id": "calm",
+        "name": "Summer Calm",
+        "about": "Clear, warm, still water. Fish grow huge: giants are three times as common, and every sale pays 15% more.",
+        "tint": "#38c8e8",
+        "strength": 0.16,
+        "effects": {
+          "giant": 3,
+          "sell": 1.15
+        }
+      },
+      {
+        "id": "run",
+        "name": "Autumn Run",
+        "about": "The great shoals pass the cove. Rare fish crowd to your lure.",
+        "tint": "#d8964a",
+        "strength": 0.18,
+        "effects": {
+          "rare": 1.5
+        }
+      },
+      {
+        "id": "storm",
+        "name": "Winter Storms",
+        "about": "Dark water and heavy swell. The monsters hunt: they come for your lure three times as often.",
+        "tint": "#4a5f96",
+        "strength": 0.26,
+        "effects": {
+          "monster": 3,
+          "elemental": 1.4
+        }
+      }
+    ]
+  }
 }

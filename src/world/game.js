@@ -22,6 +22,7 @@ import { createPlacement } from './placement.js';
 import { audio } from '../core/audio.js';
 import { createWadingDanger } from '../fishing/wading.js';
 import { createGrounds } from '../fishing/grounds.js';
+import { applySeason, hoursLeft } from './seasons.js';
 import { createSea } from '../fishing/sea.js';
 
 const ISLANDS = { driftwood_cove: driftwoodCove };
@@ -121,6 +122,7 @@ export async function startWorld({ canvas, state, events }) {
     },
   });
   fishing.setSea(sea);
+  const season = applySeason(state, new URLSearchParams(location.search).get('season'));
   // Named fishing grounds round the island: their colours, landmarks and residents by time of day.
   const grounds = createGrounds({
     state, island, water, fishSystem, lighting,
@@ -131,6 +133,8 @@ export async function startWorld({ canvas, state, events }) {
       },
     },
   });
+  // Say which season it is once the player is in the world.
+  if (season) setTimeout(() => fishing.hud.toast(`${season.name}: ${season.about}`, 5), 4000);
   let groundsLure = null;
   events.on('cast:land', ({ x, z }) => { groundsLure = { x, z }; });
   const placement = createPlacement({ state, events, island, player, cameraRig, input, hud: fishing.hud, surface, under, fishing });

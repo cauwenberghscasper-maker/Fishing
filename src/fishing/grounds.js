@@ -24,7 +24,11 @@ export function createGrounds({ state, island, water, fishSystem, lighting, hook
   // Night and dusk deepen each place's colour a little (the light under the water changes).
   function applyTints() {
     const k = slot === 'night' ? 0.8 : slot === 'dusk' ? 0.95 : 1;
-    water.setTints?.(grounds.map((g) => ({ x: g.x, z: g.z, r: g.r * 1.25, color: g.tint, strength: (g.strength ?? 0.5) * k })));
+    const list = grounds.map((g) => ({ x: g.x, z: g.z, r: g.r * 1.25, color: g.tint, strength: (g.strength ?? 0.5) * k }));
+    // The season leans the whole sea toward its colour (world/seasons.js).
+    const se = state.world.season;
+    if (se?.tint) list.push({ x: 0, z: 0, r: 6000, color: se.tint, strength: se.strength ?? 0.2 });
+    water.setTints?.(list);
   }
 
   const residents = (g) => (g.residents?.[slot] || []).filter((id) => {

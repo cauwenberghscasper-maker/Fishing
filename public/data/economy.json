@@ -96,7 +96,7 @@
     "pier_6": { "name": "Mooring Pier", "about": "Ends right above the Old Mooring's hole.", "cost": 28000, "order": 6, "plot": "mooring_deep", "depth": 20, "crewSpots": 1 }
   },
   "buildings": {
-    "_notes": "Level 0 = not built. Each level has its own model <building>_l<n>. A building needs its site plot before level 1.",
+    "_notes": "Level 0 = not built. Each level has its own model <building>_l<n>. A building needs its site plot before level 1. Levels 4 and 5 (Casper 12 Nov: more work into the idle side, longer end game) reuse the level 3 model until the Blender agent builds their own.",
     "shop": {
       "name": "Shop",
       "site": "sandbar",
@@ -127,7 +127,9 @@
         { "name": "Not built", "cost": 0, "slots": 0, "rateMult": 1 },
         { "name": "Net Loft", "about": "Hammocks strung between the palms, under a net roof.", "cost": 90, "slots": 2, "rateMult": 1, "model": "workers_hut_l1" },
         { "name": "Bunkhouse", "about": "Proper walls, four bunks and a stove.", "cost": 1800, "slots": 4, "rateMult": 1.25, "model": "workers_hut_l2" },
-        { "name": "Crew Hall", "about": "A long hall with a table for the whole crew.", "cost": 9000, "slots": 6, "rateMult": 1.5, "model": "workers_hut_l3" }
+        { "name": "Crew Hall", "about": "A long hall with a table for the whole crew.", "cost": 9000, "slots": 6, "rateMult": 1.5, "model": "workers_hut_l3" },
+        { "name": "Crew Lodge", "about": "Eight bunks, a drying room and a cook.", "cost": 60000, "slots": 8, "rateMult": 1.8, "model": "workers_hut_l3" },
+        { "name": "Fishers' Guildhall", "about": "Ten bunks and a guild banner. Everyone wants to crew for you.", "cost": 240000, "slots": 10, "rateMult": 2.2, "model": "workers_hut_l3" }
       ]
     },
     "smokehouse": {
@@ -138,7 +140,9 @@
         { "name": "Not built", "cost": 0, "crewBonus": 0 },
         { "name": "Smoke Rack", "about": "Racks over a driftwood fire.", "cost": 2000, "crewBonus": 0.25, "model": "smokehouse_l1" },
         { "name": "Smokehouse", "about": "A shed built from the wreck's planks, smoking day and night.", "cost": 7000, "crewBonus": 0.5, "model": "smokehouse_l2" },
-        { "name": "Cure House", "about": "Barrels of brine, hanging fish and a proper chimney.", "cost": 22000, "crewBonus": 0.8, "model": "smokehouse_l3" }
+        { "name": "Cure House", "about": "Barrels of brine, hanging fish and a proper chimney.", "cost": 22000, "crewBonus": 0.8, "model": "smokehouse_l3" },
+        { "name": "Twin-chimney Cure House", "about": "Two fires, two chimneys, twice the hanging room.", "cost": 80000, "crewBonus": 1.2, "model": "smokehouse_l3" },
+        { "name": "Master Smokery", "about": "Oak, salt and patience. Buyers sail in for it.", "cost": 280000, "crewBonus": 1.8, "model": "smokehouse_l3" }
       ]
     },
     "aquarium": {
@@ -171,7 +175,9 @@
         { "name": "Not built", "cost": 0, "coinsPerHour": 0 },
         { "name": "Stake Net", "about": "A hand-knotted net on driftwood stakes, cork floats bobbing.", "cost": 900, "coinsPerHour": 90, "model": "net_rig_l1" },
         { "name": "Tidal Weir", "about": "A woven fence that lets the tide in and the fish not out.", "cost": 4800, "coinsPerHour": 320, "model": "net_rig_l2" },
-        { "name": "Drift-net Raft", "about": "A moored raft with a big hand-cranked winch.", "cost": 18000, "coinsPerHour": 900, "model": "net_rig_l3" }
+        { "name": "Drift-net Raft", "about": "A moored raft with a big hand-cranked winch.", "cost": 18000, "coinsPerHour": 900, "model": "net_rig_l3" },
+        { "name": "Twin-raft Trawl", "about": "Two rafts and a net slung between them, hauled on the turn of every tide.", "cost": 70000, "coinsPerHour": 2600, "model": "net_rig_l3" },
+        { "name": "Harbour Net Works", "about": "Every channel netted, a winch on every mooring, gulls overhead all day.", "cost": 260000, "coinsPerHour": 7500, "model": "net_rig_l3" }
       ]
     },
     "reel_mill": {
@@ -182,7 +188,9 @@
         { "name": "Not built", "cost": 0, "coinsPerHour": 0 },
         { "name": "Bell Rack", "about": "A row of rods; a bell rings on a bite and a bucket weight strikes.", "cost": 400, "coinsPerHour": 45, "model": "reel_mill_l1" },
         { "name": "Tide Wheel", "about": "A waterwheel on the tide turns a long shaft of reels.", "cost": 3200, "coinsPerHour": 240, "model": "reel_mill_l2" },
-        { "name": "Clockwork Reel Mill", "about": "A brass gear tower working a dozen lines at once.", "cost": 14000, "coinsPerHour": 760, "model": "reel_mill_l3" }
+        { "name": "Clockwork Reel Mill", "about": "A brass gear tower working a dozen lines at once.", "cost": 14000, "coinsPerHour": 760, "model": "reel_mill_l3" },
+        { "name": "Storm-spring Mill", "about": "A mainspring wound by the wind works two dozen lines.", "cost": 55000, "coinsPerHour": 2200, "model": "reel_mill_l3" },
+        { "name": "Grand Reel Works", "about": "A hall of brass reels that never stops clicking.", "cost": 210000, "coinsPerHour": 6400, "model": "reel_mill_l3" }
       ]
     },
     "cannery": {
@@ -193,7 +201,9 @@
         { "name": "Not built", "cost": 0, "coinsPerHour": 0, "factoryBonus": 0 },
         { "name": "Tin Bench", "about": "Tins, brine and a hand press under a sailcloth roof.", "cost": 3000, "coinsPerHour": 80, "factoryBonus": 0.15, "model": "cannery_l1" },
         { "name": "Steam Cannery", "about": "The wreck's old boiler, hissing away in a plank shed.", "cost": 11000, "coinsPerHour": 300, "factoryBonus": 0.35, "model": "cannery_l2" },
-        { "name": "Cannery Works", "about": "A chimney, a conveyor chute to the pier and a whistle at noon.", "cost": 36000, "coinsPerHour": 1100, "factoryBonus": 0.6, "model": "cannery_l3" }
+        { "name": "Cannery Works", "about": "A chimney, a conveyor chute to the pier and a whistle at noon.", "cost": 36000, "coinsPerHour": 1100, "factoryBonus": 0.6, "model": "cannery_l3" },
+        { "name": "Steam Cannery", "about": "A boiler, a belt and a whistle you can hear across the cove.", "cost": 160000, "coinsPerHour": 3300, "factoryBonus": 0.95, "model": "cannery_l3" },
+        { "name": "Grand Cannery", "about": "Tins stamped with your harbour's name, shipped by the crate.", "cost": 520000, "coinsPerHour": 8800, "factoryBonus": 1.4, "model": "cannery_l3" }
       ]
     }
   },
@@ -262,6 +272,25 @@
       "fisher_hut": { "name": "Fisher's Hut", "cost": 1500, "model": "fisher_hut" },
       "boat_skiff": { "name": "Beached Skiff", "cost": 900, "model": "boat_skiff" },
       "coconut_pile": { "name": "Coconut Pile", "cost": 35, "model": "coconut_pile" }
+    }
+  },
+  "crewTraining": {
+    "_notes": "Idle upgrade ladders (Casper 12 Nov). training: each tier multiplies what the crew earns; netting: each tier multiplies what the nets earn. cost of tier n = base * growth^(n-1).",
+    "training": {
+      "name": "Crew training",
+      "tiers": 12,
+      "base": 600,
+      "growth": 2.1,
+      "bonusPerTier": 0.15,
+      "titles": ["Deckhands", "Line tenders", "Net menders", "Able fishers", "Boatswains", "Old salts", "Harbour hands", "Master fishers", "Sea captains", "Tide readers", "Storm riders", "Legends of the cove"]
+    },
+    "netting": {
+      "name": "Net quality",
+      "tiers": 12,
+      "base": 450,
+      "growth": 2.1,
+      "bonusPerTier": 0.2,
+      "titles": ["Patched twine", "Tarred twine", "Hemp mesh", "Cork-floated", "Lead-lined", "Silkweed mesh", "Double-knotted", "Deep-water mesh", "Kraken-proof", "Tide-woven", "Storm-proof", "Legend's weave"]
     }
   }
 }

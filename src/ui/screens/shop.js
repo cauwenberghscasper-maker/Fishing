@@ -538,6 +538,25 @@ function buildView(ctx, sub, drawer, setDrawer) {
           ? Plate([h('span', 'Hire'), money(economy.hireCost())], () => { const r = economy.hireWorker(); if (r.ok) ui.toast(`${r.name} joined your crew`); else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need)} more coins`, 'danger'); }, { disabled: economy.hireCost() > p.coins })
           : null))),
     }));
+    // Idle ladders: train the crew, better nets (12 tiers each, each one more income for good).
+    for (const [kind, icon, what] of [['training', 'hat', 'your crew earns'], ['netting', 'net', 'your nets earn']]) {
+      const l = economy.ladder(kind);
+      if (!l) continue;
+      tiles.push(Tile({
+        icon, name: l.def.name, value: l.max ? h('span.tile__state', 'Mastered') : money(l.cost),
+        state: l.max ? 'owned' : l.cost > p.coins ? 'locked' : null,
+        onTap: () => setDrawer(() => drawer.open(
+          h('h3.drawer__title', l.max ? `${l.def.name}: ${l.title}` : `${l.def.name}: ${l.nextTitle}`),
+          h('p.drawer__line', l.max ? `Everything ${what} is +${Math.round(l.bonus * 100)}%, for good.`
+            : `Tier ${l.tier + 1} of ${l.def.tiers}. Everything ${what} goes from +${Math.round(l.bonus * 100)}% to +${Math.round(l.nextBonus * 100)}%, also while you are away.`),
+          h('div.drawer__actions', l.max ? h('p.drawer__done', ico('check'), 'Mastered')
+            : Plate([h('span', 'Train'), money(l.cost)], () => {
+              const r = economy.buyLadder(kind);
+              if (r.ok) ui.toast(`${r.name}: more coins every minute`);
+              else if (r.reason === 'coins') ui.toast(`You need ${fmt(r.need)} more coins`, 'danger');
+            }, { disabled: l.cost > p.coins })))),
+      }));
+    }
     const watch = economy.nextWatch();
     tiles.push(Tile({
       icon: 'hourglass', name: 'Night watch', value: watch ? money(watch.cost) : h('span.tile__state', `${economy.offlineCapHours()} h`),

@@ -139,7 +139,12 @@ export async function startWorld({ canvas, state, events }) {
   // Monsters raid the harbour once the island is big (rare).
   const raids = createRaids({ state, events, island, player, cameraRig, splashes, water, surface, hud: fishing.hud, hudRoot });
   let groundsLure = null;
-  events.on('cast:land', ({ x, z }) => { groundsLure = { x, z }; });
+  events.on('cast:land', ({ x, z }) => {
+    groundsLure = { x, z };
+    // A chest's lucky charm lasts a number of casts.
+    const c = state.profile?.charm;
+    if (c && c.casts > 0) { c.casts -= 1; if (c.casts <= 0) { state.profile.charm = null; fishing.hud.toast('Your lucky charm has worn off', 2); } }
+  });
   const placement = createPlacement({ state, events, island, player, cameraRig, input, hud: fishing.hud, surface, under, fishing });
   events.on('build:start', (job) => {
     // Only from explore: never yank the player out of a cast or a fight.

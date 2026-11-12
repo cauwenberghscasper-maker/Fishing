@@ -24,6 +24,8 @@ export function createRaids({ state, events, island, player, cameraRig, splashes
   let raid = null;   // { phase, t, hp, max, obj, at:{x,z}, target, cool, spears:[] }
   const spearGeo = new THREE.CylinderGeometry(0.03, 0.05, 1.6, 6).rotateX(Math.PI / 2);
   const spearMat = new THREE.MeshStandardMaterial({ color: 0x6b4a2a, roughness: 0.7 });
+  const ballGeo = new THREE.SphereGeometry(0.16, 10, 8);
+  const ballMat = new THREE.MeshStandardMaterial({ color: 0x1c1c20, metalness: 0.6, roughness: 0.5 });
 
   // --- HUD (own small layer)
   const el = document.createElement('div');
@@ -154,6 +156,31 @@ export function createRaids({ state, events, island, player, cameraRig, splashes
       o.position.x = r.at.x + (tx / tl) * lunge * 2.2; o.position.z = r.at.z + (tz / tl) * lunge * 2.2;
       if (lunge > 0.95 && !r.slammed) { r.slammed = true; cameraRig.shake?.(0.25); splashes.splash(r.at.x, r.at.z, 1.5); navigator.vibrate?.(40); }
       if (lunge < 0.2) r.slammed = false;
+      // Harbour cannons (the harbour_cannon building, levels 1-3): they turn to the monster and
+      // fire on their own. cannonDamage / cannonEvery per level in sea.json "raids".
+      const cb = island.buildings.harbour_cannon;
+      if (cb?.obj && (cb.level ?? 0) > 0) {
+        const lvl = Math.min(3, cb.level);
+        const turret = cb.obj.getObjectByName('turret');
+        if (turret) {
+          cb.obj.updateMatrixWorld();
+          const local = cb.obj.worldToLocal(new THREE.Vector3(o.position.x, 0, o.position.z));
+          const want = Math.atan2(local.x - turret.position.x, local.z - turret.position.z);
+          let d = want - turret.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d));
+          turret.rotation.y += d * Math.min(1, dt * 4);
+        }
+        r.cannonT = (r.cannonT ?? 1) - dt;
+        if (r.cannonT <= 0) {
+          r.cannonT = (cfg.cannonEvery ?? [3.2, 2.4, 1.6])[lvl - 1];
+          const muzzle = cb.obj.getObjectByName('muzzle');
+          const from = muzzle ? muzzle.getWorldPosition(new THREE.Vector3()) : new THREE.Vector3(cb.x, 1.6, cb.z);
+          const mesh = new THREE.Mesh(ballGeo, ballMat);
+          surface.add(mesh);
+          r.spears.push({ mesh, from, t: 0, dur: THREE.MathUtils.clamp(from.distanceTo(o.position) / 40, 0.2, 0.9), dmg: (cfg.cannonDamage ?? [10, 18, 30])[lvl - 1], ball: true });
+          splashes.splash(from.x, from.z, 0.2);
+          cameraRig.shake?.(0.06);
+        }
+      }
       // The crew pitches in.
       const crew = (state.profile?.workers?.length ?? 0) * cfg.crewDps * dt;
       if (crew > 0) { r.hp = Math.max(0, r.hp - crew); if (r.hp <= 0) { end(true); return; } }
@@ -172,9 +199,9 @@ export function createRaids({ state, events, island, player, cameraRig, splashes
       const k = Math.min(1, s.t / s.dur);
       const to = new THREE.Vector3(o?.position.x ?? r.at.x, (o?.position.y ?? 0) + 1.2, o?.position.z ?? r.at.z);
       s.mesh.position.lerpVectors(s.from, to, k);
-      s.mesh.position.y += Math.sin(k * Math.PI) * 2.2;
+      s.mesh.position.y += Math.sin(k * Math.PI) * (s.ball ? 1.0 : 2.2);
       s.mesh.lookAt(to.x, to.y - (k - 0.5) * 3, to.z);
-      if (k >= 1) { s.mesh.removeFromParent(); r.spears.splice(i, 1); if (r.phase === 'fight') hit(cfg.damage * armoury()); }
+      if (k >= 1) { s.mesh.removeFromParent(); r.spears.splice(i, 1); if (r.phase === 'fight') hit(s.dmg ?? cfg.damage * armoury()); }
     }
   }
 

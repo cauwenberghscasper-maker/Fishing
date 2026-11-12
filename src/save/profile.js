@@ -247,6 +247,13 @@ export function sanitizeProfile(raw, data, test = false) {
   out.unlockedIslands = [...new Set(['driftwood_cove', ...strArr(p.unlockedIslands).filter((id) => !islandIds.length || islandIds.includes(id))])];
   out.currentIsland = out.unlockedIslands.includes(p.currentIsland) ? p.currentIsland : 'driftwood_cove';
   out.watch = Math.min(int(p.watch, 0), econ.offline?.watch?.length ?? 0);
+  // Idle ladders, the chest charm and placed decorations (added 10-12 Nov; they were being dropped
+  // on every load because this function rebuilds the profile from known fields).
+  for (const k of ['training', 'netting', 'armoury']) out[k] = Math.min(int(p[k], 0), econ.crewTraining?.[k]?.tiers ?? 0);
+  out.charm = p.charm && typeof p.charm.kind === 'string' && num(p.charm.casts, 0) > 0 ? { kind: p.charm.kind, casts: int(p.charm.casts, 0) } : null;
+  out.island.decor = (Array.isArray(p.island?.decor) ? p.island.decor : [])
+    .filter((d) => d && typeof d.uid === 'string' && typeof d.item === 'string' && Number.isFinite(d.x) && Number.isFinite(d.z) && (!econ.decor?.items || econ.decor.items[d.item]))
+    .slice(0, 150).map((d) => ({ uid: d.uid, item: d.item, x: d.x, z: d.z, rot: Number.isFinite(d.rot) ? d.rot : 0 }));
 
   out.market = {
     saturation: Object.fromEntries(Object.entries(p.market?.saturation ?? {}).filter(([, v]) => Number.isFinite(v) && v > 0)),

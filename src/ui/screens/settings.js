@@ -58,7 +58,7 @@ export function settingsSheet(ctx) {
         },
       }, confirmErase ? 'Erase' : 'Erase…')));
 
-    body.append(h('p.settings-foot', `Progress is saved on this device (save version ${PROFILE_VERSION}). Coins and pearls are earned in the game only; nothing is ever sold for real money.`));
+    body.append(h('p.settings-foot', `Version ${__BUILD__}. Progress is saved on this device (save version ${PROFILE_VERSION}). Coins and pearls are earned in the game only; nothing is ever sold for real money.`));
     fill(root, sheetHead('Settings', null, () => ui.close()), body);
   }
   render();

@@ -211,7 +211,7 @@ export function treasureChest(ctx, { tier = 'wood', onDone } = {}) {
     if (pulls > 0) { spin(); return; }
     finished = true;
     ui.close(view);
-    ui.toast(`${T.name}: ${won.join(' · ')}`, 4200);
+    ui.toast(`${T.name}: ${won.join(' · ')}`, '', { ms: 4200 });
     setTimeout(() => { for (const f of pendingFish) economy.grantFish(f); }, 250);
     onDone?.();
   }

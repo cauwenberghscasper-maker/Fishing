@@ -10,6 +10,7 @@ import { artPath } from '../economy/data.js';
 import { fullName } from '../economy/rules.js';
 import { catchReveal } from './screens/reveal.js';
 import { treasureChest } from './screens/treasure.js';
+import { newsSheet, newsDue } from './screens/news.js';
 import { sfx, initSfx } from './sfx.js';
 import { shopSheet } from './screens/shop.js';
 import { travelSheet } from './screens/travel.js';
@@ -283,6 +284,8 @@ export async function startUI({ root, state, events }) {
 
   if (state.profile.pendingOffline) open(offlineLetter(ctx), { queued: true });
 
+  // After an update: say once what is new and where to find it (queued behind the title screen).
+  events.once('game:ready', () => { if (newsDue() && !state.test) setTimeout(() => open(newsSheet(ctx), { queued: true }), 600); });
   window.__ui = ui;   // debug hook next to window.__game (opens screens from the console or tests)
   ui.ctx = ctx;
   return ui;

@@ -38,6 +38,7 @@ export function titleScreen(ctx, { onStart }) {
     isReady = true;
     if (artPath(state, 'title.main')) setArt('title.main');
     const go = h('button.btn.btn--primary.title-go', { on: { click: start } }, 'Cast off');
+    root.append(h('div.title-build', `Version ${__BUILD__}`));
     fill(foot, tip, go);
     go.focus({ preventScroll: true });
   }

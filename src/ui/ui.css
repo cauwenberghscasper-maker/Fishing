@@ -877,3 +877,18 @@
 /* round 4: the context plank sits bottom-left so it never touches Agent A's painted cast button (bottom-right) */
 .action-dock { left: calc(var(--safe-l) + 12px); right: auto; justify-content: flex-start; }
 .action-dock .btn--primary { min-width: 136px; max-width: calc(100vw - var(--safe-l) - var(--safe-r) - 200px); padding-left: 30px; padding-right: 30px; }
+
+/* Build stamp on the title screen: tells you at a glance which version your phone has. */
+.title-build { position: absolute; left: 0; right: 0; bottom: calc(8px + env(safe-area-inset-bottom)); text-align: center; font-size: 12px; opacity: 0.7; color: #fff3d6; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7); pointer-events: none; }
+
+/* What's new sheet (screens/news.js) */
+.modal-layer.is-news { display: grid; place-items: center; background: rgba(4, 14, 18, 0.72); }
+.news { width: min(440px, calc(100vw - 28px)); max-height: calc(100dvh - 60px); overflow: auto; padding: 18px 16px 12px; border-radius: 14px; background: #f1e4bf; color: #1d2b2b; border: 3px solid #17333a; box-shadow: 0 0 0 2px #e9d9a8 inset, 0 16px 40px rgba(0, 0, 0, 0.55); font-family: var(--font-body); }
+.news__title { font-family: var(--font-display); font-size: var(--fs-xl); margin: 0 0 10px; text-align: center; }
+.news__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.news__item { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(23, 51, 58, 0.2); }
+.news__text { flex: 1; display: flex; flex-direction: column; gap: 2px; font-size: var(--fs-s); }
+.news__text b { font-size: var(--fs-m); }
+.news__go { flex: none; min-height: 40px; padding: 0 12px; }
+.news__ok { display: block; margin: 14px auto 6px; min-width: 160px; min-height: 46px; }
+.news__build { text-align: center; font-size: 12px; opacity: 0.6; margin: 4px 0 0; }

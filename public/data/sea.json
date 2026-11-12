@@ -127,5 +127,32 @@
         }
       }
     ]
+  },
+  "raids": {
+    "_notes": "Village raids (world/raids.js). minPlots: island size before raids start; every: minutes of play between raids [min,max]; firstAfter: minutes into a session; time: seconds to drive it off; health = health + plots*healthPerPlot (x1.6 per monster rank); damage per harpoon (x armoury); crewDps per crew member; bounty = max(bountyMin, bountyMinutes of idle income); lossShare of coins (max lossMax) if it wins.",
+    "minPlots": 12,
+    "every": [
+      35,
+      55
+    ],
+    "firstAfter": 10,
+    "time": 75,
+    "stormMult": 2,
+    "monsters": [
+      "mossneck",
+      "anchorjaw_leviathan",
+      "drowned_lighthouse"
+    ],
+    "health": 60,
+    "healthPerPlot": 8,
+    "damage": 6,
+    "cooldown": 0.7,
+    "crewDps": 0.6,
+    "bountyMinutes": 25,
+    "bountyMin": 2500,
+    "pearls": 6,
+    "lossShare": 0.06,
+    "lossMax": 20000,
+    "size": 7
   }
 }

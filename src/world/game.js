@@ -22,7 +22,8 @@ import { createPlacement } from './placement.js';
 import { audio } from '../core/audio.js';
 import { createWadingDanger } from '../fishing/wading.js';
 import { createGrounds } from '../fishing/grounds.js';
-import { applySeason, hoursLeft } from './seasons.js';
+import { applySeason } from './seasons.js';
+import { createRaids } from './raids.js';
 import { createSea } from '../fishing/sea.js';
 
 const ISLANDS = { driftwood_cove: driftwoodCove };
@@ -135,6 +136,8 @@ export async function startWorld({ canvas, state, events }) {
   });
   // Say which season it is once the player is in the world.
   if (season) setTimeout(() => fishing.hud.toast(`${season.name}: ${season.about}`, 5), 4000);
+  // Monsters raid the harbour once the island is big (rare).
+  const raids = createRaids({ state, events, island, player, cameraRig, splashes, water, surface, hud: fishing.hud, hudRoot });
   let groundsLure = null;
   events.on('cast:land', ({ x, z }) => { groundsLure = { x, z }; });
   const placement = createPlacement({ state, events, island, player, cameraRig, input, hud: fishing.hud, surface, under, fishing });
@@ -228,6 +231,7 @@ export async function startWorld({ canvas, state, events }) {
       fishSystem.update(dt, time);
       sea.update(dt);
       grounds.update(dt, cameraRig.target, groundsLure); groundsLure = null;
+      raids.update(dt, performance.now() / 1000);
       fishing.update(dt, realDt);
       wading.update(dt, state.world.mode === 'explore' && fishing.mode === 'explore' && fishSystem.authority !== false);
       workers.update(dt);
@@ -305,6 +309,7 @@ export async function startWorld({ canvas, state, events }) {
     wadeHunter: () => wading.force(),
     hotspot: (kind) => { const s = sea.force(kind); return s ? { kind: s.kind, x: s.x, z: s.z, fish: s.fish.length } : null; },
     chest: (tier) => fishing.debugChest(tier),
+    raid: (id) => raids.force(id),
     depthAt: (x, z) => island.waterDepthAt(x, z),
     get hotspots() { return sea.spots.map((s) => ({ kind: s.kind, x: s.x, z: s.z, fish: s.fish.length })); },
     surge: () => fishing.debugSurge(),

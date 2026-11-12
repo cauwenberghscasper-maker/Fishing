@@ -555,7 +555,9 @@ export const economy = {
 
   // --- harbour
   /** Apply a building level now (used by the placement flow; `where` = { x, z, rot } from Agent A). */
-  /** Idle upgrade ladders: kind 'training' (crew) or 'netting' (nets). */
+  /** A raid's toll: coins taken, never below zero. */
+  spendForced(n) { P().coins = Math.max(0, P().coins - Math.round(n)); changed('coins'); },
+  /** Idle upgrade ladders: kind 'training' (crew), 'netting' (nets) or 'armoury' (harpoons for raids). */
   ladder(kind) {
     const def = data().economy?.crewTraining?.[kind];
     if (!def) return null;

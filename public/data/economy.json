@@ -275,7 +275,7 @@
     }
   },
   "crewTraining": {
-    "_notes": "Idle upgrade ladders (Casper 12 Nov). training: each tier multiplies what the crew earns; netting: each tier multiplies what the nets earn. cost of tier n = base * growth^(n-1).",
+    "_notes": "Idle upgrade ladders (Casper 12 Nov). training: each tier multiplies what the crew earns; netting: each tier multiplies what the nets earn. cost of tier n = base * growth^(n-1). armoury: harpoon damage against raiding monsters (world/raids.js), +50% per tier.",
     "training": {
       "name": "Crew training",
       "tiers": 12,
@@ -291,6 +291,14 @@
       "growth": 2.1,
       "bonusPerTier": 0.2,
       "titles": ["Patched twine", "Tarred twine", "Hemp mesh", "Cork-floated", "Lead-lined", "Silkweed mesh", "Double-knotted", "Deep-water mesh", "Kraken-proof", "Tide-woven", "Storm-proof", "Legend's weave"]
+    },
+    "armoury": {
+      "name": "Armoury",
+      "tiers": 8,
+      "base": 3000,
+      "growth": 2.4,
+      "bonusPerTier": 0.5,
+      "titles": ["Gaff hooks", "Whaling harpoons", "Barbed irons", "Toggle harpoons", "Bomb lances", "Storm lances", "Kraken irons", "Leviathan lances"]
     }
   }
 }

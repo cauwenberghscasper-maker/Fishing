@@ -539,7 +539,7 @@ function buildView(ctx, sub, drawer, setDrawer) {
           : null))),
     }));
     // Idle ladders: train the crew, better nets (12 tiers each, each one more income for good).
-    for (const [kind, icon, what] of [['training', 'hat', 'your crew earns'], ['netting', 'net', 'your nets earn']]) {
+    for (const [kind, icon, what] of [['training', 'hat', 'your crew earns'], ['netting', 'net', 'your nets earn'], ['armoury', 'hook', 'your harpoons hit a raiding monster for']]) {
       const l = economy.ladder(kind);
       if (!l) continue;
       tiles.push(Tile({

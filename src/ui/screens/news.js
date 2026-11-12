@@ -4,13 +4,17 @@
 import { h } from '../dom.js';
 
 export const NEWS = {
-  id: '2026-11-12',
+  id: '2026-11-12b',
   title: "What's new",
   items: [
     ['New land to buy', 'Seven big stretches of land join your plots into one island. Shop › Build › Land.', { tab: 'harbour', focus: 'land' }],
     ['Decorate your island', 'Palms, fences, lanterns, huts and more, set down anywhere. Shop › Build › Decor.', { tab: 'harbour', focus: 'decor' }],
     ['Move any building', 'Open a building in Shop › Build › Houses and press Move. It is free.', { tab: 'harbour' }],
     ['Monster gear', 'Rods rated up to 220 kg that cast 84 m, plus stronger reels, lines and hooks. Shop › Gear.', { tab: 'buy' }],
+    ['Train your crew', 'Crew training, net quality and an armoury: 12 tiers of idle income. Buildings now go to level 5. Shop › Build › Crew.', { tab: 'harbour', focus: 'crew' }],
+    ['Seasons', 'The sea changes every day: Spring Bloom, Summer Calm, Autumn Run, Winter Storms. Each favours something different.', null],
+    ['Monster raids', 'On a big island (12 plots) a sea monster will sometimes attack your harbour. Drive it off with harpoons for a bounty.', null],
+    ['New fight moves', 'Corkscrews, death rolls, tail-walks, long runs: rare fish fight their own way and sell for more.', null],
     ['Treasure chests', 'Rare bubbling chests out at sea: cast onto one and pull its reels.', null],
     ['Easier money, fewer repairs', 'Fish sell for 40% more; rods and lines last far longer.', null],
   ],

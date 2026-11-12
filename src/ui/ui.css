@@ -892,3 +892,13 @@
 .news__go { flex: none; min-height: 40px; padding: 0 12px; }
 .news__ok { display: block; margin: 14px auto 6px; min-width: 160px; min-height: 46px; }
 .news__build { text-align: center; font-size: 12px; opacity: 0.6; margin: 4px 0 0; }
+
+/* Raid HUD (world/raids.js): monster name, health, time left, harpoon button. */
+.raid-hud { position: absolute; left: 50%; top: calc(96px + env(safe-area-inset-top)); transform: translateX(-50%); width: min(340px, calc(100vw - 40px)); z-index: 30; text-align: center; color: #fff3d6; font-family: var(--font-body); pointer-events: none; }
+.raid-hud__name { font-family: var(--font-display); font-size: var(--fs-l); text-shadow: 0 2px 0 #2a0c08, 0 0 14px rgba(255, 80, 60, 0.7); }
+.raid-hud__bar { height: 14px; margin: 6px 0 4px; border-radius: 7px; background: #2a0c08; border: 2px solid #f3d27e; overflow: hidden; }
+.raid-hud__bar i { display: block; height: 100%; width: 100%; background: linear-gradient(#ff7a5a, #c0261a); transition: width 0.15s; }
+.raid-hud__time { font-size: var(--fs-s); opacity: 0.9; }
+.raid-hud__fire { pointer-events: auto; position: absolute; left: 50%; top: calc(100dvh - 330px - env(safe-area-inset-bottom)); transform: translateX(-50%); min-width: 190px; height: 64px; border-radius: 32px; border: 3px solid #3a2208; background: linear-gradient(#ffb36a, #d2541c); color: #2a0c08; font-family: var(--font-display); font-size: var(--fs-xl); box-shadow: 0 6px 0 #3a2208, 0 10px 24px rgba(0, 0, 0, 0.55); touch-action: manipulation; }
+.raid-hud__fire:active { transform: translateX(-50%) translateY(4px); box-shadow: 0 2px 0 #3a2208; }
+.raid-hud__fire.is-cool { filter: grayscale(0.6) brightness(0.8); }

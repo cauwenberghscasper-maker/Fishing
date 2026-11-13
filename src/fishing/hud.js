@@ -346,7 +346,9 @@ export function createHud({ root }) {
       if (a) {
         const c = buttonCentre();
         // The band is drawn from where the fisher stands now (the camera may have moved) to the thumb.
-        const o = a.fisher ? { x: a.fisher.x, y: a.fisher.y, r: 26 } : a.centre ? { x: a.centre.x, y: a.centre.y, r: 26 } : c;
+        // The band is drawn from where the thumb pressed (the pull's origin), so it always points
+        // the way the cast will NOT go, like a real slingshot.
+        const o = a.centre ? { x: a.centre.x, y: a.centre.y, r: 26 } : c;
         const px = (a.centre ? a.centre.x : o.x) + a.drag.x, py = (a.centre ? a.centre.y : o.y) + a.drag.y;
         const inDead = !a.hasAim;
         const col = inDead ? theme.danger : theme.paper;

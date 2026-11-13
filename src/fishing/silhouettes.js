@@ -3,8 +3,10 @@
 // silhouette follows the fish's brief so it reads from above (master prompt 5.2).
 import * as THREE from 'three';
 
-export const SILHOUETTE_CELLS = ['glasswing', 'driftback', 'compass', 'shellback', 'kelpwraith', 'puffer', 'mooring', 'kelp', 'generic'];
-const GRID = 3;
+export const SILHOUETTE_CELLS = ['glasswing', 'driftback', 'compass', 'shellback', 'kelpwraith', 'puffer', 'mooring', 'kelp', 'generic',
+  // Casper 13 Nov: "more fish shadow types". One per kind of body, so you can tell what is down there.
+  'ray', 'eel', 'shark', 'jelly', 'bulky', 'saw', 'flyer'];
+const GRID = 4;
 const CELL = 256;
 const UNIT = 232; // pixels per fish length
 
@@ -274,6 +276,90 @@ const DRAW = {
     g.beginPath();
     g.ellipse(-0.36 * UNIT, 0, 0.03 * UNIT, 0.026 * UNIT, 0, 0, Math.PI * 2);
     g.fill();
+  },
+  // Ray: a broad diamond of wings and a whip tail.
+  ray(g, glow) {
+    g.beginPath();
+    g.moveTo(0.3 * UNIT, 0);
+    g.quadraticCurveTo(0.16 * UNIT, -0.12 * UNIT, -0.02 * UNIT, -0.36 * UNIT);
+    g.quadraticCurveTo(-0.1 * UNIT, -0.14 * UNIT, -0.2 * UNIT, -0.03 * UNIT);
+    g.lineTo(-0.2 * UNIT, 0.03 * UNIT);
+    g.quadraticCurveTo(-0.1 * UNIT, 0.14 * UNIT, -0.02 * UNIT, 0.36 * UNIT);
+    g.quadraticCurveTo(0.16 * UNIT, 0.12 * UNIT, 0.3 * UNIT, 0);
+    g.fill();
+    g.lineCap = 'round'; g.lineWidth = 0.014 * UNIT;
+    g.beginPath(); g.moveTo(-0.18 * UNIT, 0); g.quadraticCurveTo(-0.34 * UNIT, 0.03 * UNIT, -0.48 * UNIT, -0.01 * UNIT); g.stroke();
+    for (const sd of [-1, 1]) { g.beginPath(); g.ellipse(0.3 * UNIT, sd * 0.035 * UNIT, 0.035 * UNIT, 0.014 * UNIT, sd * 0.5, 0, Math.PI * 2); g.fill(); }
+  },
+  // Eel: a long thin ribbon in a lazy S.
+  eel(g) {
+    g.lineCap = 'round'; g.lineJoin = 'round';
+    const pts = [];
+    for (let i = 0; i <= 24; i++) { const t = i / 24; pts.push([(0.44 - t * 0.9) * UNIT, Math.sin(t * Math.PI * 2.2) * 0.07 * (0.3 + t) * UNIT, 0.05 * (1 - t * 0.75) * UNIT]); }
+    for (let i = 0; i < pts.length - 1; i++) { g.lineWidth = pts[i][2] * 2; g.beginPath(); g.moveTo(pts[i][0], pts[i][1]); g.lineTo(pts[i + 1][0], pts[i + 1][1]); g.stroke(); }
+    g.beginPath(); g.ellipse(0.44 * UNIT, 0, 0.05 * UNIT, 0.045 * UNIT, 0, 0, Math.PI * 2); g.fill();
+  },
+  // Shark: torpedo body, swept pectorals, a tall crescent tail.
+  shark(g) {
+    smoothBody(g, [[0.48, 0.0], [0.4, 0.05], [0.22, 0.085], [0.02, 0.075], [-0.2, 0.045], [-0.36, 0.018]]);
+    g.fill();
+    for (const sd of [-1, 1]) {
+      g.beginPath();
+      g.moveTo(0.2 * UNIT, sd * 0.07 * UNIT);
+      g.quadraticCurveTo(0.08 * UNIT, sd * 0.2 * UNIT, -0.08 * UNIT, sd * 0.26 * UNIT);
+      g.quadraticCurveTo(0.0, sd * 0.14 * UNIT, 0.04 * UNIT, sd * 0.07 * UNIT);
+      g.closePath(); g.fill();
+      g.beginPath();
+      g.moveTo(-0.34 * UNIT, 0);
+      g.quadraticCurveTo(-0.42 * UNIT, sd * 0.06 * UNIT, -0.5 * UNIT, sd * 0.17 * UNIT);
+      g.quadraticCurveTo(-0.42 * UNIT, sd * 0.02 * UNIT, -0.4 * UNIT, 0);
+      g.closePath(); g.fill();
+    }
+  },
+  // Jelly: a round bell trailing tentacles.
+  jelly(g, glow) {
+    g.beginPath(); g.ellipse(0.2 * UNIT, 0, 0.2 * UNIT, 0.2 * UNIT, 0, 0, Math.PI * 2); g.fill();
+    g.lineCap = 'round'; g.globalAlpha = 0.6;
+    for (let i = -3; i <= 3; i++) {
+      g.lineWidth = 0.012 * UNIT;
+      g.beginPath(); g.moveTo(0.06 * UNIT, i * 0.045 * UNIT);
+      g.bezierCurveTo(-0.1 * UNIT, i * 0.07 * UNIT + 0.03 * UNIT, -0.24 * UNIT, i * 0.05 * UNIT - 0.04 * UNIT, (-0.36 - (3 - Math.abs(i)) * 0.03) * UNIT, i * 0.06 * UNIT);
+      g.stroke();
+    }
+    g.globalAlpha = 1;
+    glow.beginPath(); glow.ellipse(0.2 * UNIT, 0, 0.1 * UNIT, 0.1 * UNIT, 0, 0, Math.PI * 2); glow.fill();
+  },
+  // Bulky: a deep-bodied grouper, big head, fan tail, round pectorals.
+  bulky(g) {
+    smoothBody(g, [[0.44, 0.0], [0.38, 0.1], [0.2, 0.16], [0.0, 0.15], [-0.18, 0.09], [-0.32, 0.04]]);
+    g.fill();
+    g.beginPath(); g.moveTo(-0.3 * UNIT, 0); g.quadraticCurveTo(-0.4 * UNIT, -0.14 * UNIT, -0.48 * UNIT, -0.13 * UNIT); g.quadraticCurveTo(-0.44 * UNIT, 0, -0.48 * UNIT, 0.13 * UNIT); g.quadraticCurveTo(-0.4 * UNIT, 0.14 * UNIT, -0.3 * UNIT, 0); g.fill();
+    for (const sd of [-1, 1]) { g.beginPath(); g.ellipse(0.12 * UNIT, sd * 0.19 * UNIT, 0.09 * UNIT, 0.05 * UNIT, sd * -0.6, 0, Math.PI * 2); g.fill(); }
+  },
+  // Saw: a flat shark-ray with a long toothed rostrum.
+  saw(g) {
+    smoothBody(g, [[0.2, 0.0], [0.14, 0.07], [0.0, 0.11], [-0.14, 0.06], [-0.3, 0.03], [-0.4, 0.015]]);
+    g.fill();
+    g.fillRect(0.16 * UNIT, -0.018 * UNIT, 0.32 * UNIT, 0.036 * UNIT);
+    for (let i = 0; i < 7; i++) for (const sd of [-1, 1]) { g.beginPath(); const x = (0.2 + i * 0.04) * UNIT; g.moveTo(x, sd * 0.016 * UNIT); g.lineTo(x + 0.012 * UNIT, sd * 0.05 * UNIT); g.lineTo(x + 0.024 * UNIT, sd * 0.016 * UNIT); g.fill(); }
+    for (const sd of [-1, 1]) { g.beginPath(); g.moveTo(0.1 * UNIT, sd * 0.08 * UNIT); g.quadraticCurveTo(0.0, sd * 0.24 * UNIT, -0.12 * UNIT, sd * 0.2 * UNIT); g.quadraticCurveTo(-0.06 * UNIT, sd * 0.1 * UNIT, -0.04 * UNIT, sd * 0.08 * UNIT); g.closePath(); g.fill(); }
+    tailFork(g, -0.38, 0.13, 0.09);
+  },
+  // Flyer: a slim fish with long glider fins held out wide.
+  flyer(g) {
+    smoothBody(g, [[0.46, 0.0], [0.36, 0.04], [0.16, 0.055], [-0.04, 0.045], [-0.24, 0.028], [-0.36, 0.014]]);
+    g.fill();
+    tailFork(g, -0.35, 0.16, 0.12);
+    g.globalAlpha = 0.7;
+    for (const sd of [-1, 1]) {
+      g.beginPath(); g.moveTo(0.24 * UNIT, sd * 0.04 * UNIT);
+      g.quadraticCurveTo(0.16 * UNIT, sd * 0.3 * UNIT, -0.1 * UNIT, sd * 0.42 * UNIT);
+      g.quadraticCurveTo(0.0, sd * 0.2 * UNIT, 0.06 * UNIT, sd * 0.045 * UNIT); g.closePath(); g.fill();
+      g.beginPath(); g.moveTo(-0.12 * UNIT, sd * 0.035 * UNIT);
+      g.quadraticCurveTo(-0.16 * UNIT, sd * 0.16 * UNIT, -0.28 * UNIT, sd * 0.2 * UNIT);
+      g.quadraticCurveTo(-0.22 * UNIT, sd * 0.1 * UNIT, -0.22 * UNIT, sd * 0.03 * UNIT); g.closePath(); g.fill();
+    }
+    g.globalAlpha = 1;
   },
   generic(g) {
     smoothBody(g, [[0.46, 0.0], [0.38, 0.07], [0.2, 0.1], [0.0, 0.09], [-0.2, 0.06], [-0.36, 0.025]]);

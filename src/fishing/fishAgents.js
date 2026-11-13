@@ -9,6 +9,9 @@ import { loadModel, hasAsset, rawAssetEntry } from '../core/assets.js';
 import { rollVariant } from './variants.js';
 import { masteryConfig } from './mastery.js';
 
+// Which shadow a fish casts when it has no silhouette of its own (silhouettes.js): by species, else by body.
+const SHADOW_BY_BODY = { ray: 'ray', eel: 'eel', jelly: 'jelly', bulky: 'bulky', flat: 'compass', shelled: 'shellback' };
+const SHADOW_BY_ID = { rigging_shark: 'shark', keelback_sawfish: 'saw', spindrift_flyingfish: 'flyer', glasswing_sardine: 'glasswing', signalflag_tuna: 'shark', weathervane_gar: 'eel', hullback_sunfish: 'bulky', seaglass_puffer: 'puffer', old_mooring: 'mooring', kelp_wraith: 'kelpwraith', driftback: 'driftback' };
 const GIANT_CHANCE = 0.04;   // giants of their kind (fishAgents makeFish, fight.js rollCatch)
 
 const PERSONALITY = {
@@ -151,7 +154,7 @@ export function createFishSystem({ state, island, water, splashes, events, under
     const look = state.data?.variantsLook?.[f.variant];
     f.elementGlow = look?.kind === 'element' && look.color ? new THREE.Color(look.color) : null;
     f.shadow = shadows.acquire({
-      cell: cellIndex(behaviour.silhouette || 'generic'),
+      cell: cellIndex(behaviour.silhouette || SHADOW_BY_ID[id] || SHADOW_BY_BODY[behaviour.body] || 'generic'),
       body: swim.bodyId,
       glow: f.elementGlow ? f.elementGlow.clone().multiplyScalar(0.9) : glow ? glow.multiplyScalar(behaviour.glow.strength ?? 0.6) : null,
     });

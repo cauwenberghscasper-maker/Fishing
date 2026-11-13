@@ -216,6 +216,39 @@
         { "name": "Shore Battery", "about": "A ship's cannon on a carriage behind sandbags. Hits nearly twice as hard, and faster.", "cost": 45000, "model": "harbour_cannon_l2" },
         { "name": "Harpoon Ballista Tower", "about": "A great harpoon launcher on a turntable. Monsters think twice.", "cost": 180000, "model": "harbour_cannon_l3" }
       ]
+    },
+    "salt_works": {
+      "name": "Salt Works",
+      "about": "Sea water in, salt out. Earns coins on its own, day and night.",
+      "site": "sandbar",
+      "levels": [
+        { "name": "No salt works", "cost": 0 },
+        { "name": "Salt Pans", "about": "Shallow pans drying in the sun, and a rake.", "cost": 900, "coinsPerHour": 70, "model": "salt_works_l1" },
+        { "name": "Windpump Salt Shed", "about": "A windpump fills the pans; a shed keeps the salt dry.", "cost": 7500, "coinsPerHour": 320, "model": "salt_works_l2" },
+        { "name": "Salt House", "about": "Brick drying towers and a boiling pan. The whole coast buys your salt.", "cost": 52000, "coinsPerHour": 1500, "model": "salt_works_l3" }
+      ]
+    },
+    "fish_market": {
+      "name": "Fish Market",
+      "about": "Sells on your behalf: every fish you sell fetches more, and the stalls earn a little on their own.",
+      "site": "sandbar",
+      "levels": [
+        { "name": "No market", "cost": 0 },
+        { "name": "Fish Barrow", "about": "A barrow under an awning. Every sale +5%.", "cost": 1800, "coinsPerHour": 40, "sellBonus": 0.05, "model": "fish_market_l1" },
+        { "name": "Market Stalls", "about": "A row of stalls with scales and ice. Every sale +12%.", "cost": 16000, "coinsPerHour": 220, "sellBonus": 0.12, "model": "fish_market_l2" },
+        { "name": "Market Hall", "about": "A hall with a bell and banners. Every sale +22%.", "cost": 110000, "coinsPerHour": 900, "sellBonus": 0.22, "model": "fish_market_l3" }
+      ]
+    },
+    "lighthouse": {
+      "name": "Harbour Light",
+      "about": "Guides the night boats in: everything your harbour earns on its own goes up.",
+      "site": "sandbar",
+      "levels": [
+        { "name": "No light", "cost": 0 },
+        { "name": "Beacon Cairn", "about": "A cairn with a fire basket. Idle income +8%.", "cost": 3500, "idleBonus": 0.08, "model": "lighthouse_l1" },
+        { "name": "Timber Light", "about": "A timber tower with a turning lamp. Idle income +18%.", "cost": 28000, "idleBonus": 0.18, "model": "lighthouse_l2" },
+        { "name": "Harbour Lighthouse", "about": "A striped stone lighthouse, seen for miles. Idle income +35%.", "cost": 160000, "idleBonus": 0.35, "model": "lighthouse_l3" }
+      ]
     }
   },
   "boats": {

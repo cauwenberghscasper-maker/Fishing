@@ -444,7 +444,8 @@
     "licence": "original (Blender bpy build, CC0); concept + rest pose generated: Qwen-Image (Apache-2.0), cut-out rembg (MIT)",
     "status": "temp",
     "story": "Every ship that anchored over it lost the anchor; it wears them all as teeth.",
-    "rest": "assets/fish/anchorjaw_leviathan/rest.webp"
+    "rest": "assets/fish/anchorjaw_leviathan/rest.webp",
+    "hero": "assets/fish/anchorjaw_leviathan/hero.webp"
   },
   "drowned_lighthouse": {
     "path": "assets/fish/drowned_lighthouse/model.glb",
@@ -541,7 +542,8 @@
     "island": "driftwood_cove",
     "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
     "status": "concept",
-    "rest": "assets/fish/diamond_coelacanth/rest.webp"
+    "rest": "assets/fish/diamond_coelacanth/rest.webp",
+    "hero": "assets/fish/diamond_coelacanth/hero.webp"
   },
   "glassfloat_jelly": {
     "path": null,
@@ -557,7 +559,8 @@
     "island": "driftwood_cove",
     "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
     "status": "concept",
-    "rest": "assets/fish/glassfloat_jelly/rest.webp"
+    "rest": "assets/fish/glassfloat_jelly/rest.webp",
+    "hero": "assets/fish/glassfloat_jelly/hero.webp"
   },
   "golden_eel": {
     "path": null,
@@ -573,7 +576,8 @@
     "island": "driftwood_cove",
     "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
     "status": "concept",
-    "rest": "assets/fish/golden_eel/rest.webp"
+    "rest": "assets/fish/golden_eel/rest.webp",
+    "hero": "assets/fish/golden_eel/hero.webp"
   },
   "hullback_sunfish": {
     "path": null,
@@ -685,7 +689,8 @@
     "island": "driftwood_cove",
     "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
     "status": "concept",
-    "rest": "assets/fish/shingle_skipper/rest.webp"
+    "rest": "assets/fish/shingle_skipper/rest.webp",
+    "hero": "assets/fish/shingle_skipper/hero.webp"
   },
   "signalflag_tuna": {
     "path": null,
@@ -717,7 +722,8 @@
     "island": "driftwood_cove",
     "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
     "status": "concept",
-    "rest": "assets/fish/spindrift_flyingfish/rest.webp"
+    "rest": "assets/fish/spindrift_flyingfish/rest.webp",
+    "hero": "assets/fish/spindrift_flyingfish/hero.webp"
   },
   "tallow_candlefish": {
     "path": null,

@@ -2301,5 +2301,95 @@
     "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model lighthouse_l3",
     "concept": "art/concepts/world/lighthouse_l3.webp",
     "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "frame.common": {
+    "path": "art/frames/common.webp",
+    "name": "Trophy frame, common (driftwood lashed with rope)",
+    "size": [
+      512,
+      520
+    ],
+    "alpha": true,
+    "slice": [
+      104,
+      109,
+      115,
+      99
+    ],
+    "usedBy": "ui catch reveal (B): the trophy-poster frame for a fish of this tier, drawn as a 9-slice border-image; monster/big/boss use legendary",
+    "concept": null,
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0); background knocked out by flood fill"
+  },
+  "frame.uncommon": {
+    "path": "art/frames/uncommon.webp",
+    "name": "Trophy frame, uncommon (tarred rope on brass)",
+    "size": [
+      512,
+      551
+    ],
+    "alpha": true,
+    "slice": [
+      92,
+      65,
+      80,
+      64
+    ],
+    "usedBy": "ui catch reveal (B): the trophy-poster frame for a fish of this tier, drawn as a 9-slice border-image; monster/big/boss use legendary",
+    "concept": null,
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0); background knocked out by flood fill"
+  },
+  "frame.rare": {
+    "path": "art/frames/rare.webp",
+    "name": "Trophy frame, rare (red coral and pearls)",
+    "size": [
+      512,
+      513
+    ],
+    "alpha": true,
+    "slice": [
+      113,
+      102,
+      97,
+      110
+    ],
+    "usedBy": "ui catch reveal (B): the trophy-poster frame for a fish of this tier, drawn as a 9-slice border-image; monster/big/boss use legendary",
+    "concept": null,
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0); background knocked out by flood fill"
+  },
+  "frame.epic": {
+    "path": "art/frames/epic.webp",
+    "name": "Trophy frame, epic (leaded sea-glass)",
+    "size": [
+      512,
+      511
+    ],
+    "alpha": true,
+    "slice": [
+      99,
+      98,
+      100,
+      96
+    ],
+    "usedBy": "ui catch reveal (B): the trophy-poster frame for a fish of this tier, drawn as a 9-slice border-image; monster/big/boss use legendary",
+    "concept": null,
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0); background knocked out by flood fill"
+  },
+  "frame.legendary": {
+    "path": "art/frames/legendary.webp",
+    "name": "Trophy frame, legendary (hammered gold, sun and anchors)",
+    "size": [
+      512,
+      533
+    ],
+    "alpha": true,
+    "slice": [
+      123,
+      114,
+      97,
+      95
+    ],
+    "usedBy": "ui catch reveal (B): the trophy-poster frame for a fish of this tier, drawn as a 9-slice border-image; monster/big/boss use legendary",
+    "concept": null,
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0); background knocked out by flood fill"
   }
 }

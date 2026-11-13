@@ -257,3 +257,7 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 23:08–23:17 | Qwen-Image-Fast | building cards ×31 (75001–75032; net-rig raft redone: a cartoon hand) | 33 (31) |
 
 **Total ≈ 54 Qwen-Image (~16 s wall each) + 37 Fast (~4 s) ≈ 1,000 s wall.** No quota error. Lesson: check the file on disk before trusting check-art's MISSING list.
+| 23:25–23:45 | Qwen-Image-Fast ×5 | trophy frames per tier (76001–76005), all kept | 5 (5) |
+| 23:26–23:46 | Qwen-Image ×12 | hero (catch) poses (77001–77012): kept coelacanth, flyingfish, glassfloat jelly, anchorjaw, golden eel, shingle skipper; rejected eel r1 (snake smile), rigging shark (human skeleton with legs), sunfish (grin), cuttlefin (dancing humanoid), parrotfish (parrot with claws) | 12 (6) |
+
+**Quota hit at 23:46: "80 s requested vs 15 s left". Today's Pro ZeroGPU quota is fully used; next reset ~22:45 on 14 Nov.**

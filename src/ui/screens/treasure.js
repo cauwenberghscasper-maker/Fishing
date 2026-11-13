@@ -21,6 +21,8 @@ const SYM = {
   charm: `<svg viewBox="0 0 64 64"><g stroke="#1f4a1c" stroke-width="2.5"><circle cx="24" cy="24" r="10" fill="#5fbf4a"/><circle cx="40" cy="24" r="10" fill="#5fbf4a"/><circle cx="24" cy="40" r="10" fill="#5fbf4a"/><circle cx="40" cy="40" r="10" fill="#5fbf4a"/></g><path d="M32 40c2 8 6 14 12 18" fill="none" stroke="#1f4a1c" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="32" r="4" fill="#d6f2a8"/></svg>`,
   anchor: `<svg viewBox="0 0 64 64"><g fill="none" stroke="#5b6670" stroke-width="5" stroke-linecap="round"><circle cx="32" cy="13" r="5"/><path d="M32 18v36M20 28h24M12 40c2 10 12 14 20 14s18-4 20-14"/></g></svg>`,
 };
+// Painted symbols (public/art/ui/slot_*.webp, art agent 13 Nov) replace the drawn ones.
+for (const k of Object.keys(SYM)) SYM[k] = `<img src="art/ui/slot_${k}.webp" alt="" draggable="false">`;
 const NAMES = { coin: 'Coins', pearl: 'Pearls', fish: 'A rare fish', gem: 'An elemental fish', charm: 'Lucky charm', anchor: 'Anchor' };
 const STRIP = ['coin', 'anchor', 'pearl', 'fish', 'coin', 'gem', 'anchor', 'charm', 'pearl', 'coin', 'fish', 'anchor'];
 

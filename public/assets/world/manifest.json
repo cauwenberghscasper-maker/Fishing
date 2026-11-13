@@ -6312,5 +6312,1682 @@
     "preview": "assets/world/treasure_chest_gold/preview.webp",
     "origin": "origin at the floor (y=0) under the chest centre, front (lock) +Z; works on land or the seabed; spilled coins reach z~0.7",
     "lid": "node 'lid' (pivot on the back hinge edge at (0, 0.5, -0.33)); rotate about local X, negative = open (about -1.3 rad fully open); mesh child 'mesh_lid'. Interior is dark with a coin heap."
+  },
+  "harbour_cannon_l1": {
+    "path": "assets/world/harbour_cannon_l1/model.glb",
+    "scale": 1,
+    "tris": 2810,
+    "bounds": {
+      "min": [
+        -0.44,
+        -0.35,
+        -1.08
+      ],
+      "max": [
+        0.7,
+        1.28,
+        0.62
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 68532,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "name": "Swivel Gun",
+    "story": "Level 1, Swivel Gun: the Marigold's old brass rail gun, salvaged from the wreck and dropped into an iron yoke on a bleached driftwood post sunk in the sand and packed with beach stones. You aim it by its long iron tiller. A wicker creel of round shot stands by the post, a powder horn hangs off a nail and a slow-match linstock is stuck upright in the sand.",
+    "building": "harbour_cannon",
+    "level": 1,
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.21,
+        "x": 0.48,
+        "z": -0.12
+      },
+      {
+        "type": "circle",
+        "r": 0.15,
+        "x": 0.01,
+        "z": -0.0
+      }
+    ],
+    "footprint": {
+      "w": 1.14,
+      "d": 1.7
+    },
+    "preview": "assets/world/harbour_cannon_l1/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea",
+    "turret": {
+      "node": "turret",
+      "pivot": [
+        0.0,
+        1.02,
+        -0.0
+      ],
+      "axis": "yaw about local +Y at the node origin (identity rest rotation)",
+      "barrel": "+Z",
+      "muzzleNode": "muzzle",
+      "muzzle": [
+        0.0,
+        0.17,
+        0.62
+      ]
+    }
+  },
+  "harbour_cannon_l2": {
+    "path": "assets/world/harbour_cannon_l2/model.glb",
+    "scale": 1,
+    "tris": 9652,
+    "bounds": {
+      "min": [
+        -1.81,
+        -0.3,
+        -1.34
+      ],
+      "max": [
+        1.81,
+        1.49,
+        1.62
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds"
+    ],
+    "bytes": 228324,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "name": "Shore Battery",
+    "story": "Level 2, Shore Battery: a ship's long gun, black iron with reinforce rings and a muzzle swell, on a four-truck carriage with a breeching rope through the cascabel and a quoin under the breech. It turns on an iron racer on a plank platform behind a low horseshoe breastwork of hessian sandbags, faced inside with planks on stakes. A powder keg with a red band, a pyramid of round shot, a water bucket, a handspike and the rammer-and-sponge staff lie about the platform.",
+    "building": "harbour_cannon",
+    "level": 2,
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.21,
+        "x": -0.85,
+        "z": -0.95
+      },
+      {
+        "type": "circle",
+        "r": 0.27,
+        "x": 0.82,
+        "z": -0.92
+      },
+      {
+        "type": "box",
+        "w": 0.51,
+        "d": 1.54,
+        "rot": -0.052,
+        "x": -1.56,
+        "z": -0.28
+      },
+      {
+        "type": "box",
+        "w": 1.54,
+        "d": 0.51,
+        "rot": -0.977,
+        "x": -1.29,
+        "z": 0.68
+      },
+      {
+        "type": "box",
+        "w": 1.54,
+        "d": 0.51,
+        "rot": -0.332,
+        "x": -0.5,
+        "z": 1.28
+      },
+      {
+        "type": "box",
+        "w": 0.51,
+        "d": 1.54,
+        "rot": -1.239,
+        "x": 0.5,
+        "z": 1.28
+      },
+      {
+        "type": "box",
+        "w": 0.51,
+        "d": 1.54,
+        "rot": -0.593,
+        "x": 1.29,
+        "z": 0.68
+      },
+      {
+        "type": "box",
+        "w": 1.54,
+        "d": 0.51,
+        "rot": -1.518,
+        "x": 1.56,
+        "z": -0.28
+      }
+    ],
+    "footprint": {
+      "w": 3.62,
+      "d": 2.96
+    },
+    "preview": "assets/world/harbour_cannon_l2/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea",
+    "turret": {
+      "node": "turret",
+      "pivot": [
+        0.0,
+        0.1,
+        -0.2
+      ],
+      "axis": "yaw about local +Y at the node origin (identity rest rotation)",
+      "barrel": "+Z",
+      "muzzleNode": "muzzle",
+      "muzzle": [
+        0.0,
+        0.6,
+        1.18
+      ]
+    }
+  },
+  "harbour_cannon_l3": {
+    "path": "assets/world/harbour_cannon_l3/model.glb",
+    "scale": 1,
+    "tris": 8094,
+    "bounds": {
+      "min": [
+        -1.55,
+        -0.15,
+        -2.03
+      ],
+      "max": [
+        1.56,
+        3.1,
+        1.66
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 193104,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "name": "Harpoon Ballista Tower",
+    "story": "Level 3, Harpoon Ballista Tower: a basalt plinth of three staggered courses, a braced timber frame and a railed plank deck, reached by a ladder at the back. On the deck an iron race carries a turntable with a whaling ballista: laminated recurved bow limbs bound with iron, a drawn bowstring on a brass catch, a winch with a ratchet gear and two cranks, and a great harpoon with a barbed toggle head on a brass track. Its line runs from a tub on the turntable. A lantern swings from a post at the front corner, and a spare coil of line and a crate of spare heads stand at the back.",
+    "building": "harbour_cannon",
+    "level": 3,
+    "collider": {
+      "type": "box",
+      "w": 2.92,
+      "d": 2.92,
+      "rot": -0.0,
+      "x": 0.0,
+      "z": -0.0
+    },
+    "footprint": {
+      "w": 3.11,
+      "d": 3.69
+    },
+    "preview": "assets/world/harbour_cannon_l3/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea",
+    "turret": {
+      "node": "turret",
+      "pivot": [
+        0.0,
+        1.85,
+        0.05
+      ],
+      "axis": "yaw about local +Y at the node origin (identity rest rotation)",
+      "barrel": "+Z",
+      "muzzleNode": "muzzle",
+      "muzzle": [
+        0.0,
+        1.03,
+        1.61
+      ]
+    },
+    "anim": {
+      "anim_swing_x_8_26": [
+        -1.04,
+        3.02,
+        1.4
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (-1.04, 2.77, 1.4) local, swings with its lantern (node anim_light)"
+  },
+  "net_rig_l4": {
+    "path": "assets/world/net_rig_l4/model.glb",
+    "scale": 1,
+    "tris": 8881,
+    "bounds": {
+      "min": [
+        -2.97,
+        -0.3,
+        -2.55
+      ],
+      "max": [
+        3.02,
+        3.49,
+        3.0
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow",
+      "cove_net"
+    ],
+    "bytes": 234908,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "story": "Level 4, Twin-raft Trawl: two drift-net rafts on barrel floats lie bow to bow at the tide line, a floating driftwood boom slung between them with the trawl's curtain under it and a cod-end bag full of fish riding the wash. Each raft has its own net drum (one with the brass crank gear), one carries a short mast with a furled sail, the other the night lantern; both are moored to one heavy post up the beach, and a gull circles over the haul.",
+    "building": "net_rig",
+    "level": 4,
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.12,
+        "x": 0.02,
+        "z": -2.43
+      },
+      {
+        "type": "box",
+        "w": 2.54,
+        "d": 2.05,
+        "rot": -0.0,
+        "x": -1.7,
+        "z": -0.59
+      },
+      {
+        "type": "box",
+        "w": 2.54,
+        "d": 2.04,
+        "rot": -0.0,
+        "x": 1.75,
+        "z": -0.44
+      },
+      {
+        "type": "circle",
+        "r": 0.22,
+        "x": -0.55,
+        "z": -2.25
+      }
+    ],
+    "footprint": {
+      "w": 5.99,
+      "d": 5.55
+    },
+    "preview": "assets/world/net_rig_l4/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_bob_3_46": [
+        -1.7,
+        0.0,
+        -0.6
+      ],
+      "anim_spin_x_m24": [
+        -1.7,
+        1.2,
+        -0.75
+      ],
+      "anim_spin_x_72": [
+        -0.9,
+        1.53,
+        -1.05
+      ],
+      "anim_swing_z_10_28": [
+        -2.87,
+        1.96,
+        0.33
+      ],
+      "anim_bob_3_52": [
+        1.75,
+        0.0,
+        -0.45
+      ],
+      "anim_spin_x_m24_1": [
+        1.75,
+        1.2,
+        -0.6
+      ],
+      "anim_bob_3_38": [
+        0.0,
+        0.42,
+        0.65
+      ],
+      "anim_bob_4_21": [
+        0.0,
+        0.12,
+        2.35
+      ],
+      "anim_spin_y_26": [
+        0.0,
+        3.4,
+        1.0
+      ],
+      "anim_swing_z_10_33": [
+        1.6,
+        3.4,
+        1.0
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (-2.87, 1.74, 0.33) local, swings with its lantern (node anim_light)"
+  },
+  "net_rig_l5": {
+    "path": "assets/world/net_rig_l5/model.glb",
+    "scale": 1,
+    "tris": 7040,
+    "bounds": {
+      "min": [
+        -3.07,
+        -0.35,
+        -3.38
+      ],
+      "max": [
+        3.03,
+        4.28,
+        2.95
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow",
+      "cove_net"
+    ],
+    "bytes": 174796,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "story": "Level 5, Harbour Net Works: a tarred timber staging at the back of the beach carries a turning capstan, a basket of the catch and a net hung to dry between two poles. Four rows of stakes run out to sea with nets between them, making three netted channels; each channel has a post winch at its head, its line running out to a cross net with corks riding the swell. Fish flap in the channels and three gulls wheel overhead all day.",
+    "building": "net_rig",
+    "level": 5,
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.08,
+        "x": -2.98,
+        "z": -0.9
+      },
+      {
+        "type": "circle",
+        "r": 0.08,
+        "x": -2.97,
+        "z": 0.3
+      },
+      {
+        "type": "circle",
+        "r": 0.09,
+        "x": -2.89,
+        "z": 1.5
+      },
+      {
+        "type": "circle",
+        "r": 0.1,
+        "x": -2.96,
+        "z": 2.64
+      },
+      {
+        "type": "circle",
+        "r": 0.07,
+        "x": -0.95,
+        "z": -0.9
+      },
+      {
+        "type": "circle",
+        "r": 0.08,
+        "x": -1.03,
+        "z": 0.3
+      },
+      {
+        "type": "circle",
+        "r": 0.06,
+        "x": -0.95,
+        "z": 1.5
+      },
+      {
+        "type": "circle",
+        "r": 0.06,
+        "x": -0.99,
+        "z": 2.65
+      },
+      {
+        "type": "circle",
+        "r": 0.1,
+        "x": 1.01,
+        "z": -0.9
+      },
+      {
+        "type": "circle",
+        "r": 0.07,
+        "x": 0.94,
+        "z": 0.3
+      },
+      {
+        "type": "circle",
+        "r": 0.09,
+        "x": 0.99,
+        "z": 1.5
+      },
+      {
+        "type": "circle",
+        "r": 0.09,
+        "x": 0.99,
+        "z": 2.65
+      },
+      {
+        "type": "circle",
+        "r": 0.06,
+        "x": 2.97,
+        "z": -0.9
+      },
+      {
+        "type": "circle",
+        "r": 0.07,
+        "x": 2.9,
+        "z": 0.29
+      },
+      {
+        "type": "circle",
+        "r": 0.07,
+        "x": 2.89,
+        "z": 1.5
+      },
+      {
+        "type": "circle",
+        "r": 0.07,
+        "x": 2.96,
+        "z": 2.65
+      },
+      {
+        "type": "box",
+        "w": 3.19,
+        "d": 1.74,
+        "rot": -0.0,
+        "x": -0.0,
+        "z": -2.25
+      },
+      {
+        "type": "circle",
+        "r": 0.39,
+        "x": -1.97,
+        "z": -0.75
+      },
+      {
+        "type": "circle",
+        "r": 0.4,
+        "x": -0.0,
+        "z": -0.95
+      },
+      {
+        "type": "circle",
+        "r": 0.39,
+        "x": 1.97,
+        "z": -0.75
+      }
+    ],
+    "footprint": {
+      "w": 6.1,
+      "d": 6.33
+    },
+    "preview": "assets/world/net_rig_l5/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_spin_y_20": [
+        0.0,
+        0.74,
+        -2.25
+      ],
+      "anim_swing_x_8_26": [
+        1.8,
+        2.42,
+        -1.48
+      ],
+      "anim_bob_3_20": [
+        -1.97,
+        0.08,
+        2.9
+      ],
+      "anim_bob_4_23": [
+        0.0,
+        0.08,
+        2.9
+      ],
+      "anim_bob_5_26": [
+        1.97,
+        0.08,
+        2.9
+      ],
+      "anim_spin_x_m40": [
+        -1.97,
+        0.82,
+        -0.75
+      ],
+      "anim_spin_x_32": [
+        0.0,
+        0.82,
+        -0.95
+      ],
+      "anim_spin_x_m28": [
+        1.97,
+        0.82,
+        -0.75
+      ],
+      "anim_spin_y_22": [
+        0.0,
+        3.6,
+        0.6
+      ],
+      "anim_swing_z_10_33": [
+        2.0,
+        3.6,
+        0.6
+      ],
+      "anim_spin_y_m30": [
+        0.6,
+        4.2,
+        -0.0
+      ],
+      "anim_swing_z_10_40": [
+        1.9,
+        4.2,
+        -0.0
+      ],
+      "anim_spin_y_34": [
+        -1.0,
+        3.1,
+        1.6
+      ],
+      "anim_swing_z_10_47": [
+        -0.1,
+        3.1,
+        1.6
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (1.8, 2.2, -1.48) local, swings with its lantern (node anim_light)"
+  },
+  "reel_mill_l4": {
+    "path": "assets/world/reel_mill_l4/model.glb",
+    "scale": 1,
+    "tris": 9103,
+    "bounds": {
+      "min": [
+        -2.72,
+        -0.15,
+        -1.54
+      ],
+      "max": [
+        3.01,
+        6.65,
+        3.0
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 241320,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "story": "Level 4, Storm-spring Mill: the clockwork tower now has a four-sail windmill on a head above its crown, winding a great brass mainspring barrel on the east face (the spring's coils show behind its spokes, a pawl clicks on the ratchet). Its 30-tooth gear drives two pinions and two shafts of twelve reels, working two dozen rods fanned out from two brass rings. A pendulum ticks on the front, a cup anemometer spins on its post and the fish vane turns on the spire.",
+    "building": "reel_mill",
+    "level": 4,
+    "collider": [
+      {
+        "type": "box",
+        "w": 0.57,
+        "d": 0.44,
+        "rot": -0.297,
+        "x": 1.65,
+        "z": -1.25
+      },
+      {
+        "type": "circle",
+        "r": 0.05,
+        "x": -1.4,
+        "z": -1.1
+      },
+      {
+        "type": "box",
+        "w": 2.26,
+        "d": 1.97,
+        "rot": -0.0,
+        "x": 0.0,
+        "z": -0.0
+      }
+    ],
+    "footprint": {
+      "w": 5.73,
+      "d": 4.54
+    },
+    "preview": "assets/world/reel_mill_l4/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_spin_z_m40": [
+        0.0,
+        5.25,
+        0.62
+      ],
+      "anim_spin_x_m10": [
+        1.25,
+        2.75,
+        -0.05
+      ],
+      "anim_swing_x_6_6": [
+        1.27,
+        3.53,
+        0.05
+      ],
+      "anim_swing_y_35_90": [
+        0.0,
+        5.9,
+        -0.2
+      ],
+      "anim_spin_x_30": [
+        1.05,
+        1.99,
+        -0.4
+      ],
+      "anim_spin_x_30_1": [
+        1.05,
+        1.99,
+        0.3
+      ],
+      "anim_swing_z_9_20": [
+        0.0,
+        1.92,
+        1.02
+      ],
+      "anim_spin_y_200": [
+        -1.4,
+        3.25,
+        -1.1
+      ],
+      "anim_swing_x_8_25": [
+        1.35,
+        2.43,
+        1.15
+      ],
+      "anim_swing_z_8_29": [
+        -1.35,
+        2.43,
+        1.15
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (1.35, 2.21, 1.15) local, swings with its lantern (node anim_light); lantern: warm point light #ffc35a at (-1.35, 2.21, 1.15) local, swings with its lantern (node anim_light)"
+  },
+  "reel_mill_l5": {
+    "path": "assets/world/reel_mill_l5/model.glb",
+    "scale": 1,
+    "tris": 9373,
+    "bounds": {
+      "min": [
+        -3.66,
+        -0.25,
+        -1.97
+      ],
+      "max": [
+        2.92,
+        5.81,
+        3.2
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_glow"
+    ],
+    "bytes": 238908,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "story": "Level 5, Grand Reel Works: a long timber hall with a tarred back wall and an open arcade to the sea, three shafts of brass reels turning the length of it. A tide wheel in its flume drives them from the west end, belt pulleys tie them together at the east, and twenty rods lean out from the eaves over the water. A clock cupola rides the ridge with its bell and fish vane, and a signboard of brass reels hangs over the front.",
+    "building": "reel_mill",
+    "level": 5,
+    "collider": [
+      {
+        "type": "box",
+        "w": 4.79,
+        "d": 0.12,
+        "rot": -0.0,
+        "x": -0.2,
+        "z": -1.6
+      },
+      {
+        "type": "circle",
+        "r": 0.35,
+        "x": 2.6,
+        "z": -1.3
+      },
+      {
+        "type": "box",
+        "w": 0.12,
+        "d": 2.59,
+        "rot": -0.0,
+        "x": 2.2,
+        "z": -0.3
+      },
+      {
+        "type": "box",
+        "w": 0.96,
+        "d": 2.65,
+        "rot": -0.0,
+        "x": -3.17,
+        "z": -0.1
+      },
+      {
+        "type": "box",
+        "w": 0.16,
+        "d": 0.16,
+        "rot": -0.0,
+        "x": -2.6,
+        "z": 1.0
+      },
+      {
+        "type": "box",
+        "w": 0.16,
+        "d": 0.16,
+        "rot": -0.0,
+        "x": -1.4,
+        "z": 1.0
+      },
+      {
+        "type": "box",
+        "w": 0.16,
+        "d": 0.16,
+        "rot": -0.0,
+        "x": -0.2,
+        "z": 1.0
+      },
+      {
+        "type": "box",
+        "w": 0.16,
+        "d": 0.16,
+        "rot": -0.0,
+        "x": 1.0,
+        "z": 1.0
+      },
+      {
+        "type": "box",
+        "w": 0.16,
+        "d": 0.16,
+        "rot": -0.0,
+        "x": 2.2,
+        "z": 1.0
+      },
+      {
+        "type": "box",
+        "w": 0.12,
+        "d": 2.59,
+        "rot": -0.0,
+        "x": -2.6,
+        "z": -0.3
+      }
+    ],
+    "footprint": {
+      "w": 6.58,
+      "d": 5.17
+    },
+    "preview": "assets/world/reel_mill_l5/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_spin_x_90": [
+        0.0,
+        0.95,
+        0.35
+      ],
+      "anim_spin_x_m90": [
+        0.0,
+        1.55,
+        -0.25
+      ],
+      "anim_spin_x_90_1": [
+        0.0,
+        2.15,
+        -0.85
+      ],
+      "anim_spin_x_m30": [
+        -3.18,
+        0.95,
+        -0.2
+      ],
+      "anim_spin_x_90_2": [
+        2.35,
+        0.95,
+        0.35
+      ],
+      "anim_spin_x_m90_1": [
+        2.35,
+        1.55,
+        -0.25
+      ],
+      "anim_spin_x_90_3": [
+        2.35,
+        2.15,
+        -0.85
+      ],
+      "anim_swing_y_35_90": [
+        0.0,
+        5.55,
+        -0.3
+      ],
+      "anim_spin_z_m6": [
+        0.0,
+        3.42,
+        0.35
+      ],
+      "anim_swing_x_16_13": [
+        0.0,
+        4.3,
+        -0.3
+      ],
+      "anim_swing_x_8_25": [
+        -2.0,
+        2.35,
+        1.33
+      ],
+      "anim_swing_z_8_29": [
+        1.6,
+        2.35,
+        1.33
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (-2.0, 2.13, 1.33) local, swings with its lantern (node anim_light); lantern: warm point light #ffc35a at (1.6, 2.13, 1.33) local, swings with its lantern (node anim_light)"
+  },
+  "cannery_l4": {
+    "path": "assets/world/cannery_l4/model.glb",
+    "scale": 1,
+    "tris": 8672,
+    "bounds": {
+      "min": [
+        -3.52,
+        -0.1,
+        -2.15
+      ],
+      "max": [
+        3.3,
+        5.6,
+        2.92
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 216120,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "story": "Level 4, Steam Cannery: the works of level 3 with a boiler house on its west side, open at the front so the riveted boiler shows on its brick saddles. A brass steam whistle on the dome puffs steam, a tall banded brick stack smokes behind, and a big flywheel turns with a belt running up to a pulley on the works wall. Tins ride the roller chute down the east side to the crates, and a lantern hangs by the blue doors.",
+    "building": "cannery",
+    "level": 4,
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.26,
+        "x": -0.3,
+        "z": 1.8
+      },
+      {
+        "type": "box",
+        "w": 1.92,
+        "d": 0.12,
+        "rot": -0.0,
+        "x": -2.18,
+        "z": -1.4
+      },
+      {
+        "type": "box",
+        "w": 1.0,
+        "d": 1.9,
+        "rot": -0.0,
+        "x": -2.2,
+        "z": -0.15
+      },
+      {
+        "type": "circle",
+        "r": 0.09,
+        "x": -3.2,
+        "z": -1.35
+      },
+      {
+        "type": "circle",
+        "r": 0.09,
+        "x": -3.2,
+        "z": -0.35
+      },
+      {
+        "type": "circle",
+        "r": 0.5,
+        "x": -2.7,
+        "z": -1.8
+      },
+      {
+        "type": "box",
+        "w": 0.56,
+        "d": 1.08,
+        "rot": -0.0,
+        "x": 3.02,
+        "z": 1.95
+      },
+      {
+        "type": "box",
+        "w": 0.52,
+        "d": 0.4,
+        "rot": -0.0,
+        "x": 3.02,
+        "z": 2.7
+      },
+      {
+        "type": "box",
+        "w": 0.12,
+        "d": 0.71,
+        "rot": -0.0,
+        "x": -2.25,
+        "z": 1.7
+      },
+      {
+        "type": "box",
+        "w": 4.16,
+        "d": 3.07,
+        "rot": -0.0,
+        "x": 0.7,
+        "z": -0.1
+      }
+    ],
+    "footprint": {
+      "w": 6.82,
+      "d": 5.07
+    },
+    "preview": "assets/world/cannery_l4/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_smoke": [
+        -1.95,
+        2.1,
+        -0.35
+      ],
+      "anim_smoke_1": [
+        -2.7,
+        5.75,
+        -1.8
+      ],
+      "anim_spin_x_90": [
+        -2.15,
+        1.05,
+        1.7
+      ],
+      "anim_spin_x_m200": [
+        3.02,
+        1.86,
+        -0.56
+      ],
+      "anim_spin_x_m200_1": [
+        3.02,
+        1.57,
+        0.1
+      ],
+      "anim_spin_x_m200_2": [
+        3.02,
+        1.27,
+        0.77
+      ],
+      "anim_spin_x_m200_3": [
+        3.02,
+        0.99,
+        1.45
+      ],
+      "anim_spin_x_m200_4": [
+        3.02,
+        0.69,
+        2.12
+      ],
+      "anim_swing_x_8_24": [
+        0.1,
+        1.27,
+        1.73
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (0.1, 1.05, 1.73) local, swings with its lantern (node anim_light)"
+  },
+  "cannery_l5": {
+    "path": "assets/world/cannery_l5/model.glb",
+    "scale": 1,
+    "tris": 9072,
+    "bounds": {
+      "min": [
+        -3.35,
+        -0.3,
+        -2.45
+      ],
+      "max": [
+        3.11,
+        6.3,
+        3.49
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 226516,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "story": "Level 5, Grand Cannery: a longer, taller works with three lit windows, a painted sign on the ridge (a giant tin between two fish), a tall smoking stack, a roof vent and the whistle. At the front-east a plank wharf takes the roller chute from the upper door; a slewing crane swings a crate of tins on its hook over stamped shipping crates, and a blue flag flies over the yard.",
+    "building": "cannery",
+    "level": 5,
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.26,
+        "x": -2.05,
+        "z": 1.5
+      },
+      {
+        "type": "circle",
+        "r": 0.57,
+        "x": -2.45,
+        "z": -2.05
+      },
+      {
+        "type": "box",
+        "w": 0.56,
+        "d": 0.69,
+        "rot": -0.0,
+        "x": 2.02,
+        "z": 0.79
+      },
+      {
+        "type": "box",
+        "w": 0.2,
+        "d": 0.2,
+        "rot": -0.0,
+        "x": 2.5,
+        "z": 3.05
+      },
+      {
+        "type": "box",
+        "w": 0.4,
+        "d": 0.52,
+        "rot": -1.379,
+        "x": -1.6,
+        "z": 1.5
+      },
+      {
+        "type": "box",
+        "w": 2.6,
+        "d": 2.34,
+        "rot": -0.0,
+        "x": 1.67,
+        "z": 2.33
+      },
+      {
+        "type": "box",
+        "w": 4.96,
+        "d": 2.97,
+        "rot": -0.0,
+        "x": -0.7,
+        "z": -0.3
+      }
+    ],
+    "footprint": {
+      "w": 6.46,
+      "d": 5.94
+    },
+    "preview": "assets/world/cannery_l5/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_smoke": [
+        -2.45,
+        6.45,
+        -2.05
+      ],
+      "anim_smoke_1": [
+        0.8,
+        5.05,
+        -0.3
+      ],
+      "anim_swing_y_30_120": [
+        2.5,
+        2.5,
+        3.05
+      ],
+      "anim_swing_x_5_33": [
+        0.82,
+        2.98,
+        2.87
+      ],
+      "anim_spin_x_m200": [
+        2.02,
+        2.04,
+        -0.69
+      ],
+      "anim_spin_x_m200_1": [
+        2.02,
+        1.71,
+        -0.18
+      ],
+      "anim_spin_x_m200_2": [
+        2.02,
+        1.39,
+        0.33
+      ],
+      "anim_spin_x_m200_3": [
+        2.02,
+        1.06,
+        0.84
+      ],
+      "anim_swing_x_8_24": [
+        -1.2,
+        1.27,
+        1.48
+      ],
+      "anim_swing_z_8_28": [
+        0.2,
+        2.05,
+        3.4
+      ],
+      "anim_swing_y_25_30": [
+        -2.7,
+        4.55,
+        1.25
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (-1.2, 1.05, 1.48) local, swings with its lantern (node anim_light); lantern: warm point light #ffc35a at (0.2, 1.83, 3.4) local, swings with its lantern (node anim_light)"
+  },
+  "smokehouse_l4": {
+    "path": "assets/world/smokehouse_l4/model.glb",
+    "scale": 1,
+    "tris": 7600,
+    "bounds": {
+      "min": [
+        -3.54,
+        -0.15,
+        -1.62
+      ],
+      "max": [
+        3.48,
+        6.03,
+        2.54
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 191852,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "story": "Level 4, Twin-chimney Cure House: a tarred cure shed with a louvred ridge vent sits between two octagonal smoke towers, each on its own black-basalt firebox with a glowing door. Copper cowls turn on both towers (smoke from each), fish hang on hook rings round them and in rows inside the propped-open hatch, and an A-frame rack of split fish sways in front. Brine barrels, oak billets, a chopping block and a lantern post.",
+    "building": "smokehouse",
+    "level": 4,
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.27,
+        "x": 1.35,
+        "z": 1.65
+      },
+      {
+        "type": "circle",
+        "r": 0.24,
+        "x": 1.85,
+        "z": 1.35
+      },
+      {
+        "type": "circle",
+        "r": 1.28,
+        "x": -2.32,
+        "z": -0.07
+      },
+      {
+        "type": "circle",
+        "r": 1.22,
+        "x": 2.38,
+        "z": -0.07
+      },
+      {
+        "type": "box",
+        "w": 2.7,
+        "d": 2.05,
+        "rot": -0.0,
+        "x": -0.0,
+        "z": 0.0
+      }
+    ],
+    "footprint": {
+      "w": 7.02,
+      "d": 4.16
+    },
+    "preview": "assets/world/smokehouse_l4/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_spin_y_30": [
+        -2.35,
+        4.88,
+        -0.0
+      ],
+      "anim_smoke": [
+        -2.35,
+        5.68,
+        -0.0
+      ],
+      "anim_spin_y_m24": [
+        2.35,
+        5.18,
+        -0.0
+      ],
+      "anim_smoke_1": [
+        2.35,
+        5.98,
+        -0.0
+      ],
+      "anim_swing_x_4_34": [
+        -0.15,
+        1.25,
+        1.77
+      ],
+      "anim_swing_x_4_34_1": [
+        -0.15,
+        1.6,
+        2.05
+      ],
+      "anim_swing_x_4_34_2": [
+        -0.15,
+        1.25,
+        2.33
+      ],
+      "anim_swing_x_8_26": [
+        1.75,
+        1.9,
+        1.35
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (1.75, 1.68, 1.35) local, swings with its lantern (node anim_light)"
+  },
+  "smokehouse_l5": {
+    "path": "assets/world/smokehouse_l5/model.glb",
+    "scale": 1,
+    "tris": 8127,
+    "bounds": {
+      "min": [
+        -3.95,
+        -0.11,
+        -2.45
+      ],
+      "max": [
+        3.2,
+        7.69,
+        3.04
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 207520,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "story": "Level 5, Master Smokery: a basalt-walled smokery with two glowing fire doors under a tarred plank loft with louvred vents and hung fish. The master tower rises through the ridge to a verdigris copper cupola with glowing vents and a fish vane; a brick cold-smoke chimney stands at the east gable. A sales counter under a striped awning has its swinging fish sign, oak cordwood is stacked at the back, and two drying racks and a handcart of salt stand in the yard.",
+    "building": "smokehouse",
+    "level": 5,
+    "collider": [
+      {
+        "type": "circle",
+        "r": 0.27,
+        "x": 2.85,
+        "z": 0.7
+      },
+      {
+        "type": "circle",
+        "r": 0.25,
+        "x": 2.9,
+        "z": 1.35
+      },
+      {
+        "type": "circle",
+        "r": 0.4,
+        "x": 1.85,
+        "z": -1.25
+      },
+      {
+        "type": "box",
+        "w": 5.16,
+        "d": 2.96,
+        "rot": -0.0,
+        "x": -0.0,
+        "z": -0.4
+      },
+      {
+        "type": "box",
+        "w": 2.1,
+        "d": 1.0,
+        "rot": -1.536,
+        "x": -2.94,
+        "z": -0.06
+      }
+    ],
+    "footprint": {
+      "w": 7.15,
+      "d": 5.49
+    },
+    "preview": "assets/world/smokehouse_l5/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_swing_y_35_90": [
+        -0.5,
+        7.45,
+        -0.4
+      ],
+      "anim_smoke": [
+        -0.5,
+        6.6,
+        0.1
+      ],
+      "anim_smoke_1": [
+        1.85,
+        5.05,
+        -1.25
+      ],
+      "anim_swing_z_10_32": [
+        -3.75,
+        2.4,
+        1.35
+      ],
+      "anim_swing_x_8_24": [
+        0.75,
+        1.45,
+        1.32
+      ],
+      "anim_swing_x_4_34": [
+        1.35,
+        1.42,
+        2.31
+      ],
+      "anim_swing_x_4_34_1": [
+        1.35,
+        1.42,
+        2.59
+      ],
+      "anim_swing_x_3_41": [
+        -0.75,
+        1.42,
+        2.41
+      ],
+      "anim_swing_x_3_41_1": [
+        -0.75,
+        1.42,
+        2.69
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (0.75, 1.23, 1.32) local, swings with its lantern (node anim_light)"
+  },
+  "workers_hut_l4": {
+    "path": "assets/world/workers_hut_l4/model.glb",
+    "scale": 1,
+    "tris": 6274,
+    "bounds": {
+      "min": [
+        -3.76,
+        -0.15,
+        -1.89
+      ],
+      "max": [
+        3.41,
+        3.9,
+        2.07
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 172964,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "story": "Level 4, Crew Lodge: the patchwork painted bunk hall of level 3 (red, white and blue salvaged boards, lit portholes, an upturned hull for a roof) with a rubble cook-house on the east end, its stone chimney smoking and a stew pot on the hatch counter, and an open drying porch of oars on the west where oilskins swing on the lines. The shift bell swings on its gallows, notes are pinned to the hire board, and sea chests sit by the door.",
+    "building": "workers_hut",
+    "level": 4,
+    "collider": [
+      {
+        "type": "box",
+        "w": 1.71,
+        "d": 2.52,
+        "rot": -0.0,
+        "x": 2.37,
+        "z": -0.23
+      },
+      {
+        "type": "circle",
+        "r": 0.06,
+        "x": -3.49,
+        "z": -1.35
+      },
+      {
+        "type": "circle",
+        "r": 0.05,
+        "x": -3.5,
+        "z": 0.9
+      },
+      {
+        "type": "box",
+        "w": 0.67,
+        "d": 0.12,
+        "rot": -0.0,
+        "x": -1.75,
+        "z": 1.9
+      },
+      {
+        "type": "box",
+        "w": 4.06,
+        "d": 2.6,
+        "rot": -0.0,
+        "x": -0.45,
+        "z": -0.22
+      },
+      {
+        "type": "circle",
+        "r": 0.37,
+        "x": 2.7,
+        "z": -1.05
+      }
+    ],
+    "footprint": {
+      "w": 7.17,
+      "d": 3.96
+    },
+    "preview": "assets/world/workers_hut_l4/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_smoke": [
+        2.7,
+        3.75,
+        -1.05
+      ],
+      "anim_swing_z_10_22": [
+        -3.17,
+        1.75,
+        -0.9
+      ],
+      "anim_swing_z_10_22_1": [
+        -2.78,
+        1.75,
+        -0.9
+      ],
+      "anim_swing_z_10_22_2": [
+        -3.17,
+        1.75,
+        0.45
+      ],
+      "anim_swing_z_10_22_3": [
+        -2.78,
+        1.75,
+        0.45
+      ],
+      "anim_swing_x_14_16": [
+        -1.75,
+        1.85,
+        1.9
+      ],
+      "anim_swing_x_8_26": [
+        2.0,
+        1.9,
+        1.35
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (2.0, 1.68, 1.35) local, swings with its lantern (node anim_light)"
+  },
+  "workers_hut_l5": {
+    "path": "assets/world/workers_hut_l5/model.glb",
+    "scale": 1,
+    "tris": 7693,
+    "bounds": {
+      "min": [
+        -3.06,
+        -0.1,
+        -2.39
+      ],
+      "max": [
+        3.7,
+        6.49,
+        2.76
+      ]
+    },
+    "materials": [
+      "cove_atlas",
+      "cove_atlas_ds",
+      "cove_glow"
+    ],
+    "bytes": 199960,
+    "licence": "original (Blender bpy build, CC0)",
+    "source": "bespoke, painted with cove_atlas",
+    "status": "temp",
+    "concept": null,
+    "category": "building",
+    "placement": "ground",
+    "story": "Level 5, Fishers' Guildhall: a basalt ground storey with shuttered windows under a painted plank upper storey lined with lit portholes, roofed by one great upturned hull in blue, white and red. The guild banner (a brass fish on blue) swings over red double doors under a porch roof with lanterns and stone steps; a bell turret rides the keel, a red pennant flies, oars are stood by the door.",
+    "building": "workers_hut",
+    "level": 5,
+    "collider": [
+      {
+        "type": "box",
+        "w": 0.42,
+        "d": 0.64,
+        "rot": -1.414,
+        "x": 2.1,
+        "z": 1.95
+      },
+      {
+        "type": "circle",
+        "r": 0.04,
+        "x": 3.0,
+        "z": 2.15
+      },
+      {
+        "type": "box",
+        "w": 5.77,
+        "d": 3.77,
+        "rot": -0.0,
+        "x": -0.0,
+        "z": -0.3
+      },
+      {
+        "type": "circle",
+        "r": 0.07,
+        "x": -0.95,
+        "z": 2.45
+      },
+      {
+        "type": "circle",
+        "r": 0.07,
+        "x": 0.95,
+        "z": 2.45
+      }
+    ],
+    "footprint": {
+      "w": 6.76,
+      "d": 5.15
+    },
+    "preview": "assets/world/workers_hut_l5/preview.webp",
+    "origin": "footprint centre at ground level (y=0), front +Z faces the sea; stakes and posts reach y<0 into the sand",
+    "anim": {
+      "anim_swing_x_5_40": [
+        0.0,
+        3.35,
+        1.73
+      ],
+      "anim_swing_x_8_25": [
+        -0.95,
+        2.1,
+        2.57
+      ],
+      "anim_swing_z_8_29": [
+        0.95,
+        2.1,
+        2.57
+      ],
+      "anim_swing_x_16_14": [
+        0.0,
+        5.65,
+        -0.3
+      ],
+      "anim_swing_y_25_30": [
+        3.0,
+        4.95,
+        2.15
+      ]
+    },
+    "light": "lantern: warm point light #ffc35a at (-0.95, 1.88, 2.58) local, swings with its lantern (node anim_light); lantern: warm point light #ffc35a at (0.95, 1.88, 2.58) local, swings with its lantern (node anim_light)"
   }
 }

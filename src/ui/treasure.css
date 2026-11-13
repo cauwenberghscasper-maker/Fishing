@@ -67,7 +67,7 @@
 .chest__window::after { content: ''; position: absolute; inset: 0; background: linear-gradient(rgba(30, 16, 4, 0.45), transparent 28%, transparent 72%, rgba(30, 16, 4, 0.45)); pointer-events: none; }
 .chest__strip { position: absolute; left: 0; right: 0; top: calc(var(--cell) * -0.25); will-change: transform; }
 .chest__sym { width: var(--cell); height: var(--cell); display: grid; place-items: center; }
-.chest__sym svg { width: 74%; height: 74%; filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.25)); }
+.chest__sym svg, .chest__sym img { width: 78%; height: 78%; object-fit: contain; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35)); }
 .chest__payline { position: absolute; left: 6px; right: 6px; top: 50%; height: 2px; background: color-mix(in srgb, var(--glow) 70%, transparent); box-shadow: 0 0 8px var(--glow); pointer-events: none; opacity: 0.6; }
 .chest.is-tease .chest__window:nth-child(3) { box-shadow: inset 0 8px 10px rgba(0, 0, 0, 0.35), 0 0 0 3px var(--glow), 0 0 26px var(--glow); animation: chest-tease 0.3s ease-in-out infinite alternate; }
 @keyframes chest-tease { to { transform: scale(1.04); } }

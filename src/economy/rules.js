@@ -17,7 +17,7 @@ export const groupOf = (slot) => SLOTS.find((s) => s.slot === slot)?.group;
 export const slotInfo = (slot) => SLOTS.find((s) => s.slot === slot);
 export const EQUIP_SLOTS = SLOTS.filter((s) => !s.tool).map((s) => s.slot);
 
-export const BUILDINGS = ['shop', 'cooler', 'workers_hut', 'smokehouse', 'aquarium', 'boat_dock', 'net_rig', 'reel_mill', 'cannery'];
+export const BUILDINGS = ['shop', 'cooler', 'workers_hut', 'smokehouse', 'aquarium', 'boat_dock', 'net_rig', 'reel_mill', 'cannery', 'harbour_cannon'];
 /** Idle machines: each level earns coinsPerHour on its own; the cannery also multiplies what the crew, nets and machines bring in. */
 export const MACHINES = ['net_rig', 'reel_mill', 'cannery'];
 

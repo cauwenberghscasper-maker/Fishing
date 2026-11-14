@@ -334,7 +334,7 @@
 }
 .reveal__stage { overflow: visible; justify-content: center; gap: 0; padding: 18px 0 6px; }
 .reveal__poster {
-  --bw: clamp(22px, 7vw, 34px);
+  --bw: clamp(14px, 4.4vw, 22px);   /* Casper 14 Nov: the gold and pearl frames were too big */
   position: relative;
   flex: 0 1 auto;
   width: min(84vw, 420px);
@@ -354,7 +354,7 @@
   border-image-source: var(--frame);
   border-image-slice: var(--slice);
   border-image-width: var(--bw);
-  border-image-outset: calc(var(--bw) * 0.35);
+  border-image-outset: calc(var(--bw) * 0.15);
   border-image-repeat: round;
   box-shadow: none;
   filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.5));

@@ -246,3 +246,18 @@ Wall-clock per call measured from timestamps around each call (upper bound for G
 | 12:45–12:48 | Qwen-Image ×9 | journal portraits, 1–2 per fish; best of each kept | ~140 |
 
 **9 Nov total ≈ 1,120 s wall over two quota days (00:39–00:52 on the 8 Nov quota, 12:39–12:48 on the 9 Nov quota).** Nothing was lost: every kept image is now in the game (hero, rest, portrait, preview for all five; top views for four). Still to make: oyster_hoarder top view; all art for bottlepost_wrasse and saltcrust_sole; the net_rig / reel_mill / cannery cards and concepts.
+
+### Art pass — 13 Nov 22:41–23:30 Brussels (Casper's Pro quota; the first 3 calls were before the 22:45 reset)
+| Time | Tool | What | Calls (kept) |
+|---|---|---|---|
+| 22:41–22:46 | Qwen-Image | island key art ×7 (seeds 71001–71007; Frostfang redone 71013: first take flat vector + a figure) | 8 (7) |
+| 22:46–22:51 | Qwen-Image | catch backdrops ×7 (72001–72007; frost 72013, ember 72014, storm 72015, abyss 72017 → 72027 redone: clip-art snowflakes, busy red wall, lightning through the centre, jellyfish/roses) | 12 (7) |
+| 22:49–22:53 | Qwen-Image-Fast ×4, Qwen-Image ×8 | 5 rods: **wasted** — the gear cards already existed (check-art only flagged their `concept` field, which held flavour text). Takes kept in `.cache`, not shipped | 12 (0) |
+| 22:53–23:22 | Qwen-Image | fish concepts for the 21 live Driftwood Cove fish without art (74001–74033; redone: golden eel, coelacanth, sunfish for cartoon faces; sawfish cropped; weathervane gar became a dragon) | 26 (21) |
+| 23:08–23:17 | Qwen-Image-Fast | building cards ×31 (75001–75032; net-rig raft redone: a cartoon hand) | 33 (31) |
+
+**Total ≈ 54 Qwen-Image (~16 s wall each) + 37 Fast (~4 s) ≈ 1,000 s wall.** No quota error. Lesson: check the file on disk before trusting check-art's MISSING list.
+| 23:25–23:45 | Qwen-Image-Fast ×5 | trophy frames per tier (76001–76005), all kept | 5 (5) |
+| 23:26–23:46 | Qwen-Image ×12 | hero (catch) poses (77001–77012): kept coelacanth, flyingfish, glassfloat jelly, anchorjaw, golden eel, shingle skipper; rejected eel r1 (snake smile), rigging shark (human skeleton with legs), sunfish (grin), cuttlefin (dancing humanoid), parrotfish (parrot with claws) | 12 (6) |
+
+**Quota hit at 23:46: "80 s requested vs 15 s left". Today's Pro ZeroGPU quota is fully used; next reset ~22:45 on 14 Nov.**

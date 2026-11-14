@@ -1218,8 +1218,7 @@
     "usedBy": "ui backdrop (B): catch reveal for Wreck Reef: rust-orange rays through a wreck's broken ribs",
     "calm": "light source top centre; calm middle 60% for the hero pose; darker bottom 25% for ribbons and Keep/Sell",
     "concept": null,
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
   },
   "screen.catch.mossback_bayou": {
     "path": "art/screens/catch_mossback_bayou.webp",
@@ -1231,8 +1230,7 @@
     "usedBy": "ui backdrop (B): catch reveal for Mossback Bayou: green-gold rays through lily pads, fireflies",
     "calm": "light source top centre; calm middle 60% for the hero pose; darker bottom 25% for ribbons and Keep/Sell",
     "concept": null,
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
   },
   "screen.catch.frostfang_fjord": {
     "path": "art/screens/catch_frostfang_fjord.webp",
@@ -1244,8 +1242,7 @@
     "usedBy": "ui backdrop (B): catch reveal for Frostfang Fjord: blue rays through clear ice, frost crystals",
     "calm": "light source top centre; calm middle 60% for the hero pose; darker bottom 25% for ribbons and Keep/Sell",
     "concept": null,
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
   },
   "screen.catch.ember_caldera": {
     "path": "art/screens/catch_ember_caldera.webp",
@@ -1257,8 +1254,7 @@
     "usedBy": "ui backdrop (B): catch reveal for Ember Caldera: crimson-gold rays, embers and heat shimmer",
     "calm": "light source top centre; calm middle 60% for the hero pose; darker bottom 25% for ribbons and Keep/Sell",
     "concept": null,
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
   },
   "screen.catch.stormspire_isles": {
     "path": "art/screens/catch_stormspire_isles.webp",
@@ -1270,8 +1266,7 @@
     "usedBy": "ui backdrop (B): catch reveal for Stormspire Isles: electric rays through storm cloud, lightning",
     "calm": "light source top centre; calm middle 60% for the hero pose; darker bottom 25% for ribbons and Keep/Sell",
     "concept": null,
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
   },
   "screen.catch.sunken_temple": {
     "path": "art/screens/catch_sunken_temple.webp",
@@ -1283,8 +1278,7 @@
     "usedBy": "ui backdrop (B): catch reveal for Sunken Temple: turquoise glyph beams through drowned arches",
     "calm": "light source top centre; calm middle 60% for the hero pose; darker bottom 25% for ribbons and Keep/Sell",
     "concept": null,
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
   },
   "screen.catch.the_abyss": {
     "path": "art/screens/catch_the_abyss.webp",
@@ -1296,8 +1290,7 @@
     "usedBy": "ui backdrop (B): catch reveal for The Abyss: rose, violet and cyan bioluminescent rays in black water",
     "calm": "light source top centre; calm middle 60% for the hero pose; darker bottom 25% for ribbons and Keep/Sell",
     "concept": null,
-    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)",
-    "planned": true
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0)"
   },
   "ribbon.new": {
     "path": "art/ribbons/new.webp",
@@ -1797,118 +1790,109 @@
     "path": "art/buildings/net_rig_l1.webp",
     "name": "Stake Net (Net Rig level 1)",
     "size": [
-      512,
+      497,
       512
     ],
     "alpha": true,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model net_rig_l1",
     "concept": "art/concepts/world/net_rig_l1.webp",
-    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
   },
   "building.net_rig.l2": {
     "path": "art/buildings/net_rig_l2.webp",
     "name": "Tidal Weir (Net Rig level 2)",
     "size": [
       512,
-      512
+      368
     ],
     "alpha": true,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model net_rig_l2",
     "concept": "art/concepts/world/net_rig_l2.webp",
-    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
   },
   "building.net_rig.l3": {
     "path": "art/buildings/net_rig_l3.webp",
     "name": "Drift-net Raft (Net Rig level 3)",
     "size": [
-      512,
+      506,
       512
     ],
     "alpha": true,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model net_rig_l3",
     "concept": "art/concepts/world/net_rig_l3.webp",
-    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
   },
   "building.reel_mill.l1": {
     "path": "art/buildings/reel_mill_l1.webp",
     "name": "Bell Rack (Reel Mill level 1)",
     "size": [
-      512,
+      473,
       512
     ],
     "alpha": true,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model reel_mill_l1",
     "concept": "art/concepts/world/reel_mill_l1.webp",
-    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
   },
   "building.reel_mill.l2": {
     "path": "art/buildings/reel_mill_l2.webp",
     "name": "Tide Wheel (Reel Mill level 2)",
     "size": [
       512,
-      512
+      446
     ],
     "alpha": true,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model reel_mill_l2",
     "concept": "art/concepts/world/reel_mill_l2.webp",
-    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
   },
   "building.reel_mill.l3": {
     "path": "art/buildings/reel_mill_l3.webp",
     "name": "Clockwork Reel Mill (Reel Mill level 3)",
     "size": [
-      512,
+      430,
       512
     ],
     "alpha": true,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model reel_mill_l3",
     "concept": "art/concepts/world/reel_mill_l3.webp",
-    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
   },
   "building.cannery.l1": {
     "path": "art/buildings/cannery_l1.webp",
     "name": "Tin Bench (Cannery level 1)",
     "size": [
-      512,
+      486,
       512
     ],
     "alpha": true,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model cannery_l1",
     "concept": "art/concepts/world/cannery_l1.webp",
-    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
   },
   "building.cannery.l2": {
     "path": "art/buildings/cannery_l2.webp",
     "name": "Steam Cannery (Cannery level 2)",
     "size": [
       512,
-      512
+      498
     ],
     "alpha": true,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model cannery_l2",
     "concept": "art/concepts/world/cannery_l2.webp",
-    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
   },
   "building.cannery.l3": {
     "path": "art/buildings/cannery_l3.webp",
     "name": "Cannery Works (Cannery level 3)",
     "size": [
       512,
-      512
+      503
     ],
     "alpha": true,
     "usedBy": "ui/shop Harbour building row (B); build reference for Agent D model cannery_l3",
     "concept": "art/concepts/world/cannery_l3.webp",
-    "licence": "generated: Qwen-Image-Fast (Apache-2.0), cut out with rembg (MIT)",
-    "planned": true
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
   },
   "gear.rod.coral_spine": {
     "path": "art/gear/rod_coral_spine.webp",
@@ -1919,7 +1903,7 @@
     ],
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
-    "concept": "Grown, not carved: a living coral branch that stiffens when it bends.",
+    "concept": null,
     "licence": null
   },
   "gear.rod.kraken_rib": {
@@ -1931,7 +1915,7 @@
     ],
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
-    "concept": "A single rib from something the sea won't name. It flexes like a tentacle.",
+    "concept": null,
     "licence": null
   },
   "gear.rod.stormglass": {
@@ -1943,7 +1927,7 @@
     ],
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
-    "concept": "Fused in a lightning strike on the beach. Thunder rolls inside it when a monster takes the bait.",
+    "concept": null,
     "licence": null
   },
   "gear.rod.leviathan_harpoon": {
@@ -1955,7 +1939,7 @@
     ],
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
-    "concept": "Half whaling harpoon, half rod. Built for the things that sink ships.",
+    "concept": null,
     "licence": null
   },
   "gear.rod.abyssal_spire": {
@@ -1967,7 +1951,7 @@
     ],
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
-    "concept": "Raised from the trench, black and humming. The deep listens when you cast it.",
+    "concept": null,
     "licence": null
   },
   "gear.reel.storm_capstan": {
@@ -1979,7 +1963,7 @@
     ],
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
-    "concept": "A ship's capstan in miniature. Four sailors' strength in one crank.",
+    "concept": null,
     "licence": null
   },
   "gear.reel.leviathan_winch": {
@@ -1991,7 +1975,7 @@
     ],
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
-    "concept": "Geared from an anchor windlass. It has hauled up worse than whales.",
+    "concept": null,
     "licence": null
   },
   "gear.line.kraken_sinew": {
@@ -2003,7 +1987,7 @@
     ],
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
-    "concept": "Stretches like a muscle, snaps back like one too.",
+    "concept": null,
     "licence": null
   },
   "gear.line.leviathan_silk": {
@@ -2015,7 +1999,7 @@
     ],
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
-    "concept": "Spun by deep-sea spiders the size of rowboats. Holds a monster's run.",
+    "concept": null,
     "licence": null
   },
   "gear.line.abyss_thread": {
@@ -2027,7 +2011,7 @@
     ],
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
-    "concept": "Black as the trench and twice as cold. Nothing alive has broken it.",
+    "concept": null,
     "licence": null
   },
   "gear.hook.anchor_fluke": {
@@ -2039,7 +2023,7 @@
     ],
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
-    "concept": "Forged from a broken anchor's fluke. Monsters stay hooked.",
+    "concept": null,
     "licence": null
   },
   "gear.leader.chain_leader": {
@@ -2051,7 +2035,361 @@
     ],
     "alpha": true,
     "usedBy": "ui/shop gear tile + detail drawer (B)",
-    "concept": "A fathom of fine chain. Teeth can't cut it.",
+    "concept": null,
     "licence": null
+  },
+  "building.workers_hut.l4": {
+    "path": "art/buildings/workers_hut_l4.webp",
+    "name": "Crew Lodge (Workers Hut level 4)",
+    "size": [
+      512,
+      470
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model workers_hut_l4",
+    "concept": "art/concepts/world/workers_hut_l4.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.workers_hut.l5": {
+    "path": "art/buildings/workers_hut_l5.webp",
+    "name": "Fishers' Guildhall (Workers Hut level 5)",
+    "size": [
+      478,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model workers_hut_l5",
+    "concept": "art/concepts/world/workers_hut_l5.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.smokehouse.l4": {
+    "path": "art/buildings/smokehouse_l4.webp",
+    "name": "Twin-chimney Cure House (Smokehouse level 4)",
+    "size": [
+      486,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model smokehouse_l4",
+    "concept": "art/concepts/world/smokehouse_l4.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.smokehouse.l5": {
+    "path": "art/buildings/smokehouse_l5.webp",
+    "name": "Master Smokery (Smokehouse level 5)",
+    "size": [
+      479,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model smokehouse_l5",
+    "concept": "art/concepts/world/smokehouse_l5.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.net_rig.l4": {
+    "path": "art/buildings/net_rig_l4.webp",
+    "name": "Twin-raft Trawl (Net Rig level 4)",
+    "size": [
+      512,
+      439
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model net_rig_l4",
+    "concept": "art/concepts/world/net_rig_l4.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.net_rig.l5": {
+    "path": "art/buildings/net_rig_l5.webp",
+    "name": "Harbour Net Works (Net Rig level 5)",
+    "size": [
+      512,
+      458
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model net_rig_l5",
+    "concept": "art/concepts/world/net_rig_l5.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.reel_mill.l4": {
+    "path": "art/buildings/reel_mill_l4.webp",
+    "name": "Storm-spring Mill (Reel Mill level 4)",
+    "size": [
+      455,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model reel_mill_l4",
+    "concept": "art/concepts/world/reel_mill_l4.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.reel_mill.l5": {
+    "path": "art/buildings/reel_mill_l5.webp",
+    "name": "Grand Reel Works (Reel Mill level 5)",
+    "size": [
+      512,
+      496
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model reel_mill_l5",
+    "concept": "art/concepts/world/reel_mill_l5.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.cannery.l4": {
+    "path": "art/buildings/cannery_l4.webp",
+    "name": "Steam Cannery (Cannery level 4)",
+    "size": [
+      497,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model cannery_l4",
+    "concept": "art/concepts/world/cannery_l4.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.cannery.l5": {
+    "path": "art/buildings/cannery_l5.webp",
+    "name": "Grand Cannery (Cannery level 5)",
+    "size": [
+      512,
+      476
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model cannery_l5",
+    "concept": "art/concepts/world/cannery_l5.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.harbour_cannon.l1": {
+    "path": "art/buildings/harbour_cannon_l1.webp",
+    "name": "Swivel Gun (Harbour Cannon level 1)",
+    "size": [
+      511,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model harbour_cannon_l1",
+    "concept": "art/concepts/world/harbour_cannon_l1.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.harbour_cannon.l2": {
+    "path": "art/buildings/harbour_cannon_l2.webp",
+    "name": "Shore Battery (Harbour Cannon level 2)",
+    "size": [
+      512,
+      385
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model harbour_cannon_l2",
+    "concept": "art/concepts/world/harbour_cannon_l2.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.harbour_cannon.l3": {
+    "path": "art/buildings/harbour_cannon_l3.webp",
+    "name": "Harpoon Ballista Tower (Harbour Cannon level 3)",
+    "size": [
+      407,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model harbour_cannon_l3",
+    "concept": "art/concepts/world/harbour_cannon_l3.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.salt_works.l1": {
+    "path": "art/buildings/salt_works_l1.webp",
+    "name": "Salt Pans (Salt Works level 1)",
+    "size": [
+      512,
+      309
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model salt_works_l1",
+    "concept": "art/concepts/world/salt_works_l1.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.salt_works.l2": {
+    "path": "art/buildings/salt_works_l2.webp",
+    "name": "Windpump Salt Shed (Salt Works level 2)",
+    "size": [
+      512,
+      498
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model salt_works_l2",
+    "concept": "art/concepts/world/salt_works_l2.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.salt_works.l3": {
+    "path": "art/buildings/salt_works_l3.webp",
+    "name": "Salt House (Salt Works level 3)",
+    "size": [
+      512,
+      488
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model salt_works_l3",
+    "concept": "art/concepts/world/salt_works_l3.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.fish_market.l1": {
+    "path": "art/buildings/fish_market_l1.webp",
+    "name": "Fish Barrow (Fish Market level 1)",
+    "size": [
+      496,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model fish_market_l1",
+    "concept": "art/concepts/world/fish_market_l1.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.fish_market.l2": {
+    "path": "art/buildings/fish_market_l2.webp",
+    "name": "Market Stalls (Fish Market level 2)",
+    "size": [
+      512,
+      486
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model fish_market_l2",
+    "concept": "art/concepts/world/fish_market_l2.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.fish_market.l3": {
+    "path": "art/buildings/fish_market_l3.webp",
+    "name": "Market Hall (Fish Market level 3)",
+    "size": [
+      512,
+      449
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model fish_market_l3",
+    "concept": "art/concepts/world/fish_market_l3.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.lighthouse.l1": {
+    "path": "art/buildings/lighthouse_l1.webp",
+    "name": "Beacon Cairn (Lighthouse level 1)",
+    "size": [
+      512,
+      469
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model lighthouse_l1",
+    "concept": "art/concepts/world/lighthouse_l1.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.lighthouse.l2": {
+    "path": "art/buildings/lighthouse_l2.webp",
+    "name": "Timber Light (Lighthouse level 2)",
+    "size": [
+      388,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model lighthouse_l2",
+    "concept": "art/concepts/world/lighthouse_l2.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "building.lighthouse.l3": {
+    "path": "art/buildings/lighthouse_l3.webp",
+    "name": "Harbour Lighthouse (Lighthouse level 3)",
+    "size": [
+      432,
+      512
+    ],
+    "alpha": true,
+    "usedBy": "ui/shop Build tile + detail drawer (B); build reference for Agent D model lighthouse_l3",
+    "concept": "art/concepts/world/lighthouse_l3.webp",
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0), cut out with rembg IS-Net (MIT / Apache-2.0)"
+  },
+  "frame.common": {
+    "path": "art/frames/common.webp",
+    "name": "Trophy frame, common (driftwood lashed with rope)",
+    "size": [
+      512,
+      520
+    ],
+    "alpha": true,
+    "slice": [
+      104,
+      109,
+      115,
+      99
+    ],
+    "usedBy": "ui catch reveal (B): the trophy-poster frame for a fish of this tier, drawn as a 9-slice border-image; monster/big/boss use legendary",
+    "concept": null,
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0); background knocked out by flood fill"
+  },
+  "frame.uncommon": {
+    "path": "art/frames/uncommon.webp",
+    "name": "Trophy frame, uncommon (tarred rope on brass)",
+    "size": [
+      512,
+      551
+    ],
+    "alpha": true,
+    "slice": [
+      92,
+      65,
+      80,
+      64
+    ],
+    "usedBy": "ui catch reveal (B): the trophy-poster frame for a fish of this tier, drawn as a 9-slice border-image; monster/big/boss use legendary",
+    "concept": null,
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0); background knocked out by flood fill"
+  },
+  "frame.rare": {
+    "path": "art/frames/rare.webp",
+    "name": "Trophy frame, rare (red coral and pearls)",
+    "size": [
+      512,
+      513
+    ],
+    "alpha": true,
+    "slice": [
+      113,
+      102,
+      97,
+      110
+    ],
+    "usedBy": "ui catch reveal (B): the trophy-poster frame for a fish of this tier, drawn as a 9-slice border-image; monster/big/boss use legendary",
+    "concept": null,
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0); background knocked out by flood fill"
+  },
+  "frame.epic": {
+    "path": "art/frames/epic.webp",
+    "name": "Trophy frame, epic (leaded sea-glass)",
+    "size": [
+      512,
+      511
+    ],
+    "alpha": true,
+    "slice": [
+      99,
+      98,
+      100,
+      96
+    ],
+    "usedBy": "ui catch reveal (B): the trophy-poster frame for a fish of this tier, drawn as a 9-slice border-image; monster/big/boss use legendary",
+    "concept": null,
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0); background knocked out by flood fill"
+  },
+  "frame.legendary": {
+    "path": "art/frames/legendary.webp",
+    "name": "Trophy frame, legendary (hammered gold, sun and anchors)",
+    "size": [
+      512,
+      533
+    ],
+    "alpha": true,
+    "slice": [
+      123,
+      114,
+      97,
+      95
+    ],
+    "usedBy": "ui catch reveal (B): the trophy-poster frame for a fish of this tier, drawn as a 9-slice border-image; monster/big/boss use legendary",
+    "concept": null,
+    "licence": "generated: Qwen-Image-Lightning via mcp-tools/Qwen-Image-Fast (Apache-2.0); background knocked out by flood fill"
   }
 }

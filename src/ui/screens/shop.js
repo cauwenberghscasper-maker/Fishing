@@ -4,6 +4,7 @@
 // Models: Agent G's gear/boats manifests and Agent D's world manifest (building levels, plots), turning in the drawer.
 import { h, ico, fmt, fmtKg, money, fill, artImg, inkOn, plural, fmtDuration } from '../dom.js';
 import { fishPose, artPath } from '../../economy/data.js';
+import { assetEntry } from '../../core/assets.js';
 import { BUILDINGS, sizeClassById, fullName, slotInfo } from '../../economy/rules.js';
 import { attachGearPreview, detachAllGearPreviews, gearManifestReady, hasGearModel } from '../gear-preview.js';
 import { Place, Tabs, TabsSpacer, Tile, TileGrid, Drawer, Plate, StatRow, changeGate } from '../kit.js';
@@ -414,7 +415,10 @@ function buildView(ctx, sub, drawer, setDrawer) {
       const b = economy.building(id);
       const level = b.built && b.index > 0 ? b.index : 0;
       const next = b.next;
-      const art = artPath(state, `building.${id}.l${Math.max(1, next ? level + 1 : level)}`);
+      // Painted picture if there is one, else the building's own model render.
+      const shown = next ? next : b;
+      const art = artPath(state, `building.${id}.l${Math.max(1, next ? level + 1 : level)}`)
+        ?? (shown?.model && assetEntry('world', shown.model)?.preview ? `assets/world/${shown.model}/preview.webp` : null);
       return Tile({
         art, icon: ctx.ui.buildingIcon(id), name: b.def.name,
         value: next ? money(next.cost) : h('span.tile__state', 'Finished'),
@@ -465,7 +469,7 @@ function buildView(ctx, sub, drawer, setDrawer) {
     const have = p.island.decor ?? [];
     const count = (item) => have.filter((d) => d.item === item).length;
     tiles = Object.entries(D.items ?? {}).map(([id, def]) => Tile({
-      icon: 'plot', name: def.name,
+      art: `assets/world/${def.model}/preview.webp`, icon: 'plot', name: def.name,
       value: money(def.cost),
       state: def.cost > p.coins ? 'locked' : null,
       onTap: () => setDrawer(() => drawer.open(

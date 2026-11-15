@@ -613,6 +613,21 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   const rel = (e) => { const r = hudRoot.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
   gameEl?.addEventListener('pointerdown', (e) => {
     if (modal) return;
+    // Casting comes before walking (Casper 15 Nov): a press on your fisher, or anywhere near the
+    // cast button, starts a cast, never the walking stick. Drag from the fisher to where the lure
+    // should go.
+    if (mode === 'explore' && !pointer && !e.target.closest?.('button')) {
+      const ps = screenOf(tmp2.set(player.position.x, player.position.y + 0.9, player.position.z));
+      const c = hud.buttonCentre();
+      const r = hudRoot.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      if (Math.hypot(x - ps.x, y - ps.y) < 92 || Math.hypot(x - c.x, y - c.y) < c.r * 1.9) {
+        input.steal?.(e.pointerId);
+        pointer = { id: e.pointerId, x0: e.clientX, y0: e.clientY, canvas: true };
+        pressMain(e.clientX, e.clientY);
+        return;
+      }
+    }
     if (mode === 'wait' && fishSystem.biteProgress()) tryHook();
     else if (mode === 'wait' && !flight.active && !retrieve && !haul) taunt.tap();
     else if (mode === 'fight') {
@@ -623,6 +638,7 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
     }
   });
   gameEl?.addEventListener('pointermove', (e) => {
+    if (pointer?.canvas && e.pointerId === pointer.id) { input.steal?.(e.pointerId); moveMain(e.clientX, e.clientY); return; }
     if (!swipe || e.pointerId !== swipe.id || mode !== 'fight') return;
     const p = rel(e);
     if (Math.hypot(p.x - swipe.x, p.y - swipe.y) > 8) {
@@ -639,6 +655,9 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   };
   gameEl?.addEventListener('pointerup', endSwipe);
   gameEl?.addEventListener('pointercancel', endSwipe);
+  const upCanvas = (e) => { if (pointer?.canvas && e.pointerId === pointer.id) { input.steal?.(e.pointerId); up(e); } };
+  gameEl?.addEventListener('pointerup', upCanvas);
+  gameEl?.addEventListener('pointercancel', upCanvas);
 
   // Desktop: Space acts as the main button (aim with the mouse from the button), A/D steer.
   input.onKey((code, down) => {

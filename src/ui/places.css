@@ -320,3 +320,7 @@
 .place__top .shop-purse .purse__pearls { margin-left: 8px; font-size: var(--fs-m); }
 .place__top .shop-purse .purse__pearls svg { width: 18px; height: 18px; }
 @media (max-width: 380px) { .place__top .shop-purse .purse__pearls { display: none; } }
+
+/* Rank badge on the catch card: the painted gem beside the rank name. */
+.vrank { display: inline-flex; align-items: center; gap: 4px; }
+.vrank__gem { width: 22px; height: 22px; object-fit: contain; margin: -4px 0 -4px -4px; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4)); }

@@ -384,7 +384,7 @@ export function createHud({ root }) {
         g.stroke();
         if (inDead) {
           ring(o.x, o.y, 26, theme.danger, 1.5, 0.6);
-          label((a.moved || 0) > a.deadZone ? 'Release to cancel' : 'Pull away from your fisher to aim', c.x - c.r - 6, c.y - c.r - 24, { size: 14, align: 'right', font: theme.fontBody });
+          label((a.moved || 0) > a.deadZone ? 'Release to cancel' : 'Drag to where you want to cast', c.x - c.r - 6, c.y - c.r - 24, { size: 14, align: 'right', font: theme.fontBody });
         }
         if (a.reticle && a.hasAim) {
           const txt = a.valid ? `${a.band}  ${a.depth.toFixed(1)} m${a.fish ? `  ·  ${a.fish} fish` : ''}` : 'No water there';

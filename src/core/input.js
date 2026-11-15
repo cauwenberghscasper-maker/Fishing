@@ -30,6 +30,12 @@ export function createInput({ canvas, events }) {
     keys.clear();
   }
 
+  /** Another system (casting) takes this pointer: it will not become the joystick or a tap. */
+  function steal(pointerId) {
+    pending.delete(pointerId);
+    if (joystick.active && joystick.pointerId === pointerId) { joystick.active = false; joystick.pointerId = null; joystick.vx = joystick.vy = 0; }
+  }
+
   function onDown(e) {
     if (!enabled) return;
     if (e.pointerType === 'mouse' && e.button !== 0) return;
@@ -116,6 +122,7 @@ export function createInput({ canvas, events }) {
   events.on('ui:modal', ({ open } = {}) => { modalOpen = Boolean(open); updateEnabled(); });
 
   return {
+    steal,
     joystick,
     JOY_RADIUS,
     get enabled() { return enabled; },

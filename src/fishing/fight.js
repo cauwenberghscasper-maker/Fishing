@@ -18,7 +18,9 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
   };
   const boss = createBossController(b);
   const moveIds = (boss ? boss.moves : b.moves || []).filter((id) => MOVES[id]);
-  const [moveMin, moveMax] = b.moveEvery || [2.5, 4];
+  // Casper 15 Nov ("fish are too annoying"): special moves come ~40% less often, so there is
+  // room to simply reel between them.
+  const [moveMin, moveMax] = (b.moveEvery || [2.5, 4]).map((v) => v * 1.45);
 
   const startDist = Math.hypot(fish.pos.x - playerPos.x, fish.pos.z - playerPos.z);
   const maxLine = Math.max(MAX_LINE, startDist + 16, (state?.gear?.castDistance || 0) * 1.3);
@@ -203,7 +205,7 @@ export function createFight({ fish, info, weight, sizeClass, strength, state, is
     // rods cast 80 m+, far past the old fixed 38 m, which threw every far fish at once).
     if (s.slack > 3 && !s.slackWarned) { s.slackWarned = true; hooks.slack?.(); }
     if (s.slack < 0.5) s.slackWarned = false;
-    if (s.slack > 6) s.status = 'escape';
+    if (s.slack > 10) s.status = 'escape';
     if (s.distance > maxLine) s.status = 'escape';
 
     if (!s.landing && s.stamina <= 0) {

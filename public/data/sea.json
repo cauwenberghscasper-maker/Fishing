@@ -92,7 +92,8 @@
         "strength": 0.2,
         "effects": {
           "elemental": 2
-        }
+        },
+        "short": "elementals ×2"
       },
       {
         "id": "calm",
@@ -103,7 +104,8 @@
         "effects": {
           "giant": 3,
           "sell": 1.15
-        }
+        },
+        "short": "giants ×3, sales +15%"
       },
       {
         "id": "run",
@@ -113,7 +115,8 @@
         "strength": 0.18,
         "effects": {
           "rare": 1.5
-        }
+        },
+        "short": "rare fish bite more"
       },
       {
         "id": "storm",
@@ -124,7 +127,8 @@
         "effects": {
           "monster": 3,
           "elemental": 1.4
-        }
+        },
+        "short": "monsters hunt"
       }
     ]
   },

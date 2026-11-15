@@ -35,7 +35,7 @@ export function createMinigames({ state, fight, behaviour = {}, hooks }) {
   let hold = null;       // { m, v, inZone, t }
   const queue = [];      // [{ kind, at }]
   {
-    const n = big ? kinds.length : Math.random() < cfg.midChance * (state.test && state.debugMinigames ? 100 : 1) ? 1 : 0;
+    const n = big ? Math.min(2, kinds.length) : Math.random() < cfg.midChance * (state.test && state.debugMinigames ? 100 : 1) ? 1 : 0;
     let at = rand(cfg.snag.after[0], cfg.snag.after[1]);
     const pickFrom = [...kinds].sort(() => Math.random() - 0.5);
     for (let i = 0; i < n; i++) { queue.push({ kind: pickFrom[i % pickFrom.length], at }); at += rand(6, 10); }

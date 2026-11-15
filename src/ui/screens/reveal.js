@@ -126,7 +126,7 @@ export function catchReveal(ctx, info) {
     kind === 'element' ? h('div.reveal__element', variant.name) : null,
     h('h2.reveal__name', name),
     kind === 'morph' ? h('span.pebble.vtoken', { style: { '--pebble': accent, color: inkOn(accent) } }, `${variant.name} ×${fmt(variant.valueMult)}`) : null,
-    variant.rank && variant.rank !== 'common' ? h('span.pebble.vtoken.vrank', { style: { '--pebble': RANK[variant.rank]?.[1] ?? accent, color: inkOn(RANK[variant.rank]?.[1] ?? accent) } }, RANK[variant.rank]?.[0] ?? variant.rank) : null,
+    variant.rank && variant.rank !== 'common' ? h('span.pebble.vtoken.vrank', { style: { '--pebble': RANK[variant.rank]?.[1] ?? accent, color: inkOn(RANK[variant.rank]?.[1] ?? accent) } }, h('img.vrank__gem', { src: `art/ui/rank_${variant.rank}.webp`, alt: '' }), RANK[variant.rank]?.[0] ?? variant.rank) : null,
     kind === 'element' ? h('span.reveal__mult', `×${fmt(variant.valueMult)} value`) : null,
     lore ? h('p.reveal__lore', lore) : null,
     ribbons);

@@ -286,7 +286,10 @@ export function createAim({ island, fishSystem, water, state }) {
       if (step > lastPowerStep) feel.powerStep = step;
       lastPowerStep = step;
       const dist = 2.5 + power * (g.maxCast - 2.5);
-      const dx = -drag.x / len, dz = -drag.y / len;
+      // Casper 15 Nov: "casting to the left is impossible". No more slingshot: you POINT. The cast
+      // flies from your fisher toward your thumb, so dragging left casts left, up casts up, and the
+      // further from the fisher the thumb is, the further the cast.
+      const dx = drag.x / len, dz = drag.y / len;
       rawAim.set(playerPos.x + dx * dist, 0, playerPos.z + dz * dist);
       // Glide after the thumb instead of jumping between touch samples (~60 ms lag, frame-rate independent).
       if (!aimed) { aimPoint.copy(rawAim); aimed = true; }

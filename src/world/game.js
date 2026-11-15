@@ -135,7 +135,7 @@ export async function startWorld({ canvas, state, events }) {
     },
   });
   // Say which season it is once the player is in the world.
-  if (season) setTimeout(() => fishing.hud.toast(`${season.name}: ${season.about}`, 5), 4000);
+  if (season) setTimeout(() => fishing.hud.toast(`${season.name}: ${season.short ?? ''}`, 4), 4000);
   // Monsters raid the harbour once the island is big (rare).
   const raids = createRaids({ state, events, island, player, cameraRig, splashes, water, surface, hud: fishing.hud, hudRoot });
   let groundsLure = null;

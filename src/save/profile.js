@@ -5,8 +5,11 @@
 import { BUILDINGS, deriveGear } from '../economy/rules.js';
 
 export const PROFILE_VERSION = 5;
-export const SAVE_KEY = 'fishing-v1';
-export const TEST_SAVE_KEY = 'fishing-test-v1';
+// Casper 15 Nov: "reset all accounts". Saves live only on each player's device, so the reset is a
+// new save key: everyone starts fresh on their next visit. The old save ('fishing-v1') is left
+// untouched on the device in case it is ever wanted back.
+export const SAVE_KEY = 'fishing-v2';
+export const TEST_SAVE_KEY = 'fishing-test-v2';
 
 // Fish ids retired in the 6 Nov redesign (master prompt 5.2) → their replacements.
 const RETIRED_FISH = {

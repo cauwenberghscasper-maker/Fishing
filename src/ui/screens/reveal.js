@@ -24,6 +24,10 @@ const MORPH_FILTER = {
 /** Rank class labels and colours (variants.json rank): the ladder from Common to Mythic. */
 const RANK = { common: ['Common', '#9aa5a0'], uncommon: ['Uncommon', '#6fcf6a'], rare: ['Rare', '#4aa8ff'], epic: ['Epic', '#b36bff'], legendary: ['Legendary', '#ffb43a'], mythic: ['Mythic', '#ff5a7a'] };
 
+/** Fish tier → trophy frame (art.json frame.<tier>) and the word over the name. */
+const TIER_FRAME = { common: 'common', uncommon: 'uncommon', rare: 'rare', epic: 'epic', legendary: 'legendary', big: 'legendary', monster: 'legendary', boss: 'legendary' };
+const TIER_WORD = { common: 'Common catch', uncommon: 'Uncommon catch', rare: 'Rare catch', epic: 'Epic catch', legendary: 'Legendary catch', big: 'The big one', monster: 'Sea monster', boss: 'Sea monster' };
+
 /** My own drawings of the two choices (no icon set): a woven basket and a brass hanging scale. */
 const BASKET_SVG = `<svg viewBox="0 0 120 92" aria-hidden="true">
   <defs>
@@ -69,6 +73,20 @@ export function catchReveal(ctx, info) {
   const paint = (kind === 'element' && vfxPath(state, `backdrop.${variant.id}`)) || artPath(state, `screen.catch.${islandId}`);
   const bgImg = artImg(paint, '', { alt: '' });
   if (bgImg) { bg.append(bgImg); bg.classList.add('has-art'); bgImg.addEventListener('error', () => bg.classList.remove('has-art')); }
+
+  // ---- the trophy poster (Casper 13 Nov: "redesign the catch posters"): the fish in a painted frame that
+  // grows grander with its tier, driftwood → rope and brass → coral → sea-glass → gold. The fish bursts out
+  // over the frame's top edge; nothing is drawn over the fish itself.
+  const tier = TIER_FRAME[fish.tier] ?? 'common';
+  const frameEntry = state.data.art?.[`frame.${tier}`];
+  const framePath = artPath(state, `frame.${tier}`);
+  const poster = h(`div.reveal__poster.reveal__poster--${tier}`);
+  if (framePath && Array.isArray(frameEntry?.slice)) {
+    // absolute URL: a url() inside a custom property resolves against the stylesheet, not the page
+    poster.style.setProperty('--frame', `url("${new URL(framePath, document.baseURI).href}")`);
+    poster.style.setProperty('--slice', frameEntry.slice.join(' '));
+    poster.classList.add('has-frame');
+  }
 
   // ---- hero
   const heroSrc = fishPose(state, c.fishId, 'hero');
@@ -123,7 +141,7 @@ export function catchReveal(ctx, info) {
 
   const lore = kind === 'basic' ? fish.lore : variant.lore;
   const top = h('header.reveal__top',
-    kind === 'element' ? h('div.reveal__element', variant.name) : null,
+    kind === 'element' ? h('div.reveal__element', variant.name) : h('div.reveal__tier', TIER_WORD[fish.tier] ?? 'Catch'),
     h('h2.reveal__name', name),
     kind === 'morph' ? h('span.pebble.vtoken', { style: { '--pebble': accent, color: inkOn(accent) } }, `${variant.name} ×${fmt(variant.valueMult)}`) : null,
     variant.rank && variant.rank !== 'common' ? h('span.pebble.vtoken.vrank', { style: { '--pebble': RANK[variant.rank]?.[1] ?? accent, color: inkOn(RANK[variant.rank]?.[1] ?? accent) } }, h('img.vrank__gem', { src: `art/ui/rank_${variant.rank}.webp`, alt: '' }), RANK[variant.rank]?.[0] ?? variant.rank) : null,
@@ -131,12 +149,13 @@ export function catchReveal(ctx, info) {
     lore ? h('p.reveal__lore', lore) : null,
     ribbons);
 
-  const root = h(`section.reveal.reveal--${kind}`, { role: 'dialog', 'aria-modal': 'true', 'aria-label': `You caught ${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}` },
+  poster.append(hero);
+  const root = h(`section.reveal.reveal--${kind}.reveal--tier-${tier}`, { role: 'dialog', 'aria-modal': 'true', 'aria-label': `You caught ${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}` },
     bg,
     h('div.reveal__rays', { 'aria-hidden': 'true' }),
     h('div.reveal__shade', { 'aria-hidden': 'true' }),
     top,
-    h('div.reveal__stage', hero, tag),
+    h('div.reveal__stage', poster, tag),
     h('footer.reveal__choices', basket, scale),
   );
   root.style.setProperty('--el', accent);

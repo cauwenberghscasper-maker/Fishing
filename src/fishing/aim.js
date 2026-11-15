@@ -6,7 +6,6 @@ import * as THREE from 'three';
 const ARC_POINTS = 40;
 const RETICLE_R = 1.1;          // metres
 const DEAD_ZONE = 30;           // px the thumb must move from where it pressed before it aims
-const PULL_R0 = 26;             // px round the fisher: a thumb this close is no pull (release = cancel)
 const PERFECT_PERIOD = 1.3;     // s (real time)
 
 export const DEPTH_BANDS = [
@@ -170,19 +169,23 @@ export function createAim({ island, fishSystem, water, state }) {
     };
   }
 
-  // Casper 9 Nov: "throwing up or to the left is almost impossible, the screen is too small". The
-  // band now pulls from the fisher (who stands mid-screen), not from the corner button, so every
-  // direction has the same room: pull the thumb away from the fisher, the cast flies the other way.
-  // How far the thumb can pull from the fisher in this direction before it reaches the screen edge.
+  // Casper 13 Nov: "you always aim backwards first". The pull used to be measured from the fisher,
+  // but the press starts on the corner button, so the very first frame already "pulled" from the
+  // fisher towards the button and the reticle snapped behind the player. The pull is now measured
+  // from where the thumb pressed: nothing aims until the thumb itself moves, and it always aims
+  // opposite to the way the thumb moved.
+  // Casper 9 Nov ("throwing up is almost impossible, the screen is too small"): power is scaled to
+  // the room the thumb has in that direction, so a short pull towards a near screen edge still
+  // reaches a full cast.
   function pullRoom(ux, uy) {
     const W = window.innerWidth, H = window.innerHeight;
-    const c = centre || { x: W / 2, y: H / 2 };
+    const c = anchor;
     let t = Infinity;
-    if (ux > 1e-3) t = Math.min(t, (W - 18 - c.x) / ux);
-    if (ux < -1e-3) t = Math.min(t, (c.x - 18) / -ux);
-    if (uy > 1e-3) t = Math.min(t, (H - 18 - c.y) / uy);
-    if (uy < -1e-3) t = Math.min(t, (c.y - 70) / -uy);
-    return THREE.MathUtils.clamp(t, PULL_R0 + 90, 420);
+    if (ux > 1e-3) t = Math.min(t, (W - 6 - c.x) / ux);
+    if (ux < -1e-3) t = Math.min(t, (c.x - 6) / -ux);
+    if (uy > 1e-3) t = Math.min(t, (H - 6 - c.y) / uy);
+    if (uy < -1e-3) t = Math.min(t, (c.y - 60) / -uy);
+    return THREE.MathUtils.clamp(t, DEAD_ZONE + 36, maxDragPx());
   }
   function maxDragPx() {
     return Math.max(120, Math.min(260, Math.min(window.innerHeight, window.innerWidth) * 0.4));
@@ -215,7 +218,7 @@ export function createAim({ island, fishSystem, water, state }) {
       drag = { x: 0, y: 0 };
       finger = { x: anchorX, y: anchorY };
       moved = 0;
-      centre = null;
+      centre = { x: anchorX, y: anchorY };   // the slingshot pulls from where the thumb pressed
       holdStill = 0;
       startTime = realTime;
       hasAim = false;
@@ -257,12 +260,9 @@ export function createAim({ island, fishSystem, water, state }) {
       realTime += realDt;
       if (!active) return;
       holdStill += realDt;
-      // Fixed where the fisher stood on screen when the press began: the camera framing the cast
-      // must not move the slingshot's centre under the thumb.
-      if (playerScreen && !centre) centre = { x: playerScreen.x, y: playerScreen.y };
       if (centre && finger) drag = { x: finger.x - centre.x, y: finger.y - centre.y };
       const len = Math.hypot(drag.x, drag.y);
-      hasAim = moved > DEAD_ZONE && len > PULL_R0;
+      hasAim = len > DEAD_ZONE;
       const g = gear();
       start.copy(rodTip);
       if (!hasAim) {
@@ -274,14 +274,10 @@ export function createAim({ island, fishSystem, water, state }) {
       arc.mesh.visible = true;
       reticle.mesh.visible = true;
       // Pull back to throw: the cast goes opposite to the drag (camera looks north, no yaw).
-      // Power runs from the fisher out to the screen edge in the pull's direction (Casper 9 Nov:
-      // "fishing up is always max throw"): pulling down has the whole lower screen for its range,
-      // so every direction gets the full scale from a short lob to a full cast.
-      // And it always starts small (Casper 9 Nov: "max power when you touch it"): power also can't
-      // exceed how far the thumb has pulled from where it pressed, so it builds up as you pull.
-      const fromFisher = (len - PULL_R0) / (pullRoom(drag.x / len, drag.y / len) - PULL_R0);
-      const fromPress = finger ? (Math.hypot(finger.x - anchor.x, finger.y - anchor.y) - DEAD_ZONE) / (maxDragPx() - DEAD_ZONE) : 0;
-      power = Math.pow(THREE.MathUtils.clamp(Math.min(fromFisher, fromPress), 0.02, 1), 1.1);
+      // Power always starts small (Casper 9 Nov: "max power when you touch it") and builds up as
+      // the thumb pulls, up to the room it has in that direction.
+      const room = pullRoom(drag.x / len, drag.y / len);
+      power = Math.pow(THREE.MathUtils.clamp((len - DEAD_ZONE) / (room - DEAD_ZONE), 0.02, 1), 1.1);
       const step = Math.min(4, Math.floor(power * 4 + 0.001));
       if (step > lastPowerStep) feel.powerStep = step;
       lastPowerStep = step;

@@ -419,14 +419,15 @@
       512,
       224
     ],
-    "concept": null,
+    "concept": "art/concepts/fish/mossneck.webp",
     "scale": 1,
     "body": "eel",
     "tris": 11856,
     "island": "driftwood_cove",
-    "licence": "original (Blender bpy build, CC0)",
+    "licence": "original (Blender bpy build, CC0); concept + rest pose generated: Qwen-Image (Apache-2.0), cut-out rembg (MIT)",
     "status": "temp",
-    "story": "The old causeway to the cove, swimming: three drowned arches for humps, a mooring column for a neck."
+    "story": "The old causeway to the cove, swimming: three drowned arches for humps, a mooring column for a neck.",
+    "rest": "assets/fish/mossneck/rest.webp"
   },
   "anchorjaw_leviathan": {
     "path": "assets/fish/anchorjaw_leviathan/model.glb",
@@ -435,14 +436,16 @@
       512,
       250
     ],
-    "concept": null,
+    "concept": "art/concepts/fish/anchorjaw_leviathan.webp",
     "scale": 1,
     "body": "bulky",
     "tris": 11949,
     "island": "driftwood_cove",
-    "licence": "original (Blender bpy build, CC0)",
+    "licence": "original (Blender bpy build, CC0); concept + rest pose generated: Qwen-Image (Apache-2.0), cut-out rembg (MIT)",
     "status": "temp",
-    "story": "Every ship that anchored over it lost the anchor; it wears them all as teeth."
+    "story": "Every ship that anchored over it lost the anchor; it wears them all as teeth.",
+    "rest": "assets/fish/anchorjaw_leviathan/rest.webp",
+    "hero": "assets/fish/anchorjaw_leviathan/hero.webp"
   },
   "drowned_lighthouse": {
     "path": "assets/fish/drowned_lighthouse/model.glb",
@@ -451,13 +454,307 @@
       512,
       130
     ],
-    "concept": null,
+    "concept": "art/concepts/fish/drowned_lighthouse.webp",
     "scale": 1,
     "body": "eel",
     "tris": 8714,
     "island": "driftwood_cove",
-    "licence": "original (Blender bpy build, CC0)",
+    "licence": "original (Blender bpy build, CC0); concept + rest pose generated: Qwen-Image (Apache-2.0), cut-out rembg (MIT)",
     "status": "temp",
-    "story": "A lighthouse that fell into the sea and kept its light on."
+    "story": "A lighthouse that fell into the sea and kept its light on.",
+    "rest": "assets/fish/drowned_lighthouse/rest.webp"
+  },
+  "barnacle_rockling": {
+    "path": null,
+    "preview": "assets/fish/barnacle_rockling/preview.webp",
+    "previewSize": [
+      512,
+      271
+    ],
+    "concept": "art/concepts/fish/barnacle_rockling.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/barnacle_rockling/rest.webp"
+  },
+  "bellows_grouper": {
+    "path": null,
+    "preview": "assets/fish/bellows_grouper/preview.webp",
+    "previewSize": [
+      512,
+      252
+    ],
+    "concept": "art/concepts/fish/bellows_grouper.webp",
+    "scale": 1,
+    "body": "bulky",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/bellows_grouper/rest.webp"
+  },
+  "bottlepost_wrasse": {
+    "path": null,
+    "preview": "assets/fish/bottlepost_wrasse/preview.webp",
+    "previewSize": [
+      512,
+      285
+    ],
+    "concept": "art/concepts/fish/bottlepost_wrasse.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/bottlepost_wrasse/rest.webp"
+  },
+  "chartline_mackerel": {
+    "path": null,
+    "preview": "assets/fish/chartline_mackerel/preview.webp",
+    "previewSize": [
+      512,
+      171
+    ],
+    "concept": "art/concepts/fish/chartline_mackerel.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/chartline_mackerel/rest.webp"
+  },
+  "diamond_coelacanth": {
+    "path": null,
+    "preview": "assets/fish/diamond_coelacanth/preview.webp",
+    "previewSize": [
+      512,
+      185
+    ],
+    "concept": "art/concepts/fish/diamond_coelacanth.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/diamond_coelacanth/rest.webp",
+    "hero": "assets/fish/diamond_coelacanth/hero.webp"
+  },
+  "glassfloat_jelly": {
+    "path": null,
+    "preview": "assets/fish/glassfloat_jelly/preview.webp",
+    "previewSize": [
+      512,
+      329
+    ],
+    "concept": "art/concepts/fish/glassfloat_jelly.webp",
+    "scale": 1,
+    "body": "jelly",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/glassfloat_jelly/rest.webp",
+    "hero": "assets/fish/glassfloat_jelly/hero.webp"
+  },
+  "golden_eel": {
+    "path": null,
+    "preview": "assets/fish/golden_eel/preview.webp",
+    "previewSize": [
+      512,
+      287
+    ],
+    "concept": "art/concepts/fish/golden_eel.webp",
+    "scale": 1,
+    "body": "eel",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/golden_eel/rest.webp",
+    "hero": "assets/fish/golden_eel/hero.webp"
+  },
+  "hullback_sunfish": {
+    "path": null,
+    "preview": "assets/fish/hullback_sunfish/preview.webp",
+    "previewSize": [
+      512,
+      345
+    ],
+    "concept": "art/concepts/fish/hullback_sunfish.webp",
+    "scale": 1,
+    "body": "bulky",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/hullback_sunfish/rest.webp"
+  },
+  "inkwell_cuttlefin": {
+    "path": null,
+    "preview": "assets/fish/inkwell_cuttlefin/preview.webp",
+    "previewSize": [
+      512,
+      245
+    ],
+    "concept": "art/concepts/fish/inkwell_cuttlefin.webp",
+    "scale": 1,
+    "body": "bulky",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/inkwell_cuttlefin/rest.webp"
+  },
+  "keelback_sawfish": {
+    "path": null,
+    "preview": "assets/fish/keelback_sawfish/preview.webp",
+    "previewSize": [
+      512,
+      163
+    ],
+    "concept": "art/concepts/fish/keelback_sawfish.webp",
+    "scale": 1,
+    "body": "flat",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/keelback_sawfish/rest.webp"
+  },
+  "reefbeak_parrotfish": {
+    "path": null,
+    "preview": "assets/fish/reefbeak_parrotfish/preview.webp",
+    "previewSize": [
+      512,
+      269
+    ],
+    "concept": "art/concepts/fish/reefbeak_parrotfish.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/reefbeak_parrotfish/rest.webp"
+  },
+  "rigging_shark": {
+    "path": null,
+    "preview": "assets/fish/rigging_shark/preview.webp",
+    "previewSize": [
+      512,
+      237
+    ],
+    "concept": "art/concepts/fish/rigging_shark.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/rigging_shark/rest.webp"
+  },
+  "saltcrust_sole": {
+    "path": null,
+    "preview": "assets/fish/saltcrust_sole/preview.webp",
+    "previewSize": [
+      512,
+      309
+    ],
+    "concept": "art/concepts/fish/saltcrust_sole.webp",
+    "scale": 1,
+    "body": "flat",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/saltcrust_sole/rest.webp"
+  },
+  "shingle_skipper": {
+    "path": null,
+    "preview": "assets/fish/shingle_skipper/preview.webp",
+    "previewSize": [
+      512,
+      251
+    ],
+    "concept": "art/concepts/fish/shingle_skipper.webp",
+    "scale": 1,
+    "body": "flat",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/shingle_skipper/rest.webp",
+    "hero": "assets/fish/shingle_skipper/hero.webp"
+  },
+  "signalflag_tuna": {
+    "path": null,
+    "preview": "assets/fish/signalflag_tuna/preview.webp",
+    "previewSize": [
+      512,
+      239
+    ],
+    "concept": "art/concepts/fish/signalflag_tuna.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/signalflag_tuna/rest.webp"
+  },
+  "spindrift_flyingfish": {
+    "path": null,
+    "preview": "assets/fish/spindrift_flyingfish/preview.webp",
+    "previewSize": [
+      512,
+      233
+    ],
+    "concept": "art/concepts/fish/spindrift_flyingfish.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/spindrift_flyingfish/rest.webp",
+    "hero": "assets/fish/spindrift_flyingfish/hero.webp"
+  },
+  "tallow_candlefish": {
+    "path": null,
+    "preview": "assets/fish/tallow_candlefish/preview.webp",
+    "previewSize": [
+      512,
+      295
+    ],
+    "concept": "art/concepts/fish/tallow_candlefish.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/tallow_candlefish/rest.webp"
+  },
+  "weathervane_gar": {
+    "path": null,
+    "preview": "assets/fish/weathervane_gar/preview.webp",
+    "previewSize": [
+      512,
+      242
+    ],
+    "concept": "art/concepts/fish/weathervane_gar.webp",
+    "scale": 1,
+    "body": "fusiform",
+    "tris": 0,
+    "island": "driftwood_cove",
+    "licence": "generated: Qwen-Image via mcp-tools/Qwen-Image (Apache-2.0) concept; cut-outs rembg (MIT); 3D pending",
+    "status": "concept",
+    "rest": "assets/fish/weathervane_gar/rest.webp"
   }
 }

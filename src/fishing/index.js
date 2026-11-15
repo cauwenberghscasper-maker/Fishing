@@ -25,6 +25,7 @@ const HINTS_SEEN = new Set();
 export function createFishing({ state, events, loop, input, cameraRig, player, island, water, splashes, fishSystem, under, surface, hudRoot }) {
   const hud = createHud({ root: hudRoot });
   const aim = createAim({ island, fishSystem, water, state });
+  (window.__debug ||= {}).aim = aim;   // debug hook (master prompt 4.9): tests read the reticle
   const line = createLine();
   const rod = createRod();
   surface.add(aim.group, line.mesh);
@@ -134,9 +135,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
   // --- aim ---------------------------------------------------------------------------------
   function beginAim(x, y) {
     if (mode !== 'explore' || modal) return false;
-    const c = hud.buttonCentre();
-    aim.begin(c.x, c.y);
-    aim.pointer(x, y);
+    // Anchor at the exact press point: a press near the button's rim must not count as a pull.
+    aim.begin(x, y);
     loop.setTimeScale(AIM_TIME_SCALE, 6);
     setMode('aim');
     player.pose('castWind', { once: true, then: 'aimLoop', timeScale: 1.6 });
@@ -666,9 +666,8 @@ export function createFishing({ state, events, loop, input, cameraRig, player, i
         if (mode === 'explore') {
           // Quick cast straight ahead of the player for keyboard users.
           const c = hud.buttonCentre();
-          const ps = screenOf(tmp2.set(player.position.x, player.position.y + 0.9, player.position.z));
           beginAim(c.x, c.y);
-          aim.pointer(ps.x, ps.y + aim.maxDrag * 0.7);   // pull straight down: cast straight ahead
+          aim.pointer(c.x, c.y + 52);   // pull straight down from the button: cast straight ahead
         } else pressMain(0, 0);
       } else releaseMain(false);
     }
